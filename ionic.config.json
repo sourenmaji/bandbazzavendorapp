@@ -1,0 +1,8 @@
+{
+  "name": "authapp",
+  "app_id": "",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
