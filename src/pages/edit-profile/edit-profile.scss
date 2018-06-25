@@ -1,4 +1,4 @@
-page-home {
+page-edit-profile {
     .error {
         color: rgb(223, 62, 62);
         font-size: 11px;
@@ -8,4 +8,10 @@ page-home {
         color: rgb(75, 75, 75);
         border-bottom: 1px solid #ff0000;
       }
+      .myInput {
+        width: calc(100% - 10px);
+        border: 1;
+        border-radius: 1;
+        background: transparent;
+    }
 }

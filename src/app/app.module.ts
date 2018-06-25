@@ -6,25 +6,78 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { WelcomePage } from '../pages/welcome/welcome';
+import { LoginPage } from '../pages/login/login';
+import { RegisterPage } from '../pages/register/register';
+import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+import { HttpModule } from '@angular/http';
+import { ForgetPasswordPage } from '../pages/forget-password/forget-password';
+import { DashboardPage } from '../pages/dashboard/dashboard';
+import { ProfilePage } from '../pages/profile/profile';
+import { BusinessPage } from '../pages/business/business';
+import { ProductsPage } from '../pages/products/products';
+import { EnquiriesPage } from '../pages/enquiries/enquiries';
+import { BookingsPage } from '../pages/bookings/bookings';
+import { CustomPackageEnquiriesPage } from '../pages/custom-package-enquiries/custom-package-enquiries';
+import {Network} from '@ionic-native/network';
+import { File } from '@ionic-native/file';
+import { Camera } from '@ionic-native/camera';
+import { FileTransfer } from '@ionic-native/file-transfer';
+import { FilePath } from '@ionic-native/file-path';
+import { EditProfilePage } from '../pages/edit-profile/edit-profile';
+import { AddbusinessPage } from '../pages/addbusiness/addbusiness';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    WelcomePage,
+    LoginPage,
+    RegisterPage,
+    ForgetPasswordPage,
+    DashboardPage,
+    ProfilePage,
+    BusinessPage,
+    ProductsPage,
+    EnquiriesPage,
+    BookingsPage,
+    CustomPackageEnquiriesPage,
+    EditProfilePage,
+    AddbusinessPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    WelcomePage,
+    LoginPage,
+    RegisterPage,
+    ForgetPasswordPage,
+    DashboardPage,
+    ProfilePage,
+    BusinessPage,
+    ProductsPage,
+    EnquiriesPage,
+    BookingsPage,
+    CustomPackageEnquiriesPage,
+    EditProfilePage,
+    AddbusinessPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthServiceProvider,
+    Network,
+    File,
+    FileTransfer,
+    Camera,
+    FilePath
   ]
 })
 export class AppModule {}

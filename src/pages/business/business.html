@@ -1,0 +1,87 @@
+
+<ion-header>
+
+  <ion-navbar color="headers" hideBackButton>
+    <ion-title>Business</ion-title>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="onOpenMenu()">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end >
+        <button ion-button small icon-only (click)="addBusiness()" tooltip="add">
+          <ion-icon  name="add"></ion-icon>
+        </button>
+      </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list>
+    <ion-item *ngFor ="let business of businessDetails; let i = index" >
+    <ion-card>
+        <ion-item>
+          <!-- <ion-avatar item-start>
+            <img src="img/marty-avatar.png">
+          </ion-avatar> -->
+          <ion-card-header class="custom-card-header">
+              <ion-item class="custom-item">
+                  {{business.company_name}}
+                  <ion-icon name="trash" color="white" small item-end></ion-icon>
+                  
+                </ion-item>
+              
+            </ion-card-header>
+         
+
+         <ion-item>
+           <!-- <div class="status-box">
+             <strong>status:</strong>
+              <ion-icon name="football" item-end small color="dash4"></ion-icon>
+           </div> -->
+           <ion-grid>
+              <ion-row justify-content-end>
+                  <ion-col col-3 class="status-box">
+                      {{business.request_type}}
+                  </ion-col>
+                </ion-row>
+            </ion-grid>
+            <h2>{{business.email}}</h2>
+            <p>{{business.phone_no}}</p>
+         </ion-item>
+         
+          
+        </ion-item>
+      
+      <img src="http://192.168.0.130/BandBazza/public/{{business.business_image}}">  
+         <!--  <img src="http://www.bandbazza.com/{{business.business_image}}">-->
+        
+        <ion-card-content>
+          <p>{{business.address}}</p>
+          <h2>{{business.module_name}}</h2>
+          <h3>{{business.since}}</h3>
+          
+        </ion-card-content>
+      
+        <ion-row>
+          <ion-col>
+            <button ion-button icon-left item-end full color="dash2">
+              <ion-icon color="white" name="create"></ion-icon>
+              <div ion-text color="white"> Edit </div>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-left item-end full color="success">
+              <ion-icon name="cut"></ion-icon>
+              <div> Deactive </div>
+            </button>
+          </ion-col>
+          
+        </ion-row>
+      
+      </ion-card>
+    </ion-item>
+    </ion-list>
+</ion-content>

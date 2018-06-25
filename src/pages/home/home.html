@@ -1,31 +1,84 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="headers" hideBackButton="true">
     <ion-title>
-      Ionic Blank
+      Change Password
     </ion-title>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="onOpenMenu()">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    
   </ion-navbar>
 </ion-header>
 
-<ion-content padding id="welcome">
-  <img src="assets/imgs/logo.png" class="logo"/>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <h1>Welcome to Your App</h1>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-grid >
-    <ion-row>
-      <ion-col center text-center>
-        <button ion-button full color="success" (click)="signup()">Sign up</button>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col center text-center>
-        <button ion-button full color="lightText" (click)="login()">Log in</button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+<ion-content padding>
+  <h2>Change Password</h2>
+  <!-- <ion-card>
+    <ion-card-content>
+      Name: {{userDetails.name}}<br/>
+      Email: {{userDetails.email}}
+    </ion-card-content>
+  </ion-card> -->
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+          <form novalidate  [formGroup]="forgetpasswordform">
+          <ion-item>
+              <ion-label floating>Current Password</ion-label>
+              <ion-input type="password" [(ngModel)]="userPassword.password"
+              formControlName="password" [class.error1]="!forgetpasswordform.controls.password.valid && forgetpasswordform.controls.password.dirty"></ion-input>
+            </ion-item>
+            <ion-item no-lines *ngIf="( forgetpasswordform.get('password').hasError('minlength') || forgetpasswordform.get('password').hasError('maxlength') ||forgetpasswordform.get('password').hasError('required') ) && forgetpasswordform.get('password').touched">
+              <div class="error" *ngIf="forgetpasswordform.get('password').hasError('required') && forgetpasswordform.get('password').touched">
+               Please enter your password
+              </div>
+              <div class="error" *ngIf="forgetpasswordform.get('password').hasError('minlength') && forgetpasswordform.get('password').touched">
+                This value is too short. It should have 6 characters or more.
+              </div>
+              <div class="error" *ngIf="forgetpasswordform.get('password').hasError('maxlength') && forgetpasswordform.get('password').touched">
+                This value is too long. It should have 12 characters.
+              </div>
+            </ion-item>
+            <ion-item>
+                <ion-label floating> New Password</ion-label>
+                <ion-input type="password" [(ngModel)]="userPassword.new_password"
+                formControlName="new_password" [class.error1]="!forgetpasswordform.controls.new_password.valid && forgetpasswordform.controls.new_password.dirty"></ion-input>
+              </ion-item>
+              <ion-item no-lines *ngIf="( forgetpasswordform.get('new_password').hasError('minlength') || forgetpasswordform.get('new_password').hasError('maxlength') ||forgetpasswordform.get('new_password').hasError('required') ) && forgetpasswordform.get('new_password').touched">
+                <div class="error" *ngIf="forgetpasswordform.get('new_password').hasError('required') && forgetpasswordform.get('new_password').touched">
+                 Please enter your password
+                </div>
+                <div class="error" *ngIf="forgetpasswordform.get('new_password').hasError('minlength') && forgetpasswordform.get('new_password').touched">
+                  This value is too short. It should have 6 characters or more.
+                </div>
+                <div class="error" *ngIf="forgetpasswordform.get('new_password').hasError('maxlength') && forgetpasswordform.get('new_password').touched">
+                  This value is too long. It should have 12 characters.
+                </div>
+              </ion-item>
+              <ion-item>
+                  <ion-label floating>Confirm New Password</ion-label>
+                  <ion-input type="password" [(ngModel)]="userPassword.password_confirmation"
+                  formControlName="password_confirmation" [class.error1]="!forgetpasswordform.controls.password_confirmation.valid && forgetpasswordform.controls.password_confirmation.dirty"></ion-input>
+                </ion-item>
+                <ion-item no-lines *ngIf="((( forgetpasswordform.get('password_confirmation').hasError('minlength') || forgetpasswordform.get('password_confirmation').hasError('maxlength')) || forgetpasswordform.get('password_confirmation').hasError('equalTo')) ||forgetpasswordform.get('password_confirmation').hasError('required') ) && forgetpasswordform.get('password_confirmation').touched">
+                  <div class="error" *ngIf="forgetpasswordform.get('password_confirmation').hasError('required') && forgetpasswordform.get('password_confirmation').touched">
+                    Please enter your password confirmation
+                  </div>
+                  <div class="error" *ngIf="forgetpasswordform.get('password_confirmation').hasError('minlength') && forgetpasswordform.get('password_confirmation').touched">
+                    This value is too short. It should have 6 characters or more
+                  </div>
+                  <div class="error" *ngIf="forgetpasswordform.get('password_confirmation').hasError('maxlength') && forgetpasswordform.get('password_confirmation').touched">
+                    This value is too long. It should have 12 characters.
+                  </div>
+                  <div class="error" *ngIf="forgetpasswordform.get('password_confirmation').hasError('equalTo') && forgetpasswordform.get('password_confirmation').touched">
+                    Your passwords does not match
+                  </div>
+                </ion-item><br/>
+        <button  ion-button block color="success" [disabled]="forgetpasswordform.invalid" (click)="register()">Change Password</button><br/>
+        </form>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+ 
 </ion-content>

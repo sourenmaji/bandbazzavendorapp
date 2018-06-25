@@ -1,0 +1,77 @@
+
+<ion-header>
+
+  <ion-navbar color="headers" hideBackButton="true">
+    <ion-title>Edit Profile</ion-title>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="onOpenMenu()">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  
+</ion-header>
+
+
+<ion-content padding>
+    <h2>Edit Profile</h2>
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+          <form novalidate  [formGroup]="editform">
+            <ion-item>
+              <ion-label floating>NAME</ion-label>
+              <ion-input type="text" [(ngModel)]="userData.name" value="{{userDetails.name}}"
+              formControlName="name" [class.error1]="!editform.controls.name.valid && editform.controls.name.dirty"></ion-input>
+            </ion-item>
+            <ion-item no-lines *ngIf="( editform.get('name').hasError('minlength') || editform.get('name').hasError('maxlength') ||editform.get('name').hasError('pattern') ||editform.get('name').hasError('required') ) && editform.get('name').touched">
+              <div class="error" *ngIf="editform.get('name').hasError('required') && editform.get('name').touched">
+                Please enter your name
+              </div>
+              <div class="error" *ngIf="editform.get('name').hasError('minlength') && editform.get('name').touched">
+                Minimum 4 characters
+              </div>
+              <div class="error" *ngIf="editform.get('name').hasError('maxlength') && editform.get('name').touched">
+                Maximum 30 characters
+              </div>
+              <div class="error" *ngIf="editform.get('name').hasError('pattern') && editform.get('name').touched">
+                pattern Your name must contain alphabets and spaces only
+              </div>
+            </ion-item>
+                <ion-item>
+                  <ion-label floating>EMAIL</ion-label>
+                  <ion-input type="email" [(ngModel)]="userData.email" value="{{userDetails.email}}"
+                  formControlName="email" [class.error1]="!editform.controls.email.valid && editform.controls.email.dirty"></ion-input>
+                </ion-item>
+                <ion-item no-lines *ngIf="( editform.get('email').hasError('minlength') || editform.get('email').hasError('pattern') ||editform.get('email').hasError('required') ) && editform.get('email').touched">
+                  <div class="error" *ngIf="editform.get('email').hasError('required') && editform.get('email').touched">
+                    Please enter your email
+                  </div>
+                  <div class="error" *ngIf="editform.get('email').hasError('pattern') && editform.get('email').touched">
+                    This value should be a valid email
+                  </div>
+                </ion-item>
+                  <ion-item>
+                      <ion-label floating>PHONE</ion-label>
+                      <ion-input type="text" [(ngModel)]="userData.phone"
+                      formControlName="phone" [class.error1]="!editform.controls.phone.valid && editform.controls.phone.dirty"></ion-input>
+                      <button *ngIf="( !editform.get('phone').hasError('minlength') || !editform.get('phone').hasError('pattern') || !editform.get('phone').hasError('required') ) && !editform.get('phone').touched" ion-button clear item-right hidden>Send OTP</button>
+                    </ion-item>
+                    <ion-item no-lines *ngIf="( editform.get('phone').hasError('minlength') || editform.get('phone').hasError('pattern') ||editform.get('phone').hasError('required') ) && editform.get('phone').touched">
+                      <div class="error" *ngIf="editform.get('phone').hasError('required') && editform.get('phone').touched">
+                        Please enter your Phone No.
+                      </div>
+                      <div class="error" *ngIf="editform.get('phone').hasError('pattern') && editform.get('phone').touched">
+                        This value should be a valid Phone No.
+                      </div>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label floating>ADDRESS</ion-label>
+                        <ion-textarea myInput type="text" ></ion-textarea>
+                      </ion-item>
+                      <button  ion-button block color="success" [disabled]="editform.invalid" (click)="register()">Save</button><br/>
+            </form>
+            </ion-list>
+            </ion-card-content>
+            </ion-card>
+</ion-content>

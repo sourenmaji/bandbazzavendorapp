@@ -34,12 +34,27 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #488aff,
-  secondary:  #32db64,
-  danger:     #f53d3d,
-  light:      #f4f4f4,
-  dark:       #222
+  primary:         #2A2C43,
+  butto:           rgb(218, 31, 31),
+  secondary:       #677077,
+  lightprimary:    #B5B5B7,
+  light:           #f4f4f4,
+  white:         #fff,
+  dark:            #222,
+  energy:          #c9621e,
+  success:         #a3500d,
+  lightText:       #6e45dd,
+  buttons:         #ffa600,
+  headers:         rgb(110, 23, 2),
+  dash1:           rgb(50, 53, 245),
+  dash2:           rgb(248, 187, 96),
+  dash8:           rgba(8, 170, 245, 0.795),
+  dash6:           rgb(245, 103, 8),
+  dash4:           rgb(34, 211, 57)
+
 );
+
+$toolbar-background: color($colors, primary);
 
 
 // App iOS Variables

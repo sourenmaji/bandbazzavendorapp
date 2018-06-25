@@ -1,0 +1,57 @@
+
+<ion-header>
+
+  <ion-navbar color="headers">
+    <ion-title>Profile</ion-title>
+    <ion-buttons start >
+      <button ion-button icon-only (click)="onOpenMenu()">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h2>Profile Details  </h2>
+  <ion-buttons end >
+    <button ion-button small clear icon-only (click)="editProfile()">
+      <ion-icon color="butto" name="create"></ion-icon>
+    </button>
+  </ion-buttons>
+   <ion-card>
+    <ion-card-content>
+      NAME : {{userDetails.name}}<br/><br/>
+      EMAIL : {{userDetails.email}}<br/><br/>
+      PHONE :<br/><br/>
+      ADDRESS :<br/><br/>
+    </ion-card-content>
+  </ion-card>
+  <!-- <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label fixed>Name :</ion-label>
+          <ion-input [(ngModel)]="userData.name" [disabled]="userData.name.disabled " value="{{userDetails.name}}" ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label fixed>Email :</ion-label>
+          <ion-input [(ngModel)]="userData.email" [disabled]="userData.email.disabled " value="{{userDetails.email}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Phone :</ion-label>
+          <ion-input [(ngModel)]="userData.phone" [disabled]="userData.phone.disabled " value="" ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label fixed>Address :</ion-label>
+          <ion-input [(ngModel)]="userData.address" [disabled]="userData.address.disabled " value="" ></ion-input>
+        </ion-item>
+        <button ion-button color="success" (click)="change_password()" >Change Password</button><br/>
+      </ion-list>
+    </ion-card-content>
+  </ion-card> -->
+ 
+</ion-content>

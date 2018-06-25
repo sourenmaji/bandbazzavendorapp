@@ -1,0 +1,29 @@
+page-welcome {
+    #welcome{
+        // background: color($colors, energy);
+        h3{
+            font-size: 25px;
+            margin-top:50px;
+            text-align: center;
+        }
+        .marginTop{
+            margin-top:150px;
+        }
+        .logo{
+            height: 80px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            
+        }
+        h4{
+            margin-top:0px;
+            font-size: 15px;
+        }
+    }
+    .scroll-content {
+        //background-image: url('../../assets/imgs/bg-ban-seller.png');
+        // background: image(assets/imgs/bg-ban-seller);
+        background-color: rgb(110, 23, 2);
+      }
+    }
