@@ -16,15 +16,23 @@ export class ProfilePage {
   userPassword = {"password":"","password_confirmation":""};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController, private alertCtrl: AlertController) {
-
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.success.user;
 
     this.userPostData.user = this.userDetails;
     this.userPostData.token = data.success.token;
     console.log(this.userPostData.token);
+    
   }
+  ionViewDidEnter(){
+    const data = JSON.parse(localStorage.getItem('userData'));
+    this.userDetails = data.success.user;
 
+    this.userPostData.user = this.userDetails;
+    this.userPostData.token = data.success.token;
+    console.log(this.userPostData.token);
+    
+  }
   editProfile(){
     this.navCtrl.push(EditProfilePage);
   }

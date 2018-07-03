@@ -53,23 +53,44 @@
                 </ion-item>
                   <ion-item>
                       <ion-label floating>PHONE</ion-label>
-                      <ion-input type="text" [(ngModel)]="userData.phone"
-                      formControlName="phone" [class.error1]="!editform.controls.phone.valid && editform.controls.phone.dirty"></ion-input>
-                      <button *ngIf="( !editform.get('phone').hasError('minlength') || !editform.get('phone').hasError('pattern') || !editform.get('phone').hasError('required') ) && !editform.get('phone').touched" ion-button clear item-right hidden>Send OTP</button>
+                      <ion-input id="phone_no" type="text" [(ngModel)]="userData.phone_no" value="{{userDetails.phone_no}}"
+                      formControlName="phone_no" [class.error1]="!editform.controls.phone_no.valid && editform.controls.phone_no.dirty"
+                      (keyup)="showVal(this.value)"></ion-input>
+                      <button *ngIf="!( editform.get('phone_no').hasError('minlength') || editform.get('phone_no').hasError('pattern') || editform.get('phone_no').hasError('required') ) && !buttonClicked && otpButton" 
+                      ion-button  clear item-right (click)="sendOtp()">Send OTP</button>
+                      
                     </ion-item>
-                    <ion-item no-lines *ngIf="( editform.get('phone').hasError('minlength') || editform.get('phone').hasError('pattern') ||editform.get('phone').hasError('required') ) && editform.get('phone').touched">
-                      <div class="error" *ngIf="editform.get('phone').hasError('required') && editform.get('phone').touched">
+                    
+                    <ion-item no-lines *ngIf="( editform.get('phone_no').hasError('minlength') || editform.get('phone_no').hasError('pattern') ||editform.get('phone_no').hasError('required') ) && editform.get('phone_no').touched">
+                      <div class="error" *ngIf="editform.get('phone_no').hasError('required') && editform.get('phone_no').touched">
                         Please enter your Phone No.
                       </div>
-                      <div class="error" *ngIf="editform.get('phone').hasError('pattern') && editform.get('phone').touched">
+                      <div class="error" *ngIf="editform.get('phone_no').hasError('pattern') && editform.get('phone_no').touched">
                         This value should be a valid Phone No.
+                      </div>
+                    </ion-item>
+                    <ion-item >
+                      <ion-input  *ngIf="buttonClicked" type="text" placeholder="Enter Six Digit Password"
+                      [(ngModel)]="userData.otp" formControlName="otp" value="{{secret}}" ></ion-input>
+                    </ion-item>
+<!--                <ion-item *ngIf="buttonClicked">
+                      <div class="error" *ngIf="editform.get('otp').hasError('equalTo') && editform.get('otp').touched">
+                        Your OTP does not match
+                      </div>
+                      <div class="success" *ngIf="!(editform.get('otp').hasError('equalTo'))">
+                        Your OTP match Successfully
+                      </div>
+                    </ion-item>-->
+                    <ion-item>
+                      <div>
+                        {{optmessage}}
                       </div>
                     </ion-item>
                     <ion-item>
                         <ion-label floating>ADDRESS</ion-label>
-                        <ion-textarea myInput type="text" ></ion-textarea>
+                        <ion-textarea myInput type="text" value="{{userDetails.address}}" [(ngModel)]="userData.address" formControlName="address"></ion-textarea>
                       </ion-item>
-                      <button  ion-button block color="success" [disabled]="editform.invalid" (click)="register()">Save</button><br/>
+                      <button  ion-button block color="success" [disabled]="editform.invalid" (click)="editProfile()">Save</button><br/>
             </form>
             </ion-list>
             </ion-card-content>
