@@ -14,75 +14,20 @@
 <ion-content padding>
   <div padding>
     <ion-segment [(ngModel)]="category" color="energy">
-      <ion-segment-button *ngFor="let category of categories" value={{category}} (click)="getEnquiries(category)">
-        {{category}}
+      <ion-segment-button *ngFor="let category of categories" value={{category.module_name}} (click)="getEnquiries(category)">
+        {{category.module_name}}
       </ion-segment-button>
     </ion-segment>
   </div>
   
   <div [ngSwitch]="category">
     <div *ngFor="let category of categories">
-
-      <ion-list *ngSwitchCase=category>
-
-        <ion-list-header>
-              {{category}} Active Enquiries
+      <ion-list *ngSwitchCase=category.module_name>
+        <ion-list-header *ngIf="enquiries.length">
+              {{category.module_name}} Active Enquiries
         </ion-list-header>
-        <ion-item>
-          <ion-thumbnail item-start>
-            <img src="assets/imgs/bmw.png">
-          </ion-thumbnail>
-          <div item-end>
-            <h2>Product</h2>
-            <p>
-                Enquiry Id
-                AC
-                Price per Hour
-                Price per KM
-                User Name
-                User Phone
-                Status
-            </p>
-          </div>
-        </ion-item>
-        <ion-item>
-          <ion-thumbnail item-start>
-            <img src="assets/imgs/bmw.png">
-          </ion-thumbnail>
-          <div item-end>
-            <h2>Product</h2>
-            <p>
-                Enquiry Id
-                AC
-                Price per Hour
-                Price per KM
-                User Name
-                User Phone
-                Status
-            </p>
-          </div>
-        </ion-item>
-        <ion-item>
-          <ion-thumbnail item-start>
-            <img src="assets/imgs/bmw.png">
-          </ion-thumbnail>
-          <div item-end>
-            <h2>Product</h2>
-            <p>
-                Enquiry Id
-                AC
-                Price per Hour
-                Price per KM
-                User Name
-                User Phone
-                Status
-            </p>
-          </div>
-        </ion-item>
-        <ion-item>
-          <ion-thumbnail item-start>
-            <img src="assets/imgs/bmw.png">
-          </ion-thumbnail>
+        <ion-item *ngFor="let enquiry of enquiries">
+
           <div item-end>
             <h2>Product</h2>
             <p>
@@ -97,13 +42,11 @@
           </div>
         </ion-item>
 
-      <ion-list-header>
-          {{category}} Enquiries History
+      <ion-list-header *ngIf="enquiries_history.length">
+          {{category.module_name}} Enquiries History
       </ion-list-header>
-      <ion-item>
-        <ion-thumbnail item-start>
-          <img src="assets/imgs/bmw.png">
-        </ion-thumbnail>
+      <ion-item *ngFor="let history of enquiries_history">
+
         <div item-end>
           <h2>Products</h2>
           <p>
@@ -117,60 +60,10 @@
           </p>
         </div>
       </ion-item>
-      <ion-item>
-        <ion-thumbnail item-start>
-          <img src="assets/imgs/bmw.png">
-        </ion-thumbnail>
-        <div item-end>
-          <h2>Product</h2>
-          <p>
-              Enquiry Id
-              AC
-              Price per Hour
-              Price per KM
-              User Name
-              User Phone
-              Status
-          </p>
-        </div>
-      </ion-item>
-      <ion-item>
-        <ion-thumbnail item-start>
-          <img src="assets/imgs/bmw.png">
-        </ion-thumbnail>
-        <div item-end>
-          <h2>Product</h2>
-          <p>
-              Enquiry Id
-              AC
-              Price per Hour
-              Price per KM
-              User Name
-              User Phone
-              Status
-          </p>
-        </div>
-      </ion-item>
-      <ion-item>
-        <ion-thumbnail item-start>
-          <img src="assets/imgs/bmw.png">
-        </ion-thumbnail>
-        <div item-end>
-          <h2>Product</h2>
-          <p>
-              Enquiry Id
-              AC
-              Price per Hour
-              Price per KM
-              User Name
-              User Phone
-              Status
-          </p>
-        </div>
-      </ion-item>
-
+      <div *ngIf="!enquiries_history.length && !enquiries.length">
+        {{message}}
+      </div>
       </ion-list>
-
     </div>
   </div>
 </ion-content>
