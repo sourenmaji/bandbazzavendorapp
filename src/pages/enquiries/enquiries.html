@@ -32,9 +32,6 @@
             <h2>Product</h2>
             <p>
                 Enquiry Id
-                AC
-                Price per Hour
-                Price per KM
                 User Name
                 User Phone
                 Status
@@ -51,18 +48,15 @@
           <h2>Products</h2>
           <p>
               Enquiry Id
-              AC
-              Price per Hour
-              Price per KM
               User Name
               User Phone
               Status
           </p>
         </div>
       </ion-item>
-      <div *ngIf="!enquiries_history.length && !enquiries.length">
+      <p *ngIf="!enquiries_history.length && !enquiries.length" text-center>
         {{message}}
-      </div>
+      </p>
       </ion-list>
     </div>
   </div>

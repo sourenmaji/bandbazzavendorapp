@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, LoadingController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 @IonicPage()
@@ -17,7 +17,7 @@ enquiries: any;
 enquiries_history: any;
 message: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController, public authService: AuthServiceProvider) {
+  constructor(private navCtrl: NavController, private menuCtrl: MenuController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController) {
     
     console.log('here1');
     this.responseData = {}
@@ -46,24 +46,37 @@ message: string;
 
   getCategories()
   {
+    //create loader
+    let loader = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loader.present();
     this.authService.getData('check_my_enquiries',this.token).then((result) => {
           this.responseData = result;
             console.log(this.responseData)
             this.categories=this.responseData.categories;
             this.category=this.categories[0].module_name;
             console.log(this.categories)
+            loader.dismiss();
             this.getEnquiries(this.categories[0]);
 
         }, (err) => {
           console.log(err)
+          loader.dismiss();
         });
   }
   
   getEnquiries(c: any)
   { 
+    //create loader
+    let loader = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loader.present();
     this.category=c.module_name;
     this.enquiries = [];
     this.enquiries_history = [];
+    this.message="";
     console.log(this.category);
     if(this.category=='Banquet Hall')
     {
@@ -81,7 +94,6 @@ message: string;
     this.authService.getData(this.type+'?id='+c.id,this.token).then((result) => {
       this.responseData = result;
         console.log(this.responseData)
-
         if(this.responseData.status==true)
         {
           this.enquiries=this.responseData.enquiries;
@@ -91,11 +103,13 @@ message: string;
         {
           this.message=this.responseData.message;
         }
+        loader.dismiss();
 
     }, (err) => {
       console.log(err)
       this.message="Oops! Something went wrong.";
+      loader.dismiss();
     });
   }
-
+  
 }
