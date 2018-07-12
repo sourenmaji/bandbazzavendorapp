@@ -2,14 +2,14 @@ import { BusinessPage } from './../business/business';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Loading, ActionSheetController, ToastController, Platform, LoadingController, AlertController } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
-import { FileTransfer, FileTransferObject, FileUploadOptions } from '@ionic-native/file-transfer';
+import { FileTransfer, FileTransferObject, FileUploadOptions, FileUploadResult } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import {Http, Headers} from '@angular/http';
 declare var cordova: any;
-
+let apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
 @IonicPage()
 @Component({
   selector: 'page-addbusiness',
@@ -35,8 +35,16 @@ export class AddbusinessPage {
     this.userPostData.token = data.success.token;
    }
 
+   ionViewDidEnter(){
+    const dataBusiness = JSON.parse(localStorage.getItem('businessOptions'));
+    console.log(dataBusiness);
+    this.businessDetails = dataBusiness.options;
+    // console.log(dataBusiness.length);
+   }
+  
 
-  responseData : any;
+   result : FileUploadResult = null;
+    
   
 
   addBusinessform: FormGroup;
@@ -122,8 +130,6 @@ export class AddbusinessPage {
   }
 
 
-
-
   private createFileName() {
     var d = new Date(),
     n = d.getTime(),
@@ -189,44 +195,51 @@ export class AddbusinessPage {
     var data = this.userData;
     data.filename = this.lastImage;
     let headers = new Headers();
-      // headers.append('Accept','application/json');
-      headers.append('Authorization','Bearer '+ this.userPostData.token);
-      console.log(headers);
+    headers.append('Authorization','Bearer '+ this.userPostData.token);
+    console.log(headers);
     let options: FileUploadOptions = {
-     fileKey: "file",
-     fileName: data.filename,
-     chunkedMode: false,
-     mimeType: "multipart/form-data",
-     // params : {'fileName': filename, 'data': this.userData}
-     params : data,
-     headers: {'Authorization': 'Bearer '+ this.userPostData.token}
-   };
-   this.authService.uploadImage(options, targetPath, 'add_business').then((result) => {
-    this.responseData = result;
-    var dataObj = (this.responseData);
-      alert("Result "+this.responseData);
-      alert("ResultObj "+dataObj.businesses); 
-    alert("last"+this.responseData.businesses);
-   // console.log(this.responseData);
-    localStorage.setItem('businessData', dataObj.businesses);
-    const data = localStorage.getItem('businessData');
-    alert("value in local storage"+ data);
-   // console.log("Local storage "+JSON.parse(localStorage.getItem('businessData')));
-    this.navCtrl.pop();
-    
+      fileKey: "file",
+      fileName: data.filename,
+      chunkedMode: false,
+      mimeType: "multipart/form-data",
+      params : data,
+      headers: {'Authorization': 'Bearer '+ this.userPostData.token}
+    };
+
+    const fileTransfer: FileTransferObject = this.transfer.create();
+    fileTransfer.upload(targetPath, apiUrl+'add_business', options).then((data) => {
+      // Success!
+      alert('success')
+      this.result = data;
+      alert(this.result.response);
+      var success = JSON.parse(this.result.response);
+      alert(success.status);
+      if(success.status===true){
+      localStorage.setItem('businessData', success.businesses);
+      const alert = this.alertCtrl.create({
+        subTitle: 'Business added successfully',
+        buttons: ['OK']
+        
+      })
+      alert.present();
+      this.navCtrl.pop();
+      //this.navCtrl.push(BusinessPage);
+      //this.navCtrl.remove(this.navCtrl.length()-1);
+      }
+     
+    },
+    (err) => {
+      // Error
+      alert('error! Try again')
+      alert(err.body);
+      var error = JSON.parse(err.body);
+      alert(error.status);
+      if(error.status==false){
+      this.navCtrl.push(BusinessPage);
+      this.navCtrl.remove(this.navCtrl.length()-1);
+      }
+    });  
   }
-  , 
-  (err) => {
-   this.responseData = err;
-   
-   const alert = this.alertCtrl.create({
-    subTitle: this.responseData.message,
-    buttons: ['OK']
-  })
-  alert.present();
-  });
-  
- }
   }
   // public uploadImage() {
   //   // Destination URL

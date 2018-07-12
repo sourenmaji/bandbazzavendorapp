@@ -1,3 +1,4 @@
+import { EditbusinessPage } from './../editbusiness/editbusiness';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, AlertController } from 'ionic-angular';
 import { AddbusinessPage } from '../addbusiness/addbusiness';
@@ -17,15 +18,58 @@ export class BusinessPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController,
               public authService: AuthServiceProvider, private alertCtrl: AlertController) {
-    const data = JSON.parse(localStorage.getItem('businessData'));
-    this.businessDetails = data;
-    
+    // const data = JSON.parse(localStorage.getItem('businessData'));
+    // console.log(data);
+     this.businessDetails = [];
+     const data = JSON.parse(localStorage.getItem('userData'));
+     this.userDetails = data.success.user;
+ 
+     this.userPostData.user = this.userDetails;
+     this.userPostData.token = data.success.token;
 
   }
-  onOpenMenu(){
-this.menuCtrl.open();
-  }
+ 
+
+  ionViewWillEnter(){
+   
+      const data = JSON.parse(localStorage.getItem('userData'));
+      this.userDetails = data.success.user;
   
+      this.userPostData.user = this.userDetails;
+      this.userPostData.token = data.success.token;
+      
+      console.log(this.userPostData.token);
+      console.log( this.userPostData.user);
+
+      this.authService.getData('get_all_business',this.userPostData.token).then((result) => {
+       this.responseData = result;
+       
+       
+       if(this.responseData.status == true)
+       {
+       console.log(this.responseData.businesses);
+      //  localStorage.setItem('businessData', JSON.stringify(this.responseData.businesses));
+      //  console.log("Local storage "+JSON.parse(localStorage.getItem('businessData')));
+
+       const value = this.responseData.businesses;
+       this.businessDetails = value;
+       }
+       else{
+        const alert = this.alertCtrl.create({
+          subTitle: this.responseData.message,
+          buttons: ['OK']
+        })
+        alert.present();
+      }
+     }, 
+     (err) => {
+      this.responseData = err.json();
+      console.log(this.responseData)
+     });
+    // this.nav.push(BusinessPage);
+     this.menuCtrl.close();
+    
+  } 
 
 
   addBusiness(){
@@ -61,8 +105,19 @@ this.menuCtrl.open();
     this.responseData = err.json();
     console.log(this.responseData)
    });
+  
    this.navCtrl.push(AddbusinessPage);
+   //this.navCtrl.remove(this.navCtrl.length()-1);
+   
   }
 
 
+  editBusiness(business){
+    console.log(business);
+    this.navCtrl.push(EditbusinessPage,{business: business});
+  }
+
+  onOpenMenu(){
+    this.menuCtrl.open();
+   }
 }

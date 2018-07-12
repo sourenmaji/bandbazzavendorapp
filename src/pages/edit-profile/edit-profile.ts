@@ -19,8 +19,9 @@ export class EditProfilePage implements OnInit{
   newU = {"success": {"token":"","user":""}};
   public buttonClicked: boolean = false;
   public otpButton: boolean = true;
+  public disableButton: boolean = false;
   public otpmessage="";
-
+  //public otpval = "123456";
   constructor(public navCtrl: NavController, public menuCtrl: MenuController, public authService: AuthServiceProvider,
               public alertCtrl: AlertController) {
 
@@ -31,7 +32,7 @@ export class EditProfilePage implements OnInit{
                 }
                 if(this.userDetails.phone_verify != null && this.userDetails.phone_verify == 1){
                   this.otpButton = !this.otpButton;
-                  
+                  this.disableButton = true;
                 }
                 console.log(this.userDetails);
             
@@ -52,16 +53,16 @@ export class EditProfilePage implements OnInit{
     this.editform = new FormGroup({
       numb: new FormControl(this.user_OTP),
       pno: new FormControl(this.user_phone),
-      phone_no: new FormControl('', Validators.compose([Validators.required, Validators.pattern(PHONEPATTERN)])),
+      phone_no: new FormControl('', [Validators.required, Validators.pattern(PHONEPATTERN)]),
       name: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(30)]),
       email: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)]),
       address: new FormControl('', Validators.compose([])),
-      //otp: new FormControl('', Validators.compose([])),
+      otp: new FormControl('', Validators.compose([])),
      
-      otp: new FormControl('', Validators.compose([ ]))
+      // otp: new FormControl('', Validators.compose([Validators.required,Validators.minLength(6),this.equalto('numb')]))
     });   
   
-    
+   // console.log(this.buttonClicked)
   }
   // ngOnChanges(){
   //   if(!this.buttonClicked){
@@ -70,25 +71,56 @@ export class EditProfilePage implements OnInit{
   // }
 
   showVal($value) {
-     console.log($value); 
+     console.log(this.userData.phone_no); 
      if(this.userDetails.phone_no != null){
       this.user_phone = this.userDetails.phone_no;
-      if(this.user_phone != $value){
+      console.log(this.user_phone);
+      if(this.user_phone != this.userData.phone_no){
         this.otpButton = true;
+        this.disableButton = false;
+      }else{
+        this.otpButton = false;
+        this.disableButton = true;
       }
     }
+    
   }
+
+  equals(field_name): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      
+      let isValid = false;
+      //console.log(this.userData.otp)
+    //let input = control.value;
+    if(this.userDetails.phone_no != null){
+      this.user_phone = this.userDetails.phone_no;
+      isValid=this.user_phone==this.userData.phone_no;
+      if(!isValid){
+        return { 'equalTo': {isValid} };
+      }
+      else 
+    return null;
+    }
+  };
+    }
+
 
   equalto(field_name): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
-      if(!this.buttonClicked)
-      {
-          console.log( { 'equalTo': false });
-          return { 'equalTo': false };
+      // if(!this.buttonClicked)
+      // {
+      //     console.log( { 'equalTo': false });
+      //     return { 'equalTo': false };
+      // }
+      let isValid = false;
+      console.log(this.userData.otp)
+      if(this.user_OTP != this.userData.otp){
+        return { 'equalTo': {isValid} };
+        
       }
     let input = control.value;
     //console.log(this.user_OTP);
-    let isValid=this.user_OTP==input;
+    isValid=this.user_OTP==input;
     if(!isValid) 
     {
       //console.log( { 'equalTo': {isValid} });
@@ -100,11 +132,16 @@ export class EditProfilePage implements OnInit{
     }
     
   sendOtp(){
+    
     this.authService.authData({'phone_no' :this.userData.phone_no},'send_otp',this.userPostData.token).then((result: any) => {
       this.responseData = result;
       if(result.status)
       {
         this.buttonClicked = !this.buttonClicked;
+        this.disableButton = !this.disableButton;
+        if(this.buttonClicked)
+        this.editform.get('otp').setValidators(Validators.compose([Validators.required, Validators.minLength(6), this.equalto('numb')]));
+        // this.otpval = this.userData.otp= "";
        // this.secret= null;
       console.log(this.responseData);
       this.user_OTP = this.responseData.otp;
@@ -133,20 +170,13 @@ export class EditProfilePage implements OnInit{
 
 
   editProfile(){
-    if(this.buttonClicked)
-    {
-      if(this.user_OTP != this.userData.otp)
-      {
-        console.log('otp wrong');
-        this.otpmessage = "OTP does not match, try again";
-        return;
-      }
-    }
+   
     this.authService.authData(this.userData,'edit_profile',this.userPostData.token).then((result: any) => {
       this.responseData = result;
       if(result.status)
       {
         this.buttonClicked = !this.buttonClicked;
+        this.disableButton = !this.disableButton;
       console.log(this.responseData);
      this.editUserDetails = this.responseData;
      this.userDetails = this.editUserDetails.success.user;

@@ -25,8 +25,8 @@
       <ion-list>
           <form novalidate  [formGroup]="forgetpasswordform">
           <ion-item>
-              <ion-label floating>Current Password</ion-label>
-              <ion-input type="password" [(ngModel)]="userPassword.password"
+              <ion-label floating>Current Password <span style="color: red">*</span></ion-label>
+              <ion-input type="password" [(ngModel)]="userPassword.password" clearOnEdit="false"
               formControlName="password" [class.error1]="!forgetpasswordform.controls.password.valid && forgetpasswordform.controls.password.dirty"></ion-input>
             </ion-item>
             <ion-item no-lines *ngIf="( forgetpasswordform.get('password').hasError('minlength') || forgetpasswordform.get('password').hasError('maxlength') ||forgetpasswordform.get('password').hasError('required') ) && forgetpasswordform.get('password').touched">
@@ -41,8 +41,8 @@
               </div>
             </ion-item>
             <ion-item>
-                <ion-label floating> New Password</ion-label>
-                <ion-input type="password" [(ngModel)]="userPassword.new_password"
+                <ion-label floating> New Password <span style="color: red">*</span></ion-label>
+                <ion-input type="password" [(ngModel)]="userPassword.new_password" clearOnEdit="false"
                 formControlName="new_password" [class.error1]="!forgetpasswordform.controls.new_password.valid && forgetpasswordform.controls.new_password.dirty"></ion-input>
               </ion-item>
               <ion-item no-lines *ngIf="( forgetpasswordform.get('new_password').hasError('minlength') || forgetpasswordform.get('new_password').hasError('maxlength') ||forgetpasswordform.get('new_password').hasError('required') ) && forgetpasswordform.get('new_password').touched">
@@ -57,25 +57,25 @@
                 </div>
               </ion-item>
               <ion-item>
-                  <ion-label floating>Confirm New Password</ion-label>
-                  <ion-input type="password" [(ngModel)]="userPassword.password_confirmation"
-                  formControlName="password_confirmation" [class.error1]="!forgetpasswordform.controls.password_confirmation.valid && forgetpasswordform.controls.password_confirmation.dirty"></ion-input>
+                  <ion-label floating>Confirm New Password <span style="color: red">*</span></ion-label>
+                  <ion-input type="password" [(ngModel)]="userPassword.new_password_confirmation" clearOnEdit="false"
+                  formControlName="new_password_confirmation" [class.error1]="!forgetpasswordform.controls.new_password_confirmation.valid && forgetpasswordform.controls.new_password_confirmation.dirty"></ion-input>
                 </ion-item>
-                <ion-item no-lines *ngIf="((( forgetpasswordform.get('password_confirmation').hasError('minlength') || forgetpasswordform.get('password_confirmation').hasError('maxlength')) || forgetpasswordform.get('password_confirmation').hasError('equalTo')) ||forgetpasswordform.get('password_confirmation').hasError('required') ) && forgetpasswordform.get('password_confirmation').touched">
-                  <div class="error" *ngIf="forgetpasswordform.get('password_confirmation').hasError('required') && forgetpasswordform.get('password_confirmation').touched">
+                <ion-item no-lines *ngIf="((( forgetpasswordform.get('new_password_confirmation').hasError('minlength') || forgetpasswordform.get('new_password_confirmation').hasError('maxlength')) || forgetpasswordform.get('new_password_confirmation').hasError('equalTo')) ||forgetpasswordform.get('new_password_confirmation').hasError('required') ) && forgetpasswordform.get('new_password_confirmation').touched">
+                  <div class="error" *ngIf="forgetpasswordform.get('new_password_confirmation').hasError('required') && forgetpasswordform.get('new_password_confirmation').touched">
                     Please enter your password confirmation
                   </div>
-                  <div class="error" *ngIf="forgetpasswordform.get('password_confirmation').hasError('minlength') && forgetpasswordform.get('password_confirmation').touched">
+                  <div class="error" *ngIf="forgetpasswordform.get('new_password_confirmation').hasError('minlength') && forgetpasswordform.get('new_password_confirmation').touched">
                     This value is too short. It should have 6 characters or more
                   </div>
-                  <div class="error" *ngIf="forgetpasswordform.get('password_confirmation').hasError('maxlength') && forgetpasswordform.get('password_confirmation').touched">
+                  <div class="error" *ngIf="forgetpasswordform.get('new_password_confirmation').hasError('maxlength') && forgetpasswordform.get('new_password_confirmation').touched">
                     This value is too long. It should have 12 characters.
                   </div>
-                  <div class="error" *ngIf="forgetpasswordform.get('password_confirmation').hasError('equalTo') && forgetpasswordform.get('password_confirmation').touched">
+                  <div class="error" *ngIf="forgetpasswordform.get('new_password_confirmation').hasError('equalTo') && forgetpasswordform.get('new_password_confirmation').touched">
                     Your passwords does not match
                   </div>
                 </ion-item><br/>
-        <button  ion-button block color="success" [disabled]="forgetpasswordform.invalid" (click)="register()">Change Password</button><br/>
+        <button  ion-button block color="success" [disabled]="forgetpasswordform.invalid" (click)="change_password()">Change Password</button><br/>
         </form>
       </ion-list>
     </ion-card-content>

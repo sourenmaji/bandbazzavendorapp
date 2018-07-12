@@ -9,12 +9,13 @@
 
 
 <ion-content padding>
+  
     <ion-card>
         <ion-card-content>
           <ion-list>
               <form novalidate  [formGroup]="addBusinessform">
                   <ion-item>
-                      <ion-label>Business Type</ion-label>
+                      <ion-label>Business Type <span style="color: red">*</span></ion-label>
                       <ion-select [(ngModel)]="userData.businessType"
                       formControlName="businessType">
                         <ion-option *ngFor ="let business of businessDetails; let i = index" value="{{business.id}}">{{business.title}}</ion-option>
@@ -22,7 +23,7 @@
                     </ion-item>
                   
                     <ion-item>
-                      <ion-label floating>Company Name</ion-label>
+                      <ion-label floating>Company Name <span style="color: red">*</span></ion-label>
                       <ion-input type="text" [(ngModel)]="userData.companyName"
                       formControlName="companyName" [class.error1]="!addBusinessform.controls.companyName.valid && addBusinessform.controls.companyName.dirty"></ion-input>
                     </ion-item> 
@@ -33,7 +34,7 @@
                       
                     </ion-item>
                     <ion-item>
-                      <ion-label floating>City</ion-label>
+                      <ion-label floating>City <span style="color: red">*</span></ion-label>
                       <ion-input type="text" [(ngModel)]="userData.city" 
                       formControlName="city" [class.error1]="!addBusinessform.controls.city.valid && addBusinessform.controls.city.dirty"></ion-input>
                     </ion-item> 
@@ -44,7 +45,7 @@
                       
                     </ion-item>
                     <ion-item>
-                      <ion-label floating>Address</ion-label>
+                      <ion-label floating>Address <span style="color: red">*</span></ion-label>
                       <ion-textarea type="text" [(ngModel)]="userData.address"
                       formControlName="address" [class.error1]="!addBusinessform.controls.address.valid && addBusinessform.controls.address.dirty"></ion-textarea>
                     </ion-item> 
@@ -55,7 +56,7 @@
                       
                     </ion-item>
                     <ion-item>
-                      <ion-label floating>Details</ion-label>
+                      <ion-label floating>Details <span style="color: red">*</span></ion-label>
                       <ion-textarea type="text" [(ngModel)]="userData.details"
                       formControlName="details" [class.error1]="!addBusinessform.controls.details.valid && addBusinessform.controls.details.dirty"></ion-textarea>
                     </ion-item> 
@@ -66,7 +67,7 @@
                       
                     </ion-item>
                     <ion-item>
-                      <ion-label floating>Email</ion-label>
+                      <ion-label floating>Email <span style="color: red">*</span></ion-label>
                       <ion-input type="email" [(ngModel)]="userData.email" 
                       formControlName="email" [class.error1]="!addBusinessform.controls.email.valid && addBusinessform.controls.email.dirty"></ion-input>
                     </ion-item>
@@ -79,7 +80,7 @@
                       </div>
                     </ion-item>
                       <ion-item>
-                          <ion-label floating>Phone</ion-label>
+                          <ion-label floating>Phone <span style="color: red">*</span></ion-label>
                           <ion-input type="text" [(ngModel)]="userData.phone"
                           formControlName="phone" [class.error1]="!addBusinessform.controls.phone.valid && addBusinessform.controls.phone.dirty"></ion-input>
                         </ion-item>

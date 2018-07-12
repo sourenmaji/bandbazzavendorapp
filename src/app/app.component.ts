@@ -71,42 +71,42 @@ export class MyApp {
       }
 
 
-  openBusiness(){
-        const data = JSON.parse(localStorage.getItem('userData'));
-        this.userDetails = data.success.user;
+  // openBusiness(){
+  //       const data = JSON.parse(localStorage.getItem('userData'));
+  //       this.userDetails = data.success.user;
     
-        this.userPostData.user = this.userDetails;
-        this.userPostData.token = data.success.token;
+  //       this.userPostData.user = this.userDetails;
+  //       this.userPostData.token = data.success.token;
         
-        console.log(this.userPostData.token);
-        console.log( this.userPostData.user);
+  //       console.log(this.userPostData.token);
+  //       console.log( this.userPostData.user);
 
-        this.authService.getData('get_all_business',this.userPostData.token).then((result) => {
-         this.responseData = result;
+  //       this.authService.getData('get_all_business',this.userPostData.token).then((result) => {
+  //        this.responseData = result;
          
          
-         if(this.responseData.status == true)
-         {
-         console.log(this.responseData);
-         localStorage.setItem('businessData', JSON.stringify(this.responseData.businesses));
-         console.log("Local storage "+JSON.parse(localStorage.getItem('businessData')));
+  //        if(this.responseData.status == true)
+  //        {
+  //        console.log(this.responseData);
+  //        localStorage.setItem('businessData', JSON.stringify(this.responseData.businesses));
+  //        console.log("Local storage "+JSON.parse(localStorage.getItem('businessData')));
          
-         }
-         else{
-          const alert = this.alertCtrl.create({
-            subTitle: this.responseData.message,
-            buttons: ['OK']
-          })
-          alert.present();
-        }
-       }, 
-       (err) => {
-        this.responseData = err.json();
-        console.log(this.responseData)
-       });
-       this.nav.push(BusinessPage);
-       this.menuCtrl.close();
-      }
+  //        }
+  //        else{
+  //         const alert = this.alertCtrl.create({
+  //           subTitle: this.responseData.message,
+  //           buttons: ['OK']
+  //         })
+  //         alert.present();
+  //       }
+  //      }, 
+  //      (err) => {
+  //       this.responseData = err.json();
+  //       console.log(this.responseData)
+  //      });
+  //      this.nav.push(BusinessPage);
+  //      this.menuCtrl.close();
+  //     }
     
 }
 

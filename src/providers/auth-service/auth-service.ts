@@ -1,5 +1,5 @@
 import { LoadingController , Loading} from 'ionic-angular';
-import { FileTransferObject ,FileTransfer} from '@ionic-native/file-transfer';
+import { FileTransferObject ,FileTransfer, FileUploadResult} from '@ionic-native/file-transfer';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Http, Headers} from '@angular/http';
@@ -16,7 +16,7 @@ export class AuthServiceProvider {
     console.log('Hello AuthServiceProvider Provider');
   }
 
-  responseData : any;
+  responseData : FileUploadResult = null;
   postData(credentials, type) {
     console.log(credentials)
     return new Promise((resolve, reject) => {
@@ -83,33 +83,33 @@ export class AuthServiceProvider {
     });
   }
 
-  uploadImage(credentials, path, type) {
+  // uploadImage(credentials, path, type) {
 
-    console.log(credentials)
-    const fileTransfer: FileTransferObject = this.transfer.create();
-    return new Promise((resolve, reject) => {
-    this.loading = this.loadingCtrl.create({
-      content: 'Uploading...',
-    });
-    this.loading.present();
-  //  alert("credentials"+credentials);
-    // Use the FileTransfer to upload the image
-    fileTransfer.upload(path, apiUrl+type, credentials).then(data => {
-      this.responseData = data;
+  //   console.log(credentials)
+  //   const fileTransfer: FileTransferObject = this.transfer.create();
+  //   return new Promise((resolve, reject) => {
+  //   this.loading = this.loadingCtrl.create({
+  //     content: 'Uploading...',
+  //   });
+  //   this.loading.present();
+  // //  alert("credentials"+credentials);
+  //   // Use the FileTransfer to upload the image
+  //   fileTransfer.upload(path, apiUrl+type, credentials).then(data => {
+  //     this.responseData = data;
     
-      this.loading.dismissAll();
-     alert(this.responseData);
-      alert(JSON.parse(data.response));
-          resolve(JSON.parse(data.response)); 
+  //     this.loading.dismissAll();
+  //   //  alert(this.responseData.response);
+  //   //   alert(JSON.parse(data.response));
+  //         resolve(data); 
      
-    },(err)  => {
-      alert(err);
-      this.loading.dismissAll();
+  //   },(err)  => {
+  //     alert(err.body);
+  //     this.loading.dismissAll();
       
-      reject(JSON.stringify(err.body));
-    });
-  });
-  }
+  //     reject(JSON.parse(err.body));
+  //   });
+  // });
+  // }
  
 
 

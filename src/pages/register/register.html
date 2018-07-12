@@ -12,7 +12,7 @@
       <ion-list>
           <form novalidate  [formGroup]="signupform">
         <ion-item>
-          <ion-label floating>Name</ion-label>
+          <ion-label floating>Name <span style="color: red">*</span></ion-label>
           <ion-input type="text" [(ngModel)]="userData.name"
           formControlName="name" [class.error1]="!signupform.controls.name.valid && signupform.controls.name.dirty"></ion-input>
         </ion-item>
@@ -31,7 +31,7 @@
           </div>
         </ion-item>
         <ion-item>
-          <ion-label floating>Email id</ion-label>
+          <ion-label floating>Email id <span style="color: red">*</span></ion-label>
           <ion-input type="email" [(ngModel)]="userData.email"
           formControlName="email" [class.error1]="!signupform.controls.email.valid && signupform.controls.email.dirty"></ion-input>
         </ion-item>
@@ -45,8 +45,8 @@
         </ion-item>
 
         <ion-item>
-          <ion-label floating>Password</ion-label>
-          <ion-input type="password" [(ngModel)]="userData.password"
+          <ion-label floating>Password <span style="color: red">*</span></ion-label>
+          <ion-input type="password" [(ngModel)]="userData.password" clearOnEdit="false"
           formControlName="password" [class.error1]="!signupform.controls.password.valid && signupform.controls.password.dirty"></ion-input>
         </ion-item>
         <ion-item no-lines *ngIf="( signupform.get('password').hasError('minlength') || signupform.get('password').hasError('maxlength') ||signupform.get('password').hasError('required') ) && signupform.get('password').touched">
@@ -61,8 +61,8 @@
           </div>
         </ion-item>
         <ion-item>
-          <ion-label floating>Confirm Password</ion-label>
-          <ion-input type="password" [(ngModel)]="userData.password_confirmation"
+          <ion-label floating>Confirm Password <span style="color: red">*</span></ion-label>
+          <ion-input type="password" [(ngModel)]="userData.password_confirmation" clearOnEdit="false"
           formControlName="password_confirmation" [class.error1]="!signupform.controls.password_confirmation.valid && signupform.controls.password_confirmation.dirty"></ion-input>
         </ion-item>
         <ion-item no-lines *ngIf="((( signupform.get('password_confirmation').hasError('minlength') || signupform.get('password_confirmation').hasError('maxlength')) || signupform.get('password_confirmation').hasError('equalTo')) ||signupform.get('password_confirmation').hasError('required') ) && signupform.get('password_confirmation').touched">

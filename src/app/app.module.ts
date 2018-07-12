@@ -1,3 +1,4 @@
+import { EditbusinessPage } from './../pages/editbusiness/editbusiness';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -43,7 +44,8 @@ import { AddbusinessPage } from '../pages/addbusiness/addbusiness';
     BookingsPage,
     CustomPackageEnquiriesPage,
     EditProfilePage,
-    AddbusinessPage
+    AddbusinessPage,
+    EditbusinessPage
   ],
   imports: [
     BrowserModule,
@@ -66,7 +68,8 @@ import { AddbusinessPage } from '../pages/addbusiness/addbusiness';
     BookingsPage,
     CustomPackageEnquiriesPage,
     EditProfilePage,
-    AddbusinessPage
+    AddbusinessPage,
+    EditbusinessPage
   ],
   providers: [
     StatusBar,

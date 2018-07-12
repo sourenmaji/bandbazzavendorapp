@@ -1,3 +1,4 @@
+import { DashboardPage } from './../dashboard/dashboard';
 import { Component } from '@angular/core';
 import { NavController, AlertController, MenuController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
@@ -13,9 +14,9 @@ export class HomePage {
   forgetpasswordform: FormGroup;
   userDetails : any;
   responseData: any;
-
+  newU = {"success": {"token":"","user":""}};
   userPostData = {"user":"","token":""};
-  userPassword = {"password":"","password_confirmation":"","new_password":""};
+  userPassword = {"password":"","new_password_confirmation":"","new_password":""};
 
   ngOnInit() {
 
@@ -23,7 +24,7 @@ export class HomePage {
       // username: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(10)]),
       password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12)])),
       new_password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12)])),
-      password_confirmation: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12), this.equalto('new_password')]))
+      new_password_confirmation: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12), this.equalto('new_password')]))
     });
 
     
@@ -57,18 +58,28 @@ export class HomePage {
 change_password(){
   this.authService.authData(this.userPassword,'change_password',this.userPostData.token).then((result) => {
    this.responseData = result;
-   if(this.responseData.success)
+   if(this.responseData.status)
    {
-   console.log(this.responseData);
-   localStorage.setItem('userData', JSON.stringify(this.responseData));
-   console.log("Local storage "+JSON.parse(localStorage.getItem('userData')));
+  // console.log(this.responseData);
+   this.userDetails = this.responseData.success.user;
+   this.newU.success.user = this.userDetails;
+   this.newU.success.token = this.userPostData.token;
+   localStorage.setItem('userData', JSON.stringify(this.newU));
+   //console.log("Local storage "+JSON.parse(localStorage.getItem('userData')));
    const alert = this.alertCtrl.create({
     subTitle: this.responseData.success.message,
     buttons: ['OK']
   })
   alert.present();
+  this.navCtrl.push(DashboardPage);
    }
-   else{ console.log(this.responseData.error); }
+   else{ 
+    const alert = this.alertCtrl.create({
+      subTitle: this.responseData.success.message,
+      buttons: ['OK']
+    })
+    alert.present();
+  }
  }, (err) => {
   this.responseData = err.json();
   console.log(this.responseData)

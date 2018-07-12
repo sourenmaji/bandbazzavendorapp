@@ -1,0 +1,120 @@
+
+<ion-header>
+
+  <ion-navbar color="headers">
+    <ion-title>Edit Business</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  
+    <ion-card>
+        <ion-card-content>
+          <ion-list>
+              <form novalidate  [formGroup]="editBusinessform">
+                  <ion-item >
+                      <ion-label>Business Type <span style="color: red">*</span></ion-label>
+                      <ion-input disabled="true" type="text" [(ngModel)]="userData.businessType" value="{{business.module_name}}"
+                      formControlName="businessType"></ion-input>
+                      
+                    </ion-item>
+                    <ion-item [hidden]="true">
+                      <ion-input  type="text" [(ngModel)]="userData.business_id" value="{{business.id}}"
+                      formControlName="business_id"></ion-input>
+                      
+                    </ion-item>
+                    <ion-item>
+                      <ion-label floating>Company Name <span style="color: red">*</span></ion-label>
+                      <ion-input type="text" [(ngModel)]="userData.companyName" value="{{business.company_name}}"
+                      formControlName="companyName" [class.error1]="!editBusinessform.controls.companyName.valid && editBusinessform.controls.companyName.dirty"></ion-input>
+                    </ion-item> 
+                    <ion-item no-lines *ngIf="( editBusinessform.get('companyName').hasError('required') ) && editBusinessform.get('companyName').touched">
+                      <div class="error" *ngIf="editBusinessform.get('companyName').hasError('required') && editBusinessform.get('companyName').touched">
+                        Please enter Company Name
+                      </div>
+                      
+                    </ion-item>
+                    <ion-item>
+                      <ion-label floating>City <span style="color: red">*</span></ion-label>
+                      <ion-input type="text" [(ngModel)]="userData.city" value="{{business.city}}"
+                      formControlName="city" [class.error1]="!editBusinessform.controls.city.valid && editBusinessform.controls.city.dirty"></ion-input>
+                    </ion-item> 
+                    <ion-item no-lines *ngIf="( editBusinessform.get('city').hasError('required') ) && editBusinessform.get('city').touched">
+                      <div class="error" *ngIf="editBusinessform.get('city').hasError('required') && editBusinessform.get('city').touched">
+                        Please enter City
+                      </div>
+                      
+                    </ion-item>
+                    <ion-item>
+                      <ion-label floating>Address <span style="color: red">*</span></ion-label>
+                      <ion-textarea type="text" [(ngModel)]="userData.address" value="{{business.address}}"
+                      formControlName="address" [class.error1]="!editBusinessform.controls.address.valid && editBusinessform.controls.address.dirty"></ion-textarea>
+                    </ion-item> 
+                    <ion-item no-lines *ngIf="( editBusinessform.get('address').hasError('required') ) && editBusinessform.get('address').touched">
+                      <div class="error" *ngIf="editBusinessform.get('address').hasError('required') && editBusinessform.get('address').touched">
+                        Please enter Address
+                      </div>
+                      
+                    </ion-item>
+                    <ion-item>
+                      <ion-label floating>Details <span style="color: red">*</span></ion-label>
+                      <ion-textarea type="text" [(ngModel)]="userData.details" value="{{business.details}}"
+                      formControlName="details" [class.error1]="!editBusinessform.controls.details.valid && editBusinessform.controls.details.dirty"></ion-textarea>
+                    </ion-item> 
+                    <ion-item no-lines *ngIf="( editBusinessform.get('details').hasError('required') ) && editBusinessform.get('details').touched">
+                      <div class="error" *ngIf="editBusinessform.get('details').hasError('required') && editBusinessform.get('details').touched">
+                        Please enter Details
+                      </div>
+                      
+                    </ion-item>
+                    <ion-item>
+                      <ion-label floating>Email <span style="color: red">*</span></ion-label>
+                      <ion-input type="email" [(ngModel)]="userData.email" value="{{business.email}}"
+                      formControlName="email" [class.error1]="!editBusinessform.controls.email.valid && editBusinessform.controls.email.dirty"></ion-input>
+                    </ion-item>
+                    <ion-item no-lines *ngIf="( editBusinessform.get('email').hasError('minlength') || editBusinessform.get('email').hasError('pattern') ||editBusinessform.get('email').hasError('required') ) && editBusinessform.get('email').touched">
+                      <div class="error" *ngIf="editBusinessform.get('email').hasError('required') && editBusinessform.get('email').touched">
+                        Please enter your email
+                      </div>
+                      <div class="error" *ngIf="editBusinessform.get('email').hasError('pattern') && editBusinessform.get('email').touched">
+                        This value should be a valid email
+                      </div>
+                    </ion-item>
+                      <ion-item>
+                          <ion-label floating>Phone <span style="color: red">*</span></ion-label>
+                          <ion-input type="text" [(ngModel)]="userData.phone" value="{{business.phone_no}}"
+                          formControlName="phone" [class.error1]="!editBusinessform.controls.phone.valid && editBusinessform.controls.phone.dirty"></ion-input>
+                        </ion-item>
+                        <ion-item no-lines *ngIf="( editBusinessform.get('phone').hasError('minlength') || editBusinessform.get('phone').hasError('pattern') ||editBusinessform.get('phone').hasError('required') ) && editBusinessform.get('phone').touched">
+                          <div class="error" *ngIf="editBusinessform.get('phone').hasError('required') && editBusinessform.get('phone').touched">
+                            Please enter your Phone No.
+                          </div>
+                          <div class="error" *ngIf="editBusinessform.get('phone').hasError('pattern') && editBusinessform.get('phone').touched">
+                            This value should be a valid Phone No.
+                          </div>
+                        </ion-item>
+                    <ion-item>
+                         <!-- <ion-input type="file" [hidden]="true" [(ngModel)]="userData.image" formControlName="image" name="image" value="{{lastImage}}"></ion-input> -->
+                      <img  src={{businessImageSrc}} style="width: 100%">
+                     
+                    </ion-item> 
+                    <ion-row>
+                      <ion-col color="primary">
+                        <ion-buttons>
+                          <button ion-button icon-left full (click)="presentActionSheet()">
+                            <ion-icon name="camera"></ion-icon>Select Image
+                          </button>
+                          <!-- <button ion-button icon-left (click)="uploadImage()" [disabled]="lastImage === null">
+                            <ion-icon name="cloud-upload"></ion-icon>Upload
+                          </button> -->
+                        </ion-buttons>
+                      </ion-col>
+                    </ion-row>
+                    <button  ion-button block color="success" [disabled]="editBusinessform.invalid" (click)="saveEditProfile()">Add</button><br/>
+                    </form>
+            </ion-list>
+            </ion-card-content>
+            </ion-card>
+</ion-content>
