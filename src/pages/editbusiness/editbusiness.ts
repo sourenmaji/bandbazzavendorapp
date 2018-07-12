@@ -15,33 +15,24 @@ let apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
   templateUrl: 'editbusiness.html',
 })
 export class EditbusinessPage {
-  responseData: any;
   business :  any;
-  userDetails : any;
   lastImage: string = null;
   businessImage: any;
   businessImageSrc: any;
   targetPath = "";
   result : FileUploadResult = null;
-  userPostData = {"user":"","token":""};
   constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, 
     public toastCtrl: ToastController,private camera: Camera, public platform: Platform ,private filePath: FilePath,
     private file: File, private alertCtrl: AlertController, private transfer: FileTransfer,private authService: AuthServiceProvider) {
 
     this.business = this.navParams.get('business');
-    console.log(this.business);
   this.businessImage = this.business.business_image;
   this.businessImageSrc = "http://192.168.0.130/BandBazza/public/"+this.businessImage;
-
-  const data = JSON.parse(localStorage.getItem('userData'));
-    this.userDetails = data.success.user;
-    this.userPostData.user = this.userDetails;
-    this.userPostData.token = data.success.token;
     
   }
  editBusinessform: FormGroup;
-  userData = { phone: "",email: "",companyName: "",address: "",city: "",details: "",businessType: "",filename: "", business_id: ""};
- 
+  userData = { phone: "",email: "",companyName: "",address: "",city: "",details: "",businessType: "",filename: ""};
+  userPostData = {"user":"","token":""};
 
   ngOnInit() {
     let EMAILPATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -54,8 +45,7 @@ export class EditbusinessPage {
       address: new FormControl('', [Validators.required]),
       city: new FormControl('', [Validators.required]),
       details: new FormControl('', [Validators.required]),
-      businessType: new FormControl('', [Validators.required]),
-      business_id: new FormControl('', Validators.compose([])),
+      businessType: new FormControl('', [Validators.required])
     });
 
     
@@ -179,7 +169,7 @@ export class EditbusinessPage {
       const fileTransfer: FileTransferObject = this.transfer.create();
       fileTransfer.upload(this.targetPath, apiUrl+'edit_business', options).then((data) => {
         // Success!
-        //alert('success')
+        alert('success')
         this.result = data;
         alert(this.result.response);
         var success = JSON.parse(this.result.response);
@@ -210,36 +200,40 @@ export class EditbusinessPage {
         }
       }); 
     }
-    else{
-      this.authService.authData(this.userData,'edit_business',this.userPostData.token).then((data) => {
-        this.responseData = data;
-        if(this.responseData.status===true)
-        {
-          localStorage.setItem('businessData', this.responseData.businesses);
-          const alert = this.alertCtrl.create({
-            subTitle: 'Business updated successfully',
-            buttons: ['OK']
-            
-          })
-          alert.present();
-          this.navCtrl.pop();
-        }
-        else{ 
-         const alert = this.alertCtrl.create({
-           subTitle: this.responseData.success.message,
-           buttons: ['OK']
-         })
-         alert.present();
-       }
-      }, (err) => {
-       this.responseData = err.json();
-       console.log(this.responseData)
-       const alert = this.alertCtrl.create({
-         subTitle: this.responseData.error,
-         buttons: ['OK']
-       })
-       alert.present();
-      });
-    }
+    // else{
+    //   this.authService.authData(this.userData,'edit_business',this.userPostData.token).then((result) => {
+    //     this.responseData = result;
+    //     if(this.responseData.status)
+    //     {
+    //    // console.log(this.responseData);
+    //     this.userDetails = this.responseData.success.user;
+    //     this.newU.success.user = this.userDetails;
+    //     this.newU.success.token = this.userPostData.token;
+    //     localStorage.setItem('userData', JSON.stringify(this.newU));
+    //     //console.log("Local storage "+JSON.parse(localStorage.getItem('userData')));
+    //     const alert = this.alertCtrl.create({
+    //      subTitle: this.responseData.success.message,
+    //      buttons: ['OK']
+    //    })
+    //    alert.present();
+    //    this.navCtrl.push(DashboardPage);
+    //     }
+    //     else{ 
+    //      const alert = this.alertCtrl.create({
+    //        subTitle: this.responseData.success.message,
+    //        buttons: ['OK']
+    //      })
+    //      alert.present();
+    //    }
+    //   }, (err) => {
+    //    this.responseData = err.json();
+    //    console.log(this.responseData)
+    //    const alert = this.alertCtrl.create({
+    //      subTitle: this.responseData.error,
+    //      buttons: ['OK']
+    //    })
+    //    alert.present();
+    //   });
+    // }
   }
 }
