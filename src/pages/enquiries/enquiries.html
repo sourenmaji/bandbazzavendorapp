@@ -13,6 +13,7 @@
 
 <ion-content padding>
   <div padding>
+    <!-- dynamically generating the categories -->
     <ion-segment [(ngModel)]="category" color="energy">
       <ion-segment-button *ngFor="let category of categories" value={{category.module_name}} (click)="getEnquiries(category)">
         {{category.module_name}}
@@ -23,40 +24,105 @@
   <div [ngSwitch]="category">
     <div *ngFor="let category of categories">
       <ion-list *ngSwitchCase=category.module_name>
+
         <ion-list-header *ngIf="enquiries.length">
               {{category.module_name}} Active Enquiries
         </ion-list-header>
         <ion-item *ngFor="let enquiry of enquiries">
 
-          <div item-end>
-            <h2>Product</h2>
-            <p>
-                Enquiry Id
-                User Name
-                User Phone
-                Status
-            </p>
+          <div item-end *ngIf="category.module_name=='Banquet Hall'">
+              <h2>{{enquiry.hall_name}}</h2>
+                  Enquiry Id: #{{enquiry.serial_number}}
+                  <p>
+                    <b>Enquiry Information:</b>
+                    Customer: {{enquiry.name}}
+                    Contact: {{enquiry.phone_number}}
+                    Duration: {{enquiry.book_from}} - {{enquiry.book_to}}
+                    Rate: Rs {{enquiry.book_rate}}/day
+                </p>
+                <button ion-button outline (click)="enquiryAction(enquiry.id)">Action</button>
           </div>
+
+          <div item-end *ngIf="category.module_name=='Car Rental'">
+              <h2>{{enquiry.car_company_name}} - {{enquiry.car_model}}</h2>
+              Enquiry Id: #{{enquiry.serial_number}}
+              <p>
+                  <b>Enquiry Information:</b>
+                    Customer: {{enquiry.name}}
+                    Contact: {{enquiry.phone_number}}
+                    Rate: Rs {{enquiry.enq_rate_hour}}/hr or Rs {{enquiry.enq_rate_km}}/km
+              </p>
+              <button ion-button outline (click)="enquiryAction(enquiry.id)">Action</button>
+          </div>
+
+            <div item-end *ngIf="category.module_name=='Caterer'">
+                <h2>{{enquiry.package_name}}</h2>
+                Enquiry Id: #{{enquiry.serial_number}}
+                <p>
+                    <b>Enquiry Information:</b>
+                      Customer: {{enquiry.name}}
+                      Contact: {{enquiry.phone_number}}
+                      Booking Date: {{enquiry.date}}
+                      Rate: Rs {{enquiry.enquiry_rate}}/plate
+                      Status: {{enquiry.vendor_status}}
+                      Enquiry Time: {{enquiry.created_at}}
+                </p>
+                <button ion-button outline (click)="enquiryAction(enquiry.id)">Action</button>
+            </div>
+
         </ion-item>
 
       <ion-list-header *ngIf="enquiries_history.length">
           {{category.module_name}} Enquiries History
       </ion-list-header>
+
       <ion-item *ngFor="let history of enquiries_history">
 
-        <div item-end>
-          <h2>Products</h2>
-          <p>
-              Enquiry Id
-              User Name
-              User Phone
-              Status
-          </p>
-        </div>
+          <div item-end *ngIf="category.module_name=='Banquet Hall'">
+              <h2>{{history.hall_name}}</h2>
+                  Enquiry Id: #{{history.serial_number}}
+                  <p>
+                    <b>Enquiry Information:</b>
+                    Customer: {{history.name}}
+                    Contact: {{history.phone_number}}
+                    Duration: {{history.book_from}} - {{history.book_to}}
+                    Rate: Rs {{history.book_rate}}/day
+                    Status: {{history.vendor_status}}
+                </p>
+            </div>
+  
+            <div item-end *ngIf="category.module_name=='Car Rental'">
+                <h2>{{history.car_company_name}} - {{history.car_model}}</h2>
+                Enquiry Id: #{{history.serial_number}}
+                <p>
+                    <b>Enquiry Information:</b>
+                      Customer: {{history.name}}
+                      Contact: {{history.phone_number}}
+                      Rate: Rs {{history.enq_rate_hour}}/hr or Rs {{history.enq_rate_km}}/km
+                      Status: {{history.vendor_status}}
+                </p>
+            </div>
+  
+              <div item-end *ngIf="category.module_name=='Caterer'">
+                  <h2>{{history.package_name}}</h2>
+                Enquiry Id: #{{history.serial_number}}
+                <p>
+                    <b>Enquiry Information:</b>
+                      Customer: {{history.name}}
+                      Contact: {{history.phone_number}}
+                      Booking Date: {{history.date}}
+                      Rate: Rs {{history.enquiry_rate}}/plate
+                      Status: {{history.vendor_status}}
+                      Enquiry Time: {{history.updated_at}}
+                </p>
+              </div>
+
       </ion-item>
+
       <p *ngIf="!enquiries_history.length && !enquiries.length" text-center>
         {{message}}
       </p>
+
       </ion-list>
     </div>
   </div>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, LoadingController } from 'ionic-angular';
+import { IonicPage, MenuController, LoadingController, ActionSheetController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 @IonicPage()
@@ -17,7 +17,7 @@ enquiries: any;
 enquiries_history: any;
 message: string;
 
-  constructor(private navCtrl: NavController, private menuCtrl: MenuController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController) {
+  constructor(private menuCtrl: MenuController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController, private actionCtrl: ActionSheetController) {
     
     console.log('here1');
     this.responseData = {}
@@ -84,7 +84,7 @@ message: string;
     }
     else if(this.category=='Car Rental')
     {
-      this.type="get_hall_enquiries";
+      this.type="get_car_enquiries";
     }
     else if(this.category=='Caterer')
     {
@@ -110,6 +110,28 @@ message: string;
       this.message="Oops! Something went wrong.";
       loader.dismiss();
     });
+  }
+
+  enquiryAction(id: number) {
+    console.log(id);
+    const actionSheet = this.actionCtrl.create({
+      title: '',
+      buttons: [
+        {
+          text: 'Approve',
+          handler: () => {
+            console.log('Approve clicked');
+          }
+        },
+        {
+          text: 'Decline',
+          handler: () => {
+            console.log('Decline clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
   
 }
