@@ -116,6 +116,40 @@ export class BusinessPage {
     console.log(business);
     this.navCtrl.push(EditbusinessPage,{business: business});
   }
+  deactiveBusiness(businessid){
+    console.log(businessid);
+    this.authService.getData('deactivate_business?business_id=businessid',this.userPostData.token).then((result) => {
+      this.responseData = result;
+      
+      
+      if(this.responseData.status == true)
+      {
+    
+        const alert = this.alertCtrl.create({
+          subTitle: this.responseData.message,
+          buttons: ['OK']
+        })
+        alert.present();
+      }
+      else{
+       const alert = this.alertCtrl.create({
+         subTitle: this.responseData.message,
+         buttons: ['OK']
+       })
+       alert.present();
+     }
+    }, 
+    (err) => {
+     this.responseData = err.json();
+     const alert = this.alertCtrl.create({
+      subTitle: this.responseData.message,
+      buttons: ['OK']
+    })
+    alert.present();
+    });
+  
+  }
+
 
   onOpenMenu(){
     this.menuCtrl.open();

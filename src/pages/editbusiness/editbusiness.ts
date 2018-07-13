@@ -181,13 +181,13 @@ export class EditbusinessPage {
         // Success!
         //alert('success')
         this.result = data;
-        alert(this.result.response);
+        //alert(this.result.response);
         var success = JSON.parse(this.result.response);
-        alert(success.status);
+       // alert(success.status);
         if(success.status===true){
-        localStorage.setItem('businessData', success.businesses);
+        //localStorage.setItem('businessData', success.businesses);
         const alert = this.alertCtrl.create({
-          subTitle: 'Business updated successfully',
+          subTitle: success.message,
           buttons: ['OK']
           
         })
@@ -195,19 +195,33 @@ export class EditbusinessPage {
         this.navCtrl.pop();
         //this.navCtrl.push(BusinessPage);
         //this.navCtrl.remove(this.navCtrl.length()-1);
+        }else{
+          const alert = this.alertCtrl.create({
+            subTitle: success.message,
+            buttons: ['OK']
+            
+          })
+          alert.present();
+          this.navCtrl.pop();
         }
        
       },
       (err) => {
         // Error
-        alert('error! Try again')
-        alert(err.body);
+        //alert('error! Try again')
+        //alert(err.body);
         var error = JSON.parse(err.body);
-        alert(error.status);
-        if(error.status==false){
-        this.navCtrl.push(BusinessPage);
-        this.navCtrl.remove(this.navCtrl.length()-1);
-        }
+        //alert(error.status);
+        const alert = this.alertCtrl.create({
+          subTitle: error.message,
+          buttons: ['OK']
+          
+        })
+        alert.present();
+        // if(error.status==false){
+        // this.navCtrl.push(BusinessPage);
+        // this.navCtrl.remove(this.navCtrl.length()-1);
+        // }
       }); 
     }
     else{
@@ -215,27 +229,28 @@ export class EditbusinessPage {
         this.responseData = data;
         if(this.responseData.status===true)
         {
-          localStorage.setItem('businessData', this.responseData.businesses);
+          //localStorage.setItem('businessData', this.responseData.businesses);
           const alert = this.alertCtrl.create({
-            subTitle: 'Business updated successfully',
+            subTitle: this.responseData.message,
+            buttons: ['OK']
+            
+          })
+          alert.present();
+          this.navCtrl.pop();
+        }else{
+          const alert = this.alertCtrl.create({
+            subTitle: this.responseData.message,
             buttons: ['OK']
             
           })
           alert.present();
           this.navCtrl.pop();
         }
-        else{ 
-         const alert = this.alertCtrl.create({
-           subTitle: this.responseData.success.message,
-           buttons: ['OK']
-         })
-         alert.present();
-       }
       }, (err) => {
        this.responseData = err.json();
        console.log(this.responseData)
        const alert = this.alertCtrl.create({
-         subTitle: this.responseData.error,
+         subTitle: this.responseData.message,
          buttons: ['OK']
        })
        alert.present();
