@@ -18,20 +18,14 @@ enquiries_history: any;
 message: string;
 
   constructor(private menuCtrl: MenuController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController, private actionCtrl: ActionSheetController) {
-    
-    console.log('here1');
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
     this.token = data.success.token;
   }
 
-  ionViewWillEnter()
-  {
-    console.log('here2');
- 
-  }
    ionViewDidEnter()
    {
+    //initialize all variables with default values and call the service
     this.categories= [];
     this.category = "";
     this.enquiries = [];
@@ -40,10 +34,7 @@ message: string;
     this.getCategories();
    }
 
-  onOpenMenu(){
-    this.menuCtrl.open();
-  }
-
+  //get business categories of this vendor
   getCategories()
   {
     //create loader
@@ -51,7 +42,7 @@ message: string;
       content: 'Please wait...'
     });
     loader.present();
-    this.authService.getData('check_my_enquiries',this.token).then((result) => {
+    this.authService.getData('get_added_business',this.token).then((result) => {
           this.responseData = result;
             console.log(this.responseData)
             this.categories=this.responseData.categories;
@@ -61,11 +52,12 @@ message: string;
             this.getEnquiries(this.categories[0]);
 
         }, (err) => {
-          console.log(err)
           loader.dismiss();
+          console.log(err)
         });
   }
   
+  //get enquiries of a particular module
   getEnquiries(c: any)
   { 
     //create loader
@@ -106,14 +98,17 @@ message: string;
         loader.dismiss();
 
     }, (err) => {
+      loader.dismiss();
       console.log(err)
       this.message="Oops! Something went wrong.";
-      loader.dismiss();
+
     });
   }
 
+  //approve or decline an enquiry
   enquiryAction(id: number) {
     console.log(id);
+    //show action sheet
     const actionSheet = this.actionCtrl.create({
       title: '',
       buttons: [
@@ -132,6 +127,10 @@ message: string;
       ]
     });
     actionSheet.present();
+  }
+
+  onOpenMenu(){
+    this.menuCtrl.open();
   }
   
 }

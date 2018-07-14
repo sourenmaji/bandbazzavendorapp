@@ -26,6 +26,7 @@ export class BookingsPage {
 
   ionViewDidEnter()
    {
+    //initialize all variables with default values and call the service
     this.categories= [];
     this.category = "";
     this.bookings = [];
@@ -34,6 +35,7 @@ export class BookingsPage {
     this.getCategories();
    }
 
+  //get business categories of this vendor
    getCategories()
    {
      //create loader
@@ -41,7 +43,7 @@ export class BookingsPage {
        content: 'Please wait...'
      });
      loader.present();
-     this.authService.getData('check_my_enquiries',this.token).then((result) => {
+     this.authService.getData('get_added_business',this.token).then((result) => {
            this.responseData = result;
              console.log(this.responseData)
              this.categories=this.responseData.categories;
@@ -51,11 +53,12 @@ export class BookingsPage {
              this.getBookings(this.categories[0]);
  
          }, (err) => {
-           console.log(err)
-           loader.dismiss();
+          loader.dismiss();
+          console.log(err)
          });
    }
 
+//get bookings of a particular module
   getBookings(c: any)
   { 
     //create loader
@@ -96,9 +99,9 @@ export class BookingsPage {
         loader.dismiss();
 
     }, (err) => {
+      loader.dismiss();
       console.log(err)
       this.message="Oops! Something went wrong.";
-      loader.dismiss();
     });
   }
 
