@@ -13,5 +13,118 @@
 
 
 <ion-content padding>
+    <div padding>
+      <!-- dynamically generating the categories -->
+      <ion-segment [(ngModel)]="category" color="energy">
+        <ion-segment-button *ngFor="let category of categories" value={{category.module_name}} (click)="getBookings(category)">
+          {{category.module_name}}
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+    
+    <div [ngSwitch]="category">
+      <div *ngFor="let category of categories">
+        <ion-list *ngSwitchCase=category.module_name>
+  
+          <ion-list-header *ngIf="bookings.length">
+                {{category.module_name}} Bookings
+          </ion-list-header>
+          <ion-item *ngFor="let booking of bookings">
+  
+            <div item-end *ngIf="category.module_name=='Banquet Hall'">
+                <h2>{{booking.banquet_name}}</h2>
+                Booking Id: #{{booking.order_no}}
+                    <p>
+                      <b>Booking Information:</b>
+                      Customer: {{booking.booked_by}}
+                      Duration: {{booking.book_from}} - {{booking.book_to}}
+                      Rate: Rs {{booking.book_rate}}/day
+                      Status: {{booking.vendor_status}}
+                  </p>
+                 
+            </div>
+  
+            <div item-end *ngIf="category.module_name=='Car Rental'">
+                <h2>{{booking.car_company_name}} - {{booking.car_model_name}}</h2>
+                Booking Id: #{{booking.order_no}}
+                <p>
+                  <b>Booking Information:</b>
+                  Customer: {{booking.booked_by}}
+                  Duration: {{booking.time_from}} - {{booking.time_to}}
+                  Rate: Rs {{booking.book_rate_hour}}/hr or Rs {{booking.book_rate_km}}/km
+                  Status: {{booking.vendor_status}}
+              </p>
+              
+            </div>
+  
+              <div item-end *ngIf="category.module_name=='Caterer'">
+                  <h2>{{booking.package_name}}</h2>
+                  Booking Id: #{{booking.order_no}}
+                  <p>
+                      <b>Booking Information:</b>
+                        Customer: {{booking.booked_by}}
+                        Booking Date: {{booking.booking_date}}
+                        Rate: Rs {{booking.package_rate}}/plate
+                        No of plates: {{booking.no_of_plates}}
+                        Status: {{booking.vendor_status}}
+                  </p>
+                 
+              </div>
+  
+          </ion-item>
+  
+        <ion-list-header *ngIf="offline_bookings.length">
+            {{category.module_name}} Offline Bookings
+        </ion-list-header>
+  
+        <ion-item *ngFor="let offline of offline_bookings">
+  
+            <div item-end *ngIf="category.module_name=='Banquet Hall'">
+                <h2>{{offline.banquet_name}}</h2>
+                Booking Id: #{{offline.serial_number}}
+                    <p>
+                      <b>Booking Information:</b>
+                      Customer: {{offline.name}}
+                      Contact: {{offline.phone_number}}
+                      Duration: {{offline.book_from}} - {{offline.book_to}}
+                      Rate: Rs {{offline.book_rate}}/day
 
-</ion-content>
+                  </p>
+              </div>
+    
+              <div item-end *ngIf="category.module_name=='Car Rental'">
+                  <h2>{{offline.car_company_name}} - {{offline.car_model_name}}</h2>
+                  Booking Id: #{{offline.serial_number}}
+                  <p>
+                      <b>Booking Information:</b>
+                      Customer: {{offline.booked_by}}
+                      Duration: {{offline.time_from}} - {{offline.time_to}}
+                      Rate: Rs {{offline.book_rate_hour}}/hr or Rs {{offline.book_rate_km}}/km
+
+                  </p>
+              </div>
+    
+                <div item-end *ngIf="category.module_name=='Caterer'">
+                    <h2>{{offline.package_name}}</h2>
+                    Booking Id: #{{offline.serial_number}}
+                  <p>
+                      <b>Booking Information:</b>
+                        Customer: {{offline.booked_by}}
+                        Booking Date: {{offline.booking_date}}
+                        Rate: Rs {{offline.package_rate}}/plate
+                        No of plates: {{offline.no_of_plates}}
+                  </p>
+                </div>
+  
+        </ion-item>
+  
+        <p *ngIf="!offline_bookings.length && !bookings.length" text-center>
+          {{message}}
+        </p>
+  
+        </ion-list>
+      </div>
+    </div>
+  </ion-content>
+  
+  
