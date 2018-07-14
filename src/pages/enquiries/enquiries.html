@@ -40,7 +40,7 @@
                     Duration: {{enquiry.book_from}} - {{enquiry.book_to}}
                     Rate: Rs {{enquiry.book_rate}}/day
                 </p>
-                <button ion-button outline (click)="enquiryAction(enquiry.id)">Action</button>
+                <button ion-button outline (click)="enquiryAction(enquiry.id,'Banquet Hall')">Action</button>
           </div>
 
           <div item-end *ngIf="category.module_name=='Car Rental'">
@@ -52,7 +52,7 @@
                     Contact: {{enquiry.phone_number}}
                     Rate: Rs {{enquiry.enq_rate_hour}}/hr or Rs {{enquiry.enq_rate_km}}/km
               </p>
-              <button ion-button outline (click)="enquiryAction(enquiry.id)">Action</button>
+              <button ion-button outline (click)="enquiryAction(enquiry.id,'Car Rental')">Action</button>
           </div>
 
             <div item-end *ngIf="category.module_name=='Caterer'">
@@ -67,7 +67,7 @@
                       Status: {{enquiry.vendor_status}}
                       Enquiry Time: {{enquiry.created_at}}
                 </p>
-                <button ion-button outline (click)="enquiryAction(enquiry.id)">Action</button>
+                <button ion-button outline (click)="enquiryAction(enquiry.id,'Caterer')">Action</button>
             </div>
 
         </ion-item>

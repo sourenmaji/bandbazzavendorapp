@@ -15,6 +15,7 @@ token: any;
 type: string;
 enquiries: any;
 enquiries_history: any;
+lastClicked: any;
 message: string;
 
   constructor(private menuCtrl: MenuController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController, private actionCtrl: ActionSheetController) {
@@ -64,6 +65,7 @@ message: string;
     let loader = this.loadingCtrl.create({
       content: 'Please wait...'
     });
+    this.lastClicked=c;
     loader.present();
     this.category=c.module_name;
     this.enquiries = [];
@@ -105,9 +107,10 @@ message: string;
     });
   }
 
-  //approve or decline an enquiry
-  enquiryAction(id: number) {
-    console.log(id);
+  //approve or decline an enquiry actionsheet
+  enquiryAction(enquiry_id: number, module: string) {
+    console.log(enquiry_id);
+    console.log(module);
     //show action sheet
     const actionSheet = this.actionCtrl.create({
       title: '',
@@ -116,12 +119,16 @@ message: string;
           text: 'Approve',
           handler: () => {
             console.log('Approve clicked');
+            //1 is for approve, 0 is for decline
+            this.enquiryApproval(enquiry_id,module,1);
           }
         },
         {
           text: 'Decline',
           handler: () => {
             console.log('Decline clicked');
+             //1 is for approve, 0 is for decline
+             this.enquiryApproval(enquiry_id,module,0);
           }
         }
       ]
@@ -129,6 +136,46 @@ message: string;
     actionSheet.present();
   }
 
+  enquiryApproval(id, name, status)
+  {
+    console.log(id)
+    console.log(status)
+
+    if(name=='Banquet Hall')
+    {
+      this.type='finalize_hall_enquiry';
+    }
+    else if(name=='Car Rental')
+    {
+      this.type='finalize_car_enquiry';
+    }
+    else if(name=='Caterer')
+    {
+      this.type='finalize_caterer_enquiry';
+    }
+
+    //create loader
+    let loader = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loader.present();
+    this.authService.getData(this.type+'?id='+id+'&status='+status,this.token).then((result) => {
+      this.responseData = result;
+        console.log(this.responseData)
+        if(this.responseData.status==true)
+        {
+          this.getEnquiries(this.lastClicked);
+        }
+        loader.dismiss();
+
+    }, (err) => {
+      loader.dismiss();
+      console.log(err)
+      this.message="Oops! Something went wrong.";
+    });
+
+  }
+  
   onOpenMenu(){
     this.menuCtrl.open();
   }
