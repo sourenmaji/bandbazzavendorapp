@@ -15,7 +15,7 @@ export class BusinessPage {
   userDetails : any;
   responseData: any;
   userPostData = {"user":"","token":""};
-
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController,
               public authService: AuthServiceProvider, private alertCtrl: AlertController) {
     // const data = JSON.parse(localStorage.getItem('businessData'));
@@ -41,36 +41,43 @@ export class BusinessPage {
       console.log(this.userPostData.token);
       console.log( this.userPostData.user);
 
-      this.authService.getData('get_all_business',this.userPostData.token).then((result) => {
-       this.responseData = result;
-       
-       
-       if(this.responseData.status == true)
-       {
-       console.log(this.responseData.businesses);
-      //  localStorage.setItem('businessData', JSON.stringify(this.responseData.businesses));
-      //  console.log("Local storage "+JSON.parse(localStorage.getItem('businessData')));
-
-       const value = this.responseData.businesses;
-       this.businessDetails = value;
-       }
-       else{
-        const alert = this.alertCtrl.create({
-          subTitle: this.responseData.message,
-          buttons: ['OK']
-        })
-        alert.present();
-      }
-     }, 
-     (err) => {
-      this.responseData = err.json();
-      console.log(this.responseData)
-     });
-    // this.nav.push(BusinessPage);
-     this.menuCtrl.close();
+     this.openBusiness();
     
   } 
 
+
+  openBusiness(){
+    this.authService.getData('get_all_business',this.userPostData.token).then((result) => {
+      this.responseData = result;
+      
+      
+      if(this.responseData.status == true)
+      {
+      console.log(this.responseData.businesses);
+     //  localStorage.setItem('businessData', JSON.stringify(this.responseData.businesses));
+     //  console.log("Local storage "+JSON.parse(localStorage.getItem('businessData')));
+
+      const value = this.responseData.businesses;
+      this.businessDetails = value;
+     
+      }
+      else{
+       const alert = this.alertCtrl.create({
+         subTitle: this.responseData.message,
+         buttons: ['OK']
+       })
+       alert.present();
+       this.businessDetails = [];
+     }
+    }, 
+    (err) => {
+     this.responseData = err.json();
+     console.log(this.responseData)
+    });
+   // this.nav.push(BusinessPage);
+    this.menuCtrl.close();
+
+  }
 
   addBusiness(){
     const data = JSON.parse(localStorage.getItem('userData'));
@@ -116,9 +123,10 @@ export class BusinessPage {
     console.log(business);
     this.navCtrl.push(EditbusinessPage,{business: business});
   }
+
   deactiveBusiness(businessid){
     console.log(businessid);
-    this.authService.getData('deactivate_business?business_id=businessid',this.userPostData.token).then((result) => {
+    this.authService.getData('deactivate_business?business_id='+businessid,this.userPostData.token).then((result) => {
       this.responseData = result;
       
       
@@ -130,6 +138,55 @@ export class BusinessPage {
           buttons: ['OK']
         })
         alert.present();
+        this.openBusiness();
+      }
+      else{
+       const alert = this.alertCtrl.create({
+         subTitle: this.responseData.message,
+         buttons: ['OK']
+       })
+       alert.present();
+     }
+    }, 
+    (err) => {
+     this.responseData = err.json();
+     const alert = this.alertCtrl.create({
+      subTitle: this.responseData.message,
+      buttons: ['OK']
+    })
+    alert.present();
+    });
+ 
+  }
+
+
+  deleteBusiness(businessid){
+    console.log(businessid);
+    this.authService.getData('delete_business?business_id='+businessid,this.userPostData.token).then((result) => {
+      this.responseData = result;
+      
+      
+      if(this.responseData.status == true)
+      {
+    
+        const alert = this.alertCtrl.create({
+          subTitle: this.responseData.message,
+          buttons: [{
+            text: 'Ok',
+          handler: () => {
+            
+            let navTransition = alert.dismiss();
+
+              navTransition.then(() => {
+                this.openBusiness();
+              });
+
+            return false;
+          }
+        }]
+        });
+        alert.present();
+        
       }
       else{
        const alert = this.alertCtrl.create({
@@ -149,7 +206,6 @@ export class BusinessPage {
     });
   
   }
-
 
   onOpenMenu(){
     this.menuCtrl.open();

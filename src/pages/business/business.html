@@ -22,15 +22,14 @@
     <ion-list>
     <ion-item *ngFor ="let business of businessDetails; let i = index" >
     <ion-card>
-        <ion-item>
-          <!-- <ion-avatar item-start>
-            <img src="img/marty-avatar.png">
-          </ion-avatar> -->
           <ion-card-header class="custom-card-header">
               <ion-item class="custom-item">
                   {{business.company_name}}
-                  <ion-icon name="trash" color="white" small item-end></ion-icon>
-                  
+                  <ion-fab right top>
+                  <button ion-button small clear icon-only [disabled]="business.request_type=='Delete'" (click)="deleteBusiness(business.id)">
+                    <ion-icon name="trash" color="white"></ion-icon>
+                  </button>
+                  </ion-fab>
                 </ion-item>
               
             </ion-card-header>
@@ -53,7 +52,7 @@
          </ion-item>
          
           
-        </ion-item>
+       
       
       <img src="http://192.168.0.130/BandBazza/public/{{business.business_image}}">  
          <!--  <img src="http://www.bandbazza.com/{{business.business_image}}">-->
@@ -67,13 +66,13 @@
       
         <ion-row>
           <ion-col>
-            <button ion-button icon-left item-end full color="dash2" (click)="editBusiness(business)">
+            <button ion-button icon-left item-end full color="dash2" [disabled]="business.request_type=='Delete'" (click)="editBusiness(business)">
               <ion-icon color="white" name="create"></ion-icon>
               <div ion-text color="white"> Edit </div>
             </button>
           </ion-col>
           <ion-col>
-            <button ion-button icon-left item-end full color="success" (click)="deactiveBusiness(business.id)">
+            <button ion-button icon-left item-end full color="success" [disabled]="business.request_type=='Delete'" (click)="deactiveBusiness(business.id)">
               <ion-icon name="cut"></ion-icon>
               <div> Deactive </div>
             </button>

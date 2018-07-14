@@ -16,12 +16,14 @@ let apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
 })
 export class EditbusinessPage {
   business :  any;
+  userDetails : any;
   lastImage: string = null;
   businessImage: any;
   businessImageSrc: any;
   targetPath = "";
   result : FileUploadResult = null;
   responseData: any;
+ 
   constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, 
     public toastCtrl: ToastController,private camera: Camera, public platform: Platform ,private filePath: FilePath,
     private file: File, private alertCtrl: AlertController, private transfer: FileTransfer,private authService: AuthServiceProvider) {
@@ -29,10 +31,15 @@ export class EditbusinessPage {
     this.business = this.navParams.get('business');
   this.businessImage = this.business.business_image;
   this.businessImageSrc = "http://192.168.0.130/BandBazza/public/"+this.businessImage;
+
+  const data = JSON.parse(localStorage.getItem('userData'));
+    this.userDetails = data.success.user;
+    this.userPostData.user = this.userDetails;
+    this.userPostData.token = data.success.token;
     
   }
  editBusinessform: FormGroup;
-  userData = { phone: "",email: "",companyName: "",address: "",city: "",details: "",businessType: "",filename: ""};
+  userData = { phone: "",email: "",companyName: "",address: "",city: "",details: "",businessType: "",filename: "", business_id: ""};
   userPostData = {"user":"","token":""};
 
   ngOnInit() {
@@ -46,7 +53,8 @@ export class EditbusinessPage {
       address: new FormControl('', [Validators.required]),
       city: new FormControl('', [Validators.required]),
       details: new FormControl('', [Validators.required]),
-      businessType: new FormControl('', [Validators.required])
+      businessType: new FormControl('', [Validators.required]),
+      business_id: new FormControl('', Validators.compose([]))
     });
 
     
