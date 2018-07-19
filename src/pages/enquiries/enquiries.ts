@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, MenuController, LoadingController, ActionSheetController } from 'ionic-angular';
+import { IonicPage, MenuController, LoadingController, ActionSheetController, AlertController, NavController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { EnquiryDetailsPage } from '../enquiry-details/enquiry-details';
 
 @IonicPage()
 @Component({
@@ -17,8 +18,9 @@ enquiries: any;
 enquiries_history: any;
 lastClicked: any;
 message: string;
+apiUrl = 'http://192.168.0.130/BandBazza/public/';
 
-  constructor(private menuCtrl: MenuController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController, private actionCtrl: ActionSheetController) {
+  constructor(private menuCtrl: MenuController, private navCtrl: NavController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController, private actionCtrl: ActionSheetController, private alertCtrl: AlertController) {
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
     this.token = data.success.token;
@@ -47,11 +49,21 @@ message: string;
           this.responseData = result;
             console.log(this.responseData)
             this.categories=this.responseData.categories;
+            if(this.categories.length){
             this.category=this.categories[0].module_name;
             console.log(this.categories)
             loader.dismiss();
             this.getEnquiries(this.categories[0]);
-
+            }
+            else
+            {
+              const alert = this.alertCtrl.create({
+                subTitle: 'No Business Added Yet',
+                buttons: ['OK']
+              })
+              loader.dismiss();
+              alert.present();
+            }
         }, (err) => {
           loader.dismiss();
           console.log(err)
@@ -178,6 +190,12 @@ message: string;
   
   onOpenMenu(){
     this.menuCtrl.open();
+  }
+
+  goToEnquiryDetails(details: any){
+    console.log(details);
+    this.navCtrl.push(EnquiryDetailsPage,details);
+
   }
   
 }
