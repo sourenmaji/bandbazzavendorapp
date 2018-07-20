@@ -10,7 +10,7 @@ let apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
 
 @Injectable()
 export class AuthServiceProvider {
-  
+  pageReset: boolean = false;
   loading: Loading;
   constructor(public http: Http, private transfer: FileTransfer, public loadingCtrl: LoadingController) {
     console.log('Hello AuthServiceProvider Provider');
@@ -29,7 +29,7 @@ export class AuthServiceProvider {
           resolve(res.json()); 
         }, 
         (err) => {
-          console.log(err.json());
+          console.log(err);
           reject(err);
         });
     });
@@ -56,7 +56,7 @@ export class AuthServiceProvider {
         }, 
         (err) => {
           this.loading.dismissAll();
-          console.log(err.json());
+          console.log(err);
           reject(err);
         });
     });
@@ -77,7 +77,7 @@ export class AuthServiceProvider {
           resolve(res.json()); 
         }, 
         (err) => {
-          console.log(err.json());
+          console.log(err);
           reject(err);
         });
     });
