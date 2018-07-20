@@ -23,13 +23,16 @@ import { ProductsPage } from '../pages/products/products';
 import { EnquiriesPage } from '../pages/enquiries/enquiries';
 import { BookingsPage } from '../pages/bookings/bookings';
 import { CustomPackageEnquiriesPage } from '../pages/custom-package-enquiries/custom-package-enquiries';
-import {Network} from '@ionic-native/network';
+import { Network} from '@ionic-native/network';
 import { File } from '@ionic-native/file';
 import { Camera } from '@ionic-native/camera';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { AddbusinessPage } from '../pages/addbusiness/addbusiness';
+import { Geolocation } from '@ionic-native/geolocation';
+import { EnquiryDetailsPage } from '../pages/enquiry-details/enquiry-details';
+
 
 @NgModule({
   declarations: [
@@ -44,6 +47,7 @@ import { AddbusinessPage } from '../pages/addbusiness/addbusiness';
     BusinessPage,
     ProductsPage,
     EnquiriesPage,
+    EnquiryDetailsPage,
     BookingsPage,
     CustomPackageEnquiriesPage,
     EditProfilePage,
@@ -71,6 +75,7 @@ import { AddbusinessPage } from '../pages/addbusiness/addbusiness';
     BusinessPage,
     ProductsPage,
     EnquiriesPage,
+    EnquiryDetailsPage,
     BookingsPage,
     CustomPackageEnquiriesPage,
     EditProfilePage,
@@ -89,7 +94,8 @@ import { AddbusinessPage } from '../pages/addbusiness/addbusiness';
     File,
     FileTransfer,
     Camera,
-    FilePath
+    FilePath,
+    Geolocation
   ]
 })
 export class AppModule {}
