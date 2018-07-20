@@ -178,7 +178,7 @@ export class EditbusinessPage {
       const fileTransfer: FileTransferObject = this.transfer.create();
       fileTransfer.upload(this.targetPath, apiUrl+'edit_business', options).then((data) => {
         // Success!
-        alert('success')
+       // alert('success')
         this.result = data;
         //alert(this.result.response);
         var success = JSON.parse(this.result.response);

@@ -1,0 +1,68 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>View Product</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card>
+
+    <img src="http://192.168.0.130/BandBazza/public/{{productDetails.details.view}}">
+    <ion-card-content>
+    <ion-card-title>
+      <h1 ion-text color="danger">{{productDetails.details.name}}</h1> 
+     </ion-card-title>
+    <ion-row>
+      <ion-col align-self-start>
+        <ion-label color="dash6">Hall Price(per day) :</ion-label>
+        <h3>Rs.{{productDetails.details.price}}</h3>
+      </ion-col>
+      <ion-col *ngIf="productDetails.details.book_advance != null" align-self-start>
+        <ion-label color="dash6">Advance Amount :</ion-label>
+        <h3>Rs.{{productDetails.details.book_advance}}</h3>
+      </ion-col>
+      <ion-col *ngIf="productDetails.details.book_advance == null" align-self-start>
+        <ion-label color="dash6">Advance Amount :</ion-label>
+        <h3>N/A</h3>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col align-self-start>
+        <ion-label color="dash6">Capacity :</ion-label>
+        <h3>{{productDetails.details.capacity}}</h3>
+      </ion-col>
+      <ion-col *ngIf="productDetails.details.is_ac == 1" align-self-start>
+        <ion-label color="dash6">AC Charges(hourly) :</ion-label>
+        <h3>Rs.{{productDetails.details.ac_charge}}</h3>
+      </ion-col>
+      <ion-col *ngIf="productDetails.details.is_ac == 0" align-self-start>
+        <ion-label color="dash6">AC :</ion-label>
+        <h3>Not Available</h3>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col *ngIf="productDetails.details.is_parking == 1" align-self-start>
+        <ion-label color="dash6">Parking :</ion-label>
+        <h3>Available</h3>
+      </ion-col>
+      <ion-col *ngIf="productDetails.details.is_parking == 0" align-self-start>
+        <ion-label color="dash6">Parking :</ion-label>
+        <h3>Not Available</h3>
+      </ion-col>
+      <ion-col *ngIf="productDetails.details.is_nonveg == 1" align-self-start>
+        <ion-label color="dash6">Food Type :</ion-label>
+        <h3>Vej and Non Vej</h3>
+      </ion-col>
+      <ion-col *ngIf="productDetails.details.is_nonveg == 0" align-self-start>
+        <ion-label color="dash6">Food Type :</ion-label>
+        <h3>Only Vej</h3>
+      </ion-col>
+    </ion-row>
+  </ion-card-content>
+  </ion-card>
+</ion-content>

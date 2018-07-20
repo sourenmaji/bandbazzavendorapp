@@ -1,3 +1,6 @@
+import { ViewProductCarPage } from './../pages/view-product-car/view-product-car';
+import { ViewProductCatererPage } from './../pages/view-product-caterer/view-product-caterer';
+import { ViewProductBanquatePage } from './../pages/view-product-banquate/view-product-banquate';
 import { EditbusinessPage } from './../pages/editbusiness/editbusiness';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -45,7 +48,10 @@ import { AddbusinessPage } from '../pages/addbusiness/addbusiness';
     CustomPackageEnquiriesPage,
     EditProfilePage,
     AddbusinessPage,
-    EditbusinessPage
+    EditbusinessPage,
+    ViewProductBanquatePage,
+    ViewProductCatererPage,
+    ViewProductCarPage
   ],
   imports: [
     BrowserModule,
@@ -69,7 +75,10 @@ import { AddbusinessPage } from '../pages/addbusiness/addbusiness';
     CustomPackageEnquiriesPage,
     EditProfilePage,
     AddbusinessPage,
-    EditbusinessPage
+    EditbusinessPage,
+    ViewProductBanquatePage,
+    ViewProductCatererPage,
+    ViewProductCarPage
   ],
   providers: [
     StatusBar,

@@ -13,23 +13,47 @@
 </ion-header>
 
 
-<ion-content>
-    
-  <ion-row>
-    <ion-col col-4>
-      <button ion-button color="dash2" (click)="editBusiness(business)">
-        Car rental
-      </button>
-    </ion-col>
-    <ion-col col-4>
-      <button ion-button color="success">
-        Banquet
-      </button>
-    </ion-col>
-    <ion-col col-4>
-        <button ion-button color="success">
-          Caterer
+<ion-content padding>
+  <div>
+    <!-- dynamically generating the categories -->
+    <ion-segment [(ngModel)]="category" color="energy">
+      <ion-segment-button *ngFor="let category of categories" value={{category.module_name}} (click)="getProducts(category)">
+        {{category.module_name}}
+      </ion-segment-button>
+    </ion-segment>
+  
+
+  <ion-list>
+    <ion-item *ngFor ="let products of alProducts" >
+  <ion-card>
+
+    <img src="http://192.168.0.130/BandBazza/public/{{products.product_image}}">
+
+    <ion-card-content>
+      <ion-card-title>
+       <h3>{{products.product_name}}</h3> 
+      </ion-card-title>
+      <span [innerHTML]="products.details"></span>
+    </ion-card-content>
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-left item-end full color="dash2"  (click)="editBusiness(products)">
+          <ion-icon color="white" name="create"></ion-icon>
+          <div ion-text color="white"> Edit </div>
         </button>
-     </ion-col>
-  </ion-row>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-left item-end full color="success"  (click)="detailsProduct(products.product_id)">
+          <ion-icon name="eye"></ion-icon>
+          <div> Details </div>
+        </button>
+      </ion-col>
+      
+    </ion-row>
+
+  </ion-card>
+  </ion-item>
+
+  </ion-list>
+  </div>
 </ion-content>
