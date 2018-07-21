@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-navbar color="headers">
+    <ion-title>Booking Details</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>
+       Booking Information
+        </ion-card-title>
+      <p>
+          <li>Booking time: {{booking.details.created_at | date: 'MMM d yyyy'}}</li>
+          <li>Booking #: {{booking.details.serial_number}}</li>
+          <li>Booking status: {{booking.details.vendor_status}}</li>
+      </p>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+      <img src="{{this.apiUrl+booking.details.cover_image}}" alt="image"/>
+      <ion-card-content>
+        <ion-card-title>
+         Product Information
+          </ion-card-title>
+        <p *ngIf="booking.module=='Banquet Hall'">
+          <li>{{booking.details.banquet_name}}</li>
+          <li> Duration: {{booking.details.book_from | date: 'MMM d, yyyy'}} - {{booking.details.book_to | date: 'MMM d, yyyy'}} ({{booking.details.no_of_days}} hours)</li>
+          <li> Rate: Rs {{booking.details.book_rate}}/day</li>
+          <li> Book Amount: Rs {{booking.details.book_amount}}</li>
+          <li> Book Advance: Rs {{booking.details.book_advance}}</li>
+
+        </p>
+        <p *ngIf="booking.module=='Car Rental'">
+          <li>{{booking.details.car_company_name}} - {{booking.details.car_model_name}}</li>
+          <li *ngIf="booking.details.is_ac">AC: Yes</li>
+          <li *ngIf="!booking.details.is_ac">AC: No</li>
+          <li> Duration: {{booking.details.time_from | date: 'MMM d yyyy, h:mm a'}} - {{booking.details.time_to | date: 'MMM d yyyy, h:mm a'}} ({{booking.details.duration}} hours)</li>
+          <li> Rate: Rs {{booking.details.book_rate_hour}}/hr or Rs {{booking.details.book_rate_km}}/km</li>
+          <li> {{booking.details.no_of_seats}} seater</li>
+          <li> Book Amount: Rs {{booking.details.book_amount}}</li>
+          <li> Book Advance: Rs {{booking.details.book_advance}}</li>
+
+        </p>
+        <p *ngIf="booking.module=='Caterer'">
+            <li>{{booking.details.package_name}}</li>
+            <li> Booking Date: {{booking.details.booking_date | date: 'MMM d, yyyy'}}</li>
+            <li> Rate: Rs {{booking.details.package_rate}}/plate</li>
+            <li> Book Amount: Rs {{booking.details.book_amount}}</li>
+            <li> Book Advance: Rs {{booking.details.book_advance}}</li>
+        </p>
+      </ion-card-content>
+    </ion-card>
+  <ion-card>
+      <ion-card-content>
+        <ion-card-title>
+         Customer Information
+          </ion-card-title>
+        <p>
+            <li> Customer: {{booking.details.booked_by}}</li>
+            <li> Contact: {{booking.details.booker_phone}}</li>
+        </p>
+      </ion-card-content>
+    </ion-card>
+</ion-content>
