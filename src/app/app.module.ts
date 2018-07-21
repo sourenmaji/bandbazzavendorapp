@@ -29,6 +29,7 @@ import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { AddbusinessPage } from '../pages/addbusiness/addbusiness';
 import { Geolocation } from '@ionic-native/geolocation';
 import { EnquiryDetailsPage } from '../pages/enquiry-details/enquiry-details';
+import { BookingDetailsPage } from '../pages/booking-details/booking-details';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { EnquiryDetailsPage } from '../pages/enquiry-details/enquiry-details';
     EnquiriesPage,
     EnquiryDetailsPage,
     BookingsPage,
+    BookingDetailsPage,
     CustomPackageEnquiriesPage,
     EditProfilePage,
     AddbusinessPage,
@@ -71,6 +73,7 @@ import { EnquiryDetailsPage } from '../pages/enquiry-details/enquiry-details';
     EnquiriesPage,
     EnquiryDetailsPage,
     BookingsPage,
+    BookingDetailsPage,
     CustomPackageEnquiriesPage,
     EditProfilePage,
     AddbusinessPage,
