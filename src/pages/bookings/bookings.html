@@ -1,17 +1,88 @@
-
 <ion-header>
-
-  <ion-navbar color="headers">
-    <ion-title>Bookings</ion-title>
-    <ion-buttons start>
-      <button ion-button icon-only (click)="onOpenMenu()">
-        <ion-icon name="menu"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
+<ion-navbar color="headers">
+<ion-title>Bookings</ion-title>
+<ion-buttons start>
+<button ion-button icon-only (click)="onOpenMenu()">
+<ion-icon name="menu"></ion-icon>
+</button>
+</ion-buttons>
+</ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
+<div padding>
+<!-- dynamically generating the categories -->
+<ion-segment [(ngModel)]="category" color="energy">
+<ion-segment-button *ngFor="let category of categories" value={{category.module_name}} (click)="getBookings(category)">
+{{category.module_name}}
+</ion-segment-button>
+</ion-segment>
+</div>
 
+<div [ngSwitch]="category">
+<div *ngFor="let category of categories">
+<ion-list *ngSwitchCase=category.module_name>
+
+<ion-list-header *ngIf="bookings.length">
+{{category.module_name}} Bookings
+</ion-list-header>
+
+<button ion-item *ngFor="let booking of bookings" (click)="goToBookingDetails(booking,category.module_name)">
+<ion-thumbnail item-start>
+<!-- <img src={{this.apiUrl+booking.cover_image}} alt="image"> -->
+</ion-thumbnail>
+
+<div item-end *ngIf="category.module_name=='Banquet Hall'">
+<h2>{{booking.banquet_name}}</h2>
+Booking Time: {{booking.created_at}}  
+</div>
+
+<div item-end *ngIf="category.module_name=='Car Rental'">
+<h2>{{booking.car_company_name}} - {{booking.car_model_name}}</h2>
+Booking Time:  {{booking.created_at}}
+</div>
+
+<div item-end *ngIf="category.module_name=='Caterer'">
+<h2>{{booking.package_name}}</h2>
+Booking Time:  {{booking.created_at}}
+</div>
+
+</button>
+
+<ion-list-header *ngIf="offline_bookings.length">
+{{category.module_name}} Offline Bookings
+</ion-list-header>
+
+<button ion-item *ngFor="let offline of offline_bookings" (click)="goToBookingDetails(offline,category.module_name)">
+<ion-thumbnail item-start>
+<img src={{this.apiUrl+offline.cover_image}} alt="image">
+</ion-thumbnail>
+
+<div item-end *ngIf="category.module_name=='Banquet Hall'">
+<h2>{{offline.banquet_name}}</h2>
+Booking Time: {{offline.created_at}}
+</div>
+
+<div item-end *ngIf="category.module_name=='Car Rental'">
+<h2>{{offline.car_company_name}} - {{offline.car_model_name}}</h2>
+Booking Time: {{offline.created_at}}
+</div>
+
+<div item-end *ngIf="category.module_name=='Caterer'">
+<h2>{{offline.package_name}}</h2>
+Booking Time: {{offline.created_at}}
+</div>
+
+</button>
+
+<p *ngIf="!offline_bookings.length && !bookings.length" text-center>
+{{message}}
+</p>
+
+</ion-list>
+</div>
+</div>
 </ion-content>
+
+

@@ -20,7 +20,7 @@ import { ProductsPage } from '../pages/products/products';
 import { EnquiriesPage } from '../pages/enquiries/enquiries';
 import { BookingsPage } from '../pages/bookings/bookings';
 import { CustomPackageEnquiriesPage } from '../pages/custom-package-enquiries/custom-package-enquiries';
-import {Network} from '@ionic-native/network';
+import { Network} from '@ionic-native/network';
 import { File } from '@ionic-native/file';
 import { Camera } from '@ionic-native/camera';
 import { FileTransfer } from '@ionic-native/file-transfer';
@@ -28,6 +28,10 @@ import { FilePath } from '@ionic-native/file-path';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { AddbusinessPage } from '../pages/addbusiness/addbusiness';
 import { AddCatererPage } from '../pages/add-caterer/add-caterer';
+//import { Geolocation } from '@ionic-native/geolocation';
+import { EnquiryDetailsPage } from '../pages/enquiry-details/enquiry-details';
+import { BookingDetailsPage } from '../pages/booking-details/booking-details';
+
 
 @NgModule({
   declarations: [
@@ -42,7 +46,9 @@ import { AddCatererPage } from '../pages/add-caterer/add-caterer';
     BusinessPage,
     ProductsPage,
     EnquiriesPage,
+    EnquiryDetailsPage,
     BookingsPage,
+    BookingDetailsPage,
     CustomPackageEnquiriesPage,
     EditProfilePage,
     AddbusinessPage,
@@ -67,7 +73,9 @@ import { AddCatererPage } from '../pages/add-caterer/add-caterer';
     BusinessPage,
     ProductsPage,
     EnquiriesPage,
+    EnquiryDetailsPage,
     BookingsPage,
+    BookingDetailsPage,
     CustomPackageEnquiriesPage,
     EditProfilePage,
     AddbusinessPage,
@@ -83,7 +91,8 @@ import { AddCatererPage } from '../pages/add-caterer/add-caterer';
     File,
     FileTransfer,
     Camera,
-    FilePath
+    FilePath,
+    Geolocation
   ]
 })
 export class AppModule {}

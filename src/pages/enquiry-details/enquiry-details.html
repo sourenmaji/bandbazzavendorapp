@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-navbar color="headers">
+    <ion-title>Enquiry Details</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-card>
+        <ion-card-content>
+          <ion-card-title>
+           Enquiry Information
+            </ion-card-title>
+          <p>
+              <li>Enquiry time: {{enquiry.details.created_at}}</li>
+              <li>Enquiry #: {{enquiry.details.serial_number}}</li>
+              <li>Enquiry status: {{enquiry.details.vendor_status}}</li>
+          </p>
+        </ion-card-content>
+        <button *ngIf="enquiry.details.enquiry_status==-1" ion-button block (click)="enquiryAction(enquiry.details.id,enquiry.module)" color="energy">Action</button>
+      </ion-card>
+      <ion-card>
+          <img src="{{this.apiUrl+enquiry.details.cover_image}}" alt="image"/>
+          <ion-card-content>
+            <ion-card-title>
+             Product Information
+              </ion-card-title>
+            <p *ngIf="enquiry.module=='Banquet Hall'">
+              <li>{{enquiry.details.hall_name}}</li>
+              <li> Duration: {{enquiry.details.book_from | date: 'MMM d, yyyy'}} - {{enquiry.details.book_to | date: 'MMM d, yyyy'}}</li>
+              <li> Rate: Rs {{enquiry.details.book_rate}}/day</li>
+
+            </p>
+            <p *ngIf="enquiry.module=='Car Rental'">
+              <li>{{enquiry.details.car_company_name}} - {{enquiry.details.car_model}}</li>
+              <li *ngIf="enquiry.details.is_ac">AC: Yes</li>
+              <li *ngIf="!enquiry.details.is_ac">AC: No</li>
+              <li> Duration: {{enquiry.details.time_from | date: 'MMM d yyyy, h:mm a'}} - {{enquiry.details.time_to | date: 'MMM d yyyy, h:mm a'}} ({{enquiry.details.duration}} hours)</li>
+              <li> Rate: Rs {{enquiry.details.enq_rate_hour}}/hr or Rs {{enquiry.details.enq_rate_km}}/km</li>
+
+            </p>
+            <p *ngIf="enquiry.module=='Caterer'">
+                <li>{{enquiry.details.package_name}}</li>
+                <li> Booking Date: {{enquiry.details.date | date: 'MMM d, yyyy'}}</li>
+                <li> Rate: Rs {{enquiry.details.enquiry_rate}}/plate</li>
+
+            </p>
+          </ion-card-content>
+        </ion-card>
+      <ion-card>
+          <ion-card-content>
+            <ion-card-title>
+             Customer Information
+              </ion-card-title>
+            <p>
+                <li> Customer: {{enquiry.details.name}}</li>
+                <li> Contact: {{enquiry.details.phone_no}}</li>
+            </p>
+          </ion-card-content>
+        </ion-card>
+       
+</ion-content>

@@ -12,7 +12,6 @@ import { EnquiriesPage } from '../pages/enquiries/enquiries';
 import { BookingsPage } from '../pages/bookings/bookings';
 import { CustomPackageEnquiriesPage } from '../pages/custom-package-enquiries/custom-package-enquiries';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
-import { LoginPage } from '../pages/login/login';
 
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { AddCatererPage } from '../pages/add-caterer/add-caterer';

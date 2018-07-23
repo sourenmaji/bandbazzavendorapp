@@ -1,6 +1,4 @@
-
 <ion-header>
-
   <ion-navbar color="headers">
     <ion-title>Enquiries</ion-title>
     <ion-buttons start>
@@ -9,10 +7,82 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
-
+  <div padding>
+    <!-- dynamically generating the categories -->
+    <ion-segment [(ngModel)]="category" color="energy">
+      <ion-segment-button *ngFor="let category of categories" value={{category.module_name}} (click)="getEnquiries(category)">
+        {{category.module_name}}
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  
+  <div [ngSwitch]="category">
+    <div *ngFor="let category of categories">
+      <ion-list *ngSwitchCase=category.module_name>
+        
+        <ion-list-header *ngIf="enquiries.length">
+          {{category.module_name}} Active Enquiries
+        </ion-list-header>
+        
+        <button ion-item *ngFor="let enquiry of enquiries" (click)="goToEnquiryDetails(enquiry,category.module_name)">
+          <ion-thumbnail item-start>
+            <img src={{this.apiUrl+enquiry.cover_image}} alt="image">
+          </ion-thumbnail>
+          
+          <div item-end *ngIf="category.module_name=='Banquet Hall'">
+            <h2>{{enquiry.hall_name}}</h2>
+            <li>Enquiry time: {{enquiry.created_at}}</li>
+          </div>
+          
+          <div item-end *ngIf="category.module_name=='Car Rental'">
+            <h2>{{enquiry.car_company_name}} - {{enquiry.car_model}}</h2>
+            <li>Enquiry time: {{enquiry.created_at}}</li>
+          </div>
+          
+          <div item-end *ngIf="category.module_name=='Caterer'">
+            <h2>{{enquiry.package_name}}</h2>
+            <li>Enquiry time: {{enquiry.created_at}}</li>
+          </div>
+          
+        </button>
+        
+        <ion-list-header *ngIf="enquiries_history.length">
+          {{category.module_name}} Enquiries History
+        </ion-list-header>
+        
+        <button ion-item *ngFor="let history of enquiries_history" (click)="goToEnquiryDetails(history,category.module_name)">
+            
+          <ion-thumbnail item-start>
+            <img src={{this.apiUrl+history.cover_image}} alt="image">
+          </ion-thumbnail>
+          
+          <div *ngIf="category.module_name=='Banquet Hall'" item-end>
+            <h2>{{history.hall_name}}</h2>
+            <li>Enquiry time: {{history.created_at}}</li>
+          </div>
+          
+          <div *ngIf="category.module_name=='Car Rental'" item-end>
+            <h2>{{history.car_company_name}} - {{history.car_model}}</h2>
+            <li>Enquiry time: {{history.created_at}}</li>
+          </div>
+          
+          <div *ngIf="category.module_name=='Caterer'" item-end>
+            <h2>{{history.package_name}}</h2>
+            <li>Enquiry time: {{history.created_at}}</li>
+          </div>
+          
+        </button>
+        
+        <p *ngIf="!enquiries_history.length && !enquiries.length" text-center>
+          {{message}}
+        </p>
+        
+      </ion-list>
+    </div>
+  </div>
 </ion-content>
+

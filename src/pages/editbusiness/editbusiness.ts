@@ -15,7 +15,6 @@ let apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
   templateUrl: 'editbusiness.html',
 })
 export class EditbusinessPage {
-  responseData: any;
   business :  any;
   userDetails : any;
   lastImage: string = null;
@@ -23,13 +22,13 @@ export class EditbusinessPage {
   businessImageSrc: any;
   targetPath = "";
   result : FileUploadResult = null;
-  userPostData = {"user":"","token":""};
+  responseData: any;
+ 
   constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, 
     public toastCtrl: ToastController,private camera: Camera, public platform: Platform ,private filePath: FilePath,
     private file: File, private alertCtrl: AlertController, private transfer: FileTransfer,private authService: AuthServiceProvider) {
 
     this.business = this.navParams.get('business');
-    console.log(this.business);
   this.businessImage = this.business.business_image;
   this.businessImageSrc = "http://192.168.0.130/BandBazza/public/"+this.businessImage;
 
@@ -41,7 +40,7 @@ export class EditbusinessPage {
   }
  editBusinessform: FormGroup;
   userData = { phone: "",email: "",companyName: "",address: "",city: "",details: "",businessType: "",filename: "", business_id: ""};
- 
+  userPostData = {"user":"","token":""};
 
   ngOnInit() {
     let EMAILPATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -55,7 +54,7 @@ export class EditbusinessPage {
       city: new FormControl('', [Validators.required]),
       details: new FormControl('', [Validators.required]),
       businessType: new FormControl('', [Validators.required]),
-      business_id: new FormControl('', Validators.compose([])),
+      business_id: new FormControl('', Validators.compose([]))
     });
 
     
@@ -179,15 +178,15 @@ export class EditbusinessPage {
       const fileTransfer: FileTransferObject = this.transfer.create();
       fileTransfer.upload(this.targetPath, apiUrl+'edit_business', options).then((data) => {
         // Success!
-        //alert('success')
+        alert('success')
         this.result = data;
-        alert(this.result.response);
+        //alert(this.result.response);
         var success = JSON.parse(this.result.response);
-        alert(success.status);
+       // alert(success.status);
         if(success.status===true){
-        localStorage.setItem('businessData', success.businesses);
+        //localStorage.setItem('businessData', success.businesses);
         const alert = this.alertCtrl.create({
-          subTitle: 'Business updated successfully',
+          subTitle: success.message,
           buttons: ['OK']
           
         })
@@ -195,19 +194,33 @@ export class EditbusinessPage {
         this.navCtrl.pop();
         //this.navCtrl.push(BusinessPage);
         //this.navCtrl.remove(this.navCtrl.length()-1);
+        }else{
+          const alert = this.alertCtrl.create({
+            subTitle: success.message,
+            buttons: ['OK']
+            
+          })
+          alert.present();
+          this.navCtrl.pop();
         }
        
       },
       (err) => {
         // Error
-        alert('error! Try again')
-        alert(err.body);
+        //alert('error! Try again')
+        //alert(err.body);
         var error = JSON.parse(err.body);
-        alert(error.status);
-        if(error.status==false){
-        this.navCtrl.push(BusinessPage);
-        this.navCtrl.remove(this.navCtrl.length()-1);
-        }
+        //alert(error.status);
+        const alert = this.alertCtrl.create({
+          subTitle: error.message,
+          buttons: ['OK']
+          
+        })
+        alert.present();
+        // if(error.status==false){
+        // this.navCtrl.push(BusinessPage);
+        // this.navCtrl.remove(this.navCtrl.length()-1);
+        // }
       }); 
     }
     else{
@@ -215,27 +228,28 @@ export class EditbusinessPage {
         this.responseData = data;
         if(this.responseData.status===true)
         {
-          localStorage.setItem('businessData', this.responseData.businesses);
+          //localStorage.setItem('businessData', this.responseData.businesses);
           const alert = this.alertCtrl.create({
-            subTitle: 'Business updated successfully',
+            subTitle: this.responseData.message,
+            buttons: ['OK']
+            
+          })
+          alert.present();
+          this.navCtrl.pop();
+        }else{
+          const alert = this.alertCtrl.create({
+            subTitle: this.responseData.message,
             buttons: ['OK']
             
           })
           alert.present();
           this.navCtrl.pop();
         }
-        else{ 
-         const alert = this.alertCtrl.create({
-           subTitle: this.responseData.success.message,
-           buttons: ['OK']
-         })
-         alert.present();
-       }
       }, (err) => {
        this.responseData = err.json();
        console.log(this.responseData)
        const alert = this.alertCtrl.create({
-         subTitle: this.responseData.error,
+         subTitle: this.responseData.message,
          buttons: ['OK']
        })
        alert.present();
