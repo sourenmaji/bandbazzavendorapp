@@ -83,6 +83,28 @@ export class AuthServiceProvider {
     });
   }
 
+  testCall()
+  {
+    return new Promise((resolve, reject) => {
+      let headers = new Headers();
+      //console.log(token);
+      headers.append('Accept','application/json');
+      //headers.append('Authorization','Bearer '+ token);
+      console.log(headers);
+      //console.log(apiUrl+type);
+      
+      this.http.get(apiUrl+"test",{headers: headers})
+        .subscribe(res => {
+          console.log(res.json());
+          resolve(res.json()); 
+        }, 
+        (err) => {
+          console.log(err.json());
+          reject(err);
+        });
+    });
+  }
+
   // uploadImage(credentials, path, type) {
 
   //   console.log(credentials)

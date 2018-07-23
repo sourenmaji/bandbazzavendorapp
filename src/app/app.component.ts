@@ -15,12 +15,13 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { LoginPage } from '../pages/login/login';
 
 import { DashboardPage } from '../pages/dashboard/dashboard';
+import { AddCatererPage } from '../pages/add-caterer/add-caterer';
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
- // rootPage:any = WelcomePage;
- rootPage:any = WelcomePage;
+ // rootPage:any = WelcomePage;//modified by krishna, line 23 should be reverted back to --> rootPage:any = WelcomePage;
+ rootPage:any = AddCatererPage;
   dashboardPage = DashboardPage;
   profilePage = ProfilePage;
   homePage = HomePage;

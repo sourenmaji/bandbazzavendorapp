@@ -27,6 +27,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { AddbusinessPage } from '../pages/addbusiness/addbusiness';
+import { AddCatererPage } from '../pages/add-caterer/add-caterer';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { AddbusinessPage } from '../pages/addbusiness/addbusiness';
     CustomPackageEnquiriesPage,
     EditProfilePage,
     AddbusinessPage,
-    EditbusinessPage
+    EditbusinessPage,
+    AddCatererPage
   ],
   imports: [
     BrowserModule,
@@ -69,7 +71,8 @@ import { AddbusinessPage } from '../pages/addbusiness/addbusiness';
     CustomPackageEnquiriesPage,
     EditProfilePage,
     AddbusinessPage,
-    EditbusinessPage
+    EditbusinessPage,
+    AddCatererPage
   ],
   providers: [
     StatusBar,
