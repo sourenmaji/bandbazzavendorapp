@@ -1,13 +1,64 @@
 
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="headers">
     <ion-title>View Product</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <ion-card>
+
+    <ion-slides autoplay="5000" loop="true" speed="3000" height="200" pager>
+        <ion-slide>
+            <img src="http://192.168.0.130/BandBazza/public/{{productValue.cover_image}}">
+        </ion-slide>
+          
+        <ion-slide *ngFor="let slide of productImages">
+          <img src="http://192.168.0.130/BandBazza/public/{{slide.url}}">
+        </ion-slide>
+      </ion-slides>
+  <ion-card-content>
+  <ion-card-title>
+   
+          <h1 ion-text color="danger">{{productValue.car_company_name}}</h1>
+    
+   </ion-card-title>
+  <ion-row>
+      <ion-col align-self-start>
+          <ion-label color="dash6">No. Of Seats :</ion-label>
+          <h3>{{productValue.no_of_seats}}</h3>
+        </ion-col>
+        <ion-col  align-self-start>
+          <ion-label color="dash6">Advance Amount :</ion-label>
+          <h3>Rs.{{productValue.book_advance | number:'1.0-0'}}</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+    <ion-col  align-self-start>
+      <ion-label color="dash6">Non AC<small>(hourly)</small> :</ion-label>
+      <h3>Rs.{{productValue.car_price_hour | number:'1.0-0'}}</h3>
+    </ion-col>
+    <ion-col  align-self-start>
+      <ion-label color="dash6">Non AC<small>(per km)</small> :</ion-label>
+      <h3>Rs.{{productValue.car_price_kil | number:'1.0-0'}}</h3>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col *ngIf="productValue.ac_car_price_hour != null" align-self-start>
+      <ion-label color="dash6">AC<small>(hourly)</small> :</ion-label>
+      <h3>Rs.{{productValue.ac_car_price_hour | number:'1.0-0'}}</h3>
+    </ion-col>
+    <ion-col *ngIf="productValue.ac_car_price_kil != null" align-self-start>
+      <ion-label color="dash6">AC<small>(per km)</small> :</ion-label>
+        <h3>Rs.{{productValue.ac_car_price_kil | number:'1.0-0'}}</h3>
+    </ion-col>
+  </ion-row>
+ 
+</ion-card-content>
+  
+</ion-card>
 
 </ion-content>

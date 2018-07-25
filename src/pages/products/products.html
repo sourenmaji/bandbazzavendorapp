@@ -13,47 +13,143 @@
 </ion-header>
 
 
-<ion-content padding>
-  <div>
+<ion-content>
+  
     <!-- dynamically generating the categories -->
     <ion-segment [(ngModel)]="category" color="energy">
       <ion-segment-button *ngFor="let category of categories" value={{category.module_name}} (click)="getProducts(category)">
         {{category.module_name}}
       </ion-segment-button>
     </ion-segment>
-  
-
   <ion-list>
-    <ion-item *ngFor ="let products of alProducts" >
+     <ion-item>
+    <div *ngFor ="let products of alProducts" >
   <ion-card>
 
     <img src="http://192.168.0.130/BandBazza/public/{{products.product_image}}">
 
-    <ion-card-content>
-      <ion-card-title>
-       <h3>{{products.product_name}}</h3> 
+    <ion-card-content *ngIf="category=='Banquet Hall'">
+        <ion-fab mid right>
+            <button ion-fab mini (click)="deleteBusiness(business.id)">
+                <ion-icon name="trash" color="danger"></ion-icon>
+              </button>
+          </ion-fab>
+      <ion-card-title > 
+        <ion-row>
+          <ion-col col-auto> 
+              <h1 ion-text color="danger">{{products.product_name}}</h1>
+          </ion-col>
+          <ion-col *ngIf="products.is_ac" >
+              <ion-badge color="ac" item-end>AC</ion-badge>
+          </ion-col>
+          <ion-col *ngIf="!products.is_ac" >
+              <ion-badge color="dash2" item-end>Non AC</ion-badge>
+            </ion-col>
+        </ion-row>
+      <ion-row>
+        <ion-col>
+            <h2 ion-text color="dark"><b>Rs.{{products.price | number:'1.0-0'}}</b></h2>
+        </ion-col>
+      </ion-row>
+             
       </ion-card-title>
-      <span [innerHTML]="products.details"></span>
+      <ion-row>
+        <ion-col>
+            <ion-label color="dash6">Ac Charge :</ion-label>
+            <h3 *ngIf="products.is_ac">{{products.ac_charge}}</h3>
+            <h3 *ngIf="!products.is_ac">N/A</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+            <button ion-button icon-left round full color="dash2"  (click)="detailsProduct(products.product_id,'edit')">
+              <ion-icon color="white" name="create"></ion-icon>
+              <div ion-text color="white"> Edit </div>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-left round full color="success"  (click)="detailsProduct(products.product_id,'details')">
+              <ion-icon name="eye"></ion-icon>
+              <div> Details </div>
+            </button>
+          </ion-col>
+        </ion-row>
+        
     </ion-card-content>
-    <ion-row>
-      <ion-col>
-        <button ion-button icon-left item-end full color="dash2"  (click)="editBusiness(products)">
-          <ion-icon color="white" name="create"></ion-icon>
-          <div ion-text color="white"> Edit </div>
-        </button>
-      </ion-col>
-      <ion-col>
-        <button ion-button icon-left item-end full color="success"  (click)="detailsProduct(products.product_id)">
-          <ion-icon name="eye"></ion-icon>
-          <div> Details </div>
-        </button>
-      </ion-col>
-      
-    </ion-row>
+    <ion-card-content *ngIf="category=='Car Rental'">
+        <ion-card-title >
+          <ion-row>
+            <ion-col col-auto> 
+                <h1 ion-text color="danger">{{products.product_name}}</h1>
+                <h2 ion-text color="dash6">{{products.no_of_seats}}Seater</h2>
+            </ion-col>
+          
+          </ion-row>  
+        </ion-card-title>
+        <ion-row>
+          <ion-col>
+              <ion-label color="dash6">Ac Charge :</ion-label>
+              <h3 >Rs.{{products.ac_car_price_hour | number:'1.0-0'}}/HR</h3>
+              <h3 >Rs.{{products.ac_car_price_kil | number:'1.0-0'}}/KM</h3>
+          </ion-col>
+          
+          <ion-col>
+              <ion-label color="dash6">Non Ac Charge :</ion-label>
+              <h3 >Rs.{{products.car_price_hour | number:'1.0-0'}}/HR</h3>
+              <h3 >Rs.{{products.car_price_kil | number:'1.0-0'}}/KM</h3>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+              <button ion-button icon-left round full color="dash2"  (click)="editBusiness(products)">
+                <ion-icon color="white" name="create"></ion-icon>
+                <div ion-text color="white"> Edit </div>
+              </button>
+            </ion-col>
+            <ion-col>
+              <button ion-button icon-left round full color="success"  (click)="detailsProduct(products.product_id)">
+                <ion-icon name="eye"></ion-icon>
+                <div> Details </div>
+              </button>
+            </ion-col>
+          </ion-row>
+          
+      </ion-card-content>
+
+      <ion-card-content *ngIf="category=='Caterer'">
+          <ion-card-title >
+            <ion-row>
+              <ion-col col-auto *ngIf="products.is_veg == 1"> 
+                  <h1 ion-text color="danger">{{products.product_name}}</h1>
+                  <h2 ion-text color="dash6">Vej : <span ion-text color="dark">Rs.{{products.price_per_plate | number:'1.0-0'}}</span></h2>
+              </ion-col>
+              <ion-col col-auto *ngIf="products.is_veg == 0"> 
+                  <!-- <h1 ion-text color="dash6">Non Vej :<span ion-text color="dash6">{{products.price_per_plate}}</span></h1> -->
+                  <h1 ion-text color="danger">{{products.product_name}}</h1>
+                  <h2 ion-text color="dash6">Non Vej : <span ion-text color="dark">Rs.{{products.price_per_plate | number:'1.0-0'}}</span></h2>
+              </ion-col>
+            </ion-row>  
+          </ion-card-title>
+          <ion-row>
+            <ion-col>
+                <button ion-button icon-left round full color="dash2"  (click)="editBusiness(products)">
+                  <ion-icon color="white" name="create"></ion-icon>
+                  <div ion-text color="white"> Edit </div>
+                </button>
+              </ion-col>
+              <ion-col>
+                <button ion-button icon-left round full color="success"  (click)="detailsProduct(products.product_id)">
+                  <ion-icon name="eye"></ion-icon>
+                  <div> Details </div>
+                </button>
+              </ion-col>
+            </ion-row>
+            
+        </ion-card-content>
 
   </ion-card>
-  </ion-item>
-
+</div>
+</ion-item>
   </ion-list>
-  </div>
+
 </ion-content>

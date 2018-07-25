@@ -30,7 +30,6 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { AddbusinessPage } from '../pages/addbusiness/addbusiness';
-import { Geolocation } from '@ionic-native/geolocation';
 import { EnquiryDetailsPage } from '../pages/enquiry-details/enquiry-details';
 
 
@@ -94,8 +93,7 @@ import { EnquiryDetailsPage } from '../pages/enquiry-details/enquiry-details';
     File,
     FileTransfer,
     Camera,
-    FilePath,
-    Geolocation
+    FilePath
   ]
 })
 export class AppModule {}

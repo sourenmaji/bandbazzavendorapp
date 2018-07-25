@@ -25,6 +25,7 @@ export class ProductsPage {
   message: string;
   productDetails: any;
   productImages: any;
+  pageReset: boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController,
               public loadingCtrl: LoadingController, public authService: AuthServiceProvider, public alertCtrl: AlertController) {
     const data = JSON.parse(localStorage.getItem('userData'));
@@ -32,8 +33,9 @@ export class ProductsPage {
     this.userPostData.user = this.userDetails;
     this.userPostData.token = data.success.token;
     this.responseData = {};
+    this.pageReset = this.authService.pageReset;
   }
-  ionViewDidEnter(){
+  ionViewDidLoad(){
     this.categories= [];
     this.category = "";
     this.alProducts = [];
@@ -41,8 +43,15 @@ export class ProductsPage {
     this.message="";
     this.productDetails = "";
     this.productImages = [];
-    //console.log(this.alProducts);
     this.getBusinessCatagories();
+  }
+  ionViewDidEnter(){
+    
+    //console.log(this.pageReset);
+    if(this.pageReset){
+      this.getBusinessCatagories();
+    }
+    
   }
 
   getBusinessCatagories()
@@ -110,6 +119,7 @@ export class ProductsPage {
         
            this.alProducts=this.responseData.all_products;
            this.businessProducts=this.responseData.business_details;
+           console.log(this.businessProducts.module_name == 'Banquet Hall');
            if(!this.alProducts.length){
             const alert = this.alertCtrl.create({
               subTitle: 'No Product Added Yet',
@@ -128,9 +138,8 @@ export class ProductsPage {
     });
   }
 
-  detailsProduct(productId){
-    console.log(productId);
-    console.log(this.category);
+  detailsProduct(productId,type){
+    var requestType = type;
     var cate = this.category;
     this.authService.getData('get_product_details?product_id='+productId+'&module_name='+cate,this.userPostData.token).then((result) => {
       this.responseData = result;
@@ -138,15 +147,15 @@ export class ProductsPage {
       this.productDetails = this.responseData;
       if(cate=='Banquet Hall')
     {
-      this.navCtrl.push(ViewProductBanquatePage,{productDetails: this.productDetails});
+      this.navCtrl.push(ViewProductBanquatePage,{productDetails: this.productDetails, requestType: requestType});
     }
     else if(cate=='Car Rental')
     {
-      this.navCtrl.push(ViewProductCarPage,{productDetails: this.productDetails});
+      this.navCtrl.push(ViewProductCarPage,{productDetails: this.productDetails, requestType: requestType});
     }
     else if(cate=='Caterer')
     {
-      this.navCtrl.push(ViewProductCatererPage,{productDetails: this.productDetails});
+      this.navCtrl.push(ViewProductCatererPage,{productDetails: this.productDetails, requestType: requestType});
     }
         
     }, 
@@ -161,6 +170,11 @@ export class ProductsPage {
  
   }
 
+
+
+
+
+  
   onOpenMenu(){
 this.menuCtrl.open();
   }
