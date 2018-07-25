@@ -1,9 +1,10 @@
 import { ViewProductCatererPage } from './../view-product-caterer/view-product-caterer';
 import { ViewProductCarPage } from './../view-product-car/view-product-car';
 import { ViewProductBanquatePage } from './../view-product-banquate/view-product-banquate';
-import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, LoadingController, AlertController } from 'ionic-angular';
+import { AddCatererPage } from '../add-caterer/add-caterer';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 
 
@@ -35,7 +36,16 @@ export class ProductsPage {
     this.responseData = {};
     this.pageReset = this.authService.pageReset;
   }
+
   ionViewDidLoad(){
+
+    this.restServ.testCall().then((result) =>
+    {
+      this.data = result;
+      console.log(this.data.test);
+    }
+  );
+  
     this.categories= [];
     this.category = "";
     this.alProducts = [];
@@ -178,4 +188,13 @@ export class ProductsPage {
   onOpenMenu(){
 this.menuCtrl.open();
   }
+
+  goTo(productType: string)
+  {
+    if(productType == 'caterer')
+    {
+      this.navCtrl.push(AddCatererPage);
+    }
+  }
+
 }

@@ -1,0 +1,222 @@
+<!--
+  Generated template for the AddCarsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>add-cars</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="overflow: hidden;height: 100vh">
+
+  <ion-slides #formslides style="height: 80vh"> 
+      <ion-slide style="height: 100vh">
+        <ion-card style="max-height: 100vh; height: 100vh;">
+            <ion-card-header>
+              Step 1/4
+            </ion-card-header>
+            <hr>
+            <ion-card-content>
+              <ion-list>
+                <ion-item >
+                  <p style="color: red" >{{errormessage}}</p>
+                </ion-item>
+                <div *ngIf="!unknowncar" >
+                    <ion-item>
+                        <ion-label>Select Brand</ion-label>
+                        <ion-select interface="popover">
+                          <ion-option (ionSelect)="updateModels(b)" *ngFor="let b of carbrands">{{b.car_company_name}}</ion-option>
+                        </ion-select>
+                      </ion-item>
+                      <ion-item *ngIf="form1data.brand != null">
+                        <ion-label>Select Model</ion-label>
+                        <ion-select interface="popover">
+                          <ion-option (ionSelect)="storeModel(m)"  *ngFor="let m of carmodels">{{m.car_model}}</ion-option>
+                        </ion-select>
+                      </ion-item>
+    
+                      <ion-item *ngIf="form1data.brand == null">
+                        <ion-label>Select a brand to choose brands</ion-label>
+                      </ion-item>
+                </div>
+
+                <div *ngIf="unknowncar" >
+                    <ion-item>
+                      <ion-label>
+                        Car Brand
+                      </ion-label>
+                      <ion-input [(ngModel)]="form1data.brand" >
+                      </ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label>
+                        Car Model
+                      </ion-label>
+                      <ion-input [(ngModel)]="form1data.model" >
+                      </ion-input>
+                    </ion-item>
+                </div>
+                  <ion-item>
+                    <ion-label>My Car is not in list</ion-label>
+                    <ion-checkbox [(ngModel)]="unknowncar" (ionChange)="switchInputMethod()">
+                    </ion-checkbox>
+                  </ion-item>
+
+                  <ion-item>
+                    <ion-label>car type</ion-label>
+                    <ion-select interface="popover" >
+                      <ion-option (ionSelect)="storeType(type)" *ngFor="let type of cartypes" >
+                        {{type.type}}
+                      </ion-option>
+                    </ion-select>
+                  </ion-item>
+              </ion-list>
+            </ion-card-content>
+        </ion-card>
+      </ion-slide>
+      <ion-slide style="height: 100vh">
+        <ion-card style="height: 100vh;">
+            <ion-card-header>
+              Step 2/4
+            </ion-card-header>
+            <br>
+            <ion-card-content>
+              <ion-list>
+                  <ion-item>
+                    <ion-label>
+                      No of seats
+                    </ion-label>
+                    <ion-input>
+  
+                    </ion-input>
+                  </ion-item>
+                  <ion-row>
+                    <ion-col>
+                      <ion-label>
+                        Minimum hire period
+                      </ion-label>
+                      <ion-input>
+
+                      </ion-input>
+                    </ion-col>
+                    <ion-col>
+                      <ion-label>
+                        Maximum hire period
+                      </ion-label>
+                      <ion-input>
+                        
+                      </ion-input>
+                    </ion-col>
+                  </ion-row>
+                  <ion-label>
+                    Enter price rate (Non-AC)
+                  </ion-label>
+                  <ion-row>
+                      <ion-col>
+                        <ion-label>Per hour</ion-label>
+                        <ion-input>
+                          
+                        </ion-input>
+                      </ion-col>
+                      <ion-col>
+                        <ion-label>Per KM</ion-label>
+                        <ion-input>
+                          
+                        </ion-input>
+                      </ion-col>
+                  </ion-row>
+                  <ion-item>
+                    <ion-label>AC available</ion-label>
+                    <ion-checkbox [(ngModel)]="ac_available" ></ion-checkbox>
+                  </ion-item>
+                  <div *ngIf="ac_available" >
+                      <ion-label>
+                          Enter price rate (AC)
+                        </ion-label>
+                        <ion-row>
+                            <ion-col>
+                              <ion-label>Per hour</ion-label>
+                              <ion-input>
+                                
+                              </ion-input>
+                            </ion-col>
+                            <ion-col>
+                              <ion-label>Per KM</ion-label>
+                              <ion-input>
+                                
+                              </ion-input>
+                            </ion-col>
+                        </ion-row>
+                  </div>
+                  <ion-item>
+                    <ion-label>
+                      Advance amount
+                    </ion-label>
+                    <ion-item></ion-item>
+                  </ion-item>
+
+                  <ion-item>
+                    <ion-label>Enter search tags</ion-label>
+                    <ion-input></ion-input>
+                  </ion-item>
+
+              </ion-list>
+            </ion-card-content>
+            <hr>
+        </ion-card>
+      </ion-slide>
+      <ion-slide style="height: 100vh">
+        <ion-card style="height: 100vh;">
+            <ion-card-header>
+              Step 3/4
+            </ion-card-header>
+            <hr>
+            <ion-card-content>
+              <button ion-button (click)="pickImage()" >pick image</button>
+              <ion-card *ngFor="let img of images"  style="position: relative" >
+                <img src="{{img}}">
+                <div style="position: absolute; right: 2%; top: 2%" >
+                    <ion-icon (click)="removeImage(img)" style="color: red;font-size: 50px" name="close-circle" ></ion-icon>
+                </div>
+                 </ion-card>
+            </ion-card-content>
+        </ion-card>
+      </ion-slide>
+      <ion-slide style="height: 100vh">
+        <ion-card style="height: 100vh;">
+            <ion-card-header>
+              Step 4/4
+            </ion-card-header>
+            <hr>
+        </ion-card>
+      </ion-slide>
+  </ion-slides>
+  <hr>
+  <ion-row style="height: fit-content" no-padding>
+      <ion-col style="width: 25%">
+        <div *ngIf="pageNo != 0">
+            <ion-icon (click)="goToPrev()" style="font-size: 30px; position: absolute;left: 20px;" name="ios-arrow-back"></ion-icon>
+        </div>
+          </ion-col>
+      <ion-col style="height: 100%; width: 50%">
+          <ion-slides #sliderbubbles pager style=" width: 100%;height:30px;">
+              <ion-slide *ngFor="let s of slides">
+              </ion-slide>
+          </ion-slides>
+      </ion-col>
+      <ion-col style="width: 25%">
+        <div *ngIf="pageNo < (len-1)">
+            <ion-icon (click)="goToNext()" style="font-size: 30px; position: absolute;right: 20px;" name="ios-arrow-forward"></ion-icon>
+        </div>
+        <div *ngIf="pageNo == (len-1)">
+            <ion-icon (click)="goToNext()" style="font-size: 30px; position: absolute;right: 20px;" name="checkmark-circle-outline"></ion-icon>
+        </div>
+          </ion-col>
+  </ion-row>
+</ion-content>

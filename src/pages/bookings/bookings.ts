@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, MenuController, LoadingController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { BookingDetailsPage } from '../booking-details/booking-details';
 
 @IonicPage()
 @Component({
@@ -16,15 +17,17 @@ export class BookingsPage {
   bookings: any;
   offline_bookings: any;
   message: string;
+  lastClicked: any;
+  apiUrl = 'http://192.168.0.130/BandBazza/public/';
 
-  constructor(private menuCtrl: MenuController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController) {
-    console.log('here2');
+  constructor(private menuCtrl: MenuController, private navCtrl: NavController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController) {
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
     this.token = data.success.token;
+    this.authService.pageReset=false;
   }
 
-  ionViewDidEnter()
+  ionViewDidLoad()
    {
     //initialize all variables with default values and call the service
     this.categories= [];
@@ -33,6 +36,15 @@ export class BookingsPage {
     this.offline_bookings = [];
     this.message="";
     this.getCategories();
+   }
+
+   ionViewDidEnter()
+   {
+     if(this.authService.pageReset)
+     {
+       console.log(this.authService.pageReset)
+       this.getBookings(this.lastClicked);
+     }
    }
 
   //get business categories of this vendor
@@ -65,6 +77,7 @@ export class BookingsPage {
     let loader = this.loadingCtrl.create({
       content: 'Please wait...'
     });
+    this.lastClicked=c;
     loader.present();
     this.category=c.module_name;
     this.bookings = [];
@@ -107,6 +120,12 @@ export class BookingsPage {
 
   onOpenMenu(){
     this.menuCtrl.open();
+  }
+
+  goToBookingDetails(details: any, module: string){
+    console.log(module);
+    console.log('BookingDetailsPage')
+    this.navCtrl.push(BookingDetailsPage,{details, module});
   }
 
 }
