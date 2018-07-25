@@ -16,16 +16,19 @@ token: any;
 type: string;
 enquiries: any;
 enquiries_history: any;
+enquiry_type: any;
 lastClicked: any;
 message: string;
-
+selectOptions: any;
 apiUrl = 'http://192.168.0.130/BandBazza/public/';
+
 
   constructor(private menuCtrl: MenuController, private navCtrl: NavController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController, private actionCtrl: ActionSheetController, private alertCtrl: AlertController) {
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
     this.token = data.success.token;
     this.authService.pageReset=false;
+
   }
   
   ionViewDidLoad(){
@@ -34,7 +37,12 @@ apiUrl = 'http://192.168.0.130/BandBazza/public/';
         this.category = "";
         this.enquiries = [];
         this.enquiries_history = [];
-        this.message="";      
+        this.message="";
+        this.enquiry_type=1;
+        this.selectOptions = {
+          title: 'Show bookings',
+          buttons: []
+        };  
         this.getCategories();
   }
   
@@ -107,12 +115,14 @@ apiUrl = 'http://192.168.0.130/BandBazza/public/';
       this.type="get_caterer_enquiries";
     }
     console.log(this.type)
-    this.authService.getData(this.type+'?id='+c.id,this.token).then((result) => {
+    this.authService.getData(this.type+'?id='+c.id+'&type='+this.enquiry_type,this.token).then((result) => {
       this.responseData = result;
         console.log(this.responseData)
         if(this.responseData.status==true)
         {
+          if(this.responseData.enquiries)
           this.enquiries=this.responseData.enquiries;
+          if(this.responseData.enquiries_history)
           this.enquiries_history=this.responseData.enquiries_history;
         }
         else
@@ -127,6 +137,12 @@ apiUrl = 'http://192.168.0.130/BandBazza/public/';
       this.message="Oops! Something went wrong.";
 
     });
+  }
+
+  filterEnquiry()
+  {
+    console.log(this.enquiry_type);
+    this.getEnquiries(this.lastClicked);
   }
   
   onOpenMenu(){

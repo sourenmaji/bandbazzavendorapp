@@ -20,6 +20,22 @@
 </ion-segment>
 </div>
 
+<!-- <ion-item>
+    <ion-select [(ngModel)]="enquiry_type" [selectOptions]="selectOptions" (ionChange)="filterBookings()">
+      <ion-option value="1">Upcoming</ion-option>
+      <ion-option value="2">This Week</ion-option>
+      <ion-option value="3">Last Week</ion-option>
+      <ion-option value="4">Last Month</ion-option>
+      <ion-option value="5">Online Bookings</ion-option>
+      <ion-option value="6">Offline Bookings</ion-option>
+    </ion-select>
+</ion-item> -->
+<ion-buttons end>
+  <button ion-button icon-only clear (click)="filterBookings()">
+    <ion-icon name="options"></ion-icon>
+  </button>
+</ion-buttons>
+
 <div [ngSwitch]="category">
 <div *ngFor="let category of categories">
 <ion-list *ngSwitchCase=category.module_name>
@@ -28,24 +44,25 @@
 {{category.module_name}} Bookings
 </ion-list-header>
 
-<button ion-item *ngFor="let booking of bookings" (click)="goToBookingDetails(booking,category.module_name)">
+<button ion-item *ngFor="let booking of bookings" (click)="goToBookingDetails(booking,category.module_name, 'online')">
 <ion-thumbnail item-start>
-<!-- <img src={{this.apiUrl+booking.cover_image}} alt="image"> -->
+<img src={{this.apiUrl+booking.cover_image}} alt="image">
 </ion-thumbnail>
 
 <div item-end *ngIf="category.module_name=='Banquet Hall'">
 <h2>{{booking.banquet_name}}</h2>
-Booking Time: {{booking.created_at}}  
+{{booking.mode}}
+Booking Time: {{booking.created_at | date: 'MMM d yyyy, h:mm a'}}  
 </div>
 
 <div item-end *ngIf="category.module_name=='Car Rental'">
 <h2>{{booking.car_company_name}} - {{booking.car_model_name}}</h2>
-Booking Time:  {{booking.created_at}}
+Booking Time:  {{booking.created_at | date: 'MMM d yyyy, h:mm a'}}
 </div>
 
 <div item-end *ngIf="category.module_name=='Caterer'">
 <h2>{{booking.package_name}}</h2>
-Booking Time:  {{booking.created_at}}
+Booking Time:  {{booking.created_at | date: 'MMM d yyyy, h:mm a'}}
 </div>
 
 </button>
@@ -54,24 +71,25 @@ Booking Time:  {{booking.created_at}}
 {{category.module_name}} Offline Bookings
 </ion-list-header>
 
-<button ion-item *ngFor="let offline of offline_bookings" (click)="goToBookingDetails(offline,category.module_name)">
+<button ion-item *ngFor="let offline of offline_bookings" (click)="goToBookingDetails(offline,category.module_name,'offline')">
 <ion-thumbnail item-start>
 <img src={{this.apiUrl+offline.cover_image}} alt="image">
 </ion-thumbnail>
 
 <div item-end *ngIf="category.module_name=='Banquet Hall'">
 <h2>{{offline.banquet_name}}</h2>
-Booking Time: {{offline.created_at}}
+{{offline.mode}}
+Booking Time: {{offline.created_at | date: 'MMM d yyyy, h:mm a'}}
 </div>
 
 <div item-end *ngIf="category.module_name=='Car Rental'">
 <h2>{{offline.car_company_name}} - {{offline.car_model_name}}</h2>
-Booking Time: {{offline.created_at}}
+Booking Time: {{offline.created_at | date: 'MMM d yyyy, h:mm a'}}
 </div>
 
 <div item-end *ngIf="category.module_name=='Caterer'">
 <h2>{{offline.package_name}}</h2>
-Booking Time: {{offline.created_at}}
+Booking Time: {{offline.created_at | date: 'MMM d yyyy, h:mm a'}}
 </div>
 
 </button>

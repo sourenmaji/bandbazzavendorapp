@@ -19,7 +19,12 @@
       </ion-segment-button>
     </ion-segment>
   </div>
-  
+  <ion-item>
+    <ion-select [(ngModel)]="enquiry_type" [selectOptions]="selectOptions" interface="action-sheet" (ionChange)="filterEnquiry()">
+      <ion-option value="1">Active Enquiries</ion-option>
+      <ion-option value="2">Past Enquiries</ion-option>
+    </ion-select>
+  </ion-item>
   <div [ngSwitch]="category">
     <div *ngFor="let category of categories">
       <ion-list *ngSwitchCase=category.module_name>
@@ -84,5 +89,6 @@
       </ion-list>
     </div>
   </div>
+
 </ion-content>
 
