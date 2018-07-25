@@ -14,12 +14,14 @@ import { CustomPackageEnquiriesPage } from '../pages/custom-package-enquiries/cu
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 
 import { DashboardPage } from '../pages/dashboard/dashboard';
+import { AddCatererPage } from '../pages/add-caterer/add-caterer';
+import { AddCarsPage } from '../pages/add-cars/add-cars';
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
- // rootPage:any = WelcomePage;
- rootPage:any = WelcomePage;
+ // rootPage:any = WelcomePage;//modified by krishna, line 23 should be reverted back to --> rootPage:any = WelcomePage;
+ rootPage:any = AddCarsPage;
   dashboardPage = DashboardPage;
   profilePage = ProfilePage;
   homePage = HomePage;

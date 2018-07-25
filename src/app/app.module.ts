@@ -4,7 +4,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { WelcomePage } from '../pages/welcome/welcome';
@@ -27,9 +26,12 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { AddbusinessPage } from '../pages/addbusiness/addbusiness';
+import { AddCatererPage } from '../pages/add-caterer/add-caterer';
 import { Geolocation } from '@ionic-native/geolocation';
 import { EnquiryDetailsPage } from '../pages/enquiry-details/enquiry-details';
 import { BookingDetailsPage } from '../pages/booking-details/booking-details';
+import { AddCarsPage } from '../pages/add-cars/add-cars';
+import { ImagePicker } from '@ionic-native/image-picker';
 
 
 @NgModule({
@@ -51,7 +53,9 @@ import { BookingDetailsPage } from '../pages/booking-details/booking-details';
     CustomPackageEnquiriesPage,
     EditProfilePage,
     AddbusinessPage,
-    EditbusinessPage
+    EditbusinessPage,
+    AddCatererPage,
+    AddCarsPage
   ],
   imports: [
     BrowserModule,
@@ -77,9 +81,12 @@ import { BookingDetailsPage } from '../pages/booking-details/booking-details';
     CustomPackageEnquiriesPage,
     EditProfilePage,
     AddbusinessPage,
-    EditbusinessPage
+    EditbusinessPage,
+    AddCatererPage,
+    AddCarsPage
   ],
   providers: [
+    ImagePicker,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
