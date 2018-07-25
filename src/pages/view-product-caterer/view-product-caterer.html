@@ -1,0 +1,43 @@
+
+<ion-header>
+
+  <ion-navbar color="headers">
+    <ion-title>View Product</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-card>
+
+    <ion-slides autoplay="5000" loop="true" speed="3000" height="200" pager>
+        <ion-slide>
+            <img src="http://192.168.0.130/BandBazza/public/{{productValue.cover_image}}">
+        </ion-slide>
+          
+        <ion-slide *ngFor="let slide of productImages">
+          <img src="http://192.168.0.130/BandBazza/public/{{slide.url}}">
+        </ion-slide>
+      </ion-slides>
+  <ion-card-content>
+  <ion-card-title>
+   
+          <h1 ion-text color="danger">{{productValue.name}}</h1>
+    
+   </ion-card-title>
+  <ion-row>
+      <ion-col align-self-start>
+          <ion-label color="dash6">Starting Price :</ion-label>
+          <h3>Rs.{{productValue.price_per_plate | number:'1.0-0'}}</h3>
+        </ion-col>
+        <ion-col  align-self-start>
+          <ion-label color="dash6">Minimum No. of Plate :</ion-label>
+          <h3>{{productValue.package_min_plates}}</h3>
+        </ion-col>
+      </ion-row>
+      
+</ion-card-content>
+  
+</ion-card>
+</ion-content>

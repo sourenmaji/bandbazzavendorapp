@@ -1,0 +1,107 @@
+
+<ion-header>
+
+  <ion-navbar color="headers">
+    <ion-title *ngIf="requestType == 'details'">View Product</ion-title>
+    <ion-title *ngIf="requestType == 'edit'">Edit Product</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+<!-- for Details section -->
+  <ion-card *ngIf="requestType == 'details'">
+
+      <ion-slides autoplay="5000" loop="true" speed="3000" height="200" pager>
+          <ion-slide>
+              <img src="http://192.168.0.130/BandBazza/public/{{productDetails.details.view}}">
+          </ion-slide>
+            
+          <ion-slide *ngFor="let slide of productImages">
+            <img src="http://192.168.0.130/BandBazza/public/{{slide.url}}">
+          </ion-slide>
+        </ion-slides>
+    <ion-card-content>
+    <ion-card-title>
+      <ion-row>
+        <ion-col col-auto>
+            <h1 ion-text color="danger">{{productDetails.details.name}}</h1> 
+        </ion-col>
+        <ion-col *ngIf="productDetails.details.is_ac == 1" text-center>
+            <ion-badge color="ac">AC</ion-badge>
+          </ion-col>
+          <ion-col *ngIf="productDetails.details.is_ac == 0" text-center>
+              <ion-badge color="dash2">Non AC</ion-badge>
+          </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+            <h1 ion-text color="dark"><b>Rs.{{productDetails.details.price | number:'1.0-0'}}</b></h1>
+        </ion-col>
+        <ion-col *ngIf="productDetails.details.is_nonveg == 1" text-center>
+            <ion-badge color="ac">Vej</ion-badge>
+            <ion-badge color="danger">Nonvej</ion-badge>
+          </ion-col>
+          <ion-col *ngIf="productDetails.details.is_nonveg == 0" text-center>
+              <ion-badge color="ac">Vej</ion-badge>
+          </ion-col>
+      </ion-row>
+      
+      
+     </ion-card-title>
+    <ion-row>
+        <ion-col *ngIf="productDetails.details.is_parking == 1" align-self-start>
+            <ion-label color="dash6">Parking :</ion-label>
+            <h3>Available</h3>
+          </ion-col>
+          <ion-col *ngIf="productDetails.details.is_parking == 0" align-self-start>
+            <ion-label color="dash6">Parking :</ion-label>
+            <h3>Not Available</h3>
+          </ion-col>
+      <ion-col *ngIf="productDetails.details.book_advance != null" align-self-start>
+        <ion-label color="dash6">Advance Amount :</ion-label>
+        <h3>Rs.{{productDetails.details.book_advance | number:'1.0-0'}}</h3>
+      </ion-col>
+      <ion-col *ngIf="productDetails.details.book_advance == null" align-self-start>
+        <ion-label color="dash6">Advance Amount :</ion-label>
+        <h3>N/A</h3>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col align-self-start>
+        <ion-label color="dash6">Capacity :</ion-label>
+        <h3>{{productDetails.details.capacity}}</h3>
+      </ion-col>
+      <ion-col *ngIf="productDetails.details.is_ac == 1" align-self-start>
+        <ion-label color="dash6">AC Charges(hourly) :</ion-label>
+        <h3>Rs.{{productDetails.details.ac_charge | number:'1.0-0'}}</h3>
+      </ion-col>
+      <ion-col *ngIf="productDetails.details.is_ac == 0" align-self-start>
+        <ion-label color="dash6">AC :</ion-label>
+        <h3>NA</h3>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row>
+      <ion-col>
+        <ion-label color="dash6">Location :</ion-label>
+        <h3>{{productDetails.details.address}}</h3>
+      </ion-col>
+      <ion-col>
+
+      </ion-col>
+    </ion-row>
+     <img src="https://maps.googleapis.com/maps/api/staticmap?center={{lat}},{{log}}&markers=color:blue%7C{{lat}},{{log}}&format=png&size=400x200&zoom=14&key=AIzaSyBzeppyrAzDcifb1vGnNArdBuZp5X39s-Y"> 
+  </ion-card-content>
+</ion-card>
+
+    <!-- for Edit section -->
+
+
+
+  <ion-card *ngIf="requestType == 'edit'">
+    
+  </ion-card>
+  
+</ion-content>

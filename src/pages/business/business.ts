@@ -125,85 +125,114 @@ export class BusinessPage {
   }
 
   deactiveBusiness(businessid){
-    console.log(businessid);
-    this.authService.getData('deactivate_business?business_id='+businessid,this.userPostData.token).then((result) => {
-      this.responseData = result;
-      
-      
-      if(this.responseData.status == true)
-      {
-    
-        const alert = this.alertCtrl.create({
+   // console.log(businessid);
+
+   let alert = this.alertCtrl.create({
+    title: 'Confirm',
+    message: 'Do you want to deactive?',
+    buttons: [{
+      text: "deactive",
+      handler: () => { 
+
+        this.authService.getData('deactivate_business?business_id='+businessid,this.userPostData.token).then((result) => {
+          this.responseData = result;
+          
+          
+          if(this.responseData.status == true)
+          {
+        
+            const alert = this.alertCtrl.create({
+              subTitle: this.responseData.message,
+              buttons: ['OK']
+            })
+            alert.present();
+            this.openBusiness();
+          }
+          else{
+           const alert = this.alertCtrl.create({
+             subTitle: this.responseData.message,
+             buttons: ['OK']
+           })
+           alert.present();
+         }
+        }, 
+        (err) => {
+         this.responseData = err.json();
+         const alert = this.alertCtrl.create({
           subTitle: this.responseData.message,
           buttons: ['OK']
         })
         alert.present();
-        this.openBusiness();
-      }
-      else{
-       const alert = this.alertCtrl.create({
-         subTitle: this.responseData.message,
-         buttons: ['OK']
-       })
-       alert.present();
-     }
-    }, 
-    (err) => {
-     this.responseData = err.json();
-     const alert = this.alertCtrl.create({
-      subTitle: this.responseData.message,
-      buttons: ['OK']
-    })
-    alert.present();
-    });
- 
+        });
+     
+       }
+    }, {
+      text: "Cancel",
+      role: 'cancel'
+    }]
+  })
+  alert.present();
   }
 
 
   deleteBusiness(businessid){
-    console.log(businessid);
-    this.authService.getData('delete_business?business_id='+businessid,this.userPostData.token).then((result) => {
-      this.responseData = result;
-      
-      
-      if(this.responseData.status == true)
-      {
-    
-        const alert = this.alertCtrl.create({
-          subTitle: this.responseData.message,
-          buttons: [{
-            text: 'Ok',
-          handler: () => {
-            
-            let navTransition = alert.dismiss();
+    //console.log(businessid);
 
-              navTransition.then(() => {
-                this.openBusiness();
-              });
-
-            return false;
-          }
-        }]
-        });
-        alert.present();
+    let alert = this.alertCtrl.create({
+      title: 'Confirm',
+      message: 'Do you want to delete?',
+      buttons: [{
+        text: "ok",
+        handler: () => { this.authService.getData('delete_business?business_id='+businessid,this.userPostData.token).then((result) => {
+          this.responseData = result;
+          
+          
+          if(this.responseData.status == true)
+          {
         
+            const alert = this.alertCtrl.create({
+              subTitle: this.responseData.message,
+              buttons: [{
+                text: 'Ok',
+              handler: () => {
+                
+                let navTransition = alert.dismiss();
+    
+                  navTransition.then(() => {
+                    this.openBusiness();
+                  });
+    
+                return false;
+              }
+            }]
+            });
+            alert.present();
+            
+          }
+          else{
+           const alert = this.alertCtrl.create({
+             subTitle: this.responseData.message,
+             buttons: ['OK']
+           })
+           alert.present();
+         }
+        }, 
+        (err) => {
+         this.responseData = err.json();
+         const alert = this.alertCtrl.create({
+          subTitle: this.responseData.message,
+          buttons: ['OK']
+        })
+        alert.present();
+        }); 
       }
-      else{
-       const alert = this.alertCtrl.create({
-         subTitle: this.responseData.message,
-         buttons: ['OK']
-       })
-       alert.present();
-     }
-    }, 
-    (err) => {
-     this.responseData = err.json();
-     const alert = this.alertCtrl.create({
-      subTitle: this.responseData.message,
-      buttons: ['OK']
+      }, {
+        text: "Cancel",
+        role: 'cancel'
+      }]
     })
     alert.present();
-    });
+
   
   }
 

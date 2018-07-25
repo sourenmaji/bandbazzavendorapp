@@ -1,3 +1,6 @@
+import { ViewProductCarPage } from './../pages/view-product-car/view-product-car';
+import { ViewProductCatererPage } from './../pages/view-product-caterer/view-product-caterer';
+import { ViewProductBanquatePage } from './../pages/view-product-banquate/view-product-banquate';
 import { EditbusinessPage } from './../pages/editbusiness/editbusiness';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -54,6 +57,9 @@ import { ImagePicker } from '@ionic-native/image-picker';
     EditProfilePage,
     AddbusinessPage,
     EditbusinessPage,
+    ViewProductBanquatePage,
+    ViewProductCatererPage,
+    ViewProductCarPage,
     AddCatererPage,
     AddCarsPage
   ],
@@ -82,6 +88,9 @@ import { ImagePicker } from '@ionic-native/image-picker';
     EditProfilePage,
     AddbusinessPage,
     EditbusinessPage,
+    ViewProductBanquatePage,
+    ViewProductCatererPage,
+    ViewProductCarPage,
     AddCatererPage,
     AddCarsPage
   ],
@@ -95,8 +104,7 @@ import { ImagePicker } from '@ionic-native/image-picker';
     File,
     FileTransfer,
     Camera,
-    FilePath,
-    Geolocation
+    FilePath
   ]
 })
 export class AppModule {}
