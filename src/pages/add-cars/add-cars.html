@@ -14,7 +14,6 @@
 
 
 <ion-content style="overflow: hidden;height: 100vh">
-
   <ion-slides #formslides style="height: 80vh"> 
       <ion-slide style="height: 100vh">
         <ion-card style="max-height: 100vh; height: 100vh;">
@@ -86,6 +85,7 @@
               Step 2/4
             </ion-card-header>
             <hr>
+            <ion-scroll direction="y" scrollY="true" style="height: 80%;">
             <ion-card-content >
                 <ion-list >
                     <ion-item >
@@ -163,13 +163,14 @@
                       <ion-input type="number" [(ngModel)]="form2data.book_advance" ></ion-input>
                     </ion-item>
   
-                    <ion-item>
+                    <ion-item style="margin-bottom: 80px">
                       <ion-label>Enter search tags</ion-label>
                       <ion-input type="text" [(ngModel)]="form2data.car_tags" ></ion-input>
                     </ion-item>
   
                 </ion-list>
               </ion-card-content>
+              </ion-scroll>
         </ion-card>
       </ion-slide>
       <ion-slide style="height: 100vh">
@@ -178,15 +179,33 @@
                   Step 3/4
                 </ion-card-header>
                 <hr>
+                <button ion-button (click)="pickImage()" >pick image</button>
+            <ion-scroll direction="y" scrollY="true" style="height: 80%;">
                 <ion-card-content>
-                    <button ion-button (click)="pickImage()" >pick image</button>
-                    <ion-card *ngFor="let img of images"  style="position: relative" >
-                      <img src="{{img}}">
-                      <div style="position: absolute; right: 2%; top: 2%" >
-                          <ion-icon (click)="removeImage(img)" style="color: red;font-size: 50px" name="close-circle" ></ion-icon>
-                      </div>
-                        </ion-card>
+                    
+                    <ion-grid>
+                          <ion-row> 
+                              <ion-col>
+                                  <ion-card *ngFor="let img of imagesleft"  style="position: relative" >
+                                      <img src="{{'data:image/jpeg;base64,' + img}}">
+                                    <div style="position: absolute; right: 2%; top: 2%" >
+                                        <ion-icon (click)="removeImage(img)" style="color: red;font-size: 50px" name="close-circle" ></ion-icon>
+                                    </div>
+                                      </ion-card>
+                              </ion-col>
+                              <ion-col>
+                                  <ion-card *ngFor="let img of imagesright"  style="position: relative" >
+                                      <img src="{{'data:image/jpeg;base64,' + img}}">
+                                    <div style="position: absolute; right: 2%; top: 2%" >
+                                        <ion-icon (click)="removeImage(img)" style="color: red;font-size: 50px" name="close-circle" ></ion-icon>
+                                    </div>
+                                      </ion-card>
+                              </ion-col>
+                            </ion-row>
+                          </ion-grid>
                   </ion-card-content>
+                  <div  style="margin-bottom: 80px" ></div>
+                  </ion-scroll>
             </ion-card>
         
       </ion-slide>
