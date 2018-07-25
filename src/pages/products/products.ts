@@ -39,13 +39,13 @@ export class ProductsPage {
 
   ionViewDidLoad(){
 
-    this.restServ.testCall().then((result) =>
-    {
-      this.data = result;
-      console.log(this.data.test);
-    }
-  );
-  
+    // this.restServ.testCall().then((result) =>
+    // {
+    //   this.data = result;
+    //   console.log(this.data.test);
+    // }
+  //);
+
     this.categories= [];
     this.category = "";
     this.alProducts = [];
