@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, MenuController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, MenuController, LoadingController, ActionSheetController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { BookingDetailsPage } from '../booking-details/booking-details';
 
@@ -17,10 +17,12 @@ export class BookingsPage {
   bookings: any;
   offline_bookings: any;
   message: string;
+  enquiry_type: any;
   lastClicked: any;
+  selectOptions: any;
   apiUrl = 'http://192.168.0.130/BandBazza/public/';
 
-  constructor(private menuCtrl: MenuController, private navCtrl: NavController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController) {
+  constructor(private menuCtrl: MenuController, private navCtrl: NavController, private actionCtrl: ActionSheetController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController) {
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
     this.token = data.success.token;
@@ -35,6 +37,11 @@ export class BookingsPage {
     this.bookings = [];
     this.offline_bookings = [];
     this.message="";
+    this.enquiry_type=1;
+    this.selectOptions = {
+      title: 'Show bookings',
+      buttons: []
+    };
     this.getCategories();
    }
 
@@ -97,7 +104,7 @@ export class BookingsPage {
       this.type="get_caterer_bookings";
     }
     console.log(this.type)
-    this.authService.getData(this.type+'?id='+c.id,this.token).then((result) => {
+    this.authService.getData(this.type+'?id='+c.id+'&type='+this.enquiry_type,this.token).then((result) => {
       this.responseData = result;
         console.log(this.responseData)
         if(this.responseData.status==true)
@@ -118,14 +125,51 @@ export class BookingsPage {
     });
   }
 
+  filterBookings()
+  {
+    // console.log(this.enquiry_type);
+    // this.getBookings(this.lastClicked);
+    const actionSheet = this.actionCtrl.create({
+      title: 'Show booking by',
+      buttons: [
+        {
+          text: 'Upcoming',
+          handler: () => {
+            console.log('Upcoming clicked');
+          }
+        },
+        {
+          text: 'Past Bookings',
+          handler: () => {
+            console.log('Upcoming clicked');
+          }
+        },
+        {
+          text: 'Online Bookings',
+          handler: () => {
+            console.log('Online Bookings clicked');
+          }
+        },
+        {
+          text: 'Offline Bookings',
+          handler: () => {
+            console.log('Offline Bookings clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+
   onOpenMenu(){
     this.menuCtrl.open();
   }
 
-  goToBookingDetails(details: any, module: string){
+  goToBookingDetails(details: any, module: string, type: string){
     console.log(module);
     console.log('BookingDetailsPage')
-    this.navCtrl.push(BookingDetailsPage,{details, module});
+    this.navCtrl.push(BookingDetailsPage,{details, module, type});
   }
 
 }

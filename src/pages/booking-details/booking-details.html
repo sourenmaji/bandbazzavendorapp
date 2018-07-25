@@ -13,8 +13,9 @@
         </ion-card-title>
       <p>
           <li>Booking time: {{booking.details.created_at | date: 'MMM d yyyy'}}</li>
-          <li>Booking #: {{booking.details.serial_number}}</li>
-          <li>Booking status: {{booking.details.vendor_status}}</li>
+          <li *ngIf="booking.type == 'offline'">Booking #: {{booking.details.serial_number}}</li>
+          <li *ngIf="booking.type == 'online'">Booking #: {{booking.details.order_no}}</li>
+          <li *ngIf="booking.type == 'online'">Booking status: {{booking.details.vendor_status}}</li>
       </p>
     </ion-card-content>
   </ion-card>
