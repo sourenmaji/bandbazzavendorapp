@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { SlideEffect } from 'ionic-angular/umd/components/slides/swiper/swiper-interfaces';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 /**
@@ -35,8 +34,10 @@ export class AddCatererPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public restServ: AuthServiceProvider) {
+    //for card slide design
     this.pageNo = 0;
     this.len = 1;
+    //for step 1
     this.step1data = {packagename:"", veg:false};
   }
 
@@ -47,14 +48,15 @@ export class AddCatererPage {
 
   ngOnInit()
   {
-    this.formstep1 = new FormGroup({
-      pkgnm: new FormControl("", [Validators.required, Validators.minLength(3)])
-    }
-    );
+    //this.formstep1 = new FormGroup({
+    //pkgnm: new FormControl("", [Validators.required, Validators.minLength(3)])
+    //}
+    //);
   }
 
   ionViewDidEnter()
   {
+    //for form control
     console.log(this.formSlide.length());
     this.len = this.formSlide.length();
     for(var i=0;i< this.len;i++)
@@ -123,10 +125,7 @@ export class AddCatererPage {
           this.emptypkgname = "";
           return true;
         }
-          
-      return true;
     }
-
     return false;
   }
 

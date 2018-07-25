@@ -105,6 +105,10 @@ export class AuthServiceProvider {
     });
   }
 
+  //added by krishnabose02
+
+
+
   // uploadImage(credentials, path, type) {
 
   //   console.log(credentials)
