@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, MenuController, LoadingController, ActionSheetController, AlertController, NavController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { EnquiryDetailsPage } from '../enquiry-details/enquiry-details';
-
+let scroll = null;
 @IonicPage()
 @Component({
   selector: 'page-enquiries',
@@ -41,7 +41,7 @@ apiUrl = 'http://192.168.0.130/BandBazza/public/';
         this.enquiries = [];
         this.enquiries_history = [];
         this.message="";
-        this.enquiry_type=1;
+        this.enquiry_type="active";
         this.selectOptions = {
           title: 'Show bookings',
           buttons: []
@@ -98,6 +98,7 @@ apiUrl = 'http://192.168.0.130/BandBazza/public/';
     let loader = this.loadingCtrl.create({
       content: 'Please wait...'
     });
+
     this.lastClicked=c;
     loader.present();
     this.category=c.module_name;
@@ -132,13 +133,37 @@ apiUrl = 'http://192.168.0.130/BandBazza/public/';
     this.authService.getDataParams(this.type, this.params, this.token).then((result) => {
       this.responseData = result;
         console.log(this.responseData)
+        //if there's existing enquiries
         if(this.responseData.status==true)
         {
-          if(this.responseData.enquiries)
-          this.enquiries=this.responseData.enquiries;
+          console.log(this.responseData.enquiries.data)
+
+          //pushing to array because pagination call will add to the existing array if any value is present
+          this.responseData.enquiries.data.forEach(enquiry => {
+            this.enquiries.push(enquiry);
+          });
+
+          //if there's pagination value
+          if(this.responseData.enquiries.next_page_url)
+          {
+            this.next_page=this.next_page+1;
+          }
+          else
+          {
+            this.next_page=0;
+            this.message= "End of results"
+          }
+
+          if(scroll)
+          {
+            scroll.complete();
+            console.log('Pagination values fetched');
+          }
+
         }
-        else
+        else //if there's no enquiries
         {
+          this.next_page=0;
           this.message=this.responseData.message;
         }
         loader.dismiss();
@@ -151,7 +176,7 @@ apiUrl = 'http://192.168.0.130/BandBazza/public/';
     });
   }
 
-  filterEnquiry()
+  filterEnquiries()
   {
     const actionSheet = this.actionCtrl.create({
       title: 'Show booking by',
@@ -184,6 +209,21 @@ apiUrl = 'http://192.168.0.130/BandBazza/public/';
   goToEnquiryDetails(details: any, module: string){
     console.log(details);
     this.navCtrl.push(EnquiryDetailsPage,{details, module});
+  }
+
+  loadMore(infiniteScroll)
+  {
+    console.log('Getting paginated values...');
+    scroll=infiniteScroll;
+    console.log(scroll);
+    //if next page exists apply infinite scroll
+      if(this.next_page)
+      {
+        this.page=this.next_page+1;
+        console.log(this.page);
+        //reset = false, because updated value needs to be passed to service call, page not to be refreshed
+        this.getEnquiries(this.lastClicked,false);
+      }
   }
 
 }
