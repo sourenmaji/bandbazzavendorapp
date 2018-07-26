@@ -48,11 +48,13 @@
 
 <div item-end *ngIf="category.module_name=='Car Rental'">
 <h2>{{booking.car_company_name}} - {{booking.car_model_name}}</h2>
+<p>{{booking.mode}}</p>
   Booking Time:  {{booking.time_from | date: 'MMM d yyyy'}}
 </div>
 
 <div item-end *ngIf="category.module_name=='Caterer'">
 <h2>{{booking.package_name}}</h2>
+<p>{{booking.mode}}</p>
 Booking Time:  {{booking.booking_date | date: 'MMM d yyyy'}}
 </div>
 
