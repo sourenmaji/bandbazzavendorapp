@@ -44,6 +44,7 @@
     "cordova-plugin-ionic-webview": "^1.2.1",
     "cordova-plugin-network-information": "^2.0.1",
     "cordova-plugin-splashscreen": "^5.0.2",
+    "cordova-plugin-telerik-imagepicker": "git+https://github.com/Telerik-Verified-Plugins/ImagePicker.git",
     "cordova-plugin-whitelist": "^1.3.3",
     "cordova.plugins.diagnostic": "^4.0.8",
     "ionic-angular": "3.9.2",
@@ -76,7 +77,11 @@
         "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
       },
       "cordova-plugin-telerik-imagepicker": {
+<<<<<<< HEAD
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": "Please select image"
+=======
+        "PHOTO_LIBRARY_USAGE_DESCRIPTION": "your usage message"
+>>>>>>> dc6c1de9ec0c57abda9a06a169e556aeefaaff01
       }
     },
     "platforms": [

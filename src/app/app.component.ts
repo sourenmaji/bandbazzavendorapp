@@ -20,8 +20,8 @@ import { AddCarsPage } from '../pages/add-cars/add-cars';
   templateUrl: 'app.html'
 })
 export class MyApp {
- rootPage:any = WelcomePage;//modified by krishna, line 23 should be reverted back to --> rootPage:any = WelcomePage;
-//  rootPage:any = AddCarsPage;
+ //rootPage:any = WelcomePage;//modified by krishna, line 23 should be reverted back to --> rootPage:any = WelcomePage;
+  rootPage:any = AddCatererPage;
   dashboardPage = DashboardPage;
   profilePage = ProfilePage;
   homePage = HomePage;

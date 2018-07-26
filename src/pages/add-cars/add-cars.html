@@ -14,7 +14,6 @@
 
 
 <ion-content style="overflow: hidden;height: 100vh">
-
   <ion-slides #formslides style="height: 80vh"> 
       <ion-slide style="height: 100vh">
         <ion-card style="max-height: 100vh; height: 100vh;">
@@ -85,108 +84,130 @@
             <ion-card-header>
               Step 2/4
             </ion-card-header>
-            <br>
-            <ion-card-content>
-              <ion-list>
-                  <ion-item>
-                    <ion-label>
-                      No of seats
-                    </ion-label>
-                    <ion-input>
-  
-                    </ion-input>
-                  </ion-item>
-                  <ion-row>
-                    <ion-col>
-                      <ion-label>
-                        Minimum hire period
-                      </ion-label>
-                      <ion-input>
-
-                      </ion-input>
-                    </ion-col>
-                    <ion-col>
-                      <ion-label>
-                        Maximum hire period
-                      </ion-label>
-                      <ion-input>
-                        
-                      </ion-input>
-                    </ion-col>
-                  </ion-row>
-                  <ion-label>
-                    Enter price rate (Non-AC)
-                  </ion-label>
-                  <ion-row>
-                      <ion-col>
-                        <ion-label>Per hour</ion-label>
-                        <ion-input>
-                          
-                        </ion-input>
-                      </ion-col>
-                      <ion-col>
-                        <ion-label>Per KM</ion-label>
-                        <ion-input>
-                          
-                        </ion-input>
-                      </ion-col>
-                  </ion-row>
-                  <ion-item>
-                    <ion-label>AC available</ion-label>
-                    <ion-checkbox [(ngModel)]="ac_available" ></ion-checkbox>
-                  </ion-item>
-                  <div *ngIf="ac_available" >
-                      <ion-label>
-                          Enter price rate (AC)
-                        </ion-label>
-                        <ion-row>
-                            <ion-col>
-                              <ion-label>Per hour</ion-label>
-                              <ion-input>
-                                
-                              </ion-input>
-                            </ion-col>
-                            <ion-col>
-                              <ion-label>Per KM</ion-label>
-                              <ion-input>
-                                
-                              </ion-input>
-                            </ion-col>
-                        </ion-row>
-                  </div>
-                  <ion-item>
-                    <ion-label>
-                      Advance amount
-                    </ion-label>
-                    <ion-item></ion-item>
-                  </ion-item>
-
-                  <ion-item>
-                    <ion-label>Enter search tags</ion-label>
-                    <ion-input></ion-input>
-                  </ion-item>
-
-              </ion-list>
-            </ion-card-content>
             <hr>
+            <ion-scroll direction="y" scrollY="true" style="height: 80%;">
+            <ion-card-content >
+                <ion-list >
+                    <ion-item >
+                        <p style="color: red" >{{errormessage}}</p>
+                      </ion-item>
+  
+                    <ion-item style=" margin: 0%;padding: 0%" >
+                      <ion-label>
+                        No of seats
+                      </ion-label>
+                      <ion-input  (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.no_of_seats" >
+    
+                      </ion-input>
+                    </ion-item>
+                    <ion-row>
+                      <ion-col >
+                        <ion-label style=" margin: 0%;padding: 0%">
+                          Minimum hire period
+                        </ion-label>
+                        <ion-input style=" margin: 0%;padding: 0%" type="number" [(ngModel)]="form2data.min_hire_period" >
+  
+                        </ion-input>
+                      </ion-col>
+                      <ion-col>
+                        <ion-label style=" margin: 0%;padding: 0%">
+                          Maximum hire period
+                        </ion-label>
+                        <ion-input style=" margin: 0%;padding: 0%" type="number" [(ngModel)]="form2data.max_hire_period" >
+                          
+                        </ion-input>
+                      </ion-col>
+                    </ion-row>
+                    <ion-label style=" margin: 0%;padding: 0%">
+                      Enter price rate (Non-AC)
+                    </ion-label>
+                    <ion-row>
+                        <ion-col>
+                          <ion-label style="margin: 0%;padding: 0%">Per hour</ion-label>
+                          <ion-input type="number" [(ngModel)]="form2data.car_price_hour" >
+                          </ion-input>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label style="margin: 0%;padding: 0%">Per KM</ion-label>
+                          <ion-input type="number" [(ngModel)]="form2data.car_price_kil" >
+                          </ion-input>
+                        </ion-col>
+                    </ion-row>
+                    <ion-item>
+                      <ion-label>AC available</ion-label>
+                      <ion-checkbox (ionChange)="clearAcRates()" [(ngModel)]="ac_available" ></ion-checkbox>
+                    </ion-item>
+                    <div *ngIf="ac_available" >
+                        <ion-label>
+                            Enter price rate (AC)
+                          </ion-label>
+                          <ion-row>
+                              <ion-col>
+                                <ion-label>Per hour</ion-label>
+                                <ion-input type="number" [(ngModel)]="form2data.ac_car_price_hour" >
+                                  
+                                </ion-input>
+                              </ion-col>
+                              <ion-col>
+                                <ion-label>Per KM</ion-label>
+                                <ion-input type="number" [(ngModel)]="form2data.ac_car_price_kil" >
+                                  
+                                </ion-input>
+                              </ion-col>
+                          </ion-row>
+                    </div>
+                    <ion-item>
+                      <ion-label>
+                        Advance amount
+                      </ion-label>
+                      <ion-input type="number" [(ngModel)]="form2data.book_advance" ></ion-input>
+                    </ion-item>
+  
+                    <ion-item style="margin-bottom: 80px">
+                      <ion-label>Enter search tags</ion-label>
+                      <ion-input type="text" [(ngModel)]="form2data.car_tags" ></ion-input>
+                    </ion-item>
+  
+                </ion-list>
+              </ion-card-content>
+              </ion-scroll>
         </ion-card>
       </ion-slide>
       <ion-slide style="height: 100vh">
-        <ion-card style="height: 100vh;">
-            <ion-card-header>
-              Step 3/4
-            </ion-card-header>
-            <hr>
-            <ion-card-content>
-              <button ion-button (click)="pickImage()" >pick image</button>
-              <ion-card *ngFor="let img of images"  style="position: relative" >
-                <img src="{{img}}">
-                <div style="position: absolute; right: 2%; top: 2%" >
-                    <ion-icon (click)="removeImage(img)" style="color: red;font-size: 50px" name="close-circle" ></ion-icon>
-                </div>
-                 </ion-card>
-            </ion-card-content>
-        </ion-card>
+            <ion-card style="height: 100vh;">
+                <ion-card-header>
+                  Step 3/4
+                </ion-card-header>
+                <hr>
+                <button ion-button (click)="pickImage()" >pick image</button>
+            <ion-scroll direction="y" scrollY="true" style="height: 80%;">
+                <ion-card-content>
+                    
+                    <ion-grid>
+                          <ion-row> 
+                              <ion-col>
+                                  <ion-card *ngFor="let img of imagesleft"  style="position: relative" >
+                                      <img src="{{'data:image/jpeg;base64,' + img}}">
+                                    <div style="position: absolute; right: 2%; top: 2%" >
+                                        <ion-icon (click)="removeImage(img)" style="color: red;font-size: 50px" name="close-circle" ></ion-icon>
+                                    </div>
+                                      </ion-card>
+                              </ion-col>
+                              <ion-col>
+                                  <ion-card *ngFor="let img of imagesright"  style="position: relative" >
+                                      <img src="{{'data:image/jpeg;base64,' + img}}">
+                                    <div style="position: absolute; right: 2%; top: 2%" >
+                                        <ion-icon (click)="removeImage(img)" style="color: red;font-size: 50px" name="close-circle" ></ion-icon>
+                                    </div>
+                                      </ion-card>
+                              </ion-col>
+                            </ion-row>
+                          </ion-grid>
+                  </ion-card-content>
+                  <div  style="margin-bottom: 80px" ></div>
+                  </ion-scroll>
+            </ion-card>
+        
       </ion-slide>
       <ion-slide style="height: 100vh">
         <ion-card style="height: 100vh;">
@@ -194,6 +215,9 @@
               Step 4/4
             </ion-card-header>
             <hr>
+            <ion-card-content>
+              you have successfully added all details, click to upload this product!
+            </ion-card-content>
         </ion-card>
       </ion-slide>
   </ion-slides>
