@@ -1,6 +1,6 @@
 import { LoadingController , Loading} from 'ionic-angular';
 import { FileTransferObject ,FileTransfer, FileUploadResult} from '@ionic-native/file-transfer';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Http, Headers} from '@angular/http';
 
@@ -12,7 +12,7 @@ let apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
 export class AuthServiceProvider {
   pageReset: boolean = false;
   loading: Loading;
-  constructor(public http: Http, private transfer: FileTransfer, public loadingCtrl: LoadingController) {
+  constructor(public http: Http, public httpC: HttpClient, private transfer: FileTransfer, public loadingCtrl: LoadingController) {
     console.log('Hello AuthServiceProvider Provider');
   }
 
@@ -83,6 +83,30 @@ export class AuthServiceProvider {
     });
   }
 
+  getDataParams(type, params, token) {
+    return new Promise((resolve, reject) => {
+      let headers = new HttpHeaders({
+        'Accept': 'application/json',
+        'Authorization':'Bearer '+ token
+      });
+      console.log(headers);
+      console.log(token);
+      console.log(params);
+
+      console.log(apiUrl+type);
+      
+      this.httpC.get(apiUrl+type,{params,headers})
+        .subscribe(res => {
+          console.log(res);
+          resolve(res); 
+        }, 
+        (err) => {
+          console.log(err);
+          reject(err);
+        });
+    });
+  }
+
   testCall()
   {
     return new Promise((resolve, reject) => {
@@ -106,38 +130,6 @@ export class AuthServiceProvider {
   }
 
   //added by krishnabose02
-
-
-
-  // uploadImage(credentials, path, type) {
-
-  //   console.log(credentials)
-  //   const fileTransfer: FileTransferObject = this.transfer.create();
-  //   return new Promise((resolve, reject) => {
-  //   this.loading = this.loadingCtrl.create({
-  //     content: 'Uploading...',
-  //   });
-  //   this.loading.present();
-  // //  alert("credentials"+credentials);
-  //   // Use the FileTransfer to upload the image
-  //   fileTransfer.upload(path, apiUrl+type, credentials).then(data => {
-  //     this.responseData = data;
-    
-  //     this.loading.dismissAll();
-  //   //  alert(this.responseData.response);
-  //   //   alert(JSON.parse(data.response));
-  //         resolve(data); 
-     
-  //   },(err)  => {
-  //     alert(err.body);
-  //     this.loading.dismissAll();
-      
-  //     reject(JSON.parse(err.body));
-  //   });
-  // });
-  // }
- 
-
 
 
 }

@@ -20,16 +20,6 @@
 </ion-segment>
 </div>
 
-<!-- <ion-item>
-    <ion-select [(ngModel)]="enquiry_type" [selectOptions]="selectOptions" (ionChange)="filterBookings()">
-      <ion-option value="1">Upcoming</ion-option>
-      <ion-option value="2">This Week</ion-option>
-      <ion-option value="3">Last Week</ion-option>
-      <ion-option value="4">Last Month</ion-option>
-      <ion-option value="5">Online Bookings</ion-option>
-      <ion-option value="6">Offline Bookings</ion-option>
-    </ion-select>
-</ion-item> -->
 <ion-buttons end>
   <button ion-button icon-only clear (click)="filterBookings()">
     <ion-icon name="options"></ion-icon>
@@ -51,7 +41,7 @@
 
 <div item-end *ngIf="category.module_name=='Banquet Hall'">
 <h2>{{booking.banquet_name}}</h2>
-{{booking.mode}}
+<p>{{booking.mode}}</p>
 Booking Time: {{booking.created_at | date: 'MMM d yyyy, h:mm a'}}  
 </div>
 
@@ -67,34 +57,7 @@ Booking Time:  {{booking.created_at | date: 'MMM d yyyy, h:mm a'}}
 
 </button>
 
-<ion-list-header *ngIf="offline_bookings.length">
-{{category.module_name}} Offline Bookings
-</ion-list-header>
-
-<button ion-item *ngFor="let offline of offline_bookings" (click)="goToBookingDetails(offline,category.module_name,'offline')">
-<ion-thumbnail item-start>
-<img src={{this.apiUrl+offline.cover_image}} alt="image">
-</ion-thumbnail>
-
-<div item-end *ngIf="category.module_name=='Banquet Hall'">
-<h2>{{offline.banquet_name}}</h2>
-{{offline.mode}}
-Booking Time: {{offline.created_at | date: 'MMM d yyyy, h:mm a'}}
-</div>
-
-<div item-end *ngIf="category.module_name=='Car Rental'">
-<h2>{{offline.car_company_name}} - {{offline.car_model_name}}</h2>
-Booking Time: {{offline.created_at | date: 'MMM d yyyy, h:mm a'}}
-</div>
-
-<div item-end *ngIf="category.module_name=='Caterer'">
-<h2>{{offline.package_name}}</h2>
-Booking Time: {{offline.created_at | date: 'MMM d yyyy, h:mm a'}}
-</div>
-
-</button>
-
-<p *ngIf="!offline_bookings.length && !bookings.length" text-center>
+<p *ngIf="!bookings.length" text-center>
 {{message}}
 </p>
 

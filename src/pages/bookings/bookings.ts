@@ -17,9 +17,11 @@ export class BookingsPage {
   bookings: any;
   offline_bookings: any;
   message: string;
-  enquiry_type: any;
+  filter_type: any;
+  page: number;
   lastClicked: any;
-  selectOptions: any;
+
+  params: any;
   apiUrl = 'http://192.168.0.130/BandBazza/public/';
 
   constructor(private menuCtrl: MenuController, private navCtrl: NavController, private actionCtrl: ActionSheetController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController) {
@@ -35,13 +37,10 @@ export class BookingsPage {
     this.categories= [];
     this.category = "";
     this.bookings = [];
-    this.offline_bookings = [];
     this.message="";
-    this.enquiry_type=1;
-    this.selectOptions = {
-      title: 'Show bookings',
-      buttons: []
-    };
+    this.filter_type='upcoming';
+    this.page=1;
+
     this.getCategories();
    }
 
@@ -70,7 +69,6 @@ export class BookingsPage {
              console.log(this.categories)
              loader.dismiss();
              this.getBookings(this.categories[0]);
- 
          }, (err) => {
           loader.dismiss();
           console.log(err)
@@ -103,14 +101,16 @@ export class BookingsPage {
     {
       this.type="get_caterer_bookings";
     }
+    this.params= {id: c.id, type: this.filter_type, page: this.page }
     console.log(this.type)
-    this.authService.getData(this.type+'?id='+c.id+'&type='+this.enquiry_type,this.token).then((result) => {
+    this.authService.getDataParams(this.type, this.params, this.token).then((result) => {
       this.responseData = result;
         console.log(this.responseData)
         if(this.responseData.status==true)
         {
-          this.bookings=this.responseData.bookings;
-          this.offline_bookings=this.responseData.offline_bookings;
+          console.log(this.responseData.all_bookings.data)
+          if(this.responseData.all_bookings.data.length)
+          this.bookings=this.responseData.all_bookings.data;
         }
         else
         {
@@ -135,25 +135,33 @@ export class BookingsPage {
         {
           text: 'Upcoming',
           handler: () => {
+            this.filter_type='upcoming';
             console.log('Upcoming clicked');
+            this.getBookings(this.lastClicked);
           }
         },
         {
           text: 'Past Bookings',
           handler: () => {
-            console.log('Upcoming clicked');
+            this.filter_type='past';
+            console.log('Past clicked');
+            this.getBookings(this.lastClicked);
           }
         },
         {
           text: 'Online Bookings',
           handler: () => {
+            this.filter_type='online';
             console.log('Online Bookings clicked');
+            this.getBookings(this.lastClicked);
           }
         },
         {
           text: 'Offline Bookings',
           handler: () => {
+            this.filter_type='offline';
             console.log('Offline Bookings clicked');
+            this.getBookings(this.lastClicked);
           }
         }
       ]
