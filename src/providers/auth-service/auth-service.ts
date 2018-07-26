@@ -5,8 +5,9 @@ import { Injectable } from '@angular/core';
 import {Http, Headers} from '@angular/http';
 
 
-let apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
+// let apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
 //let apiUrl = 'http://www.bandbazza.com/api/';
+let apiUrl = 'http://localhost:8000/api/';
 
 @Injectable()
 export class AuthServiceProvider {
@@ -22,12 +23,13 @@ export class AuthServiceProvider {
     return new Promise((resolve, reject) => {
       let headers = new Headers();
       console.log(headers);
+      console.log(apiUrl+type);
 
       this.http.post(apiUrl+type, credentials, {headers: headers})
         .subscribe(res => {
           console.log(res.json());
-          resolve(res.json()); 
-        }, 
+          resolve(res.json());
+        },
         (err) => {
           console.log(err);
           reject(err);
@@ -47,13 +49,13 @@ export class AuthServiceProvider {
       headers.append('Accept','application/json');
       headers.append('Authorization','Bearer '+ token);
       console.log(headers);
-      
+
       this.http.post(apiUrl+type, credentials, {headers: headers})
         .subscribe(res => {
           this.loading.dismissAll();
           console.log(res.json());
-          resolve(res.json()); 
-        }, 
+          resolve(res.json());
+        },
         (err) => {
           this.loading.dismissAll();
           console.log(err);
@@ -70,12 +72,12 @@ export class AuthServiceProvider {
       headers.append('Authorization','Bearer '+ token);
       console.log(headers);
       console.log(apiUrl+type);
-      
+
       this.http.get(apiUrl+type,{headers: headers})
         .subscribe(res => {
           console.log(res.json());
-          resolve(res.json()); 
-        }, 
+          resolve(res.json());
+        },
         (err) => {
           console.log(err);
           reject(err);
@@ -89,17 +91,17 @@ export class AuthServiceProvider {
         'Accept': 'application/json',
         'Authorization':'Bearer '+ token
       });
-      console.log(headers);
-      console.log(token);
-      console.log(params);
+      // console.log(headers);
+      // console.log(token);
+      // console.log(params);
 
       console.log(apiUrl+type);
-      
+
       this.httpC.get(apiUrl+type,{params,headers})
         .subscribe(res => {
           console.log(res);
-          resolve(res); 
-        }, 
+          resolve(res);
+        },
         (err) => {
           console.log(err);
           reject(err);
@@ -116,12 +118,12 @@ export class AuthServiceProvider {
       //headers.append('Authorization','Bearer '+ token);
       console.log(headers);
       //console.log(apiUrl+type);
-      
+
       this.http.get(apiUrl+"test",{headers: headers})
         .subscribe(res => {
           console.log(res.json());
-          resolve(res.json()); 
-        }, 
+          resolve(res.json());
+        },
         (err) => {
           console.log(err.json());
           reject(err);

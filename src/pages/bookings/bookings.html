@@ -11,17 +11,17 @@
 
 
 <ion-content padding>
-<div padding>
+
 <!-- dynamically generating the categories -->
 <ion-segment [(ngModel)]="category" color="energy">
-<ion-segment-button *ngFor="let category of categories" value={{category.module_name}} (click)="getBookings(category)">
+<ion-segment-button *ngFor="let category of categories" value={{category.module_name}} (click)="getBookings(category,true)">
 {{category.module_name}}
 </ion-segment-button>
 </ion-segment>
-</div>
 
 <ion-buttons end>
-  <button ion-button icon-only clear (click)="filterBookings()">
+  <button small ion-button clear (click)="filterBookings()" icon-end>
+    {{filter_type}}
     <ion-icon name="options"></ion-icon>
   </button>
 </ion-buttons>
@@ -34,7 +34,8 @@
 {{category.module_name}} Bookings
 </ion-list-header>
 
-<button ion-item *ngFor="let booking of bookings" (click)="goToBookingDetails(booking,category.module_name, 'online')">
+
+<button ion-item *ngFor="let booking of bookings" (click)="goToBookingDetails(booking,category.module_name, booking.mode)">
 <ion-thumbnail item-start>
 <img src={{this.apiUrl+booking.cover_image}} alt="image">
 </ion-thumbnail>
@@ -42,24 +43,28 @@
 <div item-end *ngIf="category.module_name=='Banquet Hall'">
 <h2>{{booking.banquet_name}}</h2>
 <p>{{booking.mode}}</p>
-Booking Time: {{booking.created_at | date: 'MMM d yyyy, h:mm a'}}  
+  Booking Date: {{booking.book_from | date: 'MMM d yyyy'}}
 </div>
 
 <div item-end *ngIf="category.module_name=='Car Rental'">
 <h2>{{booking.car_company_name}} - {{booking.car_model_name}}</h2>
-Booking Time:  {{booking.created_at | date: 'MMM d yyyy, h:mm a'}}
+  Booking Time:  {{booking.time_from | date: 'MMM d yyyy'}}
 </div>
 
 <div item-end *ngIf="category.module_name=='Caterer'">
 <h2>{{booking.package_name}}</h2>
-Booking Time:  {{booking.created_at | date: 'MMM d yyyy, h:mm a'}}
+Booking Time:  {{booking.booking_date | date: 'MMM d yyyy'}}
 </div>
 
 </button>
 
-<p *ngIf="!bookings.length" text-center>
+<p *ngIf="!next_page" text-center>
 {{message}}
 </p>
+
+<ion-infinite-scroll *ngIf="next_page" (ionInfinite)="loadMore($event)">
+  <ion-infinite-scroll-content></ion-infinite-scroll-content>
+</ion-infinite-scroll>
 
 </ion-list>
 </div>
