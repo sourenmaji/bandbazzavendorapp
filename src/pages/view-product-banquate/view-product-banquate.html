@@ -106,14 +106,19 @@
           <ul class="img-y">
             <li><img src="http://192.168.0.130/BandBazza/public/{{productDetails.details.view}}">
               <div class="ico-p">
-                <ion-icon (click)="removeImage(img)" style="color: red;font-size: 16px" name="close-circle" ></ion-icon>
+                <ion-icon (click)="removeImage(productDetails.details.view)" style="color: red;font-size: 16px" name="close-circle" ></ion-icon>
               </div>
             </li>
             <li *ngFor="let slide of productImages">
                 <img src="http://192.168.0.130/BandBazza/public/{{slide.url}}">
                 <div class="ico-p">
-                  <ion-icon (click)="removeImage(img)" style="color: red;font-size: 16px" name="close-circle" ></ion-icon>
+                  <ion-icon (click)="removeImage(slide.url)" style="color: red;font-size: 16px" name="close-circle" ></ion-icon>
                 </div>
+            </li>
+            <li>
+                <a href="#" (click)="test()"><img src="assets/imgs/add-image.png"></a> 
+            <div class="ico-p">
+              </div>
             </li>
           </ul>
               <!-- <ion-card-title>

@@ -16,12 +16,13 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { AddCatererPage } from '../pages/add-caterer/add-caterer';
 import { AddCarsPage } from '../pages/add-cars/add-cars';
+import { AddBanquetPage } from '../pages/add-banquet/add-banquet';
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
- rootPage:any = WelcomePage;//modified by krishna, line 23 should be reverted back to --> rootPage:any = WelcomePage;
-  // rootPage:any = AddCatererPage;
+ //rootPage:any = WelcomePage;//modified by krishna, line 23 should be reverted back to --> rootPage:any = WelcomePage;
+  rootPage:any = AddBanquetPage;
   dashboardPage = DashboardPage;
   profilePage = ProfilePage;
   homePage = HomePage;

@@ -182,17 +182,14 @@ export class AddCatererPage {
       buttons: [
         {
           text: 'Take a picture',
-          //role: 'destructive',
           handler: () => {
             this.chooseFromCam();
-            console.log('Destructive clicked');
           }
         },
         {
           text: 'Select from gallery',
           handler: () => {
             this.pickImage();
-            console.log('Archive clicked');
           }
         },
         {
