@@ -1,0 +1,114 @@
+<!--
+  Generated template for the AddBanquetPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>add-banquet</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content style="overflow: hidden;height: 100vh">
+
+  <ion-slides #formslides style="height: 80vh"> 
+      <ion-slide style="height: 100vh">
+        <ion-card style="max-height: 100vh; height: 100vh;">
+            <ion-card-header>
+              Step 1/5
+            </ion-card-header>
+            <hr>
+            
+            <ion-item>
+                <p style="color: red">{{errormessage}}</p>
+              </ion-item>
+            <ion-card-content>
+              
+            </ion-card-content>
+        </ion-card>
+      </ion-slide>
+      <ion-slide style="height: 100vh">
+        <ion-card style="height: 100vh;">
+            <ion-card-header>
+              Step 2/5
+            </ion-card-header>
+            <hr>
+            <ion-item>
+              <p style="color: red">{{errormessage}}</p>
+            </ion-item>
+            <ion-card-content>
+              
+            </ion-card-content>
+        </ion-card>
+      </ion-slide>
+      <ion-slide style="height: 100vh">
+        <ion-card style="height: 100vh;">
+            <ion-card-header>
+              Step 3/5
+            </ion-card-header>
+            <hr>
+            
+        </ion-card>
+      </ion-slide>
+      <ion-slide style="height: 100vh">
+        <ion-card style="height: 100vh;">
+            <ion-card-header>
+              Step 4/5
+            </ion-card-header>
+            <hr>
+            <button ion-button (click)="presentActionSheet()" >pick image</button>
+            <ion-scroll direction="y" scrollY="true" style="height: 80%;">
+                <ion-card-content>     
+                  <ion-card *ngFor="let img of images"  style="position: relative" >
+                    <img src="{{'data:image/jpeg;base64,' + img}}">
+                    <div style="position: absolute; right: 2%; top: 2%" >
+                      <ion-icon (click)="removeImage(img)" style="color: red;font-size: 50px" name="close-circle" ></ion-icon>
+                    </div>
+                  </ion-card>
+                              
+                </ion-card-content>
+                <div  style="margin-bottom: 80px" ></div>
+            </ion-scroll>
+            <ion-card-content>
+              you have successfully added all details, click to upload this product!
+            </ion-card-content>
+        </ion-card>
+      </ion-slide>
+      <ion-slide style="height: 100vh">
+        <ion-card style="height: 100vh;">
+            <ion-card-header>
+              Step 5/5
+            </ion-card-header>
+            <hr>
+            <ion-card-content>
+              you have successfully added all details, click to upload this product!
+            </ion-card-content>
+        </ion-card>
+      </ion-slide>
+  </ion-slides>
+  <hr>
+  <ion-row style="height: fit-content" no-padding>
+      <ion-col style="width: 25%">
+        <div *ngIf="pageNo != 0">
+            <ion-icon (click)="goToPrev()" style="font-size: 30px; position: absolute;left: 20px;" name="ios-arrow-back"></ion-icon>
+        </div>
+          </ion-col>
+      <ion-col style="height: 100%; width: 50%">
+          <ion-slides #sliderbubbles pager style=" width: 100%;height:30px;">
+              <ion-slide *ngFor="let s of slides">
+              </ion-slide>
+          </ion-slides>
+      </ion-col>
+      <ion-col style="width: 25%">
+        <div *ngIf="pageNo < (len-1)">
+            <ion-icon (click)="goToNext()" style="font-size: 30px; position: absolute;right: 20px;" name="ios-arrow-forward"></ion-icon>
+        </div>
+        <div *ngIf="pageNo == (len-1)">
+            <ion-icon (click)="goToNext()" style="font-size: 30px; position: absolute;right: 20px;" name="checkmark-circle-outline"></ion-icon>
+        </div>
+          </ion-col>
+  </ion-row>
+</ion-content>
