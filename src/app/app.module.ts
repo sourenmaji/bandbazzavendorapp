@@ -30,11 +30,11 @@ import { FilePath } from '@ionic-native/file-path';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { AddbusinessPage } from '../pages/addbusiness/addbusiness';
 import { AddCatererPage } from '../pages/add-caterer/add-caterer';
-import { Geolocation } from '@ionic-native/geolocation';
 import { EnquiryDetailsPage } from '../pages/enquiry-details/enquiry-details';
 import { BookingDetailsPage } from '../pages/booking-details/booking-details';
 import { AddCarsPage } from '../pages/add-cars/add-cars';
 import { ImagePicker } from '@ionic-native/image-picker';
+import { HttpClient, HttpClientModule } from '../../node_modules/@angular/common/http';
 
 
 @NgModule({
@@ -66,7 +66,8 @@ import { ImagePicker } from '@ionic-native/image-picker';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
+    HttpModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
