@@ -58,14 +58,14 @@ ngOnInit() {
     foodType: new FormControl('',  Validators.compose([]))
   }); 
 }
-removeImage(src: string)
+removeImage(src: any)
   {
-    let newimage: string[] = [];
-    this.images.forEach(element => {
-      if(element != src)
+    let newimage: any = [];
+    this.productImages.forEach(element => {
+      if(element.url != src)
         newimage.push(element);
     });
-    this.images = newimage;
+    this.productImages = newimage;
   }
 
 }
