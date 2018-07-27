@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, MenuController, LoadingController, ActionSheetController, AlertController, NavController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { EnquiryDetailsPage } from '../enquiry-details/enquiry-details';
-
+let scroll = null;
 @IonicPage()
 @Component({
   selector: 'page-enquiries',
@@ -20,6 +20,9 @@ enquiry_type: any;
 lastClicked: any;
 message: string;
 selectOptions: any;
+next_page: number;
+page: number;
+params: any;
 apiUrl = 'http://192.168.0.130/BandBazza/public/';
 
 
@@ -30,7 +33,7 @@ apiUrl = 'http://192.168.0.130/BandBazza/public/';
     this.authService.pageReset=false;
 
   }
-  
+
   ionViewDidLoad(){
         //initialize all variables with default values and call the service
         this.categories= [];
@@ -38,21 +41,21 @@ apiUrl = 'http://192.168.0.130/BandBazza/public/';
         this.enquiries = [];
         this.enquiries_history = [];
         this.message="";
-        this.enquiry_type=1;
+        this.enquiry_type="active";
         this.selectOptions = {
           title: 'Show bookings',
           buttons: []
-        };  
+        };
         this.getCategories();
   }
-  
+
   ionViewDidEnter()
   {
-    if(this.authService.pageReset)
-    {
-      console.log(this.authService.pageReset)
-      this.getEnquiries(this.lastClicked);
-    }
+    // if(this.authService.pageReset)
+    // {
+    //   console.log(this.authService.pageReset)
+    //   this.getEnquiries(this.lastClicked);
+    // }
   }
 
   //get business categories of this vendor
@@ -71,7 +74,7 @@ apiUrl = 'http://192.168.0.130/BandBazza/public/';
             this.category=this.categories[0].module_name;
             console.log(this.categories)
             loader.dismiss();
-            this.getEnquiries(this.categories[0]);
+            this.getEnquiries(this.categories[0],true);
             }
             else
             {
@@ -87,21 +90,22 @@ apiUrl = 'http://192.168.0.130/BandBazza/public/';
           console.log(err)
         });
   }
-  
+
   //get enquiries of a particular module
-  getEnquiries(c: any)
-  { 
+  getEnquiries(c: any, reset:boolean)
+  {
     //create loader
     let loader = this.loadingCtrl.create({
       content: 'Please wait...'
     });
+
     this.lastClicked=c;
     loader.present();
     this.category=c.module_name;
     this.enquiries = [];
-    this.enquiries_history = [];
+
     this.message="";
-    console.log(this.category);
+
     if(this.category=='Banquet Hall')
     {
       this.type="get_hall_enquiries";
@@ -114,19 +118,52 @@ apiUrl = 'http://192.168.0.130/BandBazza/public/';
     {
       this.type="get_caterer_enquiries";
     }
+
+    //if there's no next page or the page needs to be manually refreshed, reset values to default
+    if(!this.next_page || reset)
+    {
+      this.enquiries = [];
+      this.page=1;
+    }
+
+    //takes category id, filter value and page no and calls service
+    this.params= {id: c.id, type: this.enquiry_type, page: this.page };
+
     console.log(this.type)
-    this.authService.getData(this.type+'?id='+c.id+'&type='+this.enquiry_type,this.token).then((result) => {
+    this.authService.getDataParams(this.type, this.params, this.token).then((result) => {
       this.responseData = result;
         console.log(this.responseData)
+        //if there's existing enquiries
         if(this.responseData.status==true)
         {
-          if(this.responseData.enquiries)
-          this.enquiries=this.responseData.enquiries;
-          if(this.responseData.enquiries_history)
-          this.enquiries_history=this.responseData.enquiries_history;
+          console.log(this.responseData.enquiries.data)
+
+          //pushing to array because pagination call will add to the existing array if any value is present
+          this.responseData.enquiries.data.forEach(enquiry => {
+            this.enquiries.push(enquiry);
+          });
+
+          //if there's pagination value
+          if(this.responseData.enquiries.next_page_url)
+          {
+            this.next_page=this.next_page+1;
+          }
+          else
+          {
+            this.next_page=0;
+            this.message= "End of results"
+          }
+
+          if(scroll)
+          {
+            scroll.complete();
+            console.log('Pagination values fetched');
+          }
+
         }
-        else
+        else //if there's no enquiries
         {
+          this.next_page=0;
           this.message=this.responseData.message;
         }
         loader.dismiss();
@@ -139,12 +176,32 @@ apiUrl = 'http://192.168.0.130/BandBazza/public/';
     });
   }
 
-  filterEnquiry()
+  filterEnquiries()
   {
-    console.log(this.enquiry_type);
-    this.getEnquiries(this.lastClicked);
+    const actionSheet = this.actionCtrl.create({
+      title: 'Show booking by',
+      buttons: [
+        {
+          text: 'Active Enquiries',
+          handler: () => {
+            this.enquiry_type='active';
+            console.log('Active clicked');
+            this.getEnquiries(this.lastClicked,true);
+          }
+        },
+        {
+          text: 'Past Enquiries',
+          handler: () => {
+            this.enquiry_type='history';
+            console.log('history clicked');
+            this.getEnquiries(this.lastClicked,true);
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
-  
+
   onOpenMenu(){
     this.menuCtrl.open();
   }
@@ -153,5 +210,20 @@ apiUrl = 'http://192.168.0.130/BandBazza/public/';
     console.log(details);
     this.navCtrl.push(EnquiryDetailsPage,{details, module});
   }
-  
+
+  loadMore(infiniteScroll)
+  {
+    console.log('Getting paginated values...');
+    scroll=infiniteScroll;
+    console.log(scroll);
+    //if next page exists apply infinite scroll
+      if(this.next_page)
+      {
+        this.page=this.next_page+1;
+        console.log(this.page);
+        //reset = false, because updated value needs to be passed to service call, page not to be refreshed
+        this.getEnquiries(this.lastClicked,false);
+      }
+  }
+
 }

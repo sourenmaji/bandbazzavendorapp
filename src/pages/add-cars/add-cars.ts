@@ -1,7 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, ActionSheetController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { ImagePicker } from '@ionic-native/image-picker';
+import { elementAttribute } from '../../../node_modules/@angular/core/src/render3/instructions';
+import { Camera, CameraOptions } from '../../../node_modules/@ionic-native/camera';
 
 /**
  * Generated class for the AddCarsPage page.
@@ -16,6 +18,7 @@ import { ImagePicker } from '@ionic-native/image-picker';
   templateUrl: 'add-cars.html',
 })
 export class AddCarsPage {
+
 
   public token: string = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjA1MWNkNzUyZjhjZWUzY2Q0MmQzNzAzY2ExOGZkZmU4NDc0NmJlMzBiNzI3ZmM2ZWNkZTYyN2ExNWNmMzI5ODRjYjA2NzY2YjI2ZTk2YzE0In0.eyJhdWQiOiIxIiwianRpIjoiMDUxY2Q3NTJmOGNlZTNjZDQyZDM3MDNjYTE4ZmRmZTg0NzQ2YmUzMGI3MjdmYzZlY2RlNjI3YTE1Y2YzMjk4NGNiMDY3NjZiMjZlOTZjMTQiLCJpYXQiOjE1MzE5ODY1OTEsIm5iZiI6MTUzMTk4NjU5MSwiZXhwIjoxNTYzNTIyNTkxLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.AqYVcs-YCspA2pyteHvB9jsh18aX8qaJzmlq9oUuXb0PJ_zUwj272itEKscJ4LhMlApt9GhrCtdTEK-90MVMbDVXp1z7kj_Mg9wzULyXVpdj9xQUwkRZsLcINLqpHgrsleZcUuNcuwKiibVLMjRcJ5Jz_eOnbr4E62UxQVUkOjVzEciAjucdI73FepK5HjOaEmW4qjxuxtbO8zeVotQn42yWDsTtRqL8-GNBn4MT2lQuMMS9m89SioVD4WHbSeAURMd1gQbiju1xSqmzUc7rDnNUniIhVQYkmmm39zbCJ2hQlfvTC1CCWz6i-h18AXbKvdSqauRlBIodHklV3mvgqyhkKHFn7EOCf8FUEpTJrwMJVGKuEa8iuCMJnYe7dBvAdqXp-CjgcoD2jiCU6GhilmzTmP2Ec2g-K18Wu4t2aPZlTOoFUpQd6P_P3m7kFn7Dv8Z_UKrJk-mLZA1KV5EfX-QYn95pM0sB3Pqjg-6xllFa8qk9ZdSeDRY8ZN7-23ye1J5-v2GQ3b0m5Mm8cqN0WGzVyma5PkIah7ioBgFN9co6QOdDh_SfHdN_Y74bQdzp2LI97h02O0YQQRYu7z_eBD1FEgzxMzj2CSOs3Z9zl3noLjd1T8mF6A-3qx89dPBZ84WE5SpTaLrSXh7V4hVeLyXZbuBnZ3C7g2ogvt0-W3I";
   @ViewChild('formslides') formSlide: Slides;
@@ -35,9 +38,13 @@ export class AddCarsPage {
 
   //form 2 data
   public ac_available: boolean = false;
+  public form2data: {no_of_seats:number, min_hire_period: number, max_hire_period: number, car_price_hour: number, car_price_kil: number, ac_car_price_hour: number, ac_car_price_kil: number, book_advance: number, car_tags: string};
 
   //form 3 data
-  public images: string[];
+  public imagesleft: string[];
+  public imagesright: string[];
+  public aimage:string;
+  public bimage:string;
 
 
 
@@ -47,7 +54,9 @@ export class AddCarsPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public restServ: AuthServiceProvider,
-              public imagePicker: ImagePicker
+              public imagePicker: ImagePicker,
+              public actionSheetCtrl: ActionSheetController,
+              public camera: Camera
   ) {
     //for card slide design
     this.pageNo = 0;
@@ -62,14 +71,18 @@ export class AddCarsPage {
     this.initCarData();
 
     //for form 2
+    this.form2data ={no_of_seats:null, ac_car_price_hour:null, ac_car_price_kil:null, book_advance:null,car_price_hour:null,car_price_kil:null,car_tags:"",max_hire_period:null,min_hire_period:null};
 
     //for form 3
     //for dummies
-    this.images = [];
+    this.imagesleft = [];
+    this.imagesright = [];
+    /*
     this.images.push("https://auto.ndtvimg.com/car-images/medium/maruti-suzuki/alto-800/maruti-suzuki-alto-800.jpg?v=2");
     this.images.push("https://auto.ndtvimg.com/car-images/big/lamborghini/urus/lamborghini-urus.jpg?v=6");
     this.images.push("https://auto.ndtvimg.com/car-images/medium/maruti-suzuki/baleno/maruti-suzuki-baleno.jpg?v=2");
-    console.log(this.images);
+    */
+    
   }
 
   ionViewDidLoad() {
@@ -93,15 +106,20 @@ export class AddCarsPage {
   goToNext()
   {
     //TODO: validation suppresed due to rapid development, uncomment these
-    /*
+    
+    if(this.pageNo == 3)
+    {
+      this.uploadData();
+    }
     if(!this.validateStep(this.pageNo+1)) // step number is one more than pageNo, thanks to array base zero
     {
       console.log("unknown error "+ this.pageNo);
       return;
     }
-    */
+    
     //console.log(this.form1data);
     this.pageNo++;
+    this.errormessage = "";
     this.formSlide.lockSwipes(false);
     this.formSlide.slideNext();
     this.formSlide.lockSwipes(true);
@@ -150,7 +168,52 @@ export class AddCarsPage {
       this.errormessage = "";
       return true;
     }
-    return true;
+
+    if(stepNo == 2)
+    {
+      if(this.isInvalid(this.form2data.no_of_seats, "Enter valid no. of seats"))
+      return false;
+      else if(this.isInvalid(this.form2data.min_hire_period, "Enter valid minimum period of hire"))
+      return false;
+      else if(this.form2data.max_hire_period<this.form2data.min_hire_period || this.form2data.max_hire_period == null)
+      {
+        this.errormessage = "Enter valid maximum hiring period";
+        return false;
+      }
+      else if(this.isInvalid(this.form2data.car_price_hour, "Enter valid rate per hour (Non-AC)"))
+      return false;
+
+      else if(this.isInvalid(this.form2data.car_price_kil, "Enter valid rate per KM (Non-AC)"))
+      return false;
+
+      else if(this.ac_available)
+      {
+        if(this.isInvalid(this.form2data.ac_car_price_hour, "Enter valid rate per hour (AC)"))
+        return false;
+
+        if(this.isInvalid(this.form2data.ac_car_price_kil, "Enter valid rate per KM (AC)"))
+        return false;
+      }
+
+      else if(this.isInvalid(this.form2data.book_advance, "Enter a valid advance booking fee"))
+      return false;
+
+      else if(this.form2data.car_tags.trim() == "")
+      {
+        this.errormessage = "Enter some tags to identify your product";
+        return false;
+      }
+      return true;
+
+    }
+    if(stepNo == 3)
+    {
+      let min_required_images = 1;
+      if(this.imagesleft.length+this.imagesright.length> min_required_images)
+      return true;
+    }
+
+    return false;
   }
 
   //functions for form 1
@@ -186,7 +249,7 @@ export class AddCarsPage {
   {
     //TODO: change the token to load from local storage
     console.log(brand);
-    this.form1data.brand = brand.car_company_name;
+    this.form1data.brand = brand.id+"";
     this.form1data.model = null;
     this.errormessage = "";
     this.restServ.getData("get_car_models?id="+brand.id, this.token).then((result)=>
@@ -209,7 +272,7 @@ export class AddCarsPage {
 
   storeModel(model: {car_model:string, model_id:number})
   {
-    this.form1data.model = model.car_model;
+    this.form1data.model = model.model_id+"";
     this.errormessage = "";
   }
 
@@ -224,26 +287,152 @@ export class AddCarsPage {
   }
 
   //functions for form 2
+  isInvalid(value: number, errorm: string):boolean
+  {
+    if(value<=0 || value == null)
+    {
+      this.errormessage = errorm;
+      return true;
+    }
+    return false;
+  }
 
+  clearAcRates()
+  {
+    this.form2data.ac_car_price_hour = 0;
+    this.form2data.ac_car_price_kil = 0;
+  }
   //function for form 3
+
+  presentActionSheet() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Choose your method',
+      buttons: [
+        {
+          text: 'Take a picture',
+          //role: 'destructive',
+          handler: () => {
+            this.chooseFromCam();
+            console.log('Destructive clicked');
+          }
+        },
+        {
+          text: 'Select from gallery',
+          handler: () => {
+            this.pickImage();
+            console.log('Archive clicked');
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+ 
+    actionSheet.present();
+  }
+
+  chooseFromCam(){
+    let remaining = 5 - this.imagesleft.length - this.imagesright.length;
+    if(remaining <= 0)
+    {
+      return;
+    }
+    const options: CameraOptions = {
+    quality: 10,
+    destinationType: this.camera.DestinationType.DATA_URL,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE
+  };
+
+  this.camera.getPicture(options).then((imageData) => {
+    // imageData is either a base64 encoded string or a file URI
+    // If it's base64 (DATA_URL):
+    //let base64Image = 'data:image/jpeg;base64,' + imageData;
+    if(this.imagesright.length< this.imagesleft.length)
+        this.imagesright.push(imageData);
+      else
+        this.imagesleft.push(imageData);
+    //console.log(imageData);
+   }, (err) => {
+    // Handle error
+   });
+}
+ 
   pickImage()
   {
-    this.imagePicker.getPictures({maximumImagesCount:2, quality:10}).then
+    let remaining = 5 - this.imagesleft.length - this.imagesright.length;
+    if(remaining <= 0)
+    {
+      return;
+    }
+    this.imagePicker.getPictures({maximumImagesCount:remaining, quality:10, outputType:1}).then
     (results =>{
       console.log(results);
       for(let i=0; i < results.length;i++){
-        this.images.push(results[i]);
+        if(this.imagesright.length< this.imagesleft.length)
+          this.imagesright.push(results[i]);
+        else
+          this.imagesleft.push(results[i]);
       };
     });
   }
 
   removeImage(src: string)
   {
-    let newimage: string[] = [];
-    this.images.forEach(element => {
+    let newimageright: string[] = [];
+    let newimageleft: string[] = [];
+    this.imagesright.forEach(element => {
       if(element != src)
-        newimage.push(element);
+        newimageright.push(element);
     });
-    this.images = newimage;
+    this.imagesleft.forEach(element => {
+      if(element != src)
+        newimageleft.push(element);
+    });
+    this.imagesright = newimageright;
+    this.imagesleft = newimageleft;
+  }
+
+  uploadData()
+  {
+    //call rest service and upload the carData
+    let carData: any = {};
+    if(this.unknowncar)
+    {
+      carData.brand = this.form1data.brand; 
+      carData.model = this.form1data.model;
+    }
+    else{
+      carData.brand_id = this.form1data.brand;
+      carData.model_id = this.form1data.model;
+    }
+    //carData.business_id = XXXXXX  Probably available in localstorage
+    carData.car_tags = this.form2data.car_tags;
+    carData.car_type = this.form1data.type;
+    carData.car_price_hour = this.form2data.car_price_hour;
+    carData.car_price_kil = this.form2data.car_price_kil;
+    carData.min_hire_period = this.form2data.min_hire_period;
+    carData.max_hire_period = this.form2data.max_hire_period;
+    if(this.ac_available)
+    {
+      carData.ac_car_price_hour = this.form2data.ac_car_price_hour;
+      carData.ac_car_price_kil = this.form2data.ac_car_price_kil;
+    }
+    carData.book_advance = this.form2data.book_advance;
+    carData.images = [];
+    this.imagesright.forEach(element => {
+      carData.images.push(element);
+    });
+    this.imagesleft.forEach(element => {
+      carData.images.push(element);
+    });
+
+    console.log(carData);
+    //call the rest here..
   }
 }
