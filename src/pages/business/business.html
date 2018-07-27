@@ -24,17 +24,13 @@
     <ion-card>
           <ion-card-header class="custom-card-header">
               <ion-item class="custom-item">
-                  {{business.company_name}}
-                  <ion-fab right top>
-                  <button ion-button small clear icon-only [disabled]="business.request_type=='Delete'" (click)="deleteBusiness(business.id)">
+                {{business.company_name}}
+                  <button ion-button item-end small clear icon-only [disabled]="business.request_type=='Delete'" (click)="deleteBusiness(business.id)">
                     <ion-icon name="trash" color="danger"></ion-icon>
                   </button>
-                  </ion-fab>
-                </ion-item>
-              
+              </ion-item>
             </ion-card-header>
          
-
          <ion-item>
               <ion-row >
                   <ion-col col-auto>
@@ -56,23 +52,26 @@
          <!--  <img src="http://www.bandbazza.com/{{business.business_image}}">-->
         
         <ion-card-content>
-          <p>{{business.address}}</p>
-          
+          <p>{{business.address}}</p>  
           <h3>{{business.since}}</h3>
           
         </ion-card-content>
       
         <ion-row>
           <ion-col>
-            <button ion-button icon-left round full color="dash2" [disabled]="business.request_type=='Delete'" (click)="editBusiness(business)">
+            <button ion-button icon-left round full color="dash2" [disabled]="business.request_type=='Delete' || business.request_type=='Deactivate'" (click)="editBusiness(business)">
               <ion-icon color="white" name="create"></ion-icon>
               <div ion-text color="white"> Edit </div>
             </button>
           </ion-col>
           <ion-col>
-            <button ion-button icon-left round full color="success" [disabled]="business.request_type=='Delete'" (click)="deactiveBusiness(business.id)">
+            <button ion-button icon-left round full color="success" *ngIf="business.request_type!='Deactivate'" [disabled]="business.request_type=='Delete'|| business.request_type=='Deactivate'" (click)="deactiveBusiness(business.id)">
               <ion-icon name="cut"></ion-icon>
               <div> Deactive </div>
+            </button>
+            <button ion-button icon-left round full color="success" *ngIf="business.request_type=='Deactivate'" (click)="deactiveBusiness(business.id)">
+              <ion-icon name="cut"></ion-icon>
+              <div> Re-activate </div>
             </button>
           </ion-col>
           
