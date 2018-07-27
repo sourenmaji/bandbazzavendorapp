@@ -29,10 +29,10 @@
     <img src="http://192.168.0.130/BandBazza/public/{{products.product_image}}">
 
     <ion-card-content *ngIf="category=='Banquet Hall'">
-        <ion-fab mid right>
+        <ion-fab class="dl-p">
             <button ion-fab mini (click)="deleteBusiness(business.id)">
-                <ion-icon name="trash" color="danger"></ion-icon>
-              </button>
+              <ion-icon name="trash" color="danger"></ion-icon>
+            </button>
           </ion-fab>
       <ion-card-title > 
         <ion-row>

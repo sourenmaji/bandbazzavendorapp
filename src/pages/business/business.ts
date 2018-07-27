@@ -174,6 +174,55 @@ export class BusinessPage {
   alert.present();
   }
 
+  reactiveBusiness(businessid){
+
+    let alert = this.alertCtrl.create({
+     title: 'Confirm',
+     message: 'Do you want to reactivate your business?',
+     buttons: [{
+       text: "Reactivate",
+       handler: () => { 
+ 
+         this.authService.getData('reactivate_business?business_id='+businessid,this.userPostData.token).then((result) => {
+           this.responseData = result;
+           
+           
+           if(this.responseData.status == true)
+           {
+         
+             const alert = this.alertCtrl.create({
+               subTitle: this.responseData.message,
+               buttons: ['OK']
+             })
+             alert.present();
+             this.openBusiness();
+           }
+           else{
+            const alert = this.alertCtrl.create({
+              subTitle: this.responseData.message,
+              buttons: ['OK']
+            })
+            alert.present();
+          }
+         }, 
+         (err) => {
+          this.responseData = err.json();
+          const alert = this.alertCtrl.create({
+           subTitle: this.responseData.message,
+           buttons: ['OK']
+         })
+         alert.present();
+         });
+      
+        }
+     }, {
+       text: "Cancel",
+       role: 'cancel'
+     }]
+   })
+   alert.present();
+   }
+
 
   deleteBusiness(businessid){
     //console.log(businessid);
