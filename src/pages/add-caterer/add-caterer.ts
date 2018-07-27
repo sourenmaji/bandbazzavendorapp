@@ -1,8 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, ActionSheetController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { ImagePicker } from '../../../node_modules/@ionic-native/image-picker';
 import { AddCarsPage } from '../add-cars/add-cars';
+import { Camera, CameraOptions } from '../../../node_modules/@ionic-native/camera';
 
 /**
  * Generated class for the AddCatererPage page.
@@ -36,7 +37,13 @@ export class AddCatererPage {
   public imagesleft: string[];
   public imagesright: string[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public restServ: AuthServiceProvider, public imagePicker: ImagePicker) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public restServ: AuthServiceProvider,
+              public imagePicker: ImagePicker,
+              public actionSheetCtrl: ActionSheetController,
+              public camera: Camera
+            ) {
     //for card slide design
     this.pageNo = 0;
     this.len = 1;
@@ -168,6 +175,67 @@ export class AddCatererPage {
   }
 
   //funtions for step 3
+
+  presentActionSheet() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Choose your method',
+      buttons: [
+        {
+          text: 'Take a picture',
+          //role: 'destructive',
+          handler: () => {
+            this.chooseFromCam();
+            console.log('Destructive clicked');
+          }
+        },
+        {
+          text: 'Select from gallery',
+          handler: () => {
+            this.pickImage();
+            console.log('Archive clicked');
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+ 
+    actionSheet.present();
+  }
+
+  
+  chooseFromCam(){
+      let remaining = 5 - this.imagesleft.length - this.imagesright.length;
+      if(remaining <= 0)
+      {
+        return;
+      }
+      const options: CameraOptions = {
+      quality: 10,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
+
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64 (DATA_URL):
+      //let base64Image = 'data:image/jpeg;base64,' + imageData;
+      if(this.imagesright.length< this.imagesleft.length)
+          this.imagesright.push(imageData);
+        else
+          this.imagesleft.push(imageData);
+      //console.log(imageData);
+     }, (err) => {
+      // Handle error
+     });
+  }
+
   pickImage()
   {
     let remaining = 5 - this.imagesleft.length - this.imagesright.length;

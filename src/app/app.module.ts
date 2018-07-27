@@ -96,6 +96,7 @@ import { HttpClient, HttpClientModule } from '../../node_modules/@angular/common
     AddCarsPage
   ],
   providers: [
+    Camera,
     ImagePicker,
     StatusBar,
     SplashScreen,
