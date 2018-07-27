@@ -95,6 +95,7 @@ import { ImagePicker } from '@ionic-native/image-picker';
     AddCarsPage
   ],
   providers: [
+    Camera,
     ImagePicker,
     StatusBar,
     SplashScreen,
