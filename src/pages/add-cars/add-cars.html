@@ -30,7 +30,7 @@
                     <ion-item>
                         <ion-label>Select Brand</ion-label>
                         <ion-select interface="popover">
-                          <ion-option (ionSelect)="updateModels(b)" *ngFor="let b of carbrands">{{b.car_company_name}}</ion-option>
+                          <ion-option [selected]="b.car_company_name == 'All Brands'" (ionSelect)="updateModels(b)" *ngFor="let b of carbrands">{{b.car_company_name}}</ion-option>
                         </ion-select>
                       </ion-item>
                       <ion-item *ngIf="form1data.brand != null">
