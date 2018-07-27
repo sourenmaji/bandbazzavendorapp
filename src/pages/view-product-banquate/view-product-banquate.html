@@ -98,10 +98,125 @@
 
     <!-- for Edit section -->
 
-
-
-  <ion-card *ngIf="requestType == 'edit'">
     
+ 
+  <ion-card *ngIf="requestType == 'edit'">
+    <ion-card-content>
+
+          <ul class="img-y">
+            <li><img src="http://192.168.0.130/BandBazza/public/{{productDetails.details.view}}">
+              <div class="ico-p">
+                <ion-icon (click)="removeImage(img)" style="color: red;font-size: 16px" name="close-circle" ></ion-icon>
+              </div>
+            </li>
+            <li *ngFor="let slide of productImages">
+                <img src="http://192.168.0.130/BandBazza/public/{{slide.url}}">
+                <div class="ico-p">
+                  <ion-icon (click)="removeImage(img)" style="color: red;font-size: 16px" name="close-circle" ></ion-icon>
+                </div>
+            </li>
+          </ul>
+              <!-- <ion-card-title>
+                        <h1 ion-text color="danger">{{productDetails.details.name}}</h1> 
+             </ion-card-title> -->
+
+
+             <ion-list>
+              <form novalidate  [formGroup]="editProductform">
+                <ion-item>
+                  <ion-label floating>Banquet Hall Name <span style="color: red">*</span></ion-label>
+                  <ion-input type="text" [(ngModel)]="userData.banquetName" value="{{productDetails.details.name}}"
+                  formControlName="banquetName" [class.error1]="!editProductform.controls.banquetName.valid && editProductform.controls.banquetName.dirty">
+                </ion-input>
+                </ion-item>
+                <ion-item no-lines *ngIf="( editProductform.get('banquetName').hasError('required') ) && editProductform.get('banquetName').touched">
+                  <div class="error" *ngIf="editProductform.get('banquetName').hasError('required') && editProductform.get('banquetName').touched">
+                    Please enter Hall Name
+                  </div>
+                  
+                </ion-item>
+                  
+                    <ion-item>
+                      <ion-label floating>Hall Price<small>(per day)</small> <span style="color: red">*</span></ion-label>
+                      <ion-input type="text" [(ngModel)]="userData.hallPrice" value="{{productDetails.details.price}}"
+                      formControlName="hallPrice" [class.error1]="!editProductform.controls.hallPrice.valid && editProductform.controls.hallPrice.dirty">
+                    </ion-input>
+                    </ion-item> 
+                    <ion-item no-lines *ngIf="( editProductform.get('hallPrice').hasError('required') ||editProductform.get('hallPrice').hasError('pattern')) && editProductform.get('hallPrice').touched">
+                      <div class="error" *ngIf="editProductform.get('hallPrice').hasError('required') && editProductform.get('hallPrice').touched">
+                        Please enter Hall Price
+                      </div>
+                      <div class="error" *ngIf="editProductform.get('hallPrice').hasError('pattern') && editProductform.get('hallPrice').touched">
+                        Please enter only digit
+                      </div>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label floating>Advance Amount <span style="color: red">*</span></ion-label>
+                      <ion-input type="text" [(ngModel)]="userData.advanceAmount" value="{{productDetails.details.book_advance}}"
+                      formControlName="advanceAmount" [class.error1]="!editProductform.controls.advanceAmount.valid && editProductform.controls.advanceAmount.dirty"></ion-input>
+                    </ion-item> 
+                    <ion-item no-lines *ngIf="( editProductform.get('advanceAmount').hasError('required') ||editProductform.get('advanceAmount').hasError('pattern')) && editProductform.get('advanceAmount').touched">
+                      <div class="error" *ngIf="editProductform.get('advanceAmount').hasError('required') && editProductform.get('advanceAmount').touched">
+                        Please enter Advance Amount
+                      </div>
+                      <div class="error" *ngIf="editProductform.get('advanceAmount').hasError('pattern') && editProductform.get('advanceAmount').touched">
+                        Please enter only digit
+                      </div>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label floating>Capacity <span style="color: red">*</span></ion-label>
+                      <ion-input type="text" [(ngModel)]="userData.capacity" value="{{productDetails.details.capacity}}"
+                      formControlName="capacity" [class.error1]="!editProductform.controls.capacity.valid && editProductform.controls.capacity.dirty">
+                    </ion-input>
+                    </ion-item> 
+                    <ion-item no-lines *ngIf="( editProductform.get('capacity').hasError('required') ||editProductform.get('capacity').hasError('pattern')) && editProductform.get('capacity').touched">
+                      <div class="error" *ngIf="editProductform.get('capacity').hasError('required') && editProductform.get('capacity').touched">
+                        Please enter Capacity
+                      </div>
+                      <div class="error" *ngIf="editProductform.get('capacity').hasError('pattern') && editProductform.get('capacity').touched">
+                        Please enter only digit
+                      </div>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label floating>Ac. Charges<small>(per hour)</small> </ion-label>
+                      <ion-input type="text" [(ngModel)]="userData.acCharges" value="{{productDetails.details.ac_charge}}"
+                      formControlName="acCharges" [class.error1]="!editProductform.controls.acCharges.valid && editProductform.controls.acCharges.dirty">
+                    </ion-input>
+                    </ion-item> 
+                    <ion-item no-lines *ngIf="(editProductform.get('acCharges').hasError('pattern') ) && editProductform.get('acCharges').touched">
+                      <div class="error" *ngIf="editProductform.get('acCharges').hasError('pattern') && editProductform.get('acCharges').touched">
+                        Please enter only digit
+                      </div>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label>Available AC
+                      </ion-label>
+                      
+                      <ion-select [(ngModel)]="userData.availableAc" formControlName="availableAc" >
+                      <ion-option value="1" >Yes</ion-option>
+                      <ion-option value="0" >No</ion-option>
+                      </ion-select>
+                    </ion-item>
+                    <ion-item>
+                      
+                      <ion-label>Food Type 
+                      </ion-label>
+                      
+                      <ion-select [(ngModel)]="userData.foodType"
+                      formControlName="foodType">
+                      <ion-option value="0">Vej</ion-option>
+                      <ion-option value="1">All</ion-option>
+                      </ion-select>
+                    </ion-item>
+                    <button  ion-button block color="success" [disabled]="editProductform.invalid" (click)="uploadImage()">Add</button><br/>
+                    </form>
+            </ion-list>
+
+
+
+
+
+          </ion-card-content>
   </ion-card>
   
 </ion-content>

@@ -29,7 +29,7 @@ export class MyApp {
   productsPage = ProductsPage;
   enquiriesPage = EnquiriesPage;
   bookingsPage = BookingsPage;
-  customPackageEnquiriesPage = CustomPackageEnquiriesPage;
+  customPackageEnquiriesPage = AddCarsPage;
 
 
   userDetails : any;
