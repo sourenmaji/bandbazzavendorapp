@@ -21,8 +21,8 @@ import { AddBanquetPage } from '../pages/add-banquet/add-banquet';
   templateUrl: 'app.html'
 })
 export class MyApp {
- //rootPage:any = WelcomePage;//modified by krishna, line 23 should be reverted back to --> rootPage:any = WelcomePage;
-  rootPage:any = AddBanquetPage;
+ rootPage:any = WelcomePage;//modified by krishna, line 23 should be reverted back to --> rootPage:any = WelcomePage;
+ // rootPage:any = AddBanquetPage;
   dashboardPage = DashboardPage;
   profilePage = ProfilePage;
   homePage = HomePage;
