@@ -35,6 +35,8 @@ import { BookingDetailsPage } from '../pages/booking-details/booking-details';
 import { AddCarsPage } from '../pages/add-cars/add-cars';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { HttpClient, HttpClientModule } from '../../node_modules/@angular/common/http';
+import { AddBanquetPage } from '../pages/add-banquet/add-banquet';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -61,13 +63,18 @@ import { HttpClient, HttpClientModule } from '../../node_modules/@angular/common
     ViewProductCatererPage,
     ViewProductCarPage,
     AddCatererPage,
-    AddCarsPage
+    AddCarsPage,
+    AddBanquetPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyCnahpwY4LRTYlzEHnER3B_Y8NR1HzmrVE",
+      libraries: ["places"]
+  })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -93,7 +100,8 @@ import { HttpClient, HttpClientModule } from '../../node_modules/@angular/common
     ViewProductCatererPage,
     ViewProductCarPage,
     AddCatererPage,
-    AddCarsPage
+    AddCarsPage,
+    AddBanquetPage
   ],
   providers: [
     Camera,
