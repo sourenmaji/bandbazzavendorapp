@@ -32,6 +32,7 @@ import { EnquiryDetailsPage } from '../pages/enquiry-details/enquiry-details';
 import { BookingDetailsPage } from '../pages/booking-details/booking-details';
 import { AddCarsPage } from '../pages/add-cars/add-cars';
 import { ImagePicker } from '@ionic-native/image-picker';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -60,7 +61,11 @@ import { ImagePicker } from '@ionic-native/image-picker';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
+    HttpModule,
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyCnahpwY4LRTYlzEHnER3B_Y8NR1HzmrVE",
+      libraries: ["places"]
+  })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
