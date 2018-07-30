@@ -33,7 +33,7 @@ export class LoginPage  implements OnInit{
       // username: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(10)]),
       password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12)])),
       email: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)])
-    
+
     });
   }
   login(){
@@ -53,7 +53,7 @@ export class LoginPage  implements OnInit{
     this.responseData = err.json();
     console.log(this.responseData)
     const alert = this.alertCtrl.create({
-      subTitle: this.responseData.error,
+      subTitle: this.responseData,
       buttons: ['OK']
     })
     alert.present();

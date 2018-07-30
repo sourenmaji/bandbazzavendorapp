@@ -6,13 +6,7 @@ import { FormControl } from '../../../node_modules/@angular/forms';
 //import {FormControl} from "@angular/forms";
 import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
-
-/**
- * Generated class for the AddBanquetPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 @IonicPage()
 @Component({
@@ -28,6 +22,8 @@ export class AddBanquetPage {
   public pageNo: number;
   public slides: any[] = [];
   public errormessage: string;
+  public responseData: any;
+  public token: string;
 
   //form 1 data
   public form1data: {hallname:string, details:string, price:number, booking_advance: number};
@@ -37,7 +33,8 @@ export class AddBanquetPage {
   public longitude: number;
   public searchControl: FormControl;
   public zoom: number;
-  
+  public business_id: number;
+
   @ViewChild("search")
   public searchElementRef;
   public form2data:{full_address, lat, long, same_as_business:boolean, map_address:string};
@@ -54,12 +51,16 @@ export class AddBanquetPage {
               public imagePicker: ImagePicker,
               public actionSheetCtrl: ActionSheetController,
               public camera: Camera,
+              public restServ: AuthServiceProvider,
               private mapsAPILoader: MapsAPILoader,
               private ngZone: NgZone
             ) {
+    this.responseData = {}
+    const data = JSON.parse(localStorage.getItem('userData'));
+    this.token = data.success.token;
+    this.business_id=this.navParams.data;
+    console.log(this.business_id);
 
-
-                
     //for card slide design
     this.pageNo = 0;
     this.len = 1;
@@ -69,7 +70,7 @@ export class AddBanquetPage {
 
     //for step 2
     this.zoom = 12;
-    this.latitude = 22.591784, 
+    this.latitude = 22.591784,
     this.longitude = 88.403313;
     this.form2data = {full_address:"",lat:0,long:0,same_as_business:false,map_address:""} ;
 
@@ -144,7 +145,7 @@ export class AddBanquetPage {
 
   validateStep(stepNo: number)
   {
-    if(stepNo == 1) 
+    if(stepNo == 1)
     {
       if(this.form1data.hallname.trim() == "")
       {
@@ -169,7 +170,7 @@ export class AddBanquetPage {
       this.errormessage = "";
       return true;
     }
-    else if(stepNo == 2) 
+    else if(stepNo == 2)
     {
       if(this.form2data.same_as_business)
       {
@@ -195,7 +196,7 @@ export class AddBanquetPage {
         }
       }
     }
-    else if(stepNo == 3) 
+    else if(stepNo == 3)
     {
       if(this.form3data.capacity<=0 || this.form3data.capacity == null)
       {
@@ -219,7 +220,7 @@ export class AddBanquetPage {
       }
       return true;
     }
-    else if(stepNo == 4) 
+    else if(stepNo == 4)
     {
       /*
       if(this.images.length == 0)
@@ -302,11 +303,11 @@ export class AddBanquetPage {
         }
       ]
     });
- 
+
     actionSheet.present();
   }
 
-  
+
   chooseFromCam(){
       let remaining = 5 - this.images.length;
       if(remaining <= 0)
@@ -338,7 +339,7 @@ export class AddBanquetPage {
     {
       return;
     }
-    this.imagePicker.getPictures({maximumImagesCount:remaining, quality:10, outputType:1}).then
+    this.imagePicker.getPictures({maximumImagesCount:remaining, quality:100, outputType:1}).then
     (results =>{
       console.log(results);
       for(let i=0; i < results.length;i++){
@@ -358,29 +359,40 @@ export class AddBanquetPage {
   }
 
 
-  
+
   uploadData()
   {
-    let uploadData: {hall_name:string, details:string, price:number, booking_advance:number, address_same_as_business:boolean, full_address:string, lat:number, long:number, hall_capacity:number, veg_only:boolean, ac_available:boolean, parking_available:boolean, images:string[]};
-    uploadData = {hall_name:"", details:"", price:null, booking_advance:null, address_same_as_business:null, full_address:"", lat:null, long:null, hall_capacity:null, veg_only:null, ac_available:null, parking_available:null, images:[]};
-  
+    let uploadData: {business_id: number,hall_name:string, details:string, price:number, book_advance:number, address_same_as_business:boolean, address:string, lat:number, lng:number, capacity:number, is_veg:boolean, is_ac:boolean, is_parking:boolean, images:string[]};
+    uploadData = {business_id: null,hall_name:"", details:"", price:null, book_advance:null, address_same_as_business:null, address:"", lat:null, lng:null, capacity:null, is_veg:null, is_ac:null, is_parking:null, images:[]};
+    uploadData.business_id = this.business_id;
     uploadData.hall_name = this.form1data.hallname;
     uploadData.details = this.form1data.details;
     uploadData.price = this.form1data.price;
-    uploadData.booking_advance = this.form1data.booking_advance;
+    uploadData.book_advance = this.form1data.booking_advance;
     uploadData.address_same_as_business = this.form2data.same_as_business;
     if(!uploadData.address_same_as_business)
     {
-      uploadData.full_address = this.form2data.full_address;
+      uploadData.address = this.form2data.full_address;
       uploadData.lat = this.latitude;
-      uploadData.long = this.longitude;
+      uploadData.lng = this.longitude;
     }
-    uploadData.hall_capacity = this.form3data.capacity;
-    uploadData.veg_only = !this.form3data.all_food_type;
-    uploadData.ac_available = this.form3data.ac;
-    uploadData.parking_available = this.form3data.parking;
+    uploadData.capacity = this.form3data.capacity;
+    uploadData.is_veg = !this.form3data.all_food_type;
+    uploadData.is_ac = this.form3data.ac;
+    uploadData.is_parking = this.form3data.parking;
     uploadData.images = this.images;
     //call and upload the uploadData object here
     console.log(uploadData);
+    alert(uploadData);
+    //call the rest here..
+    this.restServ.authData(uploadData,'add_product_package',this.token).then((data) => {
+      this.responseData = data;
+      alert(this.responseData.status);
+      console.log(this.responseData);
+    }, (err) => {
+     this.responseData = err;
+     console.log(this.responseData)
+     alert(this.responseData)
+    });
   }
 }
