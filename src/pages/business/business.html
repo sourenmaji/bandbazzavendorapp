@@ -67,7 +67,7 @@
           <ion-col>
             <button ion-button icon-left round full color="success" *ngIf="business.request_type!='Deactivate' && business.request_type!='Deactivated'" [disabled]="business.request_type=='Delete'" (click)="deactiveBusiness(business.id)">
               <ion-icon name="cut"></ion-icon>
-              <div> Deactive </div>
+              <div> Deactivate </div>
             </button>
             <button ion-button icon-left round full color="success" *ngIf="business.request_type=='Deactivate' || business.request_type=='Deactivated'" (click)="reactiveBusiness(business.id)">
               <ion-icon name="cut"></ion-icon>

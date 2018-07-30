@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, LoadingController, AlertController } from 'ionic-angular';
 import { AddCatererPage } from '../add-caterer/add-caterer';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { AddCarsPage } from '../add-cars/add-cars';
 
 
 
@@ -129,7 +130,7 @@ export class ProductsPage {
         
            this.alProducts=this.responseData.all_products;
            this.businessProducts=this.responseData.business_details;
-           console.log(this.businessProducts.module_name == 'Banquet Hall');
+           
            if(!this.alProducts.length){
             const alert = this.alertCtrl.create({
               subTitle: 'No Product Added Yet',
@@ -180,13 +181,17 @@ export class ProductsPage {
  
   }
 
-
-
-
-
+  addProduct()
+  {
+    console.log(this.category);
+    if(this.category == 'Car Rental')
+    this.navCtrl.push(AddCarsPage,this.businessProducts.id);
+    else if(this.category == 'Caterer')
+    this.navCtrl.push(AddCatererPage,this.businessProducts.id);
+  }
   
   onOpenMenu(){
-this.menuCtrl.open();
+  this.menuCtrl.open();
   }
 
   goTo(productType: string)

@@ -8,6 +8,11 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
+    <ion-buttons end >
+      <button ion-button small icon-only (click)="addProduct()" tooltip="add">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -87,7 +92,7 @@
           </ion-row>  
         </ion-card-title>
         <ion-row>
-          <ion-col>
+          <ion-col *ngIf="products.ac_car_price_hour != null">
               <ion-label color="dash6">Ac Charge :</ion-label>
               <h3 >Rs.{{products.ac_car_price_hour | number:'1.0-0'}}/HR</h3>
               <h3 >Rs.{{products.ac_car_price_kil | number:'1.0-0'}}/KM</h3>
@@ -100,18 +105,18 @@
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col>
-              <button ion-button icon-left round full color="dash2"  (click)="editBusiness(products)">
-                <ion-icon color="white" name="create"></ion-icon>
-                <div ion-text color="white"> Edit </div>
-              </button>
-            </ion-col>
             <ion-col>
-              <button ion-button icon-left round full color="success"  (click)="detailsProduct(products.product_id)">
-                <ion-icon name="eye"></ion-icon>
-                <div> Details </div>
-              </button>
-            </ion-col>
+                <button ion-button icon-left round full color="dash2"  (click)="detailsProduct(products.product_id,'edit')">
+                  <ion-icon color="white" name="create"></ion-icon>
+                  <div ion-text color="white"> Edit </div>
+                </button>
+              </ion-col>
+              <ion-col>
+                <button ion-button icon-left round full color="success"  (click)="detailsProduct(products.product_id,'details')">
+                  <ion-icon name="eye"></ion-icon>
+                  <div> Details </div>
+                </button>
+              </ion-col>
           </ion-row>
           
       </ion-card-content>
@@ -132,13 +137,13 @@
           </ion-card-title>
           <ion-row>
             <ion-col>
-                <button ion-button icon-left round full color="dash2"  (click)="editBusiness(products)">
+                <button ion-button icon-left round full color="dash2"  (click)="detailsProduct(products.product_id,'edit')">
                   <ion-icon color="white" name="create"></ion-icon>
                   <div ion-text color="white"> Edit </div>
                 </button>
               </ion-col>
               <ion-col>
-                <button ion-button icon-left round full color="success"  (click)="detailsProduct(products.product_id)">
+                <button ion-button icon-left round full color="success"  (click)="detailsProduct(products.product_id,'details')">
                   <ion-icon name="eye"></ion-icon>
                   <div> Details </div>
                 </button>

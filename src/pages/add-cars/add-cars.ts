@@ -5,13 +5,6 @@ import { ImagePicker } from '@ionic-native/image-picker';
 import { elementAttribute } from '../../../node_modules/@angular/core/src/render3/instructions';
 import { Camera, CameraOptions } from '../../../node_modules/@ionic-native/camera';
 
-/**
- * Generated class for the AddCarsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-add-cars',
@@ -27,6 +20,7 @@ export class AddCarsPage {
   public pageNo: number;
   public slides: any[] = [];
   public errormessage: string;
+  public business_id: number;
 
   //form 1 data
   public form1data:{brand:string, model: string, type: number};
@@ -38,7 +32,7 @@ export class AddCarsPage {
 
   //form 2 data
   public ac_available: boolean = false;
-  public form2data: {no_of_seats:number, min_hire_period: number, max_hire_period: number, car_price_hour: number, car_price_kil: number, ac_car_price_hour: number, ac_car_price_kil: number, book_advance: number, car_tags: string};
+  public form2data: {no_of_seats:number, min_hire_period: number, max_hire_period: number, min_hire_distance: number, max_hire_distance: number, car_price_hour: number, car_price_kil: number, ac_car_price_hour: number, ac_car_price_kil: number, book_advance: number, car_tags: string};
 
   //form 3 data
   public imagesleft: string[];
@@ -56,11 +50,18 @@ export class AddCarsPage {
               public restServ: AuthServiceProvider,
               public imagePicker: ImagePicker,
               public actionSheetCtrl: ActionSheetController,
-              public camera: Camera
+              public camera: Camera,
+             
   ) {
     //for card slide design
     this.pageNo = 0;
     this.len = 1;
+    this.business_id=this.navParams.data;
+    console.log(this.business_id);
+
+    this.responseData = {}
+    const data = JSON.parse(localStorage.getItem('userData'));
+    this.token = data.success.token;
 
 
     //for form 1
@@ -71,17 +72,12 @@ export class AddCarsPage {
     this.initCarData();
 
     //for form 2
-    this.form2data ={no_of_seats:null, ac_car_price_hour:null, ac_car_price_kil:null, book_advance:null,car_price_hour:null,car_price_kil:null,car_tags:"",max_hire_period:null,min_hire_period:null};
+    this.form2data ={no_of_seats:4, ac_car_price_hour:100, ac_car_price_kil:1500, book_advance:1000,car_price_hour:80,car_price_kil:1000,car_tags:"",max_hire_period:20,min_hire_period:10, min_hire_distance: 10, max_hire_distance: 100};
 
     //for form 3
     //for dummies
     this.imagesleft = [];
     this.imagesright = [];
-    /*
-    this.images.push("https://auto.ndtvimg.com/car-images/medium/maruti-suzuki/alto-800/maruti-suzuki-alto-800.jpg?v=2");
-    this.images.push("https://auto.ndtvimg.com/car-images/big/lamborghini/urus/lamborghini-urus.jpg?v=6");
-    this.images.push("https://auto.ndtvimg.com/car-images/medium/maruti-suzuki/baleno/maruti-suzuki-baleno.jpg?v=2");
-    */
     
   }
 
@@ -343,7 +339,7 @@ export class AddCarsPage {
       return;
     }
     const options: CameraOptions = {
-    quality: 10,
+    quality: 50,
     destinationType: this.camera.DestinationType.DATA_URL,
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE
@@ -411,13 +407,16 @@ export class AddCarsPage {
       carData.brand_id = this.form1data.brand;
       carData.model_id = this.form1data.model;
     }
-    //carData.business_id = XXXXXX  Probably available in localstorage
+    carData.business_id = this.business_id;
     carData.car_tags = this.form2data.car_tags;
     carData.car_type = this.form1data.type;
     carData.car_price_hour = this.form2data.car_price_hour;
     carData.car_price_kil = this.form2data.car_price_kil;
     carData.min_hire_period = this.form2data.min_hire_period;
     carData.max_hire_period = this.form2data.max_hire_period;
+    carData.min_hire_distance = this.form2data.min_hire_distance;
+    carData.max_hire_distance = this.form2data.max_hire_distance;
+    carData.no_of_seats = this.form2data.no_of_seats;
     if(this.ac_available)
     {
       carData.ac_car_price_hour = this.form2data.ac_car_price_hour;
@@ -433,6 +432,16 @@ export class AddCarsPage {
     });
 
     console.log(carData);
+    alert(carData);
     //call the rest here..
+    this.restServ.authData(carData,'add_product_car',this.token).then((data) => {
+      this.responseData = data;
+      alert(this.responseData);
+      console.log(this.responseData);
+    }, (err) => {
+     this.responseData = err;
+     console.log(this.responseData)
+    
+    });
   }
 }
