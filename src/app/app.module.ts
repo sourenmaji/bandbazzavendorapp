@@ -72,7 +72,8 @@ import { AgmCoreModule } from '@agm/core';
     HttpModule,
     HttpClientModule,
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyCnahpwY4LRTYlzEHnER3B_Y8NR1HzmrVE",
+      //apiKey: "AIzaSyCnahpwY4LRTYlzEHnER3B_Y8NR1HzmrVE",
+      apiKey: "AIzaSyBzeppyrAzDcifb1vGnNArdBuZp5X39s-Y",
       libraries: ["places"]
   })
   ],

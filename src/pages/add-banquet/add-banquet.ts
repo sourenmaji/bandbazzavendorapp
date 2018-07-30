@@ -40,7 +40,7 @@ export class AddBanquetPage {
   
   @ViewChild("search")
   public searchElementRef;
-  public form2data:{full_address, lat, long, same_as_business:boolean};
+  public form2data:{full_address, lat, long, same_as_business:boolean, map_address:string};
 
   //form 3 data
   public form3data: {capacity:number, all_food_type:boolean, ac:boolean, parking:boolean};
@@ -68,10 +68,10 @@ export class AddBanquetPage {
     this.form1data = {hallname:"", details:"", booking_advance:null, price:null};
 
     //for step 2
-    this.zoom = 4;
+    this.zoom = 12;
     this.latitude = 22.591784, 
     this.longitude = 88.403313;
-    this.form2data = {full_address:"",lat:0,long:0,same_as_business:false} ;
+    this.form2data = {full_address:"",lat:0,long:0,same_as_business:false,map_address:""} ;
 
     //create search FormControl
     this.searchControl = new FormControl();
@@ -89,28 +89,7 @@ export class AddBanquetPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddBanquetPage');
-    this.mapsAPILoader.load().then(() => {
-      let nativeHomeInputBox = document.getElementById('txtHome').getElementsByTagName('input')[0];
-      let autocomplete = new google.maps.places.Autocomplete(nativeHomeInputBox, {
-          types: ["address"]
-      });
-      autocomplete.addListener("place_changed", () => {
-          this.ngZone.run(() => {
-              //get the place result
-              let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-              //verify result
-              if (place.geometry === undefined || place.geometry === null) {
-                  return;
-              }
-
-              //set latitude, longitude and zoom
-              this.latitude = place.geometry.location.lat();
-              this.longitude = place.geometry.location.lng();
-              this.zoom = 12;
-          });
-      });
-  });
+    this.loadMap();
   }
 
   ionViewDidEnter()
@@ -192,7 +171,29 @@ export class AddBanquetPage {
     }
     else if(stepNo == 2) 
     {
-      return true;
+      if(this.form2data.same_as_business)
+      {
+        this.errormessage = "";
+        return true;
+      }
+      else
+      {
+        if(this.form2data.full_address.trim() == "")
+        {
+          this.errormessage = "Enter full address to display on your product";
+          return false;
+        }
+        else if(this.form2data.map_address.trim() == "")
+        {
+          this.errormessage = "Enter a location to pick from map";
+          return false;
+        }
+        else
+        {
+          this.errormessage = "";
+          return true;
+        }
+      }
     }
     else if(stepNo == 3) 
     {
@@ -220,7 +221,15 @@ export class AddBanquetPage {
     }
     else if(stepNo == 4) 
     {
-      return true;
+      /*
+      if(this.images.length == 0)
+      {
+        this.errormessage = "Enter images of your hall";
+        return false;
+      }
+      else
+      */
+        return true;
     }
     else
     {
@@ -235,11 +244,37 @@ export class AddBanquetPage {
         navigator.geolocation.getCurrentPosition((position) => {
             this.latitude = position.coords.latitude;
             this.longitude = position.coords.longitude;
-            this.zoom = 12;
+            this.zoom = 16;
         });
     }
   }
 
+  //function for step 3
+  loadMap()
+  {
+    this.mapsAPILoader.load().then(() => {
+      let nativeHomeInputBox = document.getElementById('txtHome').getElementsByTagName('input')[0];
+      let autocomplete = new google.maps.places.Autocomplete(nativeHomeInputBox, {
+          types: ["address"]
+      });
+      autocomplete.addListener("place_changed", () => {
+          this.ngZone.run(() => {
+              //get the place result
+              let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+              //verify result
+              if (place.geometry === undefined || place.geometry === null) {
+                  return;
+              }
+
+              //set latitude, longitude and zoom
+              this.latitude = place.geometry.location.lat();
+              this.longitude = place.geometry.location.lng();
+              this.zoom = 16;
+          });
+      });
+  });
+  }
   //functions for step 4
 
   presentActionSheet() {
@@ -326,6 +361,26 @@ export class AddBanquetPage {
   
   uploadData()
   {
-
+    let uploadData: {hall_name:string, details:string, price:number, booking_advance:number, address_same_as_business:boolean, full_address:string, lat:number, long:number, hall_capacity:number, veg_only:boolean, ac_available:boolean, parking_available:boolean, images:string[]};
+    uploadData = {hall_name:"", details:"", price:null, booking_advance:null, address_same_as_business:null, full_address:"", lat:null, long:null, hall_capacity:null, veg_only:null, ac_available:null, parking_available:null, images:[]};
+  
+    uploadData.hall_name = this.form1data.hallname;
+    uploadData.details = this.form1data.details;
+    uploadData.price = this.form1data.price;
+    uploadData.booking_advance = this.form1data.booking_advance;
+    uploadData.address_same_as_business = this.form2data.same_as_business;
+    if(!uploadData.address_same_as_business)
+    {
+      uploadData.full_address = this.form2data.full_address;
+      uploadData.lat = this.latitude;
+      uploadData.long = this.longitude;
+    }
+    uploadData.hall_capacity = this.form3data.capacity;
+    uploadData.veg_only = !this.form3data.all_food_type;
+    uploadData.ac_available = this.form3data.ac;
+    uploadData.parking_available = this.form3data.parking;
+    uploadData.images = this.images;
+    //call and upload the uploadData object here
+    console.log(uploadData);
   }
 }

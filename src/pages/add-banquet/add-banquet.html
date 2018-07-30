@@ -33,7 +33,7 @@
                   <ion-item>
                       <ion-label stacked>
                         <div>
-                          <p>package name<span style="color: red" > *</span></p>
+                          <p>Hall name<span style="color: red" > *</span></p>
                         </div>
                       </ion-label>
                       <ion-input (ionChange)="errormessage = ''"  [(ngModel)]="form1data.hallname" placeholder="Hall name">
@@ -52,7 +52,7 @@
                       <ion-item>
                           <ion-label stacked>
                             <div>
-                              <p>price<span style="color: red" > *</span></p>
+                              <p>price (in Rs)<span style="color: red" > *</span></p>
                             </div>
                           </ion-label>
                           <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form1data.price" placeholder="Price">
@@ -62,7 +62,7 @@
                         <ion-item>
                             <ion-label stacked>
                               <div>
-                                <p>Booking advance<span style="color: red" > *</span></p>
+                                <p>Booking advance (in Rs)<span style="color: red" > *</span></p>
                               </div>
                             </ion-label> 
                             <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form1data.booking_advance" placeholder="booking advance">
@@ -84,21 +84,21 @@
               <p style="color: red">{{errormessage}}</p>
             </ion-item>
             <ion-card-content>
-              <ion-item>
+              <ion-item no-padding>
                   <ion-label>Address same as Business address</ion-label>
-                  <ion-checkbox (ionChange)="ionViewDidLoad()" [(ngModel)]="form2data.same_as_business" ></ion-checkbox>
+                  <ion-checkbox (ionChange)="errormessage=''" [(ngModel)]="form2data.same_as_business" ></ion-checkbox>
               </ion-item>
-              <div *ngIf="form2data.same_as_business==false || form2data.same_as_business==null">
-                  <ion-item>
+              <div no-padding>
+                  <ion-item no-padding>
                       <ion-label floating>
                         Enter full address
                       </ion-label>
                       <ion-input (ionChange)="errormessage=''" [(ngModel)]="form2data.full_address"></ion-input>
                     </ion-item>
       
-                    <ion-item>
+                    <ion-item no-padding>
                       <ion-label floating>Enter Address to locate on map</ion-label>
-                      <ion-input id="txtHome" type="text"></ion-input>
+                      <ion-input [(ngModel)]="form2data.map_address" id="txtHome" type="text"></ion-input>
                     </ion-item>
               
                   <agm-map style="height:50vh" [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
@@ -182,6 +182,9 @@
               Step 4/5
             </ion-card-header>
             <hr>
+            <ion-item>
+              <p style="color: red">{{errormessage}}</p>
+            </ion-item>
             <button ion-button (click)="presentActionSheet()" >pick image</button>
             <ion-scroll direction="y" scrollY="true" style="height: 80%;">
                 <ion-card-content>     
