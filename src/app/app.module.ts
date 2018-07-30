@@ -36,6 +36,7 @@ import { AddCarsPage } from '../pages/add-cars/add-cars';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { HttpClient, HttpClientModule } from '../../node_modules/@angular/common/http';
 import { AddBanquetPage } from '../pages/add-banquet/add-banquet';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -69,7 +70,12 @@ import { AddBanquetPage } from '../pages/add-banquet/add-banquet';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
+    AgmCoreModule.forRoot({
+      //apiKey: "AIzaSyCnahpwY4LRTYlzEHnER3B_Y8NR1HzmrVE",
+      apiKey: "AIzaSyBzeppyrAzDcifb1vGnNArdBuZp5X39s-Y",
+      libraries: ["places"]
+  })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
