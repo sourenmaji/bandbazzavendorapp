@@ -1,12 +1,12 @@
-<ion-header color="headers">
-  <ion-navbar>
+<ion-header>
+  <ion-navbar color="headers">
     <ion-title>Add Product Car</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content style="overflow: hidden;height: 100vh">
-  <ion-slides #formslides style="height: 80vh"> 
+  <ion-slides #formslides style="height: 80vh">
       <ion-slide style="height: 100vh">
         <ion-card style="max-height: 100vh; height: 100vh;">
             <ion-card-header>
@@ -31,9 +31,9 @@
                           <ion-option (ionSelect)="storeModel(m)"  *ngFor="let m of carmodels">{{m.car_model}}</ion-option>
                         </ion-select>
                       </ion-item>
-    
+
                       <ion-item *ngIf="form1data.brand == null">
-                        <ion-label>Select a brand to choose brands</ion-label>
+                        <ion-label>Select a brand to choose models</ion-label>
                       </ion-item>
                 </div>
 
@@ -60,7 +60,7 @@
                   </ion-item>
 
                   <ion-item>
-                    <ion-label>car type</ion-label>
+                    <ion-label>Select Car type</ion-label>
                     <ion-select interface="popover" >
                       <ion-option (ionSelect)="storeType(type)" *ngFor="let type of cartypes" >
                         {{type.type}}
@@ -83,13 +83,13 @@
                     <ion-item >
                         <p style="color: red" >{{errormessage}}</p>
                       </ion-item>
-  
+
                     <ion-item style=" margin: 0%;padding: 0%" >
                       <ion-label>
                         No of seats
                       </ion-label>
                       <ion-input  (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.no_of_seats" >
-    
+
                       </ion-input>
                     </ion-item>
                     <ion-row>
@@ -98,7 +98,7 @@
                           Minimum hire period
                         </ion-label>
                         <ion-input style=" margin: 0%;padding: 0%" type="number" [(ngModel)]="form2data.min_hire_period" >
-  
+
                         </ion-input>
                       </ion-col>
                       <ion-col>
@@ -106,7 +106,7 @@
                           Maximum hire period
                         </ion-label>
                         <ion-input style=" margin: 0%;padding: 0%" type="number" [(ngModel)]="form2data.max_hire_period" >
-                          
+
                         </ion-input>
                       </ion-col>
                     </ion-row>
@@ -137,13 +137,13 @@
                               <ion-col>
                                 <ion-label>Per hour</ion-label>
                                 <ion-input type="number" [(ngModel)]="form2data.ac_car_price_hour" >
-                                  
+
                                 </ion-input>
                               </ion-col>
                               <ion-col>
                                 <ion-label>Per KM</ion-label>
                                 <ion-input type="number" [(ngModel)]="form2data.ac_car_price_kil" >
-                                  
+
                                 </ion-input>
                               </ion-col>
                           </ion-row>
@@ -154,12 +154,12 @@
                       </ion-label>
                       <ion-input type="number" [(ngModel)]="form2data.book_advance" ></ion-input>
                     </ion-item>
-  
+
                     <ion-item style="margin-bottom: 80px">
                       <ion-label>Enter search tags</ion-label>
                       <ion-input type="text" [(ngModel)]="form2data.car_tags" ></ion-input>
                     </ion-item>
-  
+
                 </ion-list>
               </ion-card-content>
               </ion-scroll>
@@ -174,9 +174,9 @@
                 <button ion-button (click)="pickImage()" >pick image</button>
             <ion-scroll direction="y" scrollY="true" style="height: 80%;">
                 <ion-card-content>
-                    
+
                     <ion-grid>
-                          <ion-row> 
+                          <ion-row>
                               <ion-col>
                                   <ion-card *ngFor="let img of imagesleft"  style="position: relative" >
                                       <img src="{{'data:image/jpeg;base64,' + img}}">
@@ -199,7 +199,7 @@
                   <div  style="margin-bottom: 80px" ></div>
                   </ion-scroll>
             </ion-card>
-        
+
       </ion-slide>
       <ion-slide style="height: 100vh">
         <ion-card style="height: 100vh;">

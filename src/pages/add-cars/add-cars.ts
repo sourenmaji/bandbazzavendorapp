@@ -45,13 +45,13 @@ export class AddCarsPage {
 
 
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public restServ: AuthServiceProvider,
               public imagePicker: ImagePicker,
               public actionSheetCtrl: ActionSheetController,
               public camera: Camera,
-             
+
   ) {
     //for card slide design
     this.pageNo = 0;
@@ -78,7 +78,7 @@ export class AddCarsPage {
     //for dummies
     this.imagesleft = [];
     this.imagesright = [];
-    
+
   }
 
   ionViewDidLoad() {
@@ -102,7 +102,7 @@ export class AddCarsPage {
   goToNext()
   {
     //TODO: validation suppresed due to rapid development, uncomment these
-    
+
     if(this.pageNo == 3)
     {
       this.uploadData();
@@ -112,7 +112,7 @@ export class AddCarsPage {
       console.log("unknown error "+ this.pageNo);
       return;
     }
-    
+
     //console.log(this.form1data);
     this.pageNo++;
     this.errormessage = "";
@@ -140,7 +140,7 @@ export class AddCarsPage {
     if(this.pageNo<0)
     this.pageNo = 0;
   }
-  
+
   validateStep(stepNo: number)
   {
     if(stepNo == 1) //this is step 1, check if user has entered a package name
@@ -261,9 +261,9 @@ export class AddCarsPage {
       this.responseData = err.json();
       console.log(this.responseData);
       this.carmodels = [];
-    }   
+    }
 
-  ); 
+  );
   }
 
   storeModel(model: {car_model:string, model_id:number})
@@ -328,7 +328,7 @@ export class AddCarsPage {
         }
       ]
     });
- 
+
     actionSheet.present();
   }
 
@@ -358,7 +358,7 @@ export class AddCarsPage {
     // Handle error
    });
 }
- 
+
   pickImage()
   {
     let remaining = 5 - this.imagesleft.length - this.imagesright.length;
@@ -366,7 +366,7 @@ export class AddCarsPage {
     {
       return;
     }
-    this.imagePicker.getPictures({maximumImagesCount:remaining, quality:10, outputType:1}).then
+    this.imagePicker.getPictures({maximumImagesCount:remaining, quality:100, outputType:1}).then
     (results =>{
       console.log(results);
       for(let i=0; i < results.length;i++){
@@ -400,8 +400,8 @@ export class AddCarsPage {
     let carData: any = {};
     if(this.unknowncar)
     {
-      carData.brand = this.form1data.brand; 
-      carData.model = this.form1data.model;
+      carData.brand_id = this.form1data.brand;
+      carData.model_id = this.form1data.model;
     }
     else{
       carData.brand_id = this.form1data.brand;
@@ -441,7 +441,7 @@ export class AddCarsPage {
     }, (err) => {
      this.responseData = err;
      console.log(this.responseData)
-    
+
     });
   }
 }

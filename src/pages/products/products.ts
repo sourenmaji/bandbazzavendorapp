@@ -6,6 +6,7 @@ import { IonicPage, NavController, NavParams, MenuController, LoadingController,
 import { AddCatererPage } from '../add-caterer/add-caterer';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { AddCarsPage } from '../add-cars/add-cars';
+import { AddBanquetPage } from '../add-banquet/add-banquet';
 
 
 
@@ -57,12 +58,12 @@ export class ProductsPage {
     this.getBusinessCatagories();
   }
   ionViewDidEnter(){
-    
+
     //console.log(this.pageReset);
     if(this.pageReset){
       this.getBusinessCatagories();
     }
-    
+
   }
 
   getBusinessCatagories()
@@ -89,8 +90,8 @@ export class ProductsPage {
               alert.present();
               loader.dismiss();
             }
-            
-            
+
+
 
         }, (err) => {
           loader.dismiss();
@@ -100,7 +101,7 @@ export class ProductsPage {
 
 
   getProducts(c: any)
-  { 
+  {
     //create loader
     let loader = this.loadingCtrl.create({
       content: 'Please wait...'
@@ -127,10 +128,10 @@ export class ProductsPage {
     this.authService.getData(this.type+'?id='+c.id,this.userPostData.token).then((result) => {
       this.responseData = result;
         console.log(this.responseData)
-        
+
            this.alProducts=this.responseData.all_products;
            this.businessProducts=this.responseData.business_details;
-           
+
            if(!this.alProducts.length){
             const alert = this.alertCtrl.create({
               subTitle: 'No Product Added Yet',
@@ -138,7 +139,7 @@ export class ProductsPage {
             })
             alert.present();
            }
-        
+
         loader.dismiss();
 
     }, (err) => {
@@ -168,8 +169,8 @@ export class ProductsPage {
     {
       this.navCtrl.push(ViewProductCatererPage,{productDetails: this.productDetails, requestType: requestType});
     }
-        
-    }, 
+
+    },
     (err) => {
      this.responseData = err.json();
      const alert = this.alertCtrl.create({
@@ -178,7 +179,7 @@ export class ProductsPage {
     })
     alert.present();
     });
- 
+
   }
 
   addProduct()
@@ -188,8 +189,10 @@ export class ProductsPage {
     this.navCtrl.push(AddCarsPage,this.businessProducts.id);
     else if(this.category == 'Caterer')
     this.navCtrl.push(AddCatererPage,this.businessProducts.id);
+    else if(this.category == 'Banquet Hall')
+    this.navCtrl.push(AddBanquetPage,this.businessProducts.id);
   }
-  
+
   onOpenMenu(){
   this.menuCtrl.open();
   }

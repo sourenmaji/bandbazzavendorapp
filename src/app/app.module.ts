@@ -35,6 +35,7 @@ import { BookingDetailsPage } from '../pages/booking-details/booking-details';
 import { AddCarsPage } from '../pages/add-cars/add-cars';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { HttpClient, HttpClientModule } from '../../node_modules/@angular/common/http';
+import { AddBanquetPage } from '../pages/add-banquet/add-banquet';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { HttpClient, HttpClientModule } from '../../node_modules/@angular/common
     ViewProductCatererPage,
     ViewProductCarPage,
     AddCatererPage,
-    AddCarsPage
+    AddCarsPage,
+    AddBanquetPage
   ],
   imports: [
     BrowserModule,
@@ -93,7 +95,8 @@ import { HttpClient, HttpClientModule } from '../../node_modules/@angular/common
     ViewProductCatererPage,
     ViewProductCarPage,
     AddCatererPage,
-    AddCarsPage
+    AddCarsPage,
+    AddBanquetPage
   ],
   providers: [
     Camera,

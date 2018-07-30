@@ -1,28 +1,20 @@
-<!--
-  Generated template for the AddCatererPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>addCaterer</ion-title>
+  <ion-navbar color="headers">
+    <ion-title>Add Product Caterer</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content style="overflow: hidden;height: 100vh">
 
-  <ion-slides #formslides style="height: 80vh"> 
+  <ion-slides #formslides style="height: 80vh">
       <ion-slide style="height: 100vh">
         <ion-card style="max-height: 100vh; height: 100vh;">
             <ion-card-header>
               Step 1/4
             </ion-card-header>
             <hr>
-            
+
             <ion-item>
                 <p style="color: red">{{errormessage}}</p>
               </ion-item>
@@ -31,7 +23,7 @@
                 <ion-item>
                   <ion-label stacked>
                     <div>
-                      <p>package name<span style="color: red" > *</span></p>
+                      <p>Package name<span style="color: red" > *</span></p>
                     </div>
                   </ion-label>
                   <ion-input (ionChange)="errormessage = ''"  [(ngModel)]="step1data.packagename" placeholder="Package name"></ion-input>
@@ -66,7 +58,7 @@
             <ion-card-content>
               <ion-list>
                 <ion-item>
-                  <ion-label stacked >Starting price per place<span style="color: red" >*</span></ion-label>
+                  <ion-label stacked >Starting Price (per plate)<span style="color: red" >*</span></ion-label>
                   <ion-input type="number" [(ngModel)]="step2data.start_price"  (ionChange)="errormessage=''" ></ion-input>
                 </ion-item>
 
@@ -76,7 +68,7 @@
                   </ion-item>
 
                   <ion-item>
-                      <ion-label stacked >Enter keywords to identify your package<span style="color: red" >*</span></ion-label>
+                      <ion-label stacked >Search Tags<span style="color: red" >*</span></ion-label>
                       <ion-input type="text" [(ngModel)]="step2data.tags"  (ionChange)="errormessage=''" ></ion-input>
                     </ion-item>
               </ion-list>
@@ -88,12 +80,12 @@
             <ion-card-header>
               Step 3/4
             </ion-card-header>
-            <hr><button ion-button (click)="presentActionSheet()" >pick image</button>
+            <hr><button ion-button (click)="presentActionSheet()" >Pick image</button>
             <ion-scroll direction="y" scrollY="true" style="height: 80%;">
                 <ion-card-content>
-                    
+
                     <ion-grid>
-                          <ion-row> 
+                          <ion-row>
                               <ion-col>
                                   <ion-card *ngFor="let img of imagesleft"  style="position: relative" >
                                       <img src="{{'data:image/jpeg;base64,' + img}}">
@@ -124,7 +116,7 @@
             </ion-card-header>
             <hr>
             <ion-card-content>
-              you have successfully added all details, click to upload this product!
+              You have successfully added all details, click to upload this product!
             </ion-card-content>
         </ion-card>
       </ion-slide>

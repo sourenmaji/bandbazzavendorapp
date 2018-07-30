@@ -5,9 +5,9 @@ import { Injectable } from '@angular/core';
 import {Http, Headers} from '@angular/http';
 
 
-let apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
+// let apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
 //let apiUrl = 'http://www.bandbazza.com/api/';
-// let apiUrl = 'http://localhost:8000/api/';
+let apiUrl = 'http://localhost:8000/api/';
 
 @Injectable()
 export class AuthServiceProvider {
