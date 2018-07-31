@@ -4,7 +4,7 @@ import { ImagePicker } from '../../../node_modules/@ionic-native/image-picker';
 import { Camera, CameraOptions } from '../../../node_modules/@ionic-native/camera';
 import { FormControl } from '../../../node_modules/@angular/forms';
 //import {FormControl} from "@angular/forms";
-import { } from 'googlemaps';
+// import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
@@ -385,7 +385,7 @@ export class AddBanquetPage {
     console.log(uploadData);
     alert(uploadData);
     //call the rest here..
-    this.restServ.authData(uploadData,'add_product_package',this.token).then((data) => {
+    this.restServ.authData(uploadData,'add_product_hall',this.token).then((data) => {
       this.responseData = data;
       alert(this.responseData.status);
       console.log(this.responseData);
