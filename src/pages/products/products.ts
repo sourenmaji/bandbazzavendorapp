@@ -16,6 +16,7 @@ import { AddBanquetPage } from '../add-banquet/add-banquet';
   templateUrl: 'products.html',
 })
 export class ProductsPage {
+  lastClicked: any;
   userPostData = {"user":"","token":""};
   userDetails : any;
   responseData: any;
@@ -107,6 +108,7 @@ export class ProductsPage {
       content: 'Please wait...'
     });
     loader.present();
+    this.lastClicked = c;
     this.category=c.module_name;
     this.alProducts = [];
     this.businessProducts = "";
@@ -203,6 +205,69 @@ export class ProductsPage {
     {
       this.navCtrl.push(AddCatererPage);
     }
+  }
+
+
+
+  deleteProduct(productId,type){
+    //console.log(businessid);
+
+    let alert = this.alertCtrl.create({
+      title: 'Confirm',
+      message: 'Do you want to delete?',
+      buttons: [{
+        text: "ok",
+        handler: () => { this.authService.getData('delete_product?product_id='+productId+'&category='+type,this.userPostData.token).then((result) => {
+          this.responseData = result;
+          
+          
+          if(this.responseData.status == true)
+          {
+        
+            const alert = this.alertCtrl.create({
+              subTitle: this.responseData.message,
+              buttons: [{
+                text: 'Ok',
+              handler: () => {
+                
+                let navTransition = alert.dismiss();
+    
+                  navTransition.then(() => {
+                    this.getProducts(this.lastClicked);
+                  });
+    
+                return false;
+              }
+            }]
+            });
+            alert.present();
+            
+          }
+          else{
+           const alert = this.alertCtrl.create({
+             subTitle: this.responseData.message,
+             buttons: ['OK']
+           })
+           alert.present();
+         }
+        }, 
+        (err) => {
+         this.responseData = err.json();
+         const alert = this.alertCtrl.create({
+          subTitle: this.responseData.message,
+          buttons: ['OK']
+        })
+        alert.present();
+        }); 
+      }
+      }, {
+        text: "Cancel",
+        role: 'cancel'
+      }]
+    })
+    alert.present();
+
+  
   }
 
 }

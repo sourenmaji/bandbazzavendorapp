@@ -35,8 +35,8 @@
 
     <ion-card-content *ngIf="category=='Banquet Hall'">
         <ion-fab class="dl-p">
-            <button ion-fab mini (click)="deleteBusiness(business.id)">
-              <ion-icon name="trash" color="danger"></ion-icon>
+            <button ion-fab mini [disabled]="products.request_type=='Delete'" (click)="deleteProduct(products.product_id,category)">
+              <ion-icon name="trash" color="light"></ion-icon>
             </button>
           </ion-fab>
       <ion-card-title > 
@@ -55,6 +55,9 @@
         <ion-col>
             <h2 ion-text color="dark"><b>Rs.{{products.price | number:'1.0-0'}}</b></h2>
         </ion-col>
+        <ion-col col-3>
+            <ion-badge color="ac">{{products.request_type}}</ion-badge>
+          </ion-col>
       </ion-row>
              
       </ion-card-title>
@@ -65,9 +68,10 @@
             <h3 *ngIf="!products.is_ac">N/A</h3>
         </ion-col>
       </ion-row>
+      <div class="extra-p">
       <ion-row>
         <ion-col>
-            <button ion-button icon-left round full color="dash2"  (click)="detailsProduct(products.product_id,'edit')">
+            <button ion-button icon-left round full color="dash2" [disabled]="products.request_type=='Delete'" (click)="detailsProduct(products.product_id,'edit')">
               <ion-icon color="white" name="create"></ion-icon>
               <div ion-text color="white"> Edit </div>
             </button>
@@ -79,16 +83,23 @@
             </button>
           </ion-col>
         </ion-row>
-        
+        </div>
     </ion-card-content>
     <ion-card-content *ngIf="category=='Car Rental'">
+        <ion-fab class="dl-p">
+            <button ion-fab mini [disabled]="products.request_type=='Delete'" (click)="deleteProduct(products.product_id,category)">
+              <ion-icon name="trash" color="light"></ion-icon>
+            </button>
+          </ion-fab>
         <ion-card-title >
           <ion-row>
             <ion-col col-auto> 
                 <h1 ion-text color="danger">{{products.product_name}}</h1>
                 <h2 ion-text color="dash6">{{products.no_of_seats}}Seater</h2>
             </ion-col>
-          
+            <ion-col col-3>
+                <ion-badge color="ac">{{products.request_type}}</ion-badge>
+              </ion-col>
           </ion-row>  
         </ion-card-title>
         <ion-row>
@@ -104,9 +115,10 @@
               <h3 >Rs.{{products.car_price_kil | number:'1.0-0'}}/KM</h3>
           </ion-col>
         </ion-row>
+        <div class="extra-p">
         <ion-row>
             <ion-col>
-                <button ion-button icon-left round full color="dash2"  (click)="detailsProduct(products.product_id,'edit')">
+                <button ion-button icon-left round full color="dash2" [disabled]="products.request_type=='Delete'" (click)="detailsProduct(products.product_id,'edit')">
                   <ion-icon color="white" name="create"></ion-icon>
                   <div ion-text color="white"> Edit </div>
                 </button>
@@ -118,10 +130,15 @@
                 </button>
               </ion-col>
           </ion-row>
-          
+        </div>
       </ion-card-content>
 
       <ion-card-content *ngIf="category=='Caterer'">
+          <ion-fab class="dl-p">
+              <button ion-fab mini [disabled]="products.request_type=='Delete'" (click)="deleteProduct(products.product_id,category)">
+                <ion-icon name="trash" color="light"></ion-icon>
+              </button>
+            </ion-fab>
           <ion-card-title >
             <ion-row>
               <ion-col col-auto *ngIf="products.is_veg == 1"> 
@@ -133,11 +150,15 @@
                   <h1 ion-text color="danger">{{products.product_name}}</h1>
                   <h2 ion-text color="dash6">Non Vej : <span ion-text color="dark">Rs.{{products.price_per_plate | number:'1.0-0'}}</span></h2>
               </ion-col>
+              <ion-col col-3>
+                  <ion-badge color="ac">{{products.request_type}}</ion-badge>
+                </ion-col>  
             </ion-row>  
           </ion-card-title>
+          <div class="extra-p">
           <ion-row>
             <ion-col>
-                <button ion-button icon-left round full color="dash2"  (click)="detailsProduct(products.product_id,'edit')">
+                <button ion-button icon-left round full color="dash2" [disabled]="products.request_type=='Delete'" (click)="detailsProduct(products.product_id,'edit')">
                   <ion-icon color="white" name="create"></ion-icon>
                   <div ion-text color="white"> Edit </div>
                 </button>
@@ -149,7 +170,7 @@
                 </button>
               </ion-col>
             </ion-row>
-            
+            </div>
         </ion-card-content>
 
   </ion-card>
