@@ -3,8 +3,6 @@ import { IonicPage, NavController, NavParams, Slides, ActionSheetController } fr
 import { ImagePicker } from '../../../node_modules/@ionic-native/image-picker';
 import { Camera, CameraOptions } from '../../../node_modules/@ionic-native/camera';
 import { FormControl } from '../../../node_modules/@angular/forms';
-//import {FormControl} from "@angular/forms";
-import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
@@ -26,7 +24,7 @@ export class AddBanquetPage {
   public token: string;
 
   //form 1 data
-  public form1data: {hallname:string, details:string, price:number, booking_advance: number};
+  public form1data: {hallname:string, details:string, price:number, booking_advance: number, tags:string};
 
   //form 2 data
   public latitude: number;
@@ -40,7 +38,7 @@ export class AddBanquetPage {
   public form2data:{full_address, lat, long, same_as_business:boolean, map_address:string};
 
   //form 3 data
-  public form3data: {capacity:number, all_food_type:boolean, ac:boolean, parking:boolean};
+  public form3data: {capacity:number, ac_charge:number, all_food_type:boolean, ac:boolean, parking:boolean};
   //form 4 data
   public images: string[];
 
@@ -57,7 +55,7 @@ export class AddBanquetPage {
             ) {
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
-    this.token = data.success.token;
+    //this.token = data.success.token;
     this.business_id=this.navParams.data;
     console.log(this.business_id);
 
@@ -66,7 +64,7 @@ export class AddBanquetPage {
     this.len = 1;
 
     //for step 1
-    this.form1data = {hallname:"", details:"", booking_advance:null, price:null};
+    this.form1data = {hallname:"", details:"", booking_advance:null, price:null,tags:""};
 
     //for step 2
     this.zoom = 12;
@@ -81,7 +79,7 @@ export class AddBanquetPage {
     this.setCurrentPosition();
 
     //for step 3
-    this.form3data = {ac:null,all_food_type:null,capacity:null,parking:null};
+    this.form3data = {ac:null,all_food_type:null,capacity:null,parking:null, ac_charge:null};
 
     //for step 4
     this.images = [];
@@ -167,6 +165,11 @@ export class AddBanquetPage {
         this.errormessage = "Enter a valid advance booking amount";
         return false;
       }
+      else if(this.form1data.tags.trim() == "")
+      {
+        this.errormessage = "Enter some search tags for your hall";
+        return false;
+      }
       this.errormessage = "";
       return true;
     }
@@ -211,6 +214,11 @@ export class AddBanquetPage {
       else if(this.form3data.ac == null)
       {
         this.errormessage = "Choose if AC is available";
+        return false;
+      }
+      else if(this.form3data.ac == true && this.form3data.ac_charge==null)
+      {
+        this.errormessage = "Enter a AC charge";
         return false;
       }
       else if(this.form3data.parking == null)
@@ -362,14 +370,16 @@ export class AddBanquetPage {
 
   uploadData()
   {
-    let uploadData: {business_id: number,hall_name:string, details:string, price:number, book_advance:number, address_same_as_business:boolean, address:string, lat:number, lng:number, capacity:number, is_veg:boolean, is_ac:boolean, is_parking:boolean, images:string[]};
-    uploadData = {business_id: null,hall_name:"", details:"", price:null, book_advance:null, address_same_as_business:null, address:"", lat:null, lng:null, capacity:null, is_veg:null, is_ac:null, is_parking:null, images:[]};
+    let uploadData: {business_id: number,hall_name:string, ac_charge:number, search_tags:string, details:string, price:number, book_advance:number, address_same_as_business:boolean, address:string, lat:number, lng:number, capacity:number, is_veg:boolean, is_ac:boolean, is_parking:boolean, images:string[]};
+    uploadData = {business_id: null,search_tags:"", ac_charge:0, hall_name:"", details:"", price:null, book_advance:null, address_same_as_business:null, address:"", lat:null, lng:null, capacity:null, is_veg:null, is_ac:null, is_parking:null, images:[]};
     uploadData.business_id = this.business_id;
     uploadData.hall_name = this.form1data.hallname;
     uploadData.details = this.form1data.details;
     uploadData.price = this.form1data.price;
+    uploadData.search_tags = this.form1data.tags;
     uploadData.book_advance = this.form1data.booking_advance;
     uploadData.address_same_as_business = this.form2data.same_as_business;
+    uploadData.ac_charge = this.form3data.ac_charge;
     if(!uploadData.address_same_as_business)
     {
       uploadData.address = this.form2data.full_address;

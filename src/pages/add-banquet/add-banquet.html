@@ -62,6 +62,17 @@
                             <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form1data.booking_advance" placeholder="booking advance">
                             </ion-input>
                           </ion-item>
+
+
+                        <ion-item>
+                          <ion-label stacked>
+                            <div>
+                              <p>Search tags<span style="color: red" > *</span></p>
+                            </div>
+                          </ion-label> 
+                          <ion-input (ionChange)="errormessage = ''"  [(ngModel)]="form1data.tags" placeholder="search tags">
+                          </ion-input>
+                        </ion-item>
               </ion-list>
             </ion-card-content>
             <div  style="margin-bottom: 80px" ></div>
@@ -121,7 +132,7 @@
                           <p>Hall Capacity<span style="color: red" > *</span></p>
                         </div>
                       </ion-label>
-                      <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form3data.capacity" placeholder="Price">
+                      <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form3data.capacity" placeholder="capacity">
                       </ion-input>
                 </ion-item>
                 <ion-item>
@@ -130,11 +141,11 @@
                   <ion-list radio-group>
                       <ion-item>
                         <ion-label>All</ion-label>
-                        <ion-radio  (ionSelect)="form3data.all_food_type = true"></ion-radio>
+                        <ion-radio  (ionSelect)="form3data.all_food_type = true;errormessage=''"></ion-radio>
                       </ion-item>
                       <ion-item>
                         <ion-label>Veg only</ion-label>
-                        <ion-radio (ionSelect)="form3data.all_food_type = false"></ion-radio>
+                        <ion-radio (ionSelect)="form3data.all_food_type = false;errormessage=''"></ion-radio>
                       </ion-item>
                     </ion-list>
                 <ion-item>
@@ -143,24 +154,35 @@
                   <ion-list radio-group>
                       <ion-item>
                         <ion-label>Available</ion-label>
-                        <ion-radio value="veg" (ionSelect)="form3data.ac = true"></ion-radio>
+                        <ion-radio value="veg" (ionSelect)="form3data.ac = true;errormessage=''"></ion-radio>
                       </ion-item>
                       <ion-item>
                         <ion-label>unavailable</ion-label>
-                        <ion-radio value="all" (ionSelect)="form3data.ac = false"></ion-radio>
+                        <ion-radio value="all" (ionSelect)="form3data.ac = false;errormessage=''"></ion-radio>
                       </ion-item>
                     </ion-list>
+                    <div *ngIf="form3data.ac">
+                    <ion-item>
+                          <ion-label stacked>
+                              <div>
+                                <p>AC charge<span style="color: red" > *</span></p>
+                              </div>
+                            </ion-label>
+                            <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form3data.ac_charge" placeholder="ac charge">
+                            </ion-input>
+                    </ion-item>
+                  </div>
                     <ion-item>
                         <ion-label color="primary">Parking available?<span style="color: red"> *</span></ion-label>
                       </ion-item>
                       <ion-list radio-group>
                           <ion-item>
                             <ion-label>yes</ion-label>
-                            <ion-radio value="veg" (ionSelect)="form3data.parking = true"></ion-radio>
+                            <ion-radio value="veg" (ionSelect)="form3data.parking = true;errormessage=''"></ion-radio>
                           </ion-item>
                           <ion-item>
                             <ion-label>no</ion-label>
-                            <ion-radio value="all" (ionSelect)="form3data.parking = false"></ion-radio>
+                            <ion-radio value="all" (ionSelect)="form3data.parking = false;errormessage=''"></ion-radio>
                           </ion-item>
                         </ion-list>
               </ion-list>
