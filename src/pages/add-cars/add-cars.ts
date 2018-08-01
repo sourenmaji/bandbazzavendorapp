@@ -14,7 +14,7 @@ export class AddCarsPage {
 
 
   public token: string = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjA1MWNkNzUyZjhjZWUzY2Q0MmQzNzAzY2ExOGZkZmU4NDc0NmJlMzBiNzI3ZmM2ZWNkZTYyN2ExNWNmMzI5ODRjYjA2NzY2YjI2ZTk2YzE0In0.eyJhdWQiOiIxIiwianRpIjoiMDUxY2Q3NTJmOGNlZTNjZDQyZDM3MDNjYTE4ZmRmZTg0NzQ2YmUzMGI3MjdmYzZlY2RlNjI3YTE1Y2YzMjk4NGNiMDY3NjZiMjZlOTZjMTQiLCJpYXQiOjE1MzE5ODY1OTEsIm5iZiI6MTUzMTk4NjU5MSwiZXhwIjoxNTYzNTIyNTkxLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.AqYVcs-YCspA2pyteHvB9jsh18aX8qaJzmlq9oUuXb0PJ_zUwj272itEKscJ4LhMlApt9GhrCtdTEK-90MVMbDVXp1z7kj_Mg9wzULyXVpdj9xQUwkRZsLcINLqpHgrsleZcUuNcuwKiibVLMjRcJ5Jz_eOnbr4E62UxQVUkOjVzEciAjucdI73FepK5HjOaEmW4qjxuxtbO8zeVotQn42yWDsTtRqL8-GNBn4MT2lQuMMS9m89SioVD4WHbSeAURMd1gQbiju1xSqmzUc7rDnNUniIhVQYkmmm39zbCJ2hQlfvTC1CCWz6i-h18AXbKvdSqauRlBIodHklV3mvgqyhkKHFn7EOCf8FUEpTJrwMJVGKuEa8iuCMJnYe7dBvAdqXp-CjgcoD2jiCU6GhilmzTmP2Ec2g-K18Wu4t2aPZlTOoFUpQd6P_P3m7kFn7Dv8Z_UKrJk-mLZA1KV5EfX-QYn95pM0sB3Pqjg-6xllFa8qk9ZdSeDRY8ZN7-23ye1J5-v2GQ3b0m5Mm8cqN0WGzVyma5PkIah7ioBgFN9co6QOdDh_SfHdN_Y74bQdzp2LI97h02O0YQQRYu7z_eBD1FEgzxMzj2CSOs3Z9zl3noLjd1T8mF6A-3qx89dPBZ84WE5SpTaLrSXh7V4hVeLyXZbuBnZ3C7g2ogvt0-W3I";
-  @ViewChild('formslides') formSlide: Slides;
+   @ViewChild('formslides') formSlide: Slides;
   @ViewChild('sliderbubbles') sliderbubbles: Slides;
   public len: number;
   public pageNo: number;
@@ -45,13 +45,13 @@ export class AddCarsPage {
 
 
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public restServ: AuthServiceProvider,
               public imagePicker: ImagePicker,
               public actionSheetCtrl: ActionSheetController,
               public camera: Camera,
-             
+
   ) {
     //for card slide design
     this.pageNo = 0;
@@ -78,7 +78,7 @@ export class AddCarsPage {
     //for dummies
     this.imagesleft = [];
     this.imagesright = [];
-    
+
   }
 
   ionViewDidLoad() {
@@ -102,7 +102,7 @@ export class AddCarsPage {
   goToNext()
   {
     //TODO: validation suppresed due to rapid development, uncomment these
-    
+
     if(this.pageNo == 3)
     {
       this.uploadData();
@@ -112,7 +112,7 @@ export class AddCarsPage {
       console.log("unknown error "+ this.pageNo);
       return;
     }
-    
+
     //console.log(this.form1data);
     this.pageNo++;
     this.errormessage = "";
@@ -140,7 +140,7 @@ export class AddCarsPage {
     if(this.pageNo<0)
     this.pageNo = 0;
   }
-  
+
   validateStep(stepNo: number)
   {
     if(stepNo == 1) //this is step 1, check if user has entered a package name
@@ -261,9 +261,9 @@ export class AddCarsPage {
       this.responseData = err.json();
       console.log(this.responseData);
       this.carmodels = [];
-    }   
+    }
 
-  ); 
+  );
   }
 
   storeModel(model: {car_model:string, model_id:number})
@@ -328,7 +328,7 @@ export class AddCarsPage {
         }
       ]
     });
- 
+
     actionSheet.present();
   }
 
@@ -358,7 +358,7 @@ export class AddCarsPage {
     // Handle error
    });
 }
- 
+
   pickImage()
   {
     let remaining = 5 - this.imagesleft.length - this.imagesright.length;
@@ -366,7 +366,7 @@ export class AddCarsPage {
     {
       return;
     }
-    this.imagePicker.getPictures({maximumImagesCount:remaining, quality:10, outputType:1}).then
+    this.imagePicker.getPictures({maximumImagesCount:remaining, quality:100, outputType:1}).then
     (results =>{
       console.log(results);
       for(let i=0; i < results.length;i++){
@@ -400,8 +400,8 @@ export class AddCarsPage {
     let carData: any = {};
     if(this.unknowncar)
     {
-      carData.brand = this.form1data.brand; 
-      carData.model = this.form1data.model;
+      carData.brand_id = this.form1data.brand;
+      carData.model_id = this.form1data.model;
     }
     else{
       carData.brand_id = this.form1data.brand;
@@ -441,7 +441,7 @@ export class AddCarsPage {
     }, (err) => {
      this.responseData = err;
      console.log(this.responseData)
-    
+
     });
   }
 }

@@ -26,6 +26,8 @@ export class AddCatererPage {
   public pageNo: number;
   public slides: any[] = [];
   public errormessage: string;
+  public business_id: number;
+  public responseData: any;
 
   //for step 1
   public step1data:{packagename:string, veg: boolean};
@@ -54,6 +56,12 @@ export class AddCatererPage {
     //for step 3
     this.imagesright = [];
     this.imagesleft = [];
+
+    this.business_id=this.navParams.data;
+
+    this.responseData = {}
+    const data = JSON.parse(localStorage.getItem('userData'));
+    this.token = data.success.token;
   }
 
   ionViewDidLoad() {
@@ -201,11 +209,11 @@ export class AddCatererPage {
         }
       ]
     });
- 
+
     actionSheet.present();
   }
 
-  
+
   chooseFromCam(){
       let remaining = 5 - this.imagesleft.length - this.imagesright.length;
       if(remaining <= 0)
@@ -240,7 +248,7 @@ export class AddCatererPage {
     {
       return;
     }
-    this.imagePicker.getPictures({maximumImagesCount:remaining, quality:10, outputType:1}).then
+    this.imagePicker.getPictures({maximumImagesCount:remaining, quality:100, outputType:1}).then
     (results =>{
       console.log(results);
       for(let i=0; i < results.length;i++){
@@ -272,14 +280,15 @@ export class AddCatererPage {
   uploadData()
   {
     let dataCaterer:any = {};
+    dataCaterer.business_id = this.business_id;
     dataCaterer.package_name = this.step1data.packagename;
     if(this.step1data.veg)
-      dataCaterer.package_type = "veg";
+      dataCaterer.is_veg = 1;
     else
-      dataCaterer.package_type = "all";
-    dataCaterer.starting_price = this.step2data.start_price;
-    dataCaterer.min_plates = this.step2data.min_no_plates;
-    dataCaterer.tags = this.step2data.tags;
+      dataCaterer.is_veg = 0;
+    dataCaterer.price_per_plate = this.step2data.start_price;
+    dataCaterer.package_min_plates = this.step2data.min_no_plates;
+    dataCaterer.package_tags = this.step2data.tags;
     dataCaterer.images = [];
     this.imagesright.forEach(element => {
       dataCaterer.images.push(element);
@@ -289,5 +298,18 @@ export class AddCatererPage {
     });
 
     // upload dataCaterer to server
+    console.log(dataCaterer);
+    alert(dataCaterer);
+    //call the rest here..
+    this.restServ.authData(dataCaterer,'add_product_package',this.token).then((data) => {
+      this.responseData = data;
+      alert(this.responseData.status);
+      console.log(this.responseData);
+    }, (err) => {
+     this.responseData = err;
+     console.log(this.responseData)
+     alert(this.responseData)
+
+    });
   }
 }
