@@ -1,3 +1,6 @@
+import { ViewProductCarPage } from './../pages/view-product-car/view-product-car';
+import { ViewProductCatererPage } from './../pages/view-product-caterer/view-product-caterer';
+import { ViewProductBanquatePage } from './../pages/view-product-banquate/view-product-banquate';
 import { EditbusinessPage } from './../pages/editbusiness/editbusiness';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -27,11 +30,12 @@ import { FilePath } from '@ionic-native/file-path';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { AddbusinessPage } from '../pages/addbusiness/addbusiness';
 import { AddCatererPage } from '../pages/add-caterer/add-caterer';
-import { Geolocation } from '@ionic-native/geolocation';
 import { EnquiryDetailsPage } from '../pages/enquiry-details/enquiry-details';
 import { BookingDetailsPage } from '../pages/booking-details/booking-details';
 import { AddCarsPage } from '../pages/add-cars/add-cars';
 import { ImagePicker } from '@ionic-native/image-picker';
+import { HttpClient, HttpClientModule } from '../../node_modules/@angular/common/http';
+import { AddBanquetPage } from '../pages/add-banquet/add-banquet';
 import { AgmCoreModule } from '@agm/core';
 
 
@@ -55,15 +59,21 @@ import { AgmCoreModule } from '@agm/core';
     EditProfilePage,
     AddbusinessPage,
     EditbusinessPage,
+    ViewProductBanquatePage,
+    ViewProductCatererPage,
+    ViewProductCarPage,
     AddCatererPage,
-    AddCarsPage
+    AddCarsPage,
+    AddBanquetPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
+    HttpClientModule,
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyCnahpwY4LRTYlzEHnER3B_Y8NR1HzmrVE",
+      //apiKey: "AIzaSyCnahpwY4LRTYlzEHnER3B_Y8NR1HzmrVE",
+      apiKey: "AIzaSyBzeppyrAzDcifb1vGnNArdBuZp5X39s-Y",
       libraries: ["places"]
   })
   ],
@@ -87,10 +97,15 @@ import { AgmCoreModule } from '@agm/core';
     EditProfilePage,
     AddbusinessPage,
     EditbusinessPage,
+    ViewProductBanquatePage,
+    ViewProductCatererPage,
+    ViewProductCarPage,
     AddCatererPage,
-    AddCarsPage
+    AddCarsPage,
+    AddBanquetPage
   ],
   providers: [
+    Camera,
     ImagePicker,
     StatusBar,
     SplashScreen,
@@ -100,8 +115,7 @@ import { AgmCoreModule } from '@agm/core';
     File,
     FileTransfer,
     Camera,
-    FilePath,
-    Geolocation
+    FilePath
   ]
 })
 export class AppModule {}

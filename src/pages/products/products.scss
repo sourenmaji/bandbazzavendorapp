@@ -1,3 +1,27 @@
 page-products {
-
+    .status-box{
+        background-color: rgb(0, 233, 250);
+     }
+     .card-content{
+         position: relative;
+     }
+     .dl-p {
+        position: absolute;
+        top: 1px;
+        right: 0px;
+    } 
+    .fab ion-icon{
+        font-size: 18px;
+    }
+    .fab[mini]{
+        height: 30px;
+        width: 30px;
+        line-height: 28px;
+    }
+    .fab-md{
+        background-color: #47495f;
+    }
+    .extra-p .col{
+        width: 50% ;
+      }
 }

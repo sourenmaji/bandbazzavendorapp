@@ -8,29 +8,174 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
+    <ion-buttons end >
+      <button ion-button small icon-only (click)="addProduct()" tooltip="add">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-    
-  <ion-row>
-    <ion-col col-4>
-      <button ion-button color="dash2" (click)="editBusiness(business)">
-        Car rental
-      </button>
-    </ion-col>
-    <ion-col col-4>
-      <button ion-button color="success">
-        Banquet
-      </button>
-    </ion-col>
-    <ion-col col-4>
-        <button ion-button color="success">
-          Caterer
-        </button>
-     </ion-col>
-  </ion-row>
-  <button ion-button (click)="goTo('caterer')">go to add caterer</button>
+  
+    <!-- dynamically generating the categories -->
+    <ion-segment [(ngModel)]="category" color="energy">
+      <ion-segment-button *ngFor="let category of categories" value={{category.module_name}} (click)="getProducts(category)">
+        {{category.module_name}}
+      </ion-segment-button>
+    </ion-segment>
+  <ion-list>
+     <ion-item>
+    <div *ngFor ="let products of alProducts" >
+  <ion-card>
+
+    <img src="http://192.168.0.130/BandBazza/public/{{products.product_image}}">
+
+    <ion-card-content *ngIf="category=='Banquet Hall'">
+        <ion-fab class="dl-p">
+            <button ion-fab mini [disabled]="products.request_type=='Delete'" (click)="deleteProduct(products.product_id,category)">
+              <ion-icon name="trash" color="light"></ion-icon>
+            </button>
+          </ion-fab>
+      <ion-card-title > 
+        <ion-row>
+          <ion-col col-auto> 
+              <h1 ion-text color="danger">{{products.product_name}}</h1>
+          </ion-col>
+          <ion-col *ngIf="products.is_ac" >
+              <ion-badge color="ac" item-end>AC</ion-badge>
+          </ion-col>
+          <ion-col *ngIf="!products.is_ac" >
+              <ion-badge color="dash2" item-end>Non AC</ion-badge>
+            </ion-col>
+        </ion-row>
+      <ion-row>
+        <ion-col>
+            <h2 ion-text color="dark"><b>Rs.{{products.price | number:'1.0-0'}}</b></h2>
+        </ion-col>
+        <ion-col col-3>
+            <ion-badge color="ac">{{products.request_type}}</ion-badge>
+          </ion-col>
+      </ion-row>
+             
+      </ion-card-title>
+      <ion-row>
+        <ion-col>
+            <ion-label color="dash6">Ac Charge :</ion-label>
+            <h3 *ngIf="products.is_ac">{{products.ac_charge}}</h3>
+            <h3 *ngIf="!products.is_ac">N/A</h3>
+        </ion-col>
+      </ion-row>
+      <div class="extra-p">
+      <ion-row>
+        <ion-col>
+            <button ion-button icon-left round full color="dash2" [disabled]="products.request_type=='Delete'" (click)="detailsProduct(products.product_id,'edit')">
+              <ion-icon color="white" name="create"></ion-icon>
+              <div ion-text color="white"> Edit </div>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-left round full color="success"  (click)="detailsProduct(products.product_id,'details')">
+              <ion-icon name="eye"></ion-icon>
+              <div> Details </div>
+            </button>
+          </ion-col>
+        </ion-row>
+        </div>
+    </ion-card-content>
+    <ion-card-content *ngIf="category=='Car Rental'">
+        <ion-fab class="dl-p">
+            <button ion-fab mini [disabled]="products.request_type=='Delete'" (click)="deleteProduct(products.product_id,category)">
+              <ion-icon name="trash" color="light"></ion-icon>
+            </button>
+          </ion-fab>
+        <ion-card-title >
+          <ion-row>
+            <ion-col col-auto> 
+                <h1 ion-text color="danger">{{products.product_name}}</h1>
+                <h2 ion-text color="dash6">{{products.no_of_seats}}Seater</h2>
+            </ion-col>
+            <ion-col col-3>
+                <ion-badge color="ac">{{products.request_type}}</ion-badge>
+              </ion-col>
+          </ion-row>  
+        </ion-card-title>
+        <ion-row>
+          <ion-col *ngIf="products.ac_car_price_hour != null">
+              <ion-label color="dash6">Ac Charge :</ion-label>
+              <h3 >Rs.{{products.ac_car_price_hour | number:'1.0-0'}}/HR</h3>
+              <h3 >Rs.{{products.ac_car_price_kil | number:'1.0-0'}}/KM</h3>
+          </ion-col>
+          
+          <ion-col>
+              <ion-label color="dash6">Non Ac Charge :</ion-label>
+              <h3 >Rs.{{products.car_price_hour | number:'1.0-0'}}/HR</h3>
+              <h3 >Rs.{{products.car_price_kil | number:'1.0-0'}}/KM</h3>
+          </ion-col>
+        </ion-row>
+        <div class="extra-p">
+        <ion-row>
+            <ion-col>
+                <button ion-button icon-left round full color="dash2" [disabled]="products.request_type=='Delete'" (click)="detailsProduct(products.product_id,'edit')">
+                  <ion-icon color="white" name="create"></ion-icon>
+                  <div ion-text color="white"> Edit </div>
+                </button>
+              </ion-col>
+              <ion-col>
+                <button ion-button icon-left round full color="success"  (click)="detailsProduct(products.product_id,'details')">
+                  <ion-icon name="eye"></ion-icon>
+                  <div> Details </div>
+                </button>
+              </ion-col>
+          </ion-row>
+        </div>
+      </ion-card-content>
+
+      <ion-card-content *ngIf="category=='Caterer'">
+          <ion-fab class="dl-p">
+              <button ion-fab mini [disabled]="products.request_type=='Delete'" (click)="deleteProduct(products.product_id,category)">
+                <ion-icon name="trash" color="light"></ion-icon>
+              </button>
+            </ion-fab>
+          <ion-card-title >
+            <ion-row>
+              <ion-col col-auto *ngIf="products.is_veg == 1"> 
+                  <h1 ion-text color="danger">{{products.product_name}}</h1>
+                  <h2 ion-text color="dash6">Vej : <span ion-text color="dark">Rs.{{products.price_per_plate | number:'1.0-0'}}</span></h2>
+              </ion-col>
+              <ion-col col-auto *ngIf="products.is_veg == 0"> 
+                  <!-- <h1 ion-text color="dash6">Non Vej :<span ion-text color="dash6">{{products.price_per_plate}}</span></h1> -->
+                  <h1 ion-text color="danger">{{products.product_name}}</h1>
+                  <h2 ion-text color="dash6">Non Vej : <span ion-text color="dark">Rs.{{products.price_per_plate | number:'1.0-0'}}</span></h2>
+              </ion-col>
+              <ion-col col-3>
+                  <ion-badge color="ac">{{products.request_type}}</ion-badge>
+                </ion-col>  
+            </ion-row>  
+          </ion-card-title>
+          <div class="extra-p">
+          <ion-row>
+            <ion-col>
+                <button ion-button icon-left round full color="dash2" [disabled]="products.request_type=='Delete'" (click)="detailsProduct(products.product_id,'edit')">
+                  <ion-icon color="white" name="create"></ion-icon>
+                  <div ion-text color="white"> Edit </div>
+                </button>
+              </ion-col>
+              <ion-col>
+                <button ion-button icon-left round full color="success"  (click)="detailsProduct(products.product_id,'details')">
+                  <ion-icon name="eye"></ion-icon>
+                  <div> Details </div>
+                </button>
+              </ion-col>
+            </ion-row>
+            </div>
+        </ion-card-content>
+
+  </ion-card>
+</div>
+</ion-item>
+  </ion-list>
+
 </ion-content>

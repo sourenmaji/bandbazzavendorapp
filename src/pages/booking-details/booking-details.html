@@ -13,8 +13,9 @@
         </ion-card-title>
       <p>
           <li>Booking time: {{booking.details.created_at | date: 'MMM d yyyy'}}</li>
-          <li>Booking #: {{booking.details.serial_number}}</li>
-          <li>Booking status: {{booking.details.vendor_status}}</li>
+          <li *ngIf="booking.type == 'Offline'">Booking #: {{booking.details.serial_number}}</li>
+          <li *ngIf="booking.type == 'Online'">Booking #: {{booking.details.order_no}}</li>
+          <li *ngIf="booking.type == 'Online'">Booking status: {{booking.details.vendor_status}}</li>
       </p>
     </ion-card-content>
   </ion-card>
@@ -27,8 +28,8 @@
         <p *ngIf="booking.module=='Banquet Hall'">
           <li>{{booking.details.banquet_name}}</li>
           <li> Duration: {{booking.details.book_from | date: 'MMM d, yyyy'}} - {{booking.details.book_to | date: 'MMM d, yyyy'}} ({{booking.details.no_of_days}} hours)</li>
-          <li> Rate: Rs {{booking.details.book_rate}}/day</li>
-          <li> Book Amount: Rs {{booking.details.book_amount}}</li>
+          <li *ngIf="booking.type == 'Online'"> Rate: Rs {{booking.details.book_rate}}/day</li>
+          <li *ngIf="booking.type == 'Offline'"> Rate: Rs {{booking.details.book_amount}}/day</li>
           <li> Book Advance: Rs {{booking.details.book_advance}}</li>
 
         </p>

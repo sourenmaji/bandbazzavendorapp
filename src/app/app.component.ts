@@ -16,12 +16,13 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { AddCatererPage } from '../pages/add-caterer/add-caterer';
 import { AddCarsPage } from '../pages/add-cars/add-cars';
+import { AddBanquetPage } from '../pages/add-banquet/add-banquet';
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
- // rootPage:any = WelcomePage;//modified by krishna, line 23 should be reverted back to --> rootPage:any = WelcomePage;
- rootPage:any = AddCarsPage;
+ rootPage:any = WelcomePage;//modified by krishna, line 23 should be reverted back to --> rootPage:any = WelcomePage;
+ // rootPage:any = AddBanquetPage;
   dashboardPage = DashboardPage;
   profilePage = ProfilePage;
   homePage = HomePage;
@@ -29,7 +30,7 @@ export class MyApp {
   productsPage = ProductsPage;
   enquiriesPage = EnquiriesPage;
   bookingsPage = BookingsPage;
-  customPackageEnquiriesPage = CustomPackageEnquiriesPage;
+  customPackageEnquiriesPage = AddCarsPage;
 
 
   userDetails : any;
@@ -37,8 +38,8 @@ export class MyApp {
 
   userPostData = {"user":"","token":""};
   @ViewChild('nav') nav: NavController;
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, 
-    private menuCtrl: MenuController,public authService:AuthServiceProvider, 
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
+    private menuCtrl: MenuController,public authService:AuthServiceProvider,
                public alertCtrl: AlertController) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -59,12 +60,12 @@ export class MyApp {
     this.nav.setRoot(page);
     this.menuCtrl.close();
    }
-   
+
    backToWelcome(){
       this.nav.push(WelcomePage);
       this.menuCtrl.close();
     }
-    
+
     onLogout()
       {
         localStorage.clear();
@@ -75,23 +76,23 @@ export class MyApp {
   // openBusiness(){
   //       const data = JSON.parse(localStorage.getItem('userData'));
   //       this.userDetails = data.success.user;
-    
+
   //       this.userPostData.user = this.userDetails;
   //       this.userPostData.token = data.success.token;
-        
+
   //       console.log(this.userPostData.token);
   //       console.log( this.userPostData.user);
 
   //       this.authService.getData('get_all_business',this.userPostData.token).then((result) => {
   //        this.responseData = result;
-         
-         
+
+
   //        if(this.responseData.status == true)
   //        {
   //        console.log(this.responseData);
   //        localStorage.setItem('businessData', JSON.stringify(this.responseData.businesses));
   //        console.log("Local storage "+JSON.parse(localStorage.getItem('businessData')));
-         
+
   //        }
   //        else{
   //         const alert = this.alertCtrl.create({
@@ -100,7 +101,7 @@ export class MyApp {
   //         })
   //         alert.present();
   //       }
-  //      }, 
+  //      },
   //      (err) => {
   //       this.responseData = err.json();
   //       console.log(this.responseData)
@@ -108,6 +109,6 @@ export class MyApp {
   //      this.nav.push(BusinessPage);
   //      this.menuCtrl.close();
   //     }
-    
+
 }
 

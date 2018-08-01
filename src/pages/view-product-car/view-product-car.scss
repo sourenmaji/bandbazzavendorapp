@@ -1,0 +1,36 @@
+page-view-product-car {
+    #map {
+        width: 100%;
+        height: 50%;
+    }
+    .img-y{
+        padding-left: 0;
+        font-size: 0;
+    }
+    .img-y li{
+        display: inline-block;
+        width: 33.3%;
+        list-style: none;
+        height: 85px;
+        padding: 5px;
+        position: relative;
+    }
+    .img-y li img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .error {
+        color: rgb(223, 62, 62);
+        font-size: 11px;
+      }
+      .success {
+        color: rgb(84, 245, 10);
+        font-size: 11px;
+      }
+      .ico-p{
+        position: absolute;
+        top: -2px;
+        right: -1px;
+      }
+}

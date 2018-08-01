@@ -209,11 +209,11 @@ export class AddbusinessPage {
     const fileTransfer: FileTransferObject = this.transfer.create();
     fileTransfer.upload(targetPath, apiUrl+'add_business', options).then((data) => {
       // Success!
-      alert('success')
+     // alert('success')
       this.result = data;
-      alert(this.result.response);
+     // alert(this.result.response);
       var success = JSON.parse(this.result.response);
-      alert(success.status);
+     // alert(success.status);
       if(success.status===true){
       localStorage.setItem('businessData', success.businesses);
       const alert = this.alertCtrl.create({
@@ -231,9 +231,9 @@ export class AddbusinessPage {
     (err) => {
       // Error
       alert('error! Try again')
-      alert(err.body);
+    //  alert(err.body);
       var error = JSON.parse(err.body);
-      alert(error.status);
+    //  alert(error.status);
       if(error.status==false){
       this.navCtrl.push(BusinessPage);
       this.navCtrl.remove(this.navCtrl.length()-1);
