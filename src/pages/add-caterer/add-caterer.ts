@@ -248,7 +248,7 @@ export class AddCatererPage {
     {
       return;
     }
-    this.imagePicker.getPictures({maximumImagesCount:remaining, quality:100, outputType:1}).then
+    this.imagePicker.getPictures({maximumImagesCount:remaining, quality:50, outputType:1}).then
     (results =>{
       console.log(results);
       for(let i=0; i < results.length;i++){

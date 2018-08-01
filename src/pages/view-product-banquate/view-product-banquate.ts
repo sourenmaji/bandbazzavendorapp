@@ -176,6 +176,7 @@ uploadData()
   //alert(carData);
   //call the rest here..
   this.authService.authData(data,'edit_product_banquet',this.userPostData.token).then((data) => {
+    this.responseData = data;
     if(this.responseData.status == true){
       this.navCtrl.pop();
       const alert = this.alertCtrl.create({
