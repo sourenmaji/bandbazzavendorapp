@@ -3,7 +3,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the ViewProductCatererPage page.
@@ -20,30 +20,39 @@ import { IonicPage, NavController, NavParams, ActionSheetController } from 'ioni
 export class ViewProductCatererPage implements OnInit{
   responseData: any;
   productDetails: any;
-  productImages: any;
+  productImages: any[]=[];
   productValue: any;
   requestType: any;
   URL = "http://192.168.0.130/BandBazza/public/";
   editProductform: FormGroup;
-  userData = { packageName: "",startingPrice: "",minimumPlate: "", images: []};
+  userData = {catererId: "", packageName: "",startingPrice: "",minimumPlate: "", images: []};
   userPostData = {"user":"","token":""};
  
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public actionSheetCtrl: ActionSheetController,
     public camera: Camera, public authService: AuthServiceProvider,
-    public imagePicker: ImagePicker) {
+    public imagePicker: ImagePicker, public alertCtrl: AlertController) {
       const data = JSON.parse(localStorage.getItem('userData'));
       this.userPostData.token = data.success.token;
     this.requestType = this.navParams.get('requestType');
   this.productDetails = this.navParams.get('productDetails');
   this.productValue = this.productDetails.details.package;
-  this.productImages = this.productDetails.details.images;
-  let urlimages:any[] = [];
-  this.productImages.forEach(element => {
-    element.url = this.URL+element.url;
-    urlimages.push(element);
+  this.productImages = [];
+  this.productImages.push("data:image/jpeg;base64,"+this.productValue.cover_image);
+
+  //this.productImages = this.productDetails.details.images;
+this.productDetails.details.images.forEach(element => {
+    this.productImages.push("data:image/jpeg;base64,"+element.url);
   });
-  this.productImages = urlimages;
+
+
+  //this.productImages = this.productDetails.details.images;
+  // let urlimages:any[] = [];
+  // this.productImages.forEach(element => {
+  //   element.url = this.URL+element.url;
+  //   urlimages.push(element);
+  // });
+  // this.productImages = urlimages;
   console.log(this.productImages);
 }
 
@@ -53,7 +62,8 @@ ngOnInit() {
     // username: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(10)]),
     packageName: new FormControl('', Validators.compose([Validators.required])),
     startingPrice: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
-    minimumPlate: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)])
+    minimumPlate: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
+    catererId: new FormControl('',  Validators.compose([]))
     
   }); 
 }
@@ -108,7 +118,7 @@ this.camera.getPicture(options).then((imageData) => {
   // If it's base64 (DATA_URL):
   //let base64Image = 'data:image/jpeg;base64,' + imageData;
   //this.imagestring.push("data:image/jpeg;base64,"+imageData);
-      this.productImages.push({url:"data:image/jpeg;base64,"+imageData});
+      this.productImages.push("data:image/jpeg;base64,"+imageData);
       // alert(this.productImages);
   //console.log(imageData);
  }, (err) => {
@@ -132,7 +142,7 @@ pickImage()
     for(let i=0; i < results.length;i++){
         // this.productImages.push(results[i]);
        // this.imagestring.push("data:image/jpeg;base64,"+results[i]);
-        this.productImages.push({url:"data:image/jpeg;base64,"+results[i]});
+        this.productImages.push("data:image/jpeg;base64,"+results[i]);
         // alert(this.productImages);
     };
   });
@@ -153,8 +163,22 @@ uploadData()
   //call the rest here..
   this.authService.authData(data,'edit_product_caterer',this.userPostData.token).then((data) => {
     this.responseData = data;
-    alert(this.responseData);
-    console.log(this.responseData);
+    if(this.responseData.status == true){
+      this.navCtrl.pop();
+      const alert = this.alertCtrl.create({
+        subTitle: this.responseData.message,
+        buttons: ['OK']
+        
+      })
+      alert.present();
+    }else{
+      const alert = this.alertCtrl.create({
+        subTitle: this.responseData.message,
+        buttons: ['OK']
+        
+      })
+      alert.present();
+    }
   }, (err) => {
    this.responseData = err;
    console.log(this.responseData)
@@ -167,7 +191,7 @@ removeImage(src: any)
   {
     let newimage: any = [];
     this.productImages.forEach(element => {
-      if(element.url != src)
+      if(element != src)
         newimage.push(element);
     });
     this.productImages = newimage;

@@ -3,7 +3,7 @@ import { AuthServiceProvider } from './../../providers/auth-service/auth-service
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, AlertController } from 'ionic-angular';
 
 
 @IonicPage()
@@ -16,7 +16,7 @@ export class ViewProductCarPage implements OnInit{
   carModelAvailable: boolean = false;
   responseData: any;
   productDetails: any;
-  productImages: any;
+  productImages: any[] = [];
   productValue: any;
   requestType: any;
   URL = "http://192.168.0.130/BandBazza/public/";
@@ -26,19 +26,19 @@ export class ViewProductCarPage implements OnInit{
   public cartypes:  {type:string, id:number}[];
   //userData = { maxHirePeriod: "",minHireDistance: "",advanceAmount: "",nonAcPriceHourly: "",nonAcpriceKm: "",acPriceHourly: "",acpriceKm:"", availableAc: 0, images: []};
   userPostData = {"user":"","token":""};
-  userData = {brandName:"",models: "", miniHirePeriod: "",seatNo: "",minHireDistance: "",advanceAmount: "",nonAcPriceHourly: "",nonAcpriceKm: "",acPriceHourly: "",acpriceKm:"", availableAc: 0, images: []};
+  userData = {carId: "", miniHirePeriod: "",seatNo: "",minHireDistance: "",advanceAmount: "",nonAcPriceHourly: "",nonAcpriceKm: "",acPriceHourly: "",acpriceKm:"", availableAc: 0, images: []};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController,
     public camera: Camera, public authService: AuthServiceProvider,
-    public imagePicker: ImagePicker ) {
+    public imagePicker: ImagePicker , public alertCtrl: AlertController) {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userPostData.token = data.success.token;
   this.productDetails = this.navParams.get('productDetails');
 
   this.requestType = this.navParams.get('requestType');
   this.productValue = this.productDetails.details.car;
-  this.userData.brandName = this.productValue.car_company_name;
-  this.userData.models = this.productValue.car_model;
+  // this.userData.brandName = this.productValue.car_company_name;
+  // this.userData.models = this.productValue.car_model;
   if(this.productValue.ac_car_price_hour != null){
     this.acAvailable = true;
     this.userData.availableAc = 1;
@@ -46,14 +46,20 @@ export class ViewProductCarPage implements OnInit{
     this.acAvailable = false;
     this.userData.availableAc = 0;
   }
-  this.productImages = this.productDetails.details.images;
-  let urlimages:any[] = [];
-  this.productImages.forEach(element => {
-    element.url = this.URL+element.url;
-    urlimages.push(element);
+  this.productImages = [];
+  this.productImages.push("data:image/jpeg;base64,"+this.productValue.cover_image);
+  console.log(this.productImages);
+  this.productDetails.details.images.forEach(element => {
+    this.productImages.push("data:image/jpeg;base64,"+element.url);
   });
-  this.productImages = urlimages;
-  this.initCarData()
+  console.log(this.productImages);
+ // let urlimages:any[] = [];
+  // this.productImages.forEach(element => {
+  //   element.url = this.URL+element.url;
+  //   urlimages.push(element);
+  // });
+  // this.productImages = urlimages;
+  //this.initCarData()
   //console.log(this.productDetails);
 }
 onChange(value){
@@ -79,8 +85,7 @@ ngOnInit() {
     nonAcpriceKm: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
     acPriceHourly: new FormControl('', [ Validators.pattern(AMOUNTPATTERN)]),
     availableAc: new FormControl('',  Validators.compose([])),
-    models: new FormControl('',  Validators.compose([])),
-    brandName : new FormControl('',  Validators.compose([])),
+    carId: new FormControl('',  Validators.compose([])),
     acpriceKm: new FormControl('', [ Validators.pattern(AMOUNTPATTERN)])
     
   }); 
@@ -136,12 +141,12 @@ this.camera.getPicture(options).then((imageData) => {
   // If it's base64 (DATA_URL):
   //let base64Image = 'data:image/jpeg;base64,' + imageData;
   //this.imagestring.push("data:image/jpeg;base64,"+imageData);
-      this.productImages.push({url:"data:image/jpeg;base64,"+imageData});
-      // alert(this.productImages);
+      this.productImages.push("data:image/jpeg;base64,"+imageData);
   //console.log(imageData);
  }, (err) => {
   // Handle error
  });
+ 
 }
 
 
@@ -154,13 +159,14 @@ pickImage()
   {
     return;
   }
-  this.imagePicker.getPictures({maximumImagesCount:remaining, quality:10, outputType:1}).then
+  this.imagePicker.getPictures({maximumImagesCount:remaining, quality:50, outputType:1}).then
   (results =>{
     console.log(results);
+    
     for(let i=0; i < results.length;i++){
         // this.productImages.push(results[i]);
        // this.imagestring.push("data:image/jpeg;base64,"+results[i]);
-        this.productImages.push({url:"data:image/jpeg;base64,"+results[i]});
+        this.productImages.push("data:image/jpeg;base64,"+results[i]);
         // alert(this.productImages);
     };
   });
@@ -181,8 +187,23 @@ uploadData()
   //call the rest here..
   this.authService.authData(data,'edit_product_car',this.userPostData.token).then((data) => {
     this.responseData = data;
-    alert(this.responseData);
-    console.log(this.responseData);
+    if(this.responseData.status == true){
+      this.navCtrl.pop();
+      const alert = this.alertCtrl.create({
+        subTitle: this.responseData.message,
+        buttons: ['OK']
+        
+      })
+      alert.present();
+    }else{
+      const alert = this.alertCtrl.create({
+        subTitle: this.responseData.message,
+        buttons: ['OK']
+        
+      })
+      alert.present();
+    }
+    
   }, (err) => {
    this.responseData = err;
    console.log(this.responseData)
@@ -193,69 +214,71 @@ uploadData()
 
 removeImage(src: any)
   {
+    console.log(src);
     let newimage: any = [];
     this.productImages.forEach(element => {
-      if(element.url != src)
+      if(element != src)
         newimage.push(element);
     });
+    console.log(newimage)
     this.productImages = newimage;
   }
 
 
-initCarData()
-  {
-    //call rest endpoint and populate the initial data required here
-    //TODO: token to load from local storage
-    this.authService.getData("get_car_details", this.userPostData.token).then((result) => {
-      this.responseData = result;
-      this.carbrands = [];
-      this.responseData.brands.forEach(element => {
-        console.log(element);
-        this.carbrands.push(element);
-      });
+// initCarData()
+//   {
+//     //call rest endpoint and populate the initial data required here
+//     //TODO: token to load from local storage
+//     this.authService.getData("get_car_details", this.userPostData.token).then((result) => {
+//       this.responseData = result;
+//       this.carbrands = [];
+//       this.responseData.brands.forEach(element => {
+//         console.log(element);
+//         this.carbrands.push(element);
+//       });
 
-      this.cartypes = [];
-      this.responseData.types.forEach(element => {
-        this.cartypes.push({type:element.type, id: element.id});
-      });
+//       this.cartypes = [];
+//       this.responseData.types.forEach(element => {
+//         this.cartypes.push({type:element.type, id: element.id});
+//       });
 
-      this.cartypes.forEach(element => {
-        console.log(element);
-      });
-    },
-    (err) => {
-      this.responseData = err.json();
-      console.log(this.responseData);
-     });
+//       this.cartypes.forEach(element => {
+//         console.log(element);
+//       });
+//     },
+//     (err) => {
+//       this.responseData = err.json();
+//       console.log(this.responseData);
+//      });
 
-  }
+//   }
 
-  updateModels(brand: {car_company_name:string, id: number})
-  {
-    console.log(brand);
-    // this.userData.brandName = brand.id+"";
-    this.userData.models = null;
-    // this.errormessage = "";
-    //TODO: change the token to load from local storage
-    console.log(brand);
-    this.authService.getData("get_car_models?id="+brand.id, this.userPostData.token).then((result)=>
-    {
+  // updateModels(brand: {car_company_name:string, id: number})
+  // {
+  //   console.log(brand);
+  //   // this.userData.brandName = brand.id+"";
+  //   this.userData.models = null;
+  //   // this.errormessage = "";
+  //   //TODO: change the token to load from local storage
+  //   console.log(brand);
+  //   this.authService.getData("get_car_models?id="+brand.id, this.userPostData.token).then((result)=>
+  //   {
 
-      this.carmodels = [];
-      this.responseData = result;
-      this.carModelAvailable = true;
-      this.responseData.models.forEach(element => {
-        this.carmodels.push({car_model:element.car_model, model_id: element.model_id});
-      });
-    },
-    (err)=>{
-      this.responseData = err.json();
-      console.log(this.responseData);
-      this.carmodels = [];
-    }   
+  //     this.carmodels = [];
+  //     this.responseData = result;
+  //     this.carModelAvailable = true;
+  //     this.responseData.models.forEach(element => {
+  //       this.carmodels.push({car_model:element.car_model, model_id: element.model_id});
+  //     });
+  //   },
+  //   (err)=>{
+  //     this.responseData = err.json();
+  //     console.log(this.responseData);
+  //     this.carmodels = [];
+  //   }   
 
-  ); 
-  }
+  // ); 
+  // }
   // storeModel(model: {car_model:string, model_id:number})
   // {
   //   this.userData.models = model.model_id+"";

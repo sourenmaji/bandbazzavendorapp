@@ -3,7 +3,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, ActionSheetController, AlertController } from 'ionic-angular';
 
 
 
@@ -18,30 +18,36 @@ export class ViewProductBanquatePage implements OnInit{
   responseData: any;
   productDetails: any;
   requestType: any;
-  productImages: any;
+  productImages: any[]=[];
   lat: any;
   log: any;
   URL = "http://192.168.0.130/BandBazza/public/";
  editProductform: FormGroup;
- userData = { banquetName: "",hallPrice: "",advanceAmount: "",capacity: "",acCharges: "",availableAc: 0,foodType: 0, images: []};
+ userData = {banquetId: "", banquetName: "",hallPrice: "",advanceAmount: "",capacity: "",acCharges: "",availableAc: 0,foodType: 0, images: []};
  userPostData = {"user":"","token":""};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public imagePicker: ImagePicker,
     public actionSheetCtrl: ActionSheetController,
-    public camera: Camera, public authService: AuthServiceProvider) {
+    public camera: Camera, public authService: AuthServiceProvider, public alertCtrl: AlertController) {
       const data = JSON.parse(localStorage.getItem('userData'));
       this.userPostData.token = data.success.token;
   this.productDetails = this.navParams.get('productDetails');
   this.requestType = this.navParams.get('requestType');
   this.lat = this.productDetails.details.lat;
   this.log = this.productDetails.details.lng;
-  this.productImages = this.productDetails.details.images;
-  let urlimages:any[] = [];
-  this.productImages.forEach(element => {
-    element.url = this.URL+element.url;
-    urlimages.push(element);
+  this.productImages = [];
+  this.productImages.push("data:image/jpeg;base64,"+this.productDetails.details.view);
+
+  //this.productImages = this.productDetails.details.images;
+this.productDetails.details.images.forEach(element => {
+    this.productImages.push("data:image/jpeg;base64,"+element.url);
   });
-  this.productImages = urlimages;
+  // let urlimages:any[] = [];
+  // this.productImages.forEach(element => {
+  //   element.url = this.URL+element.url;
+  //   urlimages.push(element);
+  // });
+  // this.productImages = urlimages;
 
   console.log(this.productDetails);
   this.userData.availableAc= this.productDetails.details.is_ac;
@@ -70,7 +76,8 @@ ngOnInit() {
     capacity: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
     acCharges: new FormControl('', [Validators.pattern(AMOUNTPATTERN)]),
     availableAc: new FormControl('',  Validators.compose([])),
-    foodType: new FormControl('',  Validators.compose([]))
+    foodType: new FormControl('',  Validators.compose([])),
+    banquetId: new FormControl('',  Validators.compose([]))
   }); 
 }
 
@@ -125,7 +132,7 @@ this.camera.getPicture(options).then((imageData) => {
   // If it's base64 (DATA_URL):
   //let base64Image = 'data:image/jpeg;base64,' + imageData;
   //this.imagestring.push("data:image/jpeg;base64,"+imageData);
-      this.productImages.push({url:"data:image/jpeg;base64,"+imageData});
+      this.productImages.push("data:image/jpeg;base64,"+imageData);
       // alert(this.productImages);
   //console.log(imageData);
  }, (err) => {
@@ -149,7 +156,7 @@ pickImage()
     for(let i=0; i < results.length;i++){
         // this.productImages.push(results[i]);
        // this.imagestring.push("data:image/jpeg;base64,"+results[i]);
-        this.productImages.push({url:"data:image/jpeg;base64,"+results[i]});
+        this.productImages.push("data:image/jpeg;base64,"+results[i]);
         // alert(this.productImages);
     };
   });
@@ -169,9 +176,22 @@ uploadData()
   //alert(carData);
   //call the rest here..
   this.authService.authData(data,'edit_product_banquet',this.userPostData.token).then((data) => {
-    this.responseData = data;
-    alert(this.responseData);
-    console.log(this.responseData);
+    if(this.responseData.status == true){
+      this.navCtrl.pop();
+      const alert = this.alertCtrl.create({
+        subTitle: this.responseData.message,
+        buttons: ['OK']
+        
+      })
+      alert.present();
+    }else{
+      const alert = this.alertCtrl.create({
+        subTitle: this.responseData.message,
+        buttons: ['OK']
+        
+      })
+      alert.present();
+    }
   }, (err) => {
    this.responseData = err;
    console.log(this.responseData)
@@ -184,7 +204,7 @@ removeImage(src: any)
   {
     let newimage: any = [];
     this.productImages.forEach(element => {
-      if(element.url != src)
+      if(element != src)
         newimage.push(element);
     });
     this.productImages = newimage;

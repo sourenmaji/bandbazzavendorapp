@@ -13,12 +13,12 @@
   <ion-card *ngIf="requestType == 'details'">
 
     <ion-slides autoplay="5000" loop="true" speed="3000" height="200" pager>
-        <ion-slide>
+        <!-- <ion-slide>
             <img src="{{this.URL+productValue.cover_image}}">
-        </ion-slide>
+        </ion-slide> -->
           
         <ion-slide *ngFor="let slide of productImages">
-          <img src="{{slide.url}}">
+          <img src="{{slide}}">
         </ion-slide>
       </ion-slides>
   <ion-card-content>
@@ -61,19 +61,23 @@
 </ion-card-content>
   
 </ion-card>
+
+<!-- for edit section -->
+
+
 <ion-card *ngIf="requestType == 'edit'">
     <ion-card-content>
 
         <ul class="img-y">
-          <li><img src="{{this.URL+productValue.cover_image}}">
+          <!-- <li><img src="{{this.URL+productValue.cover_image}}">
             <div class="ico-p">
-              <ion-icon (click)="removeImage(productDetails.details.view)" style="color: red;font-size: 16px" name="close-circle" ></ion-icon>
+              <ion-icon (click)="removeImage(this.URL+productValue.cover_image)" style="color: red;font-size: 16px" name="close-circle" ></ion-icon>
             </div>
-          </li>
+          </li> -->
           <li *ngFor="let slide of productImages">
-              <img src="{{slide.url}}">
+              <img src="{{slide}}">
               <div class="ico-p">
-                <ion-icon (click)="removeImage(slide.url)" style="color: red;font-size: 16px" name="close-circle" ></ion-icon>
+                <ion-icon (click)="removeImage(slide)" style="color: red;font-size: 16px" name="close-circle" ></ion-icon>
               </div>
           </li>
           <li>
@@ -83,16 +87,20 @@
           </li>
         </ul>
            
-           <!-- <ion-card-title>
+           <ion-card-title>
    
-              <h1 ion-text color="danger">{{productValue.car_company_name}}</h1>
+              <h1 ion-text color="danger">{{productValue.car_company_name}} {{productValue.car_model}}</h1>
         
-       </ion-card-title> -->
+       </ion-card-title> 
 
            <ion-list>
             <form novalidate  [formGroup]="editProductform">
-
-                <ion-item>
+              <ion-item [hidden]="true">
+                <ion-input  type="text" [(ngModel)]="userData.carId" value="{{productValue.id}}"
+                formControlName="carId"></ion-input>
+                
+              </ion-item>
+                <!-- <ion-item>
                     <ion-label>Select Brand</ion-label>
                     <ion-select [(ngModel)]="userData.brandName" formControlName="brandName">
                       <ion-option  (ionSelect)="updateModels(b)" *ngFor="let b of carbrands"value="{{b.id}}">{{b.car_company_name}}</ion-option>
@@ -103,7 +111,7 @@
                     <ion-select [(ngModel)]="userData.models" formControlName="models">
                       <ion-option  *ngFor="let m of carmodels" value="{{m.model_id}}" >{{m.car_model}}</ion-option>
                     </ion-select>
-                  </ion-item> 
+                  </ion-item>  -->
                 
                   <ion-item>
                     <ion-label floating>Minimum Hire Period<small>(Hourly)</small> <span style="color: red">*</span></ion-label>
