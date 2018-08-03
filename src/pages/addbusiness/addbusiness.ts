@@ -21,10 +21,10 @@ export class AddbusinessPage {
   businessDetails : any;
   userDetails : any;
   
-  constructor(public navCtrl: NavController, private camera: Camera, private transfer: FileTransfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController,
+  constructor(public navParams: NavParams,public navCtrl: NavController, private camera: Camera, private transfer: FileTransfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController,
              public platform: Platform, public loadingCtrl: LoadingController, public authService: AuthServiceProvider, public alertCtrl: AlertController) {
 
-    const dataBusiness = JSON.parse(localStorage.getItem('businessOptions'));
+    const dataBusiness  = this.navParams.data;
     console.log(dataBusiness);
     this.businessDetails = dataBusiness.options;
     // console.log(dataBusiness.length);
@@ -36,7 +36,7 @@ export class AddbusinessPage {
    }
 
    ionViewDidEnter(){
-    const dataBusiness = JSON.parse(localStorage.getItem('businessOptions'));
+    const dataBusiness  = this.navParams.data;
     console.log(dataBusiness);
     this.businessDetails = dataBusiness.options;
     // console.log(dataBusiness.length);

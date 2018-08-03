@@ -133,7 +133,7 @@ export class EditProfilePage implements OnInit{
     
   sendOtp(){
     
-    this.authService.authData({'phone_no' :this.userData.phone_no},'send_otp',this.userPostData.token).then((result: any) => {
+    this.authService.getData('send_otp?phone_no='+this.userData.phone_no,this.userPostData.token).then((result: any) => {
       this.responseData = result;
       if(result.status)
       {

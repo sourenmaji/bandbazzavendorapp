@@ -95,10 +95,10 @@ export class BusinessPage {
      
      if(this.responseData.status == true)
      {
-     console.log(this.responseData.data.options);
-     localStorage.setItem('businessOptions', JSON.stringify(this.responseData.data));
-     console.log("Local storage "+JSON.parse(localStorage.getItem('businessOptions')));
-     
+     console.log(this.responseData.data);
+    //  localStorage.setItem('businessOptions', JSON.stringify(this.responseData.data));
+    //  console.log("Local storage "+JSON.parse(localStorage.getItem('businessOptions')));
+     this.navCtrl.push(AddbusinessPage,this.responseData.data);
      }
      else{
       const alert = this.alertCtrl.create({
@@ -113,7 +113,7 @@ export class BusinessPage {
     console.log(this.responseData)
    });
   
-   this.navCtrl.push(AddbusinessPage);
+   //this.navCtrl.push(AddbusinessPage);
    //this.navCtrl.remove(this.navCtrl.length()-1);
    
   }

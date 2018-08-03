@@ -31,19 +31,34 @@
           </div>
         </ion-item>
         <ion-item>
-          <ion-label floating>Email id <span style="color: red">*</span></ion-label>
-          <ion-input type="email" [(ngModel)]="userData.email"
-          formControlName="email" [class.error1]="!signupform.controls.email.valid && signupform.controls.email.dirty"></ion-input>
+          <ion-label floating>Email id or Phone<span style="color: red">*</span></ion-label>
+          <ion-input type="email" [(ngModel)]="userData.user"
+          formControlName="user" [class.error1]="!signupform.controls.user.valid && signupform.controls.user.dirty"
+          (keyup)="showVal(this.value)">
+          </ion-input>
+          <button *ngIf="!( signupform.get('user').hasError('minlength') || signupform.get('user').hasError('pattern') ||signupform.get('user').hasError('required') ) && !buttonClicked && otpButton" 
+                      ion-button  clear item-right (click)="sendOtp()">Send OTP</button>
         </ion-item>
-        <ion-item no-lines *ngIf="( signupform.get('email').hasError('minlength') || signupform.get('email').hasError('pattern') ||signupform.get('email').hasError('required') ) && signupform.get('email').touched">
-          <div class="error" *ngIf="signupform.get('email').hasError('required') && signupform.get('email').touched">
-            Please enter your email
+        <ion-item no-lines *ngIf="( signupform.get('user').hasError('minlength') || signupform.get('user').hasError('pattern') ||signupform.get('user').hasError('required') ) && signupform.get('user').touched">
+          <div class="error" *ngIf="signupform.get('user').hasError('required') && signupform.get('user').touched">
+            Please enter your email or phone
           </div>
-          <div class="error" *ngIf="signupform.get('email').hasError('pattern') && signupform.get('email').touched">
-            This value should be a valid email
+          <div class="error" *ngIf="signupform.get('user').hasError('pattern') && signupform.get('user').touched">
+            This value should be a valid email or valid phone no.
           </div>
         </ion-item>
-
+        <ion-item *ngIf="buttonClicked">
+          <ion-input  type="text" placeholder="Enter Six Digit Password"
+          [(ngModel)]="userData.otp" formControlName="otp"  ></ion-input>
+        </ion-item>
+        <ion-item *ngIf="buttonClicked">
+          <div class="error" *ngIf="signupform.get('otp').hasError('equalsTo') && signupform.get('otp').touched">
+            Your OTP does not match
+          </div>
+          <div class="success" *ngIf="!(signupform.get('otp').hasError('equalsTo'))">
+            Your OTP match Successfully
+          </div>
+        </ion-item>
         <ion-item>
           <ion-label floating>Password <span style="color: red">*</span></ion-label>
           <ion-input type="password" [(ngModel)]="userData.password" clearOnEdit="false"

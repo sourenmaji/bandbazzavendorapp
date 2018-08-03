@@ -18,6 +18,25 @@ export class AuthServiceProvider {
   }
 
   responseData : FileUploadResult = null;
+  getDataWithoutToken(type) {
+   // console.log(credentials)
+    return new Promise((resolve, reject) => {
+      let headers = new Headers();
+      console.log(headers);
+      console.log(apiUrl+type);
+
+      this.http.get(apiUrl+type, {headers: headers})
+        .subscribe(res => {
+          console.log(res.json());
+          resolve(res.json());
+        },
+        (err) => {
+          console.log(err);
+          reject(err);
+        });
+    });
+  }
+
   postData(credentials, type) {
     console.log(credentials)
     return new Promise((resolve, reject) => {

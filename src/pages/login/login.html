@@ -12,16 +12,16 @@
       <ion-list>
         <form novalidate [formGroup]="signinform">
           <ion-item>
-            <ion-label floating>Email id <span style="color: red">*</span></ion-label>
+            <ion-label floating>Email or Phone <span style="color: red">*</span></ion-label>
             <ion-input type="email" [(ngModel)]="userData.email" value="subhamoy@mailinator.com"
             formControlName="email" [class.error1]="!signinform.controls.email.valid && signinform.controls.email.dirty"></ion-input>
           </ion-item>
           <ion-item no-lines *ngIf="( signinform.get('email').hasError('minlength') || signinform.get('email').hasError('pattern') ||signinform.get('email').hasError('required') ) && signinform.get('email').touched">
             <div class="error" *ngIf="signinform.get('email').hasError('required') && signinform.get('email').touched">
-              Please enter your email
+              Please enter your email or Phone
             </div>
             <div class="error" *ngIf="signinform.get('email').hasError('pattern') && signinform.get('email').touched">
-              This value should be a valid email
+              This value should be a valid email or Valid Phone No.
             </div>
           </ion-item>
           <ion-item>
