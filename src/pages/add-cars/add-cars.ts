@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, ActionSheetController, AlertController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { elementAttribute } from '../../../node_modules/@angular/core/src/render3/instructions';
@@ -51,6 +51,7 @@ export class AddCarsPage {
               public imagePicker: ImagePicker,
               public actionSheetCtrl: ActionSheetController,
               public camera: Camera,
+              private alertCtrl: AlertController
 
   ) {
     //for card slide design
@@ -339,7 +340,7 @@ export class AddCarsPage {
       return;
     }
     const options: CameraOptions = {
-    quality: 50,
+    quality: 60,
     destinationType: this.camera.DestinationType.DATA_URL,
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE
@@ -366,7 +367,7 @@ export class AddCarsPage {
     {
       return;
     }
-    this.imagePicker.getPictures({maximumImagesCount:remaining, quality:100, outputType:1}).then
+    this.imagePicker.getPictures({maximumImagesCount:remaining, quality: 60, outputType:1}).then
     (results =>{
       console.log(results);
       for(let i=0; i < results.length;i++){
@@ -436,12 +437,34 @@ export class AddCarsPage {
     //call the rest here..
     this.restServ.authData(carData,'add_product_car',this.token).then((data) => {
       this.responseData = data;
-      alert(this.responseData);
       console.log(this.responseData);
+      if(this.responseData.status==true)
+      {
+        this.navCtrl.pop();
+        const alert = this.alertCtrl.create({
+        subTitle: this.responseData.message,
+        buttons: ['OK']
+        
+      })
+      alert.present();
+      }
+      else
+      {
+      const alert = this.alertCtrl.create({
+        subTitle: this.responseData.message,
+        buttons: ['OK']
+      })
+      alert.present();
+      }
+      
     }, (err) => {
      this.responseData = err;
      console.log(this.responseData)
-
+     const alert = this.alertCtrl.create({
+      subTitle: "Something went wrong! Please try again.",
+      buttons: ['OK']
+    })
+    alert.present();
     });
   }
 }

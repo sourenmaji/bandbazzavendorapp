@@ -1,16 +1,18 @@
 import { Component, ViewChild, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, ActionSheetController, AlertController } from 'ionic-angular';
 import { ImagePicker } from '../../../node_modules/@ionic-native/image-picker';
 import { Camera, CameraOptions } from '../../../node_modules/@ionic-native/camera';
 import { FormControl } from '../../../node_modules/@angular/forms';
 import { MapsAPILoader } from '@agm/core';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
+declare var google;
 @IonicPage()
 @Component({
   selector: 'page-add-banquet',
   templateUrl: 'add-banquet.html',
 })
+
 export class AddBanquetPage {
 
   @ViewChild('formslides') formSlide: Slides;
@@ -51,11 +53,12 @@ export class AddBanquetPage {
               public camera: Camera,
               public restServ: AuthServiceProvider,
               private mapsAPILoader: MapsAPILoader,
-              private ngZone: NgZone
+              private ngZone: NgZone,
+              private alertCtrl: AlertController
             ) {
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
-    //this.token = data.success.token;
+    this.token = data.success.token;
     this.business_id=this.navParams.data;
     console.log(this.business_id);
 
@@ -264,12 +267,12 @@ export class AddBanquetPage {
     this.mapsAPILoader.load().then(() => {
       let nativeHomeInputBox = document.getElementById('txtHome').getElementsByTagName('input')[0];
       let autocomplete = new google.maps.places.Autocomplete(nativeHomeInputBox, {
-          types: ["address"]
+          types: ["geocode"]
       });
       autocomplete.addListener("place_changed", () => {
           this.ngZone.run(() => {
               //get the place result
-              let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+              let place: any = autocomplete.getPlace();
 
               //verify result
               if (place.geometry === undefined || place.geometry === null) {
@@ -323,7 +326,7 @@ export class AddBanquetPage {
         return;
       }
       const options: CameraOptions = {
-      quality: 10,
+      quality: 60,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
@@ -347,7 +350,7 @@ export class AddBanquetPage {
     {
       return;
     }
-    this.imagePicker.getPictures({maximumImagesCount:remaining, quality:100, outputType:1}).then
+    this.imagePicker.getPictures({maximumImagesCount:remaining, quality:60, outputType:1}).then
     (results =>{
       console.log(results);
       for(let i=0; i < results.length;i++){
@@ -370,22 +373,26 @@ export class AddBanquetPage {
 
   uploadData()
   {
-    let uploadData: {business_id: number,hall_name:string, ac_charge:number, search_tags:string, details:string, price:number, book_advance:number, address_same_as_business:boolean, address:string, lat:number, lng:number, capacity:number, is_veg:boolean, is_ac:boolean, is_parking:boolean, images:string[]};
-    uploadData = {business_id: null,search_tags:"", ac_charge:0, hall_name:"", details:"", price:null, book_advance:null, address_same_as_business:null, address:"", lat:null, lng:null, capacity:null, is_veg:null, is_ac:null, is_parking:null, images:[]};
+    let uploadData: {business_id: number,hall_name:string, ac_charge:number, search_tags:string, details:string, price:number, book_advance:number, address_same_as_business:boolean, address:string, location: string, lat:number, lng:number, capacity:number, is_veg:boolean, is_ac:boolean, is_parking:boolean, images:string[]};
+    uploadData = {business_id: null,search_tags:"", ac_charge:0, hall_name:"", details:"", price:null, book_advance:null, address_same_as_business:null, address:"", location: "", lat:null, lng:null, capacity:null, is_veg:null, is_ac:null, is_parking:null, images:[]};
     uploadData.business_id = this.business_id;
     uploadData.hall_name = this.form1data.hallname;
     uploadData.details = this.form1data.details;
     uploadData.price = this.form1data.price;
     uploadData.search_tags = this.form1data.tags;
     uploadData.book_advance = this.form1data.booking_advance;
-    uploadData.address_same_as_business = this.form2data.same_as_business;
+    // uploadData.address_same_as_business = this.form2data.same_as_business;
     uploadData.ac_charge = this.form3data.ac_charge;
-    if(!uploadData.address_same_as_business)
-    {
-      uploadData.address = this.form2data.full_address;
-      uploadData.lat = this.latitude;
-      uploadData.lng = this.longitude;
-    }
+    // if(!uploadData.address_same_as_business)
+    // {
+    //   uploadData.address = this.form2data.full_address;
+    //   uploadData.lat = this.latitude;
+    //   uploadData.lng = this.longitude;
+    // }
+    uploadData.location=this.form2data.map_address;
+    uploadData.address = this.form2data.full_address;
+    uploadData.lat = this.latitude;
+    uploadData.lng = this.longitude;
     uploadData.capacity = this.form3data.capacity;
     uploadData.is_veg = !this.form3data.all_food_type;
     uploadData.is_ac = this.form3data.ac;
@@ -397,12 +404,34 @@ export class AddBanquetPage {
     //call the rest here..
     this.restServ.authData(uploadData,'add_product_hall',this.token).then((data) => {
       this.responseData = data;
-      alert(this.responseData.status);
       console.log(this.responseData);
+      if(this.responseData.status==true)
+      {
+        this.navCtrl.pop();
+        const alert = this.alertCtrl.create({
+        subTitle: this.responseData.message,
+        buttons: ['OK']
+        
+      })
+      alert.present();
+      }
+      else
+      {
+      const alert = this.alertCtrl.create({
+        subTitle: this.responseData.message,
+        buttons: ['OK']
+      })
+      alert.present();
+      }
+      
     }, (err) => {
      this.responseData = err;
      console.log(this.responseData)
-     alert(this.responseData)
+     const alert = this.alertCtrl.create({
+      subTitle: "Something went wrong! Please try again.",
+      buttons: ['OK']
+    })
+    alert.present();
     });
   }
 }

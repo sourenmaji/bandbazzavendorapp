@@ -33,10 +33,10 @@ import { AddCatererPage } from '../pages/add-caterer/add-caterer';
 import { EnquiryDetailsPage } from '../pages/enquiry-details/enquiry-details';
 import { BookingDetailsPage } from '../pages/booking-details/booking-details';
 import { AddCarsPage } from '../pages/add-cars/add-cars';
-import { ImagePicker } from '@ionic-native/image-picker';
 import { HttpClient, HttpClientModule } from '../../node_modules/@angular/common/http';
 import { AddBanquetPage } from '../pages/add-banquet/add-banquet';
 import { AgmCoreModule } from '@agm/core';
+import { ImagePicker } from '../../node_modules/@ionic-native/image-picker';
 
 
 @NgModule({
@@ -72,7 +72,6 @@ import { AgmCoreModule } from '@agm/core';
     HttpModule,
     HttpClientModule,
     AgmCoreModule.forRoot({
-      //apiKey: "AIzaSyCnahpwY4LRTYlzEHnER3B_Y8NR1HzmrVE",
       apiKey: "AIzaSyBzeppyrAzDcifb1vGnNArdBuZp5X39s-Y",
       libraries: ["places"]
   })
@@ -106,11 +105,11 @@ import { AgmCoreModule } from '@agm/core';
   ],
   providers: [
     Camera,
-    ImagePicker,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
+    ImagePicker,
     Network,
     File,
     FileTransfer,
