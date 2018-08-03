@@ -1,16 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, ActionSheetController, AlertController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { ImagePicker } from '../../../node_modules/@ionic-native/image-picker';
-import { AddCarsPage } from '../add-cars/add-cars';
 import { Camera, CameraOptions } from '../../../node_modules/@ionic-native/camera';
-
-/**
- * Generated class for the AddCatererPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -44,7 +36,8 @@ export class AddCatererPage {
               public restServ: AuthServiceProvider,
               public imagePicker: ImagePicker,
               public actionSheetCtrl: ActionSheetController,
-              public camera: Camera
+              public camera: Camera,
+              private alertCtrl: AlertController
             ) {
     //for card slide design
     this.pageNo = 0;
@@ -221,7 +214,7 @@ export class AddCatererPage {
         return;
       }
       const options: CameraOptions = {
-      quality: 10,
+      quality: 60,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
@@ -248,7 +241,7 @@ export class AddCatererPage {
     {
       return;
     }
-    this.imagePicker.getPictures({maximumImagesCount:remaining, quality:50, outputType:1}).then
+    this.imagePicker.getPictures({maximumImagesCount:remaining, quality: 60, outputType:1}).then
     (results =>{
       console.log(results);
       for(let i=0; i < results.length;i++){
@@ -303,13 +296,34 @@ export class AddCatererPage {
     //call the rest here..
     this.restServ.authData(dataCaterer,'add_product_package',this.token).then((data) => {
       this.responseData = data;
-      alert(this.responseData.status);
       console.log(this.responseData);
+      if(this.responseData.status==true)
+      {
+        this.navCtrl.pop();
+        const alert = this.alertCtrl.create({
+        subTitle: this.responseData.message,
+        buttons: ['OK']
+        
+      })
+      alert.present();
+      }
+      else
+      {
+      const alert = this.alertCtrl.create({
+        subTitle: this.responseData.message,
+        buttons: ['OK']
+      })
+      alert.present();
+      }
+      
     }, (err) => {
      this.responseData = err;
      console.log(this.responseData)
-     alert(this.responseData)
-
+     const alert = this.alertCtrl.create({
+      subTitle: "Something went wrong! Please try again.",
+      buttons: ['OK']
+    })
+    alert.present();
     });
   }
 }

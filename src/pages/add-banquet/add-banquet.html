@@ -36,7 +36,7 @@
                     <ion-item>
                         <ion-label stacked>
                           <div>
-                            <p>details<span style="color: red" > *</span></p>
+                            <p>Details<span style="color: red" > *</span></p>
                           </div>
                         </ion-label>
                         <ion-textarea  (ionChange)="errormessage = ''"  [(ngModel)]="form1data.details" placeholder="Details">
@@ -89,11 +89,11 @@
               <p style="color: red">{{errormessage}}</p>
             </ion-item>
             <ion-card-content>
-              <ion-item no-padding>
+              <!-- <ion-item no-padding>
                   <ion-label>Address same as Business address</ion-label>
                   <ion-checkbox (ionChange)="errormessage=''" [(ngModel)]="form2data.same_as_business" ></ion-checkbox>
-              </ion-item>
-              <div no-padding>
+              </ion-item> -->
+
                   <ion-item no-padding>
                       <ion-label floating>
                         Enter full address
@@ -109,7 +109,7 @@
                   <agm-map style="height:50vh" [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
                     <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
                   </agm-map>
-              </div>
+ 
               
             </ion-card-content>
         </ion-card>
