@@ -110,7 +110,7 @@
               
                   <agm-map 
                   [disableDefaultUI]="false"
-                  [zoomControl]="false" (mapClick)="mapClicked($event)" style="height:50vh" [latitude]=22.591784 [longitude]=88.403313 [scrollwheel]="false" [zoom]="zoom">
+                  [zoomControl]="false" (mapClick)="mapClicked($event)" style="height:50vh" [latitude]="latmap" [longitude]="lngmap" [scrollwheel]="false" [zoom]="zoom">
                     <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
                   </agm-map>
             </ion-card-content>
