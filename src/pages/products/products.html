@@ -143,12 +143,12 @@
             <ion-row>
               <ion-col col-auto *ngIf="products.is_veg == 1"> 
                   <h1 ion-text color="danger">{{products.product_name}}</h1>
-                  <h2 ion-text color="dash6">Vej : <span ion-text color="dark">Rs.{{products.price_per_plate | number:'1.0-0'}}</span></h2>
+                  <h2 ion-text color="dash6">Veg : <span ion-text color="dark">Rs.{{products.price_per_plate | number:'1.0-0'}}</span></h2>
               </ion-col>
               <ion-col col-auto *ngIf="products.is_veg == 0"> 
-                  <!-- <h1 ion-text color="dash6">Non Vej :<span ion-text color="dash6">{{products.price_per_plate}}</span></h1> -->
+                  <!-- <h1 ion-text color="dash6">Non Veg :<span ion-text color="dash6">{{products.price_per_plate}}</span></h1> -->
                   <h1 ion-text color="danger">{{products.product_name}}</h1>
-                  <h2 ion-text color="dash6">Non Vej : <span ion-text color="dark">Rs.{{products.price_per_plate | number:'1.0-0'}}</span></h2>
+                  <h2 ion-text color="dash6">Non Veg : <span ion-text color="dark">Rs.{{products.price_per_plate | number:'1.0-0'}}</span></h2>
               </ion-col>
               <ion-col col-3>
                   <ion-badge color="ac">{{products.request_type}}</ion-badge>

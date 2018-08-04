@@ -1,3 +1,9 @@
 page-add-banquet {
-
+    .label-md div p{
+        color:#000;
+        font-weight: 500;
+    }
+    .add-inpu input::placeholder{
+        font-size: 12px;
+    }
 }

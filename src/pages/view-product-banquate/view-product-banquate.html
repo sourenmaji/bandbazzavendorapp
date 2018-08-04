@@ -40,11 +40,11 @@
             <h1 ion-text color="dark"><b>Rs.{{productDetails.details.price | number:'1.0-0'}}</b></h1>
         </ion-col>
         <ion-col *ngIf="productDetails.details.is_nonveg == 1" text-center>
-            <ion-badge color="ac">Vej</ion-badge>
-            <ion-badge color="danger">Nonvej</ion-badge>
+            <ion-badge color="ac">Veg</ion-badge>
+            <ion-badge color="danger">NonVeg</ion-badge>
           </ion-col>
           <ion-col *ngIf="productDetails.details.is_nonveg == 0" text-center>
-              <ion-badge color="ac">Vej</ion-badge>
+              <ion-badge color="ac">Veg</ion-badge>
           </ion-col>
       </ion-row>
       
@@ -184,7 +184,7 @@
                         Please enter only digit
                       </div>
                     </ion-item>
-                    <ion-item>
+                    <ion-item *ngIf="userData.availableAc==1">
                       <ion-label floating>Ac. Charges<small>(per hour)</small> </ion-label>
                       <ion-input type="text" [(ngModel)]="userData.acCharges" value="{{productDetails.details.ac_charge}}"
                       formControlName="acCharges" [class.error1]="!editProductform.controls.acCharges.valid && editProductform.controls.acCharges.dirty">
@@ -211,7 +211,7 @@
                       
                       <ion-select [(ngModel)]="userData.foodType"
                       formControlName="foodType">
-                      <ion-option value="0">Vej</ion-option>
+                      <ion-option value="0">Veg</ion-option>
                       <ion-option value="1">All</ion-option>
                       </ion-select>
                     </ion-item>

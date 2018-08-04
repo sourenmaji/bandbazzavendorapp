@@ -15,9 +15,9 @@
             <hr>
             <ion-card-content>
               <ion-list>
-                <ion-item >
-                  <p style="color: red" >{{errormessage}}</p>
-                </ion-item>
+                  <ion-item style="color: red" *ngIf="errormessage">
+                      {{errormessage}}
+                      </ion-item>
                 <div *ngIf="!unknowncar" >
                     <ion-item>
                         <ion-label>Select Brand</ion-label>
@@ -54,13 +54,13 @@
                     </ion-item>
                 </div>
                   <ion-item>
-                    <ion-label>My Car is not in list</ion-label>
+                    <ion-label>Not In List</ion-label>
                     <ion-checkbox [(ngModel)]="unknowncar" (ionChange)="switchInputMethod()">
                     </ion-checkbox>
                   </ion-item>
 
                   <ion-item>
-                    <ion-label>Select Car type</ion-label>
+                    <ion-label>Select Car Type</ion-label>
                     <ion-select interface="popover" >
                       <ion-option (ionSelect)="storeType(type)" *ngFor="let type of cartypes" >
                         {{type.type}}
@@ -80,48 +80,46 @@
             <ion-scroll direction="y" scrollY="true" style="height: 80%;">
             <ion-card-content >
                 <ion-list >
-                    <ion-item >
-                        <p style="color: red" >{{errormessage}}</p>
-                      </ion-item>
+                    <ion-item style="color: red" *ngIf="errormessage">
+                        {{errormessage}}
+                        </ion-item>
 
-                    <ion-item style=" margin: 0%;padding: 0%" >
-                      <ion-label>
-                        No of seats
+                    <ion-item>
+                      <ion-label stacked>
+                        No Of Seats
                       </ion-label>
-                      <ion-input  (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.no_of_seats" >
+                      <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.no_of_seats" placeholder="No. Of Seats">
 
                       </ion-input>
                     </ion-item>
                     <ion-row>
-                      <ion-col >
-                        <ion-label style=" margin: 0%;padding: 0%">
-                          Minimum hire period
+                      <ion-col>
+                        <ion-label stacked>
+                          Minimum Hire Period
                         </ion-label>
-                        <ion-input style=" margin: 0%;padding: 0%" type="number" [(ngModel)]="form2data.min_hire_period" >
-
+                        <ion-input type="number" [(ngModel)]="form2data.min_hire_period" placeholder="Min. Hire Period">
                         </ion-input>
                       </ion-col>
                       <ion-col>
-                        <ion-label style=" margin: 0%;padding: 0%">
-                          Maximum hire period
+                        <ion-label stacked>
+                          Maximum Hire Period
                         </ion-label>
-                        <ion-input style=" margin: 0%;padding: 0%" type="number" [(ngModel)]="form2data.max_hire_period" >
-
+                        <ion-input type="number" [(ngModel)]="form2data.max_hire_period" placeholder="Max. Hire Period">
                         </ion-input>
                       </ion-col>
                     </ion-row>
-                    <ion-label style=" margin: 0%;padding: 0%">
-                      Enter price rate (Non-AC)
+                    <ion-label>
+                      Enter Price Rate (Non-AC)
                     </ion-label>
                     <ion-row>
                         <ion-col>
-                          <ion-label style="margin: 0%;padding: 0%">Per hour</ion-label>
-                          <ion-input type="number" [(ngModel)]="form2data.car_price_hour" >
+                          <ion-label stacked>Per Hour</ion-label>
+                          <ion-input type="number" [(ngModel)]="form2data.car_price_hour" placeholder="Non-AC Price Per Hour">
                           </ion-input>
                         </ion-col>
                         <ion-col>
-                          <ion-label style="margin: 0%;padding: 0%">Per KM</ion-label>
-                          <ion-input type="number" [(ngModel)]="form2data.car_price_kil" >
+                          <ion-label stacked>Per KM</ion-label>
+                          <ion-input type="number" [(ngModel)]="form2data.car_price_kil" placeholder="Non-AC Price Per KM">
                           </ion-input>
                         </ion-col>
                     </ion-row>
@@ -131,33 +129,33 @@
                     </ion-item>
                     <div *ngIf="ac_available" >
                         <ion-label>
-                            Enter price rate (AC)
+                            Enter Price Rate (AC)
                           </ion-label>
                           <ion-row>
                               <ion-col>
-                                <ion-label>Per hour</ion-label>
-                                <ion-input type="number" [(ngModel)]="form2data.ac_car_price_hour" >
+                                <ion-label stacked>Per Hour</ion-label>
+                                <ion-input type="number" [(ngModel)]="form2data.ac_car_price_hour" placeholder="AC Price Per Hour">
 
                                 </ion-input>
                               </ion-col>
                               <ion-col>
-                                <ion-label>Per KM</ion-label>
-                                <ion-input type="number" [(ngModel)]="form2data.ac_car_price_kil" >
+                                <ion-label stacked>Per KM</ion-label>
+                                <ion-input type="number" [(ngModel)]="form2data.ac_car_price_kil" placeholder="AC Price Per KM">
 
                                 </ion-input>
                               </ion-col>
                           </ion-row>
                     </div>
                     <ion-item>
-                      <ion-label>
-                        Advance amount
+                      <ion-label stacked>
+                        Advance Amount
                       </ion-label>
-                      <ion-input type="number" [(ngModel)]="form2data.book_advance" ></ion-input>
+                      <ion-input type="number" [(ngModel)]="form2data.book_advance" placeholder="Advance Amount"></ion-input>
                     </ion-item>
 
                     <ion-item style="margin-bottom: 80px">
-                      <ion-label>Enter search tags</ion-label>
-                      <ion-input type="text" [(ngModel)]="form2data.car_tags" ></ion-input>
+                      <ion-label stacked>Search Tags</ion-label>
+                      <ion-input type="text" [(ngModel)]="form2data.car_tags" placeholder="Car Search Tags"></ion-input>
                     </ion-item>
 
                 </ion-list>
@@ -171,7 +169,7 @@
                   Step 3/4
                 </ion-card-header>
                 <hr>
-                <button ion-button (click)="pickImage()" >pick image</button>
+                <button ion-button (click)="pickImage()" >Pick Image</button>
             <ion-scroll direction="y" scrollY="true" style="height: 80%;">
                 <ion-card-content>
 
@@ -208,7 +206,7 @@
             </ion-card-header>
             <hr>
             <ion-card-content>
-              you have successfully added all details, click to upload this product!
+              You have successfully added all details, click to upload this product!
             </ion-card-content>
         </ion-card>
       </ion-slide>
@@ -236,13 +234,4 @@
           </ion-col>
   </ion-row>
 </ion-content>
-<!--
-   <ion-item>
-        <ion-label floating>Enter Address</ion-label>
-        <ion-input id="txtHome" type="text"></ion-input>
-    </ion-item>
 
-  <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
-    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
-  </agm-map>
--->
