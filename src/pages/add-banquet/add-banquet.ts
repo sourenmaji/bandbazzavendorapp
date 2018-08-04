@@ -168,11 +168,11 @@ export class AddBanquetPage {
         this.errormessage = "Enter a valid advance booking amount";
         return false;
       }
-      else if(this.form1data.tags.trim() == "")
-      {
-        this.errormessage = "Enter some search tags for your hall";
-        return false;
-      }
+      // else if(this.form1data.tags.trim() == "")
+      // {
+      //   this.errormessage = "Enter some search tags for your hall";
+      //   return false;
+      // }
       this.errormessage = "";
       return true;
     }
@@ -267,7 +267,7 @@ export class AddBanquetPage {
     this.mapsAPILoader.load().then(() => {
       let nativeHomeInputBox = document.getElementById('txtHome').getElementsByTagName('input')[0];
       let autocomplete = new google.maps.places.Autocomplete(nativeHomeInputBox, {
-          types: ["geocode"]
+          types: ["geocode"],componentRestrictions: {country: 'in'}
       });
       autocomplete.addListener("place_changed", () => {
           this.ngZone.run(() => {

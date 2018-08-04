@@ -22,7 +22,7 @@
               <ion-scroll direction="y" scrollY="true" style="height: 80%;">
 
                   
-            <ion-card-content class="add-input">
+            <ion-card-content>
               <ion-list>
                   <ion-item>
                       <ion-label stacked>
@@ -65,11 +65,7 @@
 
 
                         <ion-item>
-                          <ion-label stacked>
-                            <div>
-                              <p>Search Tags<span style="color: red" > *</span></p>
-                            </div>
-                          </ion-label> 
+                          <ion-label stacked>Search Tags (comma separated)</ion-label> 
                           <ion-input (ionChange)="errormessage = ''"  [(ngModel)]="form1data.tags" placeholder="Hall Search Tags">
                           </ion-input>
                         </ion-item>
@@ -138,7 +134,7 @@
                       </ion-input>
                 </ion-item>
                 <ion-item>
-                    <ion-label color="primary">Permitted Food Type<span style="color: red"> *</span></ion-label>
+                    <ion-label stacked color="primary">Permitted Food Type<span style="color: red"> *</span></ion-label>
                   </ion-item>
                   <ion-list radio-group>
                       <ion-item>
@@ -151,7 +147,7 @@
                       </ion-item>
                     </ion-list>
                 <ion-item>
-                    <ion-label color="primary">AC<span style="color: red"> *</span></ion-label>
+                    <ion-label stacked color="primary">AC<span style="color: red"> *</span></ion-label>
                   </ion-item>
                   <ion-list radio-group>
                       <ion-item>
@@ -175,7 +171,7 @@
                     </ion-item>
                   </div>
                     <ion-item>
-                        <ion-label color="primary">Parking<span style="color: red"> *</span></ion-label>
+                        <ion-label stacked color="primary">Parking<span style="color: red"> *</span></ion-label>
                       </ion-item>
                       <ion-list radio-group>
                           <ion-item>

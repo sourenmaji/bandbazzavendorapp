@@ -33,7 +33,7 @@
                       </ion-item>
 
                       <ion-item *ngIf="form1data.brand == null">
-                        <ion-label>Select a brand to choose models</ion-label>
+                        <p>Select a brand to choose models</p>
                       </ion-item>
                 </div>
 
@@ -60,7 +60,7 @@
                   </ion-item>
 
                   <ion-item>
-                    <ion-label>Select Car Type</ion-label>
+                    <ion-label>Car Type</ion-label>
                     <ion-select interface="popover" >
                       <ion-option (ionSelect)="storeType(type)" *ngFor="let type of cartypes" >
                         {{type.type}}
@@ -109,7 +109,7 @@
                       </ion-col>
                     </ion-row>
                     <ion-label>
-                      Enter Price Rate (Non-AC)
+                      Price Rate (Non-AC)
                     </ion-label>
                     <ion-row>
                         <ion-col>
@@ -124,12 +124,12 @@
                         </ion-col>
                     </ion-row>
                     <ion-item>
-                      <ion-label>AC available</ion-label>
+                      <ion-label>AC Available</ion-label>
                       <ion-checkbox (ionChange)="clearAcRates()" [(ngModel)]="ac_available" ></ion-checkbox>
                     </ion-item>
                     <div *ngIf="ac_available" >
                         <ion-label>
-                            Enter Price Rate (AC)
+                            Price Rate (AC)
                           </ion-label>
                           <ion-row>
                               <ion-col>
@@ -154,7 +154,7 @@
                     </ion-item>
 
                     <ion-item style="margin-bottom: 80px">
-                      <ion-label stacked>Search Tags</ion-label>
+                      <ion-label stacked>Search Tags (comma separated)</ion-label>
                       <ion-input type="text" [(ngModel)]="form2data.car_tags" placeholder="Car Search Tags"></ion-input>
                     </ion-item>
 

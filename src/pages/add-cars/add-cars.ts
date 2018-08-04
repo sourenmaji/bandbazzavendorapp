@@ -195,20 +195,20 @@ export class AddCarsPage {
       else if(this.isInvalid(this.form2data.book_advance, "Enter a valid advance booking fee"))
       return false;
 
-      else if(this.form2data.car_tags.trim() == "")
-      {
-        this.errormessage = "Enter some tags to identify your product";
-        return false;
-      }
+      // else if(this.form2data.car_tags.trim() == "")
+      // {
+      //   this.errormessage = "Enter some tags to identify your product";
+      //   return false;
+      // }
       return true;
 
     }
-    if(stepNo == 3)
-    {
-      let min_required_images = 1;
-      if(this.imagesleft.length+this.imagesright.length> min_required_images)
-      return true;
-    }
+    // if(stepNo == 3)
+    // {
+    //   let min_required_images = 1;
+    //   if(this.imagesleft.length+this.imagesright.length> min_required_images)
+    //   return true;
+    // }
 
     return false;
   }
