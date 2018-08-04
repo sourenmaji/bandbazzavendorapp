@@ -1,3 +1,45 @@
 page-add-cars {
     ion-scroll { white-space: nowrap; }
+    .label-md div p{
+        color:#000;
+        font-weight: 500;
+    }
+    .alert-md .alert-head{
+        background: #f98d1a;
+        color: #fff;
+    }
+    .card-header-md {
+        font-size: 1.6rem;
+        color: #fff;
+        padding: 16px;
+        background: #fd8229;
+    }
+    .item-md{
+        padding-left: 0;
+    }
+    .alert-head {
+        background: #ef940a !important;
+        color: #fff  !important;
+    }
+    ion-slides{
+        margin-top: 10px;
+    }
+    .label-md{
+        text-align: left;
+    }
+    .label-md {
+        margin: 13px 8px 0px 0;
+    }
+    ion-label#lbl-12 {
+        margin-top: 0;
+    }
+    ion-label#lbl-9 {
+        margin-top: 0;
+    }
+    .item.item-md .checkbox-md {
+        margin: 9px 9px 9px 4px;
+    }
+    ion-label#lbl-34 {
+        margin-top: 0;
+    }
 }

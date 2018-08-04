@@ -4,4 +4,35 @@ page-add-caterer {
         bottom          : 50%; //Change accordingly
         z-index         : 99 !important;
     }
+    .label-md div p{
+        color:#000;
+        font-weight: 500;
+    }
+    input.text-input.text-input-md {
+        color: #626b73;
+        font-size: 17px;
+    }
+    .alert-md .alert-head{
+        background: #f98d1a;
+        color: #fff;
+    }
+    .card-header-md {
+        font-size: 1.6rem;
+        color: #fff;
+        padding: 16px;
+        background: #fd8229;
+    }
+    div#acst-hdr-0 {
+        font-weight: 700;
+    }
+    .item-md{
+        padding-left: 0;
+    }
+    .alert-head{
+        background: #f98d1a;
+        color: #fff;
+    }
+    ion-slides{
+        margin-top: 10px;
+    }
 }

@@ -203,12 +203,12 @@ export class AddCarsPage {
       return true;
 
     }
-    // if(stepNo == 3)
-    // {
-    //   let min_required_images = 1;
-    //   if(this.imagesleft.length+this.imagesright.length> min_required_images)
-    //   return true;
-    // }
+    if(stepNo == 3)
+    {
+      // let min_required_images = 1;
+      // if(this.imagesleft.length+this.imagesright.length> min_required_images)
+      return true;
+    }
 
     return false;
   }
@@ -296,8 +296,8 @@ export class AddCarsPage {
 
   clearAcRates()
   {
-    this.form2data.ac_car_price_hour = 0;
-    this.form2data.ac_car_price_kil = 0;
+    this.form2data.ac_car_price_hour = null;
+    this.form2data.ac_car_price_kil = null;
   }
   //function for form 3
 

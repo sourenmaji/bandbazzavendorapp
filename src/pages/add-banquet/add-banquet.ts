@@ -31,6 +31,8 @@ export class AddBanquetPage {
   //form 2 data
   public latitude: number;
   public longitude: number;
+  public latmap:number;
+  public lngmap: number;
   public searchControl: FormControl;
   public zoom: number;
   public business_id: number;
@@ -256,9 +258,19 @@ export class AddBanquetPage {
         navigator.geolocation.getCurrentPosition((position) => {
             this.latitude = position.coords.latitude;
             this.longitude = position.coords.longitude;
+            this.latmap = this.latitude;
+            this.lngmap = this.longitude;
             this.zoom = 16;
         });
     }
+  }
+
+  mapClicked(event: any) {
+    console.log(event);
+    
+    this.latitude=event.coords.lat;
+    this.longitude=event.coords.lng;
+    
   }
 
   //function for step 3
@@ -282,6 +294,8 @@ export class AddBanquetPage {
               //set latitude, longitude and zoom
               this.latitude = place.geometry.location.lat();
               this.longitude = place.geometry.location.lng();
+              this.latmap = this.latitude;
+              this.lngmap = this.longitude;
               this.zoom = 16;
           });
       });

@@ -166,12 +166,12 @@ export class AddCatererPage {
       // }
       return true;
     }
-    // else if(stepNo == 3)
-    // {
-    //   let min_required_images = 1;
-    //   if(this.imagesleft.length+this.imagesright.length> min_required_images)
-    //   return true;
-    // }
+    else if(stepNo == 3)
+    {
+      // let min_required_images = 1;
+      // if(this.imagesleft.length+this.imagesright.length> min_required_images)
+      return true;
+    }
     return false;
   }
 

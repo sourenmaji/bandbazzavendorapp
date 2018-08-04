@@ -15,5 +15,23 @@ page-add-banquet {
         width: 100%;
         height: 100%;
     }
-
+    input.text-input.text-input-md {
+        color: #626b73;
+        font-size: 17px;
+    }
+    .item-md{
+        padding-left: 0;
+    }
+    .card-header-md {
+        font-size: 1.6rem;
+        color: #fff;
+        padding: 16px;
+        background: #fd8229;
+    }
+    ion-slides{
+        margin-top: 10px;
+    }
+    .item-radio .label-md {
+        color: #7d7f80 !important;
+    }
 }
