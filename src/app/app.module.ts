@@ -72,7 +72,8 @@ import { ImagePicker } from '../../node_modules/@ionic-native/image-picker';
     HttpModule,
     HttpClientModule,
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyBzeppyrAzDcifb1vGnNArdBuZp5X39s-Y",
+      //apiKey: "AIzaSyBzeppyrAzDcifb1vGnNArdBuZp5X39s-Y",
+      apiKey: "AIzaSyDDK5MydVx-HkNyQcPTBdDyIyrqbwVPST0",
       libraries: ["places"]
   })
   ],

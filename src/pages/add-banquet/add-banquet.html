@@ -108,7 +108,9 @@
                       <ion-input [(ngModel)]="form2data.map_address" id="txtHome" type="text" placeholder="Enter a location to pick from map"></ion-input>
                     </ion-item>
               
-                  <agm-map style="height:50vh" [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+                  <agm-map 
+                  [disableDefaultUI]="false"
+                  [zoomControl]="false" (mapClick)="mapClicked($event)" style="height:50vh" [latitude]=22.591784 [longitude]=88.403313 [scrollwheel]="false" [zoom]="zoom">
                     <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
                   </agm-map>
             </ion-card-content>

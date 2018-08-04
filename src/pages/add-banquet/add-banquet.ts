@@ -261,6 +261,14 @@ export class AddBanquetPage {
     }
   }
 
+  mapClicked(event: any) {
+    console.log(event);
+    
+    this.latitude=event.coords.lat;
+    this.longitude=event.coords.lng;
+    
+  }
+
   //function for step 3
   loadMap()
   {
