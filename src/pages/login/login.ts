@@ -48,7 +48,14 @@ export class LoginPage  implements OnInit{
      console.log("Local storage "+JSON.parse(localStorage.getItem('userData')));
      this.navCtrl.push(DashboardPage);
      }
-     else{ console.log(this.responseData.error); }
+     else{
+        console.log(this.responseData.error); 
+        const alert = this.alertCtrl.create({
+          subTitle: this.responseData.error,
+          buttons: ['OK']
+        })
+        alert.present();
+      }
    }, (err) => {
     this.responseData = err.json();
     console.log(this.responseData)

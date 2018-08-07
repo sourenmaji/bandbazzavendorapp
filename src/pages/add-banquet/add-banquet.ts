@@ -31,6 +31,8 @@ export class AddBanquetPage {
   //form 2 data
   public latitude: number;
   public longitude: number;
+  public latmap:number;
+  public lngmap: number;
   public searchControl: FormControl;
   public zoom: number;
   public business_id: number;
@@ -168,11 +170,11 @@ export class AddBanquetPage {
         this.errormessage = "Enter a valid advance booking amount";
         return false;
       }
-      else if(this.form1data.tags.trim() == "")
-      {
-        this.errormessage = "Enter some search tags for your hall";
-        return false;
-      }
+      // else if(this.form1data.tags.trim() == "")
+      // {
+      //   this.errormessage = "Enter some search tags for your hall";
+      //   return false;
+      // }
       this.errormessage = "";
       return true;
     }
@@ -256,9 +258,19 @@ export class AddBanquetPage {
         navigator.geolocation.getCurrentPosition((position) => {
             this.latitude = position.coords.latitude;
             this.longitude = position.coords.longitude;
+            this.latmap = this.latitude;
+            this.lngmap = this.longitude;
             this.zoom = 16;
         });
     }
+  }
+
+  mapClicked(event: any) {
+    console.log(event);
+    
+    this.latitude=event.coords.lat;
+    this.longitude=event.coords.lng;
+    
   }
 
   //function for step 3
@@ -267,7 +279,7 @@ export class AddBanquetPage {
     this.mapsAPILoader.load().then(() => {
       let nativeHomeInputBox = document.getElementById('txtHome').getElementsByTagName('input')[0];
       let autocomplete = new google.maps.places.Autocomplete(nativeHomeInputBox, {
-          types: ["geocode"]
+          types: ["geocode"],componentRestrictions: {country: 'in'}
       });
       autocomplete.addListener("place_changed", () => {
           this.ngZone.run(() => {
@@ -282,6 +294,8 @@ export class AddBanquetPage {
               //set latitude, longitude and zoom
               this.latitude = place.geometry.location.lat();
               this.longitude = place.geometry.location.lng();
+              this.latmap = this.latitude;
+              this.lngmap = this.longitude;
               this.zoom = 16;
           });
       });

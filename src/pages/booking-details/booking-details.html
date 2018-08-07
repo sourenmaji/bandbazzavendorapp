@@ -9,7 +9,7 @@
   <ion-card>
     <ion-card-content>
       <ion-card-title>
-       Booking Information
+       General Information
         </ion-card-title>
       <p>
           <li>Booking time: {{booking.details.created_at | date: 'MMM d yyyy'}}</li>
@@ -23,7 +23,7 @@
       <img src="{{this.apiUrl+booking.details.cover_image}}" alt="image"/>
       <ion-card-content>
         <ion-card-title>
-         Product Information
+         Booking Information
           </ion-card-title>
         <p *ngIf="booking.module=='Banquet Hall'">
           <li>{{booking.details.banquet_name}}</li>
@@ -39,8 +39,7 @@
           <li *ngIf="!booking.details.is_ac">AC: No</li>
           <li> Duration: {{booking.details.time_from | date: 'MMM d yyyy, h:mm a'}} - {{booking.details.time_to | date: 'MMM d yyyy, h:mm a'}} ({{booking.details.duration}} hours)</li>
           <li> Rate: Rs {{booking.details.book_rate_hour}}/hr or Rs {{booking.details.book_rate_km}}/km</li>
-          <li> {{booking.details.no_of_seats}} seater</li>
-          <li> Book Amount: Rs {{booking.details.book_amount}}</li>
+          <li> {{booking.details.no_of_seats}} seater </li>
           <li> Book Advance: Rs {{booking.details.book_advance}}</li>
 
         </p>
@@ -48,8 +47,7 @@
             <li>{{booking.details.package_name}}</li>
             <li> Booking Date: {{booking.details.booking_date | date: 'MMM d, yyyy'}}</li>
             <li> Rate: Rs {{booking.details.package_rate}}/plate</li>
-            <li> Book Amount: Rs {{booking.details.book_amount}}</li>
-            <li> Book Advance: Rs {{booking.details.book_advance}}</li>
+            <li> No. of Plates: {{booking.details.no_of_plates}} plates</li>
         </p>
       </ion-card-content>
     </ion-card>
@@ -60,7 +58,7 @@
           </ion-card-title>
         <p>
             <li> Customer: {{booking.details.booked_by}}</li>
-            <li> Contact: {{booking.details.booker_phone}}</li>
+            <li *ngIf="booking.type == 'Offline'"> Contact: {{booking.details.booker_phone}}</li>
         </p>
       </ion-card-content>
     </ion-card>

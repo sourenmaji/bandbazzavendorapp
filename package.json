@@ -8,7 +8,6 @@
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint"
-   
   },
   "dependencies": {
     "@agm/core": "^1.0.0-beta.3",

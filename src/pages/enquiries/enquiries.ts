@@ -51,11 +51,11 @@ apiUrl = 'http://192.168.0.130/BandBazza/public/';
 
   ionViewDidEnter()
   {
-    // if(this.authService.pageReset)
-    // {
-    //   console.log(this.authService.pageReset)
-    //   this.getEnquiries(this.lastClicked);
-    // }
+    if(this.authService.pageReset)
+    {
+      console.log(this.authService.pageReset)
+      this.getEnquiries(this.lastClicked,true);
+    }
   }
 
   //get business categories of this vendor

@@ -15,22 +15,22 @@
             </ion-card-header>
             <hr>
 
-            <ion-item>
-                <p style="color: red">{{errormessage}}</p>
+            <ion-item style="color: red" *ngIf="errormessage">
+              {{errormessage}}
               </ion-item>
             <ion-card-content>
               <ion-list>
                 <ion-item>
                   <ion-label stacked>
                     <div>
-                      <p>Package name<span style="color: red" > *</span></p>
+                      <p>Package Name<span style="color: red" > *</span></p>
                     </div>
                   </ion-label>
-                  <ion-input (ionChange)="errormessage = ''"  [(ngModel)]="step1data.packagename" placeholder="Package name"></ion-input>
+                  <ion-input (ionChange)="errormessage = ''"  [(ngModel)]="step1data.packagename" placeholder="Package Name"></ion-input>
                 </ion-item>
 
               <ion-item>
-                  <ion-label color="primary">Package type<span style="color: red"> *</span></ion-label>
+                  <ion-label stacked color="primary">Package Type<span style="color: red"> *</span></ion-label>
                 </ion-item>
                 <ion-list radio-group>
                     <ion-item>
@@ -52,24 +52,24 @@
               Step 2/4
             </ion-card-header>
             <hr>
-            <ion-item>
-              <p style="color: red">{{errormessage}}</p>
-            </ion-item>
+            <ion-item style="color: red" *ngIf="errormessage">
+              {{errormessage}}
+              </ion-item>
             <ion-card-content>
               <ion-list>
                 <ion-item>
-                  <ion-label stacked >Starting Price (per plate)<span style="color: red" >*</span></ion-label>
-                  <ion-input type="number" [(ngModel)]="step2data.start_price"  (ionChange)="errormessage=''" ></ion-input>
+                  <ion-label stacked >Package Starting Price (per plate)<span style="color: red" >*</span></ion-label>
+                  <ion-input type="number" [(ngModel)]="step2data.start_price"  (ionChange)="errormessage=''" placeholder="Starting range for package"></ion-input>
                 </ion-item>
 
                 <ion-item>
-                    <ion-label stacked >Minimum number of plates<span style="color: red" >*</span></ion-label>
-                    <ion-input type="number" [(ngModel)]="step2data.min_no_plates"  (ionChange)="errormessage=''" ></ion-input>
+                    <ion-label stacked >Minimum No. of Plates<span style="color: red" >*</span></ion-label>
+                    <ion-input type="number" [(ngModel)]="step2data.min_no_plates"  (ionChange)="errormessage=''" placeholder="Minimum no. of plates"></ion-input>
                   </ion-item>
 
                   <ion-item>
-                      <ion-label stacked >Search Tags<span style="color: red" >*</span></ion-label>
-                      <ion-input type="text" [(ngModel)]="step2data.tags"  (ionChange)="errormessage=''" ></ion-input>
+                      <ion-label stacked >Search Tags (comma separated)</ion-label>
+                      <ion-input type="text" [(ngModel)]="step2data.tags"  (ionChange)="errormessage=''" placeholder="Package Search Tags"></ion-input>
                     </ion-item>
               </ion-list>
             </ion-card-content>
@@ -80,7 +80,7 @@
             <ion-card-header>
               Step 3/4
             </ion-card-header>
-            <hr><button ion-button (click)="presentActionSheet()" >Pick image</button>
+            <hr><button ion-button (click)="presentActionSheet()" >Pick Image</button>
             <ion-scroll direction="y" scrollY="true" style="height: 80%;">
                 <ion-card-content>
 

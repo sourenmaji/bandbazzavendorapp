@@ -16,8 +16,8 @@
             </ion-card-header>
             <hr>
             
-            <ion-item>
-                <p style="color: red">{{errormessage}}</p>
+            <ion-item style="color: red" *ngIf="errormessage">
+              {{errormessage}}
               </ion-item>
               <ion-scroll direction="y" scrollY="true" style="height: 80%;">
 
@@ -27,51 +27,48 @@
                   <ion-item>
                       <ion-label stacked>
                         <div>
-                          <p>Hall name<span style="color: red" > *</span></p>
+                          <p>Hall Name<span style="color: red" > *</span></p>
                         </div>
                       </ion-label>
-                      <ion-input (ionChange)="errormessage = ''"  [(ngModel)]="form1data.hallname" placeholder="Hall name">
+                      <ion-input (ionChange)="errormessage = ''"  [(ngModel)]="form1data.hallname" placeholder="Enter Hall Name">
                       </ion-input>
                     </ion-item>
-                    <ion-item>
-                        <ion-label stacked>
-                          <div>
-                            <p>Details<span style="color: red" > *</span></p>
-                          </div>
-                        </ion-label>
-                        <ion-textarea  (ionChange)="errormessage = ''"  [(ngModel)]="form1data.details" placeholder="Details">
-                        </ion-textarea>
-                      </ion-item>
 
                       <ion-item>
                           <ion-label stacked>
                             <div>
-                              <p>price (in Rs)<span style="color: red" > *</span></p>
+                              <p>Hall Booking Price (in Rs)<span style="color: red" > *</span></p>
                             </div>
                           </ion-label>
-                          <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form1data.price" placeholder="Price">
+                          <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form1data.price" placeholder="Enter Hall Booking Price">
                           </ion-input>
                         </ion-item>
 
                         <ion-item>
                             <ion-label stacked>
                               <div>
-                                <p>Booking advance (in Rs)<span style="color: red" > *</span></p>
+                                <p>Booking Advance (in Rs)<span style="color: red" > *</span></p>
                               </div>
                             </ion-label> 
-                            <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form1data.booking_advance" placeholder="booking advance">
+                            <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form1data.booking_advance" placeholder="Enter Booking Advance">
                             </ion-input>
                           </ion-item>
 
 
                         <ion-item>
+                          <ion-label stacked>Search Tags (comma separated)</ion-label> 
+                          <ion-input (ionChange)="errormessage = ''"  [(ngModel)]="form1data.tags" placeholder="Hall Search Tags">
+                          </ion-input>
+                        </ion-item>
+
+                        <ion-item>
                           <ion-label stacked>
                             <div>
-                              <p>Search tags<span style="color: red" > *</span></p>
+                              <p>Details<span style="color: red" > *</span></p>
                             </div>
-                          </ion-label> 
-                          <ion-input (ionChange)="errormessage = ''"  [(ngModel)]="form1data.tags" placeholder="search tags">
-                          </ion-input>
+                          </ion-label>
+                          <ion-textarea  (ionChange)="errormessage = ''"  [(ngModel)]="form1data.details" placeholder="Enter Hall Details">
+                          </ion-textarea>
                         </ion-item>
               </ion-list>
             </ion-card-content>
@@ -84,34 +81,38 @@
             <ion-card-header>
               Step 2/5
             </ion-card-header>
-            <hr>
-            <ion-item>
-              <p style="color: red">{{errormessage}}</p>
-            </ion-item>
+            <!-- <hr> -->
+            <ion-item style="color: red" *ngIf="errormessage">
+                {{errormessage}}
+                </ion-item>
+                <ion-scroll direction="y" scrollY="true" style="height: 80%;">
             <ion-card-content>
               <!-- <ion-item no-padding>
                   <ion-label>Address same as Business address</ion-label>
                   <ion-checkbox (ionChange)="errormessage=''" [(ngModel)]="form2data.same_as_business" ></ion-checkbox>
               </ion-item> -->
 
+
                   <ion-item no-padding>
-                      <ion-label floating>
-                        Enter full address
+                      <ion-label stacked>
+                        Full Address
                       </ion-label>
-                      <ion-input (ionChange)="errormessage=''" [(ngModel)]="form2data.full_address"></ion-input>
+                      <ion-input (ionChange)="errormessage=''" [(ngModel)]="form2data.full_address" placeholder="Enter Full Address"></ion-input>
                     </ion-item>
       
                     <ion-item no-padding>
-                      <ion-label floating>Enter Address to locate on map</ion-label>
-                      <ion-input [(ngModel)]="form2data.map_address" id="txtHome" type="text"></ion-input>
+                      <ion-label stacked>Location</ion-label>
+                      <ion-input [(ngModel)]="form2data.map_address" id="txtHome" type="text" placeholder="Enter a location to pick from map"></ion-input>
                     </ion-item>
               
-                  <agm-map style="height:50vh" [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+                  <agm-map 
+                  [disableDefaultUI]="false"
+                  [zoomControl]="false" (mapClick)="mapClicked($event)" style="height:50vh" [latitude]="latmap" [longitude]="lngmap" [scrollwheel]="false" [zoom]="zoom">
                     <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
                   </agm-map>
- 
-              
             </ion-card-content>
+            <div  style="margin-bottom: 80px" ></div>
+          </ion-scroll>
         </ion-card>
       </ion-slide>
       <ion-slide style="height: 100vh">
@@ -119,12 +120,12 @@
             <ion-card-header>
               Step 3/5
             </ion-card-header>
-            <hr>
-            <ion-item>
-              <p style="color: red">{{errormessage}}</p>
-            </ion-item>
+            <!-- <hr> -->
+            <ion-item style="color: red" *ngIf="errormessage">
+                {{errormessage}}
+                </ion-item>
             <ion-scroll direction="y" scrollY="true" style="height: 80%;">
-
+              <ion-card-content>
               <ion-list>
                 <ion-item>
                     <ion-label stacked>
@@ -132,11 +133,11 @@
                           <p>Hall Capacity<span style="color: red" > *</span></p>
                         </div>
                       </ion-label>
-                      <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form3data.capacity" placeholder="capacity">
+                      <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form3data.capacity" placeholder="Hall Capacity">
                       </ion-input>
                 </ion-item>
                 <ion-item>
-                    <ion-label color="primary">Select permitted food type<span style="color: red"> *</span></ion-label>
+                    <ion-label stacked color="primary">Permitted Food Type<span style="color: red"> *</span></ion-label>
                   </ion-item>
                   <ion-list radio-group>
                       <ion-item>
@@ -144,52 +145,51 @@
                         <ion-radio  (ionSelect)="form3data.all_food_type = true;errormessage=''"></ion-radio>
                       </ion-item>
                       <ion-item>
-                        <ion-label>Veg only</ion-label>
+                        <ion-label>Veg Only</ion-label>
                         <ion-radio (ionSelect)="form3data.all_food_type = false;errormessage=''"></ion-radio>
                       </ion-item>
                     </ion-list>
                 <ion-item>
-                    <ion-label color="primary">Select AC option<span style="color: red"> *</span></ion-label>
+                    <ion-label stacked color="primary">AC<span style="color: red"> *</span></ion-label>
                   </ion-item>
                   <ion-list radio-group>
                       <ion-item>
                         <ion-label>Available</ion-label>
-                        <ion-radio value="veg" (ionSelect)="form3data.ac = true;errormessage=''"></ion-radio>
+                        <ion-radio value="true" (ionSelect)="form3data.ac = true;errormessage=''"></ion-radio>
                       </ion-item>
                       <ion-item>
-                        <ion-label>unavailable</ion-label>
-                        <ion-radio value="all" (ionSelect)="form3data.ac = false;errormessage=''"></ion-radio>
+                        <ion-label>Unavailable</ion-label>
+                        <ion-radio value="false" (ionSelect)="form3data.ac = false;errormessage=''"></ion-radio>
                       </ion-item>
                     </ion-list>
                     <div *ngIf="form3data.ac">
                     <ion-item>
                           <ion-label stacked>
                               <div>
-                                <p>AC charge<span style="color: red" > *</span></p>
+                                <p>AC Charge<span style="color: red" > *</span></p>
                               </div>
                             </ion-label>
-                            <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form3data.ac_charge" placeholder="ac charge">
+                            <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form3data.ac_charge" placeholder="AC Charge">
                             </ion-input>
                     </ion-item>
                   </div>
                     <ion-item>
-                        <ion-label color="primary">Parking available?<span style="color: red"> *</span></ion-label>
+                        <ion-label stacked color="primary">Parking<span style="color: red"> *</span></ion-label>
                       </ion-item>
                       <ion-list radio-group>
                           <ion-item>
-                            <ion-label>yes</ion-label>
-                            <ion-radio value="veg" (ionSelect)="form3data.parking = true;errormessage=''"></ion-radio>
+                            <ion-label>Yes</ion-label>
+                            <ion-radio value="true" (ionSelect)="form3data.parking = true;errormessage=''"></ion-radio>
                           </ion-item>
                           <ion-item>
-                            <ion-label>no</ion-label>
-                            <ion-radio value="all" (ionSelect)="form3data.parking = false;errormessage=''"></ion-radio>
+                            <ion-label>No</ion-label>
+                            <ion-radio value="false" (ionSelect)="form3data.parking = false;errormessage=''"></ion-radio>
                           </ion-item>
                         </ion-list>
               </ion-list>
+            </ion-card-content>
                 <div  style="margin-bottom: 180px" ></div>
             </ion-scroll>
-
-            
         </ion-card>
       </ion-slide>
       <ion-slide style="height: 100vh">
@@ -197,11 +197,11 @@
             <ion-card-header>
               Step 4/5
             </ion-card-header>
-            <hr>
-            <ion-item>
-              <p style="color: red">{{errormessage}}</p>
-            </ion-item>
-            <button ion-button (click)="presentActionSheet()" >pick image</button>
+            <!-- <hr> -->
+            <ion-item style="color: red" *ngIf="errormessage">
+                {{errormessage}}
+                </ion-item>
+            <button ion-button (click)="presentActionSheet()" >Pick Image</button>
             <ion-scroll direction="y" scrollY="true" style="height: 80%;">
                 <ion-card-content>     
                   <ion-card *ngFor="let img of images"  style="position: relative" >
@@ -221,14 +221,14 @@
             <ion-card-header>
               Step 5/5
             </ion-card-header>
-            <hr>
+            <!-- <hr> -->
             <ion-card-content>
-              you have successfully added all details, click to upload this product!
+              You have successfully added all details, click to upload this product!
             </ion-card-content>
         </ion-card>
       </ion-slide>
   </ion-slides>
-  <hr>
+  <!-- <hr> -->
   <ion-row style="height: fit-content" no-padding>
       <ion-col style="width: 25%">
         <div *ngIf="pageNo != 0">

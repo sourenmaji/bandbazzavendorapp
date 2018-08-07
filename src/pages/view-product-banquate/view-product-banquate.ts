@@ -2,7 +2,7 @@ import { AuthServiceProvider } from './../../providers/auth-service/auth-service
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, ActionSheetController, AlertController } from 'ionic-angular';
 
 

@@ -1,6 +1,5 @@
 
 <ion-header>
-
   <ion-navbar color="headers" hideBackButton>
     <ion-title>Business</ion-title>
     <ion-buttons start>
@@ -44,17 +43,12 @@
             <h2>{{business.email}}</h2>
             <p>{{business.phone_no}}</p>
          </ion-item>
-         
-          
-       
       
-      <img src="http://192.168.0.130/BandBazza/public/{{business.business_image}}">  
-         <!--  <img src="http://www.bandbazza.com/{{business.business_image}}">-->
-        
+      <img src="http://192.168.0.130/BandBazza/public/{{business.business_image}}">        
         <ion-card-content>
           <p>{{business.address}}</p>  
-          <h3>{{business.since}}</h3>
-<div class="extra-p">
+          <h3>Since: {{business.since}}</h3>
+        <div class="extra-p">
           <ion-row>
               <ion-col>
                 <button ion-button icon-left round full color="dash2" [disabled]="business.request_type=='Delete' || business.request_type=='Deactivate' || business.request_type=='Deactivated'" (click)="editBusiness(business)">
@@ -78,9 +72,7 @@
             </ion-row>
           </div>
         </ion-card-content>
-      
-       
-      
+
       </ion-card>
     </ion-item>
     </ion-list>

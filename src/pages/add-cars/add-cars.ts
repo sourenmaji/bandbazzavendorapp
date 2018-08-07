@@ -73,7 +73,7 @@ export class AddCarsPage {
     this.initCarData();
 
     //for form 2
-    this.form2data ={no_of_seats:4, ac_car_price_hour:100, ac_car_price_kil:1500, book_advance:1000,car_price_hour:80,car_price_kil:1000,car_tags:"",max_hire_period:20,min_hire_period:10, min_hire_distance: 10, max_hire_distance: 100};
+    this.form2data ={no_of_seats: null, ac_car_price_hour:null, ac_car_price_kil:null, book_advance:null,car_price_hour:null,car_price_kil:null,car_tags:"",max_hire_period:null,min_hire_period:null, min_hire_distance: null, max_hire_distance: null};
 
     //for form 3
     //for dummies
@@ -195,18 +195,18 @@ export class AddCarsPage {
       else if(this.isInvalid(this.form2data.book_advance, "Enter a valid advance booking fee"))
       return false;
 
-      else if(this.form2data.car_tags.trim() == "")
-      {
-        this.errormessage = "Enter some tags to identify your product";
-        return false;
-      }
+      // else if(this.form2data.car_tags.trim() == "")
+      // {
+      //   this.errormessage = "Enter some tags to identify your product";
+      //   return false;
+      // }
       return true;
 
     }
     if(stepNo == 3)
     {
-      let min_required_images = 1;
-      if(this.imagesleft.length+this.imagesright.length> min_required_images)
+      // let min_required_images = 1;
+      // if(this.imagesleft.length+this.imagesright.length> min_required_images)
       return true;
     }
 
@@ -296,8 +296,8 @@ export class AddCarsPage {
 
   clearAcRates()
   {
-    this.form2data.ac_car_price_hour = 0;
-    this.form2data.ac_car_price_kil = 0;
+    this.form2data.ac_car_price_hour = null;
+    this.form2data.ac_car_price_kil = null;
   }
   //function for form 3
 

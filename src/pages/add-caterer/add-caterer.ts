@@ -128,7 +128,7 @@ export class AddCatererPage {
     {
       if(this.step1data.packagename == "")
       {
-        this.errormessage = "enter a package name!";
+        this.errormessage = "Enter a package name!";
         return false;
       }
         else if (this.step1data.packagename.length < 4)
@@ -159,17 +159,17 @@ export class AddCatererPage {
         this.errormessage = "Enter a valid starting price for this package!";
         return false;
       }
-      else if(this.step2data.tags.trim() == "")
-      {
-        this.errormessage = "Please enter tags to identify your products";
-        return false;
-      }
+      // else if(this.step2data.tags.trim() == "")
+      // {
+      //   this.errormessage = "Please enter tags to identify your products";
+      //   return false;
+      // }
       return true;
     }
     else if(stepNo == 3)
     {
-      let min_required_images = 1;
-      if(this.imagesleft.length+this.imagesright.length> min_required_images)
+      // let min_required_images = 1;
+      // if(this.imagesleft.length+this.imagesright.length> min_required_images)
       return true;
     }
     return false;
