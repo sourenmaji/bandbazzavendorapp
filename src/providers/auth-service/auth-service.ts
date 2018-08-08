@@ -110,10 +110,6 @@ export class AuthServiceProvider {
         'Accept': 'application/json',
         'Authorization':'Bearer '+ token
       });
-      // console.log(headers);
-      // console.log(token);
-      // console.log(params);
-
       console.log(apiUrl+type);
 
       this.httpC.get(apiUrl+type,{params,headers})

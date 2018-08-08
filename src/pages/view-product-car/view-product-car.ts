@@ -19,7 +19,7 @@ export class ViewProductCarPage implements OnInit{
   productImages: any[] = [];
   productValue: any;
   requestType: any;
-  URL = "http://192.168.0.130/BandBazza/public/";
+  URL = 'http://192.168.0.130/BandBazza/public/api/';
   editProductform: FormGroup;
   public carbrands: {car_company_name:string, id: number}[];
   public carmodels: {car_model:string, model_id:number}[];

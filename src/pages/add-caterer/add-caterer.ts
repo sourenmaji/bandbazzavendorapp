@@ -292,13 +292,13 @@ export class AddCatererPage {
 
     // upload dataCaterer to server
     console.log(dataCaterer);
-    alert(dataCaterer);
     //call the rest here..
     this.restServ.authData(dataCaterer,'add_product_package',this.token).then((data) => {
       this.responseData = data;
       console.log(this.responseData);
       if(this.responseData.status==true)
       {
+        this.restServ.pageReset=true;
         this.navCtrl.pop();
         const alert = this.alertCtrl.create({
         subTitle: this.responseData.message,

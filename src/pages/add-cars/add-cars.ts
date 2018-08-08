@@ -172,7 +172,7 @@ export class AddCarsPage {
       return false;
       else if(this.isInvalid(this.form2data.min_hire_period, "Enter valid minimum period of hire"))
       return false;
-      else if(this.form2data.max_hire_period<this.form2data.min_hire_period || this.form2data.max_hire_period == null)
+      else if((this.form2data.max_hire_period < this.form2data.min_hire_period) || (this.form2data.max_hire_period == null))
       {
         this.errormessage = "Enter valid maximum hiring period";
         return false;
@@ -433,13 +433,13 @@ export class AddCarsPage {
     });
 
     console.log(carData);
-    alert(carData);
     //call the rest here..
     this.restServ.authData(carData,'add_product_car',this.token).then((data) => {
       this.responseData = data;
       console.log(this.responseData);
       if(this.responseData.status==true)
       {
+        this.restServ.pageReset=true;
         this.navCtrl.pop();
         const alert = this.alertCtrl.create({
         subTitle: this.responseData.message,

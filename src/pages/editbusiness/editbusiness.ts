@@ -30,7 +30,7 @@ export class EditbusinessPage {
 
     this.business = this.navParams.get('business');
   this.businessImage = this.business.business_image;
-  this.businessImageSrc = "http://192.168.0.130/BandBazza/public/"+this.businessImage;
+  this.businessImageSrc = 'http://192.168.0.130/BandBazza/public/'+this.businessImage;
 
   const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.success.user;
