@@ -39,17 +39,17 @@
 
                 <div *ngIf="unknowncar" >
                     <ion-item>
-                      <ion-label>
+                      <ion-label stacked>
                         Car Brand
                       </ion-label>
-                      <ion-input [(ngModel)]="form1data.brand" >
+                      <ion-input [(ngModel)]="form1data.brand" placeholder="Enter Car Brand">
                       </ion-input>
                     </ion-item>
                     <ion-item>
-                      <ion-label>
+                      <ion-label stacked>
                         Car Model
                       </ion-label>
-                      <ion-input [(ngModel)]="form1data.model" >
+                      <ion-input [(ngModel)]="form1data.model" placeholder="Enter Car Model">
                       </ion-input>
                     </ion-item>
                 </div>
@@ -95,14 +95,14 @@
                     <ion-row>
                       <ion-col>
                         <ion-label stacked>
-                          Minimum Hire Period
+                          Minimum Hire Period (in Hrs)
                         </ion-label>
                         <ion-input type="number" [(ngModel)]="form2data.min_hire_period" placeholder="Min. Hire Period">
                         </ion-input>
                       </ion-col>
                       <ion-col>
                         <ion-label stacked>
-                          Maximum Hire Period
+                          Maximum Hire Period (in Hrs)
                         </ion-label>
                         <ion-input type="number" [(ngModel)]="form2data.max_hire_period" placeholder="Max. Hire Period">
                         </ion-input>
@@ -111,14 +111,14 @@
                     <ion-row>
                       <ion-col>
                         <ion-label stacked>
-                          Minimum Hire Distance
+                          Minimum Hire Distance (in KM)
                         </ion-label>
                         <ion-input type="number" [(ngModel)]="form2data.min_hire_distance" placeholder="Min. Hire Distance">
                         </ion-input>
                       </ion-col>
                       <ion-col>
                         <ion-label stacked>
-                          Maximum Hire Distance
+                          Maximum Hire Distance (in KM)
                         </ion-label>
                         <ion-input type="number" [(ngModel)]="form2data.max_hire_distance" placeholder="Max. Hire Distance">
                         </ion-input>
@@ -130,12 +130,12 @@
                     <ion-row>
                         <ion-col>
                           <ion-label stacked>Per Hour</ion-label>
-                          <ion-input type="number" [(ngModel)]="form2data.car_price_hour" placeholder="Non-AC Price Per Hour">
+                          <ion-input type="number" [(ngModel)]="form2data.car_price_hour" placeholder="Non-AC Price">
                           </ion-input>
                         </ion-col>
                         <ion-col>
                           <ion-label stacked>Per KM</ion-label>
-                          <ion-input type="number" [(ngModel)]="form2data.car_price_kil" placeholder="Non-AC Price Per KM">
+                          <ion-input type="number" [(ngModel)]="form2data.car_price_kil" placeholder="Non-AC Price">
                           </ion-input>
                         </ion-col>
                     </ion-row>
@@ -150,13 +150,13 @@
                           <ion-row>
                               <ion-col>
                                 <ion-label stacked>Per Hour</ion-label>
-                                <ion-input type="number" [(ngModel)]="form2data.ac_car_price_hour" placeholder="AC Price Per Hour">
+                                <ion-input type="number" [(ngModel)]="form2data.ac_car_price_hour" placeholder="AC Price">
 
                                 </ion-input>
                               </ion-col>
                               <ion-col>
                                 <ion-label stacked>Per KM</ion-label>
-                                <ion-input type="number" [(ngModel)]="form2data.ac_car_price_kil" placeholder="AC Price Per KM">
+                                <ion-input type="number" [(ngModel)]="form2data.ac_car_price_kil" placeholder="AC Price">
 
                                 </ion-input>
                               </ion-col>

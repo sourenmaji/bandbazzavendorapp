@@ -21,7 +21,7 @@ export class BookingsPage {
   lastClicked: any;
   next_page: number;
   params: any;
-  apiUrl = 'http://www.bandbazza.com/api/';
+  apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
 
   constructor(private menuCtrl: MenuController, private navCtrl: NavController, private actionCtrl: ActionSheetController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController) {
     this.responseData = {}

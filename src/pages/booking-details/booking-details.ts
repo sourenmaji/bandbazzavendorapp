@@ -13,7 +13,7 @@ export class BookingDetailsPage {
   type: string;
   message: string;
   booking: any;
-  apiUrl = 'http://www.bandbazza.com/api/';
+  apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private authService: AuthServiceProvider) {
     this.responseData = {};

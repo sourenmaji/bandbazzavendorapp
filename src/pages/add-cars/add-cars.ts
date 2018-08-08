@@ -172,7 +172,7 @@ export class AddCarsPage {
       return false;
       else if(this.isInvalid(this.form2data.min_hire_period, "Enter valid minimum period of hire"))
       return false;
-      else if(this.form2data.max_hire_period<this.form2data.min_hire_period || this.form2data.max_hire_period == null)
+      else if((this.form2data.max_hire_period < this.form2data.min_hire_period) || (this.form2data.max_hire_period == null))
       {
         this.errormessage = "Enter valid maximum hiring period";
         return false;

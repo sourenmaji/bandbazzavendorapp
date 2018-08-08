@@ -23,7 +23,7 @@ export class ViewProductCatererPage implements OnInit{
   productImages: any[]=[];
   productValue: any;
   requestType: any;
-  URL = 'http://www.bandbazza.com/';
+  URL = 'http://192.168.0.130/BandBazza/public/api/';
   editProductform: FormGroup;
   userData = {catererId: "", startingPrice: "",minimumPlate: "", images: []};
   userPostData = {"user":"","token":""};

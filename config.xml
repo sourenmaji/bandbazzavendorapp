@@ -2,7 +2,7 @@
 <widget id="com.bandbazza.vendor" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>BandBazza Vendor</name>
     <description>Welcome to BandBazza Vendor App</description>
-    <author email="bandbazza2018@gmail.com" href="http://www.bandbazza.com/">BandBazza Team</author>
+    <author email="bandbazza2018@gmail.com" href="http://192.168.0.130">BandBazza Team</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -84,11 +84,11 @@
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
-    <allow-navigation href="http://www.bandbazza.com/" />
+    <allow-navigation href="http://192.168.0.130:8000" />
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
     </plugin>
-    <allow-navigation href="http://www.bandbazza.com/" />
+    <allow-navigation href="http://192.168.0.130:8000" />
     <plugin name="cordova-plugin-telerik-imagepicker" spec="https://github.com/Telerik-Verified-Plugins/ImagePicker.git">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="Please select image" />
     </plugin>
