@@ -23,9 +23,9 @@ export class ViewProductCatererPage implements OnInit{
   productImages: any[]=[];
   productValue: any;
   requestType: any;
-  URL = "http://192.168.0.130/BandBazza/public/";
+  URL = 'http://www.bandbazza.com/';
   editProductform: FormGroup;
-  userData = {catererId: "", packageName: "",startingPrice: "",minimumPlate: "", images: []};
+  userData = {catererId: "", startingPrice: "",minimumPlate: "", images: []};
   userPostData = {"user":"","token":""};
  
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -40,8 +40,7 @@ export class ViewProductCatererPage implements OnInit{
   this.productImages = [];
   this.productImages.push("data:image/jpeg;base64,"+this.productValue.cover_image);
 
-  //this.productImages = this.productDetails.details.images;
-this.productDetails.details.images.forEach(element => {
+  this.productDetails.details.images.forEach(element => {
     this.productImages.push("data:image/jpeg;base64,"+element.url);
   });
 
@@ -60,7 +59,7 @@ ngOnInit() {
   let AMOUNTPATTERN = /^[0-9]/;
   this.editProductform = new FormGroup({
     // username: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(10)]),
-    packageName: new FormControl('', Validators.compose([Validators.required])),
+    // packageName: new FormControl('', Validators.compose([Validators.required])),
     startingPrice: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
     minimumPlate: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
     catererId: new FormControl('',  Validators.compose([]))

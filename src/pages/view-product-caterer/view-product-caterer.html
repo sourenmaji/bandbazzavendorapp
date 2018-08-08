@@ -70,23 +70,23 @@
 
        <ion-list>
         <form novalidate  [formGroup]="editProductform">
-          <ion-item>
+          <!-- <ion-item>
             <ion-label floating>Package Name <span style="color: red">*</span></ion-label>
             <ion-input type="text" [(ngModel)]="userData.packageName" value="{{productValue.name}}"
             formControlName="packageName" [class.error1]="!editProductform.controls.packageName.valid && editProductform.controls.packageName.dirty">
           </ion-input>
-          </ion-item>
+          </ion-item> -->
           <ion-item [hidden]="true">
             <ion-input  type="text" [(ngModel)]="userData.catererId" value="{{productValue.id}}"
             formControlName="catererId"></ion-input>
             
           </ion-item>
-          <ion-item no-lines *ngIf="( editProductform.get('packageName').hasError('required') ) && editProductform.get('packageName').touched">
+          <!-- <ion-item no-lines *ngIf="( editProductform.get('packageName').hasError('required') ) && editProductform.get('packageName').touched">
             <div class="error" *ngIf="editProductform.get('packageName').hasError('required') && editProductform.get('packageName').touched">
               Please enter Package Name
             </div>
             
-          </ion-item>
+          </ion-item> -->
             
           <ion-item>
               <ion-label floating>Starting Price <small>(per plate)</small><span style="color: red">*</span></ion-label>

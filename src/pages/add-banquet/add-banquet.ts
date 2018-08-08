@@ -414,13 +414,14 @@ export class AddBanquetPage {
     uploadData.images = this.images;
     //call and upload the uploadData object here
     console.log(uploadData);
-    alert(uploadData);
+
     //call the rest here..
     this.restServ.authData(uploadData,'add_product_hall',this.token).then((data) => {
       this.responseData = data;
       console.log(this.responseData);
       if(this.responseData.status==true)
       {
+        this.restServ.pageReset=true;
         this.navCtrl.pop();
         const alert = this.alertCtrl.create({
         subTitle: this.responseData.message,

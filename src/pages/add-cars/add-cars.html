@@ -108,6 +108,22 @@
                         </ion-input>
                       </ion-col>
                     </ion-row>
+                    <ion-row>
+                      <ion-col>
+                        <ion-label stacked>
+                          Minimum Hire Distance
+                        </ion-label>
+                        <ion-input type="number" [(ngModel)]="form2data.min_hire_distance" placeholder="Min. Hire Distance">
+                        </ion-input>
+                      </ion-col>
+                      <ion-col>
+                        <ion-label stacked>
+                          Maximum Hire Distance
+                        </ion-label>
+                        <ion-input type="number" [(ngModel)]="form2data.max_hire_distance" placeholder="Max. Hire Distance">
+                        </ion-input>
+                      </ion-col>
+                    </ion-row>
                     <ion-label>
                       Price Rate (Non-AC)
                     </ion-label>
@@ -168,6 +184,7 @@
                 <ion-card-header>
                   Step 3/4
                 </ion-card-header>
+                <hr>
                 <hr>
                 <button ion-button (click)="pickImage()" >Pick Image</button>
             <ion-scroll direction="y" scrollY="true" style="height: 80%;">

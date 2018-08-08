@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 import { File } from '@ionic-native/file';
 import { IonicPage, NavController, NavParams, ActionSheetController, ToastController, Platform, AlertController } from 'ionic-angular';
 declare var cordova: any;
-let apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
+let apiUrl = 'http://www.bandbazza.com/api/';
 @IonicPage()
 @Component({
   selector: 'page-editbusiness',
@@ -30,7 +30,7 @@ export class EditbusinessPage {
 
     this.business = this.navParams.get('business');
   this.businessImage = this.business.business_image;
-  this.businessImageSrc = "http://192.168.0.130/BandBazza/public/"+this.businessImage;
+  this.businessImageSrc = 'http://www.bandbazza.com/'+this.businessImage;
 
   const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.success.user;

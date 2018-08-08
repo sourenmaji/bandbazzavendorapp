@@ -433,13 +433,13 @@ export class AddCarsPage {
     });
 
     console.log(carData);
-    alert(carData);
     //call the rest here..
     this.restServ.authData(carData,'add_product_car',this.token).then((data) => {
       this.responseData = data;
       console.log(this.responseData);
       if(this.responseData.status==true)
       {
+        this.restServ.pageReset=true;
         this.navCtrl.pop();
         const alert = this.alertCtrl.create({
         subTitle: this.responseData.message,

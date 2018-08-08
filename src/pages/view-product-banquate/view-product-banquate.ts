@@ -21,9 +21,9 @@ export class ViewProductBanquatePage implements OnInit{
   productImages: any[]=[];
   lat: any;
   log: any;
-  URL = "http://192.168.0.130/BandBazza/public/";
+  URL = 'http://www.bandbazza.com/';
  editProductform: FormGroup;
- userData = {banquetId: "", banquetName: "",hallPrice: "",advanceAmount: "",capacity: "",acCharges: "",availableAc: 0,foodType: 0, images: []};
+ userData = {banquetId: "", hallPrice: "",advanceAmount: "",capacity: "",acCharges: "",availableAc: 0,foodType: 0, images: []};
  userPostData = {"user":"","token":""};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public imagePicker: ImagePicker,
@@ -70,7 +70,7 @@ ngOnInit() {
   let AMOUNTPATTERN = /^[0-9]/;
   this.editProductform = new FormGroup({
     // username: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(10)]),
-    banquetName: new FormControl('', Validators.compose([Validators.required])),
+    // banquetName: new FormControl('', Validators.compose([Validators.required])),
     hallPrice: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
     advanceAmount: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
     capacity: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),

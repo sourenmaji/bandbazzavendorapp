@@ -59,12 +59,9 @@ export class ProductsPage {
     this.getBusinessCatagories();
   }
   ionViewDidEnter(){
-
-    //console.log(this.pageReset);
     if(this.pageReset){
-      this.getBusinessCatagories();
+      this.getProducts(this.lastClicked);
     }
-
   }
 
   getBusinessCatagories()

@@ -92,7 +92,7 @@
 
       </ion-col>
     </ion-row>
-     <img src="https://maps.googleapis.com/maps/api/staticmap?center={{lat}},{{log}}&markers=color:blue%7C{{lat}},{{log}}&format=png&size=400x200&zoom=14&key=AIzaSyBzeppyrAzDcifb1vGnNArdBuZp5X39s-Y"> 
+     <img src="https://maps.googleapis.com/maps/api/staticmap?center={{lat}},{{log}}&markers=color:blue%7C{{lat}},{{log}}&format=png&size=400x200&zoom=14&key=AIzaSyDDK5MydVx-HkNyQcPTBdDyIyrqbwVPST0"> 
   </ion-card-content>
 </ion-card>
 
@@ -128,17 +128,17 @@
 
              <ion-list>
               <form novalidate  [formGroup]="editProductform">
-                <ion-item>
+                <!-- <ion-item>
                   <ion-label floating>Banquet Hall Name <span style="color: red">*</span></ion-label>
                   <ion-input type="text" [(ngModel)]="userData.banquetName" value="{{productDetails.details.name}}"
                   formControlName="banquetName" [class.error1]="!editProductform.controls.banquetName.valid && editProductform.controls.banquetName.dirty">
                 </ion-input>
-                </ion-item>
-                <ion-item no-lines *ngIf="( editProductform.get('banquetName').hasError('required') ) && editProductform.get('banquetName').touched">
+                </ion-item> -->
+                <!-- <ion-item no-lines *ngIf="( editProductform.get('banquetName').hasError('required') ) && editProductform.get('banquetName').touched">
                   <div class="error" *ngIf="editProductform.get('banquetName').hasError('required') && editProductform.get('banquetName').touched">
                     Please enter Hall Name
                   </div>
-                </ion-item>
+                </ion-item> -->
                 <ion-item [hidden]="true">
                   <ion-input  type="text" [(ngModel)]="userData.banquetId" value="{{productDetails.details.id}}"
                   formControlName="banquetId"></ion-input>
