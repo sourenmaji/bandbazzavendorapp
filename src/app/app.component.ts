@@ -53,8 +53,7 @@ export class MyApp {
       }
       if(this.userPostData.token)
       {
-        //this.rootPage = DashboardPage;
-        this.rootPage = AddBanquetPage;
+        this.rootPage = DashboardPage;
       }
       else
       {
