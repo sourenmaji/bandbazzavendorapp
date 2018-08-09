@@ -6,9 +6,32 @@
 
 
 <ion-content style="overflow: hidden;height: 100vh">
-  <ion-slides #formslides style="height: 80vh">
+    <div style="position: fixed;bottom: 0px;width:100%; right: 0px">
+        <ion-row style="height: fit-content" no-padding>
+            <ion-col style="width: 25%">
+              <div *ngIf="pageNo != 0">
+                  <ion-icon (click)="goToPrev()" style="font-size: 30px; position: absolute;left: 20px;" name="ios-arrow-back"></ion-icon>
+              </div>
+                </ion-col>
+            <ion-col style="height: 100%; width: 50%">
+                <ion-slides #sliderbubbles pager style=" width: 100%;height:30px;">
+                    <ion-slide *ngFor="let s of slides">
+                    </ion-slide>
+                </ion-slides>
+            </ion-col>
+            <ion-col style="width: 25%">
+              <div *ngIf="pageNo < (len-1)">
+                  <ion-icon (click)="goToNext()" style="font-size: 30px; position: absolute;right: 20px;" name="ios-arrow-forward"></ion-icon>
+              </div>
+              <div *ngIf="pageNo == (len-1)">
+                  <ion-icon (click)="goToNext()" style="font-size: 30px; position: absolute;right: 20px;" name="checkmark-circle-outline"></ion-icon>
+              </div>
+                </ion-col>
+        </ion-row>
+      </div>
+  <ion-slides #formslides style="position: fixed; height: 80vh;margin-top: 5px">
       <ion-slide style="height: 100vh">
-        <ion-card style="max-height: 100vh; height: 100vh;">
+        <ion-card style="max-height: 100vh; height: 100vh;position: fixed;top: 0px;margin-top: 10px;margin-bottom: 5px">
             <ion-card-header>
               Step 1/4
             </ion-card-header>
@@ -72,18 +95,17 @@
         </ion-card>
       </ion-slide>
       <ion-slide style="height: 100vh">
-        <ion-card style="height: 100vh;">
+        <ion-card style=" position: absolute;top: 0px; height: 80vh; padding-bottom: 0px">
             <ion-card-header>
               Step 2/4
             </ion-card-header>
             <hr>
-            <ion-scroll direction="y" scrollY="true" style="height: 80%;">
+            <ion-item style="color: red" *ngIf="errormessage">
+                {{errormessage}}
+            </ion-item>
+            <ion-scroll direction="y" scrollY="true" style="height: 80%; margin-bottom: 0px">
             <ion-card-content >
                 <ion-list >
-                    <ion-item style="color: red" *ngIf="errormessage">
-                        {{errormessage}}
-                        </ion-item>
-
                     <ion-item>
                       <ion-label stacked>
                         No Of Seats
@@ -97,14 +119,14 @@
                         <ion-label stacked>
                           Minimum Hire Period (in Hrs)
                         </ion-label>
-                        <ion-input type="number" [(ngModel)]="form2data.min_hire_period" placeholder="Min. Hire Period">
+                        <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.min_hire_period" placeholder="Min. Hire Period">
                         </ion-input>
                       </ion-col>
                       <ion-col>
                         <ion-label stacked>
                           Maximum Hire Period (in Hrs)
                         </ion-label>
-                        <ion-input type="number" [(ngModel)]="form2data.max_hire_period" placeholder="Max. Hire Period">
+                        <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.max_hire_period" placeholder="Max. Hire Period">
                         </ion-input>
                       </ion-col>
                     </ion-row>
@@ -113,14 +135,14 @@
                         <ion-label stacked>
                           Minimum Hire Distance (in KM)
                         </ion-label>
-                        <ion-input type="number" [(ngModel)]="form2data.min_hire_distance" placeholder="Min. Hire Distance">
+                        <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.min_hire_distance" placeholder="Min. Hire Distance">
                         </ion-input>
                       </ion-col>
                       <ion-col>
                         <ion-label stacked>
                           Maximum Hire Distance (in KM)
                         </ion-label>
-                        <ion-input type="number" [(ngModel)]="form2data.max_hire_distance" placeholder="Max. Hire Distance">
+                        <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.max_hire_distance" placeholder="Max. Hire Distance">
                         </ion-input>
                       </ion-col>
                     </ion-row>
@@ -130,12 +152,12 @@
                     <ion-row>
                         <ion-col>
                           <ion-label stacked>Per Hour</ion-label>
-                          <ion-input type="number" [(ngModel)]="form2data.car_price_hour" placeholder="Non-AC Price">
+                          <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.car_price_hour" placeholder="Non-AC Price">
                           </ion-input>
                         </ion-col>
                         <ion-col>
                           <ion-label stacked>Per KM</ion-label>
-                          <ion-input type="number" [(ngModel)]="form2data.car_price_kil" placeholder="Non-AC Price">
+                          <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.car_price_kil" placeholder="Non-AC Price">
                           </ion-input>
                         </ion-col>
                     </ion-row>
@@ -150,13 +172,13 @@
                           <ion-row>
                               <ion-col>
                                 <ion-label stacked>Per Hour</ion-label>
-                                <ion-input type="number" [(ngModel)]="form2data.ac_car_price_hour" placeholder="AC Price">
+                                <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.ac_car_price_hour" placeholder="AC Price">
 
                                 </ion-input>
                               </ion-col>
                               <ion-col>
                                 <ion-label stacked>Per KM</ion-label>
-                                <ion-input type="number" [(ngModel)]="form2data.ac_car_price_kil" placeholder="AC Price">
+                                <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.ac_car_price_kil" placeholder="AC Price">
 
                                 </ion-input>
                               </ion-col>
@@ -166,21 +188,26 @@
                       <ion-label stacked>
                         Advance Amount
                       </ion-label>
-                      <ion-input type="number" [(ngModel)]="form2data.book_advance" placeholder="Advance Amount"></ion-input>
+                      <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.book_advance" placeholder="Advance Amount"></ion-input>
                     </ion-item>
 
-                    <ion-item style="margin-bottom: 80px">
+                    <ion-item>
                       <ion-label stacked>Search Tags (comma separated)</ion-label>
-                      <ion-input type="text" [(ngModel)]="form2data.car_tags" placeholder="Car Search Tags"></ion-input>
+                      <ion-input (ionChange)="errormessage=''" type="text" [(ngModel)]="form2data.car_tags" placeholder="Car Search Tags"></ion-input>
                     </ion-item>
 
+                    <ion-item>
+                      <div style="height: 20px">
+
+                      </div>
+                    </ion-item>
                 </ion-list>
               </ion-card-content>
               </ion-scroll>
         </ion-card>
       </ion-slide>
-      <ion-slide style="height: 100vh">
-            <ion-card style="height: 100vh;">
+      <ion-slide style="height: fit-content">
+            <ion-card style="position: absolute;top: 0px;height: 80vh;">
                 <ion-card-header>
                   Step 3/4
                 </ion-card-header>
@@ -229,26 +256,6 @@
       </ion-slide>
   </ion-slides>
   <hr>
-  <ion-row style="height: fit-content" no-padding>
-      <ion-col style="width: 25%">
-        <div *ngIf="pageNo != 0">
-            <ion-icon (click)="goToPrev()" style="font-size: 30px; position: absolute;left: 20px;" name="ios-arrow-back"></ion-icon>
-        </div>
-          </ion-col>
-      <ion-col style="height: 100%; width: 50%">
-          <ion-slides #sliderbubbles pager style=" width: 100%;height:30px;">
-              <ion-slide *ngFor="let s of slides">
-              </ion-slide>
-          </ion-slides>
-      </ion-col>
-      <ion-col style="width: 25%">
-        <div *ngIf="pageNo < (len-1)">
-            <ion-icon (click)="goToNext()" style="font-size: 30px; position: absolute;right: 20px;" name="ios-arrow-forward"></ion-icon>
-        </div>
-        <div *ngIf="pageNo == (len-1)">
-            <ion-icon (click)="goToNext()" style="font-size: 30px; position: absolute;right: 20px;" name="checkmark-circle-outline"></ion-icon>
-        </div>
-          </ion-col>
-  </ion-row>
+  
 </ion-content>
 
