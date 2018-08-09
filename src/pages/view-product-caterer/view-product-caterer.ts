@@ -3,7 +3,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, AlertController, Platform } from 'ionic-angular';
 
 /**
  * Generated class for the ViewProductCatererPage page.
@@ -31,7 +31,7 @@ export class ViewProductCatererPage implements OnInit{
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public actionSheetCtrl: ActionSheetController,
     public camera: Camera, public authService: AuthServiceProvider,
-    public imagePicker: ImagePicker, public alertCtrl: AlertController) {
+    public imagePicker: ImagePicker, public alertCtrl: AlertController, public platform: Platform) {
       const data = JSON.parse(localStorage.getItem('userData'));
       this.userPostData.token = data.success.token;
     this.requestType = this.navParams.get('requestType');
@@ -43,7 +43,10 @@ export class ViewProductCatererPage implements OnInit{
   this.productDetails.details.images.forEach(element => {
     this.productImages.push("data:image/jpeg;base64,"+element.url);
   });
-
+  let backAction =  platform.registerBackButtonAction(() => {
+    this.navCtrl.pop();
+    backAction();
+  },2)
 
   //this.productImages = this.productDetails.details.images;
   // let urlimages:any[] = [];

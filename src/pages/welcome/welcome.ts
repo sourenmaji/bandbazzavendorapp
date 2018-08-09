@@ -11,6 +11,11 @@ import {Network} from '@ionic-native/network';
 export class WelcomePage {
   constructor(public navCtrl: NavController, public toast: ToastController,public network: Network, public platform: Platform) {}
   ionViewDidLoad() {
+    this.platform.registerBackButtonAction(() => {
+      this.platform.exitApp();
+      console.log("backPressed 1");
+    },1);
+  
      this.platform.ready().then(() => {
       let connectSubscription = this.network.onConnect().subscribe(() =>{
       console.log('network was connected :-(');

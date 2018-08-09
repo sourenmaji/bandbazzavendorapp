@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, Navbar } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Navbar, Platform } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { HomePage } from '../home/home';
 import { LoginPage } from '../login/login';
@@ -14,7 +14,12 @@ import { WelcomePage } from '../welcome/welcome';
 export class RegisterPage implements OnInit{
 
   @ViewChild(Navbar) navBar: Navbar;
-   constructor(public navCtrl: NavController, public authService:AuthServiceProvider, public alertCtrl: AlertController) {
+   constructor(public platform: Platform,public navCtrl: NavController, public authService:AuthServiceProvider, public alertCtrl: AlertController) {
+  
+    let backAction =  platform.registerBackButtonAction(() => {
+      this.navCtrl.pop();
+      backAction();
+    },2)
   }
 
   ionViewDidLoad(){

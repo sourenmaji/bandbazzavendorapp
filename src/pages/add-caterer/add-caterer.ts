@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, ActionSheetController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, ActionSheetController, AlertController, Platform } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { ImagePicker } from '../../../node_modules/@ionic-native/image-picker';
 import { Camera, CameraOptions } from '../../../node_modules/@ionic-native/camera';
@@ -37,7 +37,8 @@ export class AddCatererPage {
               public imagePicker: ImagePicker,
               public actionSheetCtrl: ActionSheetController,
               public camera: Camera,
-              private alertCtrl: AlertController
+              private alertCtrl: AlertController,
+              public platform: Platform
             ) {
     //for card slide design
     this.pageNo = 0;
@@ -55,6 +56,10 @@ export class AddCatererPage {
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
     this.token = data.success.token;
+    let backAction =  platform.registerBackButtonAction(() => {
+      this.navCtrl.pop();
+      backAction();
+    },2)
   }
 
   ionViewDidLoad() {

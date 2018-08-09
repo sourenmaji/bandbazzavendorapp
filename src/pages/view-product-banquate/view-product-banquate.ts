@@ -3,7 +3,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, ActionSheetController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, ActionSheetController, AlertController, Platform } from 'ionic-angular';
 
 
 
@@ -28,7 +28,8 @@ export class ViewProductBanquatePage implements OnInit{
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public imagePicker: ImagePicker,
     public actionSheetCtrl: ActionSheetController,
-    public camera: Camera, public authService: AuthServiceProvider, public alertCtrl: AlertController) {
+    public camera: Camera, public authService: AuthServiceProvider, public alertCtrl: AlertController,
+  public platform: Platform) {
       const data = JSON.parse(localStorage.getItem('userData'));
       this.userPostData.token = data.success.token;
   this.productDetails = this.navParams.get('productDetails');
@@ -53,7 +54,10 @@ this.productDetails.details.images.forEach(element => {
   this.userData.availableAc= this.productDetails.details.is_ac;
   this.userData.foodType = this.productDetails.details.is_nonveg;
   console.log(this.userData.availableAc);
-
+  let backAction =  platform.registerBackButtonAction(() => {
+    this.navCtrl.pop();
+    backAction();
+  },2)
   
  
 }

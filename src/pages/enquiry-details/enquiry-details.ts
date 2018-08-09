@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, MenuController, LoadingController, ActionSheetController, AlertController, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, MenuController, LoadingController, ActionSheetController, AlertController, NavController, NavParams, ToastController, Platform } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 @IonicPage()
@@ -16,13 +16,17 @@ export class EnquiryDetailsPage {
   enquiry: any;
   apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
   
-  constructor(private navParams: NavParams, private menuCtrl: MenuController, private navCtrl: NavController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController, private actionCtrl: ActionSheetController, private toastCtrl: ToastController) {
+  constructor(public platform: Platform,private navParams: NavParams, private menuCtrl: MenuController, private navCtrl: NavController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController, private actionCtrl: ActionSheetController, private toastCtrl: ToastController) {
     this.responseData = {};
     this.authService.pageReset=false;
     const data = JSON.parse(localStorage.getItem('userData'));
     this.token = data.success.token;
     this.enquiry = this.navParams.data;
     this.message="";
+    let backAction =  platform.registerBackButtonAction(() => {
+      this.navCtrl.pop();
+      backAction();
+    },2)
   }
   
   ionViewDidLoad() {
