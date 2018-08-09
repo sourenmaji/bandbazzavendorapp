@@ -1,6 +1,6 @@
 import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, MenuController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, MenuController, AlertController, Platform } from 'ionic-angular';
 import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 
 @IonicPage()
@@ -23,7 +23,7 @@ export class EditProfilePage implements OnInit{
   public otpmessage="";
   //public otpval = "123456";
   constructor(public navCtrl: NavController, public menuCtrl: MenuController, public authService: AuthServiceProvider,
-              public alertCtrl: AlertController) {
+              public alertCtrl: AlertController, public platform: Platform) {
 
                 const data = JSON.parse(localStorage.getItem('userData'));
                 this.userDetails = data.success.user;
@@ -39,6 +39,11 @@ export class EditProfilePage implements OnInit{
                 this.userPostData.user = this.userDetails;
                 this.userPostData.token = data.success.token;
                 console.log(this.userPostData.token);
+
+                let backAction =  platform.registerBackButtonAction(() => {
+                  this.navCtrl.pop();
+                  backAction();
+                },2)
   }
 
   editform: FormGroup;

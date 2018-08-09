@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, AlertController, Platform } from 'ionic-angular';
 import { EditProfilePage } from '../edit-profile/edit-profile';
 
 
@@ -15,14 +15,17 @@ export class ProfilePage {
   userPostData = {"user":"","token":""};
   userPassword = {"password":"","password_confirmation":""};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController, private alertCtrl: AlertController) {
+  constructor(public platform: Platform,public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController, private alertCtrl: AlertController) {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.success.user;
 
     this.userPostData.user = this.userDetails;
     this.userPostData.token = data.success.token;
     console.log(this.userPostData.token);
-    
+    let backAction =  platform.registerBackButtonAction(() => {
+      this.navCtrl.pop();
+      backAction();
+    },2)
   }
   ionViewDidEnter(){
     const data = JSON.parse(localStorage.getItem('userData'));

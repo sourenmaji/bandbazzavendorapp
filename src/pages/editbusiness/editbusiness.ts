@@ -36,6 +36,10 @@ export class EditbusinessPage {
     this.userDetails = data.success.user;
     this.userPostData.user = this.userDetails;
     this.userPostData.token = data.success.token;
+    let backAction =  platform.registerBackButtonAction(() => {
+      this.navCtrl.pop();
+      backAction();
+    },2)
     
   }
  editBusinessform: FormGroup;

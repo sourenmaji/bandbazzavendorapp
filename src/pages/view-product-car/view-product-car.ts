@@ -3,7 +3,7 @@ import { AuthServiceProvider } from './../../providers/auth-service/auth-service
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, AlertController, Platform } from 'ionic-angular';
 
 
 @IonicPage()
@@ -30,7 +30,7 @@ export class ViewProductCarPage implements OnInit{
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController,
     public camera: Camera, public authService: AuthServiceProvider,
-    public imagePicker: ImagePicker , public alertCtrl: AlertController) {
+    public imagePicker: ImagePicker , public alertCtrl: AlertController, public platform: Platform) {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userPostData.token = data.success.token;
   this.productDetails = this.navParams.get('productDetails');
@@ -53,6 +53,11 @@ export class ViewProductCarPage implements OnInit{
     this.productImages.push("data:image/jpeg;base64,"+element.url);
   });
   console.log(this.productImages);
+
+  let backAction =  platform.registerBackButtonAction(() => {
+    this.navCtrl.pop();
+    backAction();
+  },2)
  // let urlimages:any[] = [];
   // this.productImages.forEach(element => {
   //   element.url = this.URL+element.url;

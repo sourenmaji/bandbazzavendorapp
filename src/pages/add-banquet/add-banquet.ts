@@ -1,5 +1,5 @@
 import { Component, ViewChild, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, ActionSheetController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, ActionSheetController, AlertController, Platform } from 'ionic-angular';
 import { ImagePicker } from '../../../node_modules/@ionic-native/image-picker';
 import { Camera, CameraOptions } from '../../../node_modules/@ionic-native/camera';
 import { FormControl } from '../../../node_modules/@angular/forms';
@@ -56,7 +56,8 @@ export class AddBanquetPage {
               public restServ: AuthServiceProvider,
               private mapsAPILoader: MapsAPILoader,
               private ngZone: NgZone,
-              private alertCtrl: AlertController
+              private alertCtrl: AlertController,
+              public platform: Platform
             ) {
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
@@ -88,6 +89,10 @@ export class AddBanquetPage {
 
     //for step 4
     this.images = [];
+    let backAction =  platform.registerBackButtonAction(() => {
+      this.navCtrl.pop();
+      backAction();
+    },2)
 
   }
 

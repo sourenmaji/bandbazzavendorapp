@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, ActionSheetController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, ActionSheetController, AlertController, Platform } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { elementAttribute } from '../../../node_modules/@angular/core/src/render3/instructions';
@@ -51,7 +51,8 @@ export class AddCarsPage {
               public imagePicker: ImagePicker,
               public actionSheetCtrl: ActionSheetController,
               public camera: Camera,
-              private alertCtrl: AlertController
+              private alertCtrl: AlertController,
+              public platform: Platform
 
   ) {
     //for card slide design
@@ -79,7 +80,10 @@ export class AddCarsPage {
     //for dummies
     this.imagesleft = [];
     this.imagesright = [];
-
+    let backAction =  platform.registerBackButtonAction(() => {
+      this.navCtrl.pop();
+      backAction();
+    },2)
   }
 
   ionViewDidLoad() {

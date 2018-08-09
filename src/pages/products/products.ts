@@ -2,7 +2,7 @@ import { ViewProductCatererPage } from './../view-product-caterer/view-product-c
 import { ViewProductCarPage } from './../view-product-car/view-product-car';
 import { ViewProductBanquatePage } from './../view-product-banquate/view-product-banquate';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, LoadingController, AlertController, Platform } from 'ionic-angular';
 import { AddCatererPage } from '../add-caterer/add-caterer';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { AddCarsPage } from '../add-cars/add-cars';
@@ -31,13 +31,18 @@ export class ProductsPage {
   productImages: any;
   pageReset: boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController,
-              public loadingCtrl: LoadingController, public authService: AuthServiceProvider, public alertCtrl: AlertController) {
+              public loadingCtrl: LoadingController, public authService: AuthServiceProvider, public alertCtrl: AlertController, platform: Platform) {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.success.user;
     this.userPostData.user = this.userDetails;
     this.userPostData.token = data.success.token;
     this.responseData = {};
     this.pageReset = this.authService.pageReset;
+
+    let backAction =  platform.registerBackButtonAction(() => {
+      this.navCtrl.pop();
+      backAction();
+    },2)
   }
 
   ionViewDidLoad(){

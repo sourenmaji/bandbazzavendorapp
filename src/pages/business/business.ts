@@ -1,6 +1,6 @@
 import { EditbusinessPage } from './../editbusiness/editbusiness';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, AlertController, Platform } from 'ionic-angular';
 import { AddbusinessPage } from '../addbusiness/addbusiness';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
@@ -17,7 +17,7 @@ export class BusinessPage {
   userPostData = {"user":"","token":""};
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController,
-              public authService: AuthServiceProvider, private alertCtrl: AlertController) {
+              public authService: AuthServiceProvider, private alertCtrl: AlertController, public platform: Platform) {
     // const data = JSON.parse(localStorage.getItem('businessData'));
     // console.log(data);
      this.businessDetails = [];
@@ -26,6 +26,11 @@ export class BusinessPage {
  
      this.userPostData.user = this.userDetails;
      this.userPostData.token = data.success.token;
+
+     let backAction =  platform.registerBackButtonAction(() => {
+      this.navCtrl.pop();
+      backAction();
+    },2)
 
   }
  

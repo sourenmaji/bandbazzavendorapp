@@ -33,6 +33,10 @@ export class AddbusinessPage {
 
     this.userPostData.user = this.userDetails;
     this.userPostData.token = data.success.token;
+    let backAction =  platform.registerBackButtonAction(() => {
+      this.navCtrl.pop();
+      backAction();
+    },2)
    }
 
    ionViewDidEnter(){
