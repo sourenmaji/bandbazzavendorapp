@@ -7,9 +7,9 @@ import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import {Http, Headers} from '@angular/http';
+import { Headers} from '@angular/http';
 declare var cordova: any;
-let apiUrl = 'http://192.168.0.130/BandBazza/api/';
+let apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
 @IonicPage()
 @Component({
   selector: 'page-addbusiness',
@@ -235,39 +235,4 @@ export class AddbusinessPage {
     });  
   }
   }
-  // public uploadImage() {
-  //   // Destination URL
-  //   var url = "http://192.168.0.129/BandBazza/public/api/add_business";
-   
-  //   // File for Upload
-  //   var targetPath = this.pathForImage(this.lastImage);
-   
-  //   // File name only
-    
-  //   var data = this.userData;
-  //    data.filename = this.lastImage;
-  //   var options = {
-  //     fileKey: "file",
-  //     fileName: data.filename,
-  //     chunkedMode: false,
-  //     mimeType: "multipart/form-data",
-  //     // params : {'fileName': filename, 'data': this.userData}
-  //     params : { data}
-  //   };
-  //   console.log(options);
-  //   const fileTransfer: FileTransferObject = this.transfer.create();
-   
-  //   this.loading = this.loadingCtrl.create({
-  //     content: 'Uploading...',
-  //   });
-  //   this.loading.present();
-   
-  //   // Use the FileTransfer to upload the image
-  //   fileTransfer.upload(targetPath, url, options).then(data => {
-  //     this.loading.dismissAll()
-  //     this.presentToast('Image succesful uploaded.');
-  //   }, err => {
-  //     this.loading.dismissAll()
-  //     this.presentToast('Error while uploading file.');
-  //   });
-  // }
+ 

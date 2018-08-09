@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, MenuController, LoadingController, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, MenuController, LoadingController, ActionSheetController, AlertController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { BookingDetailsPage } from '../booking-details/booking-details';
 let scroll = null;
@@ -23,16 +23,17 @@ export class BookingsPage {
   params: any;
   apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
 
-  constructor(private menuCtrl: MenuController, private navCtrl: NavController, private actionCtrl: ActionSheetController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController) {
+  constructor(private menuCtrl: MenuController, private navCtrl: NavController, private actionCtrl: ActionSheetController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController,public alertCtrl: AlertController) {
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
     this.token = data.success.token;
+    this.categories= [];
   }
 
   ionViewDidLoad()
    {
     //initialize all variables with default values and call the service
-    this.categories= [];
+    // this.categories= [];
     this.category = "";
     this.bookings = [];
     this.message = "";
@@ -54,11 +55,21 @@ export class BookingsPage {
            this.responseData = result;
              console.log(this.responseData)
              this.categories=this.responseData.categories;
+             if(this.categories.length){
              this.category=this.categories[0].module_name;
              console.log(this.categories)
              loader.dismiss();
              //trigger the first category with reset = true, so it sets all variables to default
              this.getBookings(this.categories[0],true);
+             }
+             else{
+              const alert = this.alertCtrl.create({
+                subTitle: 'No Business Added Yet',
+                buttons: ['OK']
+              })
+              alert.present();
+              loader.dismiss();
+            }
          }, (err) => {
           loader.dismiss();
           console.log(err)

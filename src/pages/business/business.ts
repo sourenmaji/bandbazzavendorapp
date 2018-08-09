@@ -111,11 +111,7 @@ export class BusinessPage {
    (err) => {
     this.responseData = err.json();
     console.log(this.responseData)
-   });
-  
-   //this.navCtrl.push(AddbusinessPage);
-   //this.navCtrl.remove(this.navCtrl.length()-1);
-   
+   }); 
   }
 
 

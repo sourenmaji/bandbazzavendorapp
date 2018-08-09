@@ -8,8 +8,6 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { AddCarsPage } from '../add-cars/add-cars';
 import { AddBanquetPage } from '../add-banquet/add-banquet';
 
-
-
 @IonicPage()
 @Component({
   selector: 'page-products',
@@ -38,18 +36,11 @@ export class ProductsPage {
     this.userPostData.token = data.success.token;
     this.responseData = {};
     this.pageReset = this.authService.pageReset;
+    this.categories= [];
   }
 
   ionViewDidLoad(){
-
-    // this.restServ.testCall().then((result) =>
-    // {
-    //   this.data = result;
-    //   console.log(this.data.test);
-    // }
-  //);
-
-    this.categories= [];
+    // this.categories= [];
     this.category = "";
     this.alProducts = [];
     this.businessProducts = "";
@@ -78,7 +69,6 @@ export class ProductsPage {
             this.categories=this.responseData.categories;
             if(this.categories.length){
              this.category=this.categories[0].module_name;
-             //console.log(this.categories)
              loader.dismiss();
              this.getProducts(this.categories[0]);
             }else{

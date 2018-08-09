@@ -31,12 +31,12 @@ apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
     const data = JSON.parse(localStorage.getItem('userData'));
     this.token = data.success.token;
     this.authService.pageReset=false;
-
+    this.categories= [];
   }
 
   ionViewDidLoad(){
         //initialize all variables with default values and call the service
-        this.categories= [];
+        // this.categories= [];
         this.category = "";
         this.enquiries = [];
         this.enquiries_history = [];

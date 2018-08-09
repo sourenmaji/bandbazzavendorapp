@@ -8,7 +8,7 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-buttons end >
+    <ion-buttons end *ngIf="categories.length">
       <button ion-button small icon-only (click)="addProduct()" tooltip="add">
         <ion-icon name="add"></ion-icon>
       </button>
@@ -19,7 +19,6 @@
 
 
 <ion-content>
-  
     <!-- dynamically generating the categories -->
     <ion-segment [(ngModel)]="category" color="energy">
       <ion-segment-button *ngFor="let category of categories" value={{category.module_name}} (click)="getProducts(category)">
