@@ -59,7 +59,8 @@ export class ProductsPage {
     this.getBusinessCatagories();
   }
   ionViewDidEnter(){
-    if(this.pageReset){
+    if(this.authService.pageReset)
+    {
       this.getProducts(this.lastClicked);
     }
   }

@@ -129,7 +129,7 @@ export class BusinessPage {
 
    let alert = this.alertCtrl.create({
     title: 'Confirm',
-    message: 'Do you want to deactive?',
+    message: 'Do you want to deactivate?',
     buttons: [{
       text: "deactive",
       handler: () => { 

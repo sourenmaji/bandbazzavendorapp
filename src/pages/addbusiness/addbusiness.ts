@@ -223,17 +223,11 @@ export class AddbusinessPage {
       })
       alert.present();
       this.navCtrl.pop();
-      //this.navCtrl.push(BusinessPage);
-      //this.navCtrl.remove(this.navCtrl.length()-1);
       }
      
     },
     (err) => {
-      // Error
-
-    //  alert(err.body);
       var error = JSON.parse(err.body);
-    //  alert(error.status);
       if(error.status==false){
       this.navCtrl.push(BusinessPage);
       this.navCtrl.remove(this.navCtrl.length()-1);
