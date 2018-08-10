@@ -40,7 +40,9 @@ export class AddCarsPage {
   public aimage:string;
   public bimage:string;
 
-
+  public brand_name:string = null;
+  public model_name:string = null;
+  public car_type:string = null;
 
 
 
@@ -174,9 +176,12 @@ export class AddCarsPage {
     {
       if(this.isInvalid(this.form2data.no_of_seats, "Enter valid no. of seats"))
       return false;
-      else if(this.isInvalid(this.form2data.min_hire_period, "Enter valid minimum period of hire"))
-      return false;
-      else if((this.form2data.max_hire_period < this.form2data.min_hire_period) || (this.form2data.max_hire_period == null))
+      else if(this.form2data.min_hire_period > this.form2data.max_hire_period || this.form2data.min_hire_period == null)
+      {
+        this.errormessage = "Enter valid minimum hiring period";
+        return false;
+      }
+      else if(this.form2data.max_hire_period < this.form2data.min_hire_period || this.form2data.max_hire_period == null)
       {
         this.errormessage = "Enter valid maximum hiring period";
         return false;
@@ -198,12 +203,7 @@ export class AddCarsPage {
 
       else if(this.isInvalid(this.form2data.book_advance, "Enter a valid advance booking fee"))
       return false;
-
-      // else if(this.form2data.car_tags.trim() == "")
-      // {
-      //   this.errormessage = "Enter some tags to identify your product";
-      //   return false;
-      // }
+      
       return true;
 
     }
@@ -251,6 +251,7 @@ export class AddCarsPage {
     //TODO: change the token to load from local storage
     console.log(brand);
     this.form1data.brand = brand.id+"";
+    this.brand_name=brand.car_company_name;
     this.form1data.model = null;
     this.errormessage = "";
     this.restServ.getData("get_car_models?id="+brand.id, this.token).then((result)=>
@@ -274,12 +275,14 @@ export class AddCarsPage {
   storeModel(model: {car_model:string, model_id:number})
   {
     this.form1data.model = model.model_id+"";
+    this.model_name = model.car_model;
     this.errormessage = "";
   }
 
   storeType(type: {type:string, id:number})
   {
     this.form1data.type = type.id;
+    this.car_type = type.type;
   }
   switchInputMethod()
   {

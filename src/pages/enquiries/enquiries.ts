@@ -23,7 +23,7 @@ selectOptions: any;
 next_page: number;
 page: number;
 params: any;
-apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
+apiUrl = 'http://192.168.0.130/BandBazza/public/';
 
 
   constructor(public platform: Platform,private menuCtrl: MenuController, private navCtrl: NavController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController, private actionCtrl: ActionSheetController, private alertCtrl: AlertController) {

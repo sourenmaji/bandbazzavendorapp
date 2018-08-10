@@ -9,7 +9,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Headers} from '@angular/http';
 declare var cordova: any;
-let apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
+let apiUrl = 'http://192.168.0.130/BandBazza/public/api/v1/';
 @IonicPage()
 @Component({
   selector: 'page-addbusiness',

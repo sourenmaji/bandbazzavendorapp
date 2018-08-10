@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 import { File } from '@ionic-native/file';
 import { IonicPage, NavController, NavParams, ActionSheetController, ToastController, Platform, AlertController } from 'ionic-angular';
 declare var cordova: any;
-let apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
+let apiUrl = 'http://192.168.0.130/BandBazza/public/api/v1/';
 @IonicPage()
 @Component({
   selector: 'page-editbusiness',

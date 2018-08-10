@@ -238,6 +238,7 @@
                 {{errormessage}}
                 </ion-item>
             <button ion-button (click)="presentActionSheet()" >Pick Image</button>
+            <p>(Max 5 images. Your last image will be your cover image.)</p>
             <ion-scroll direction="y" scrollY="true" style="height: 80%;">
                 <ion-card-content>     
                   <ion-card *ngFor="let img of images"  style="position: relative" >
@@ -259,15 +260,8 @@
             </ion-card-header>
             <ion-card-content>
               <ion-scroll direction="y" scrollY="true" style="height:80vh;">
-                
+              <p>You have successfully added all details, now you add this product!</p> 
               <ion-list>
-                <ion-item>
-                  <ion-slides>
-                    <ion-slide *ngFor="let img of images">
-                      <img src="{{img}}" >
-                    </ion-slide>
-                  </ion-slides>
-                </ion-item>
                 <ion-item>
                   <p>Hall Name: {{form1data.hallname}}</p>
                 </ion-item>
@@ -277,9 +271,9 @@
                 <ion-item>
                   <p>Booking Advance: Rs {{form1data.booking_advance}}</p>
                 </ion-item>
-                  <div>
+                <ion-item>
                       <p>Details: {{form1data.details}}</p>
-                  </div>
+                </ion-item>
                 <ion-item>
                   <p>Search Tags: {{form1data.tags}}</p>
                 </ion-item>
@@ -289,18 +283,20 @@
                   </ion-item>
                 </div>
                 <div *ngIf="!form2data.same_as_business">
-                  <p>Full Address: {{form2data.full_address}}</p>
+                  <ion-item>
+                    <p>Full Address: {{form2data.full_address}}</p>
+                  </ion-item>
                 </div>
                 <ion-item>
                   <p>Hall capacity: {{form3data.capacity}}</p>
                 </ion-item>
                 <ion-item>
-                  <p>Non veg food allowed: <span *ngIf="form3data.all_food_type"> yes</span>
-                    <span *ngIf="!form3data.all_food_type"> no</span></p>
+                  <p>Non veg food allowed: <span *ngIf="form3data.all_food_type"> Yes</span>
+                    <span *ngIf="!form3data.all_food_type"> No</span></p>
                 </ion-item>
                 <ion-item>
-                  <p>AC available: <span *ngIf="form3data.ac"> yes</span>
-                  <span *ngIf="!form3data.ac"> no</span></p>
+                  <p>AC available: <span *ngIf="form3data.ac"> Yes</span>
+                  <span *ngIf="!form3data.ac"> No</span></p>
                   
                 </ion-item>
                 <div *ngIf="form3data.ac">
@@ -309,8 +305,8 @@
                   </ion-item>
                 </div>
                 <ion-item>
-                  <p>Parking available: <span *ngIf="form3data.parking"> yes</span>
-                    <span *ngIf="!form3data.parking"> no</span></p>
+                  <p>Parking available: <span *ngIf="form3data.parking"> Yes</span>
+                    <span *ngIf="!form3data.parking"> No</span></p>
                 </ion-item>
                 <ion-item>
                   <div style="height: 50px"></div>

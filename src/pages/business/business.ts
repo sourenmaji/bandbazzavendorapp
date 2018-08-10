@@ -132,7 +132,7 @@ export class BusinessPage {
     title: 'Confirm',
     message: 'Do you want to deactivate?',
     buttons: [{
-      text: "deactive",
+      text: "deactivate",
       handler: () => { 
 
         this.authService.getData('deactivate_business?business_id='+businessid,this.userPostData.token).then((result) => {

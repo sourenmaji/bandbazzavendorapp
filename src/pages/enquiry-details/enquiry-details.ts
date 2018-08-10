@@ -14,7 +14,7 @@ export class EnquiryDetailsPage {
   type: string;
   message: string;
   enquiry: any;
-  apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
+  apiUrl = 'http://192.168.0.130/BandBazza/public/api/v1/';
   
   constructor(public platform: Platform,private navParams: NavParams, private menuCtrl: MenuController, private navCtrl: NavController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController, private actionCtrl: ActionSheetController, private toastCtrl: ToastController) {
     this.responseData = {};
