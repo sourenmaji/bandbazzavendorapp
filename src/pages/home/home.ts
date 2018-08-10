@@ -1,6 +1,6 @@
 import { DashboardPage } from './../dashboard/dashboard';
 import { Component } from '@angular/core';
-import { NavController, AlertController, MenuController } from 'ionic-angular';
+import { NavController, AlertController, MenuController, Platform } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { WelcomePage } from '../welcome/welcome';
 import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
@@ -44,7 +44,7 @@ export class HomePage {
     }
 
   constructor(public navCtrl: NavController, public authService:AuthServiceProvider, 
-               public alertCtrl: AlertController, private menuCtrl: MenuController) 
+               public alertCtrl: AlertController, private menuCtrl: MenuController, public platform: Platform) 
   {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.success.user;
@@ -53,6 +53,10 @@ export class HomePage {
     this.userPostData.token = data.success.token;
     console.log(this.userPostData.token);
     console.log( this.userPostData.user);
+    let backAction =  platform.registerBackButtonAction(() => {
+      this.navCtrl.pop();
+      backAction();
+    },2)
   }
 
 change_password(){

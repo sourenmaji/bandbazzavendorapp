@@ -124,7 +124,7 @@
             <ion-item style="color: red" *ngIf="errormessage">
                 {{errormessage}}
                 </ion-item>
-            <ion-scroll direction="y" scrollY="true" style="height: 80%;">
+            <ion-scroll direction="y" scrollY="true" style="height:80vh;">
               <ion-card-content>
               <ion-list>
                 <ion-item>
@@ -137,31 +137,47 @@
                       </ion-input>
                 </ion-item>
                 <ion-item>
-                    <ion-label stacked color="primary">Permitted Food Type<span style="color: red"> *</span></ion-label>
-                  </ion-item>
-                  <ion-list radio-group>
-                      <ion-item>
-                        <ion-label>All</ion-label>
-                        <ion-radio  (ionSelect)="form3data.all_food_type = true;errormessage=''"></ion-radio>
-                      </ion-item>
-                      <ion-item>
-                        <ion-label>Veg Only</ion-label>
-                        <ion-radio (ionSelect)="form3data.all_food_type = false;errormessage=''"></ion-radio>
-                      </ion-item>
-                    </ion-list>
+                    <ion-label stacked>
+                        <div>
+                            <p>Permitted Food Type<span style="color: red"> *</span></p>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                    <ion-row radio-group>
+                      <ion-col>
+                        <ion-item>
+                          <ion-label>All</ion-label>
+                          <ion-radio  (ionSelect)="form3data.all_food_type = true;errormessage=''"></ion-radio>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col>
+                        <ion-item>
+                          <ion-label>Veg Only</ion-label>
+                          <ion-radio (ionSelect)="form3data.all_food_type = false;errormessage=''"></ion-radio>
+                        </ion-item>
+                      </ion-col>
+                    </ion-row>
                 <ion-item>
-                    <ion-label stacked color="primary">AC<span style="color: red"> *</span></ion-label>
+                    <ion-label stacked>
+                        <div>
+                            <p>AC<span style="color: red"> *</span></p>
+                        </div>
+                      </ion-label>
                   </ion-item>
-                  <ion-list radio-group>
-                      <ion-item>
-                        <ion-label>Available</ion-label>
-                        <ion-radio value="true" (ionSelect)="form3data.ac = true;errormessage=''"></ion-radio>
-                      </ion-item>
-                      <ion-item>
-                        <ion-label>Unavailable</ion-label>
-                        <ion-radio value="false" (ionSelect)="form3data.ac = false;errormessage=''"></ion-radio>
-                      </ion-item>
-                    </ion-list>
+                    <ion-row radio-group>
+                      <ion-col>
+                        <ion-item>
+                          <ion-label>Available</ion-label>
+                          <ion-radio value="true" (ionSelect)="form3data.ac = true;errormessage=''"></ion-radio>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col>
+                        <ion-item>
+                          <ion-label>Unavailable</ion-label>
+                          <ion-radio value="false" (ionSelect)="form3data.ac = false;errormessage=''"></ion-radio>
+                        </ion-item>
+                      </ion-col>
+                    </ion-row>
                     <div *ngIf="form3data.ac">
                     <ion-item>
                           <ion-label stacked>
@@ -174,9 +190,13 @@
                     </ion-item>
                   </div>
                     <ion-item>
-                        <ion-label stacked color="primary">Parking<span style="color: red"> *</span></ion-label>
+                        <ion-label stacked>
+                          <div>
+                              <p>Parking<span style="color: red"> *</span></p>
+                          </div>
+                        </ion-label>
                       </ion-item>
-                      <ion-list radio-group>
+                      <!-- <ion-list radio-group>
                           <ion-item>
                             <ion-label>Yes</ion-label>
                             <ion-radio value="true" (ionSelect)="form3data.parking = true;errormessage=''"></ion-radio>
@@ -185,10 +205,25 @@
                             <ion-label>No</ion-label>
                             <ion-radio value="false" (ionSelect)="form3data.parking = false;errormessage=''"></ion-radio>
                           </ion-item>
-                        </ion-list>
+                        </ion-list> -->
+                        <ion-row radio-group>
+                          <ion-col>
+                            
+                            <ion-item>
+                              <ion-label>Yes</ion-label>
+                              <ion-radio value="true" (ionSelect)="form3data.parking = true;errormessage=''"></ion-radio>
+                            </ion-item>
+                          </ion-col>
+                          <ion-col>
+                            <ion-item>
+                              <ion-label>No</ion-label>
+                              <ion-radio value="false" (ionSelect)="form3data.parking = false;errormessage=''"></ion-radio>
+                            </ion-item>
+                          </ion-col>
+                        </ion-row>
               </ion-list>
             </ion-card-content>
-                <div  style="margin-bottom: 180px" ></div>
+                <div  style="margin-bottom: 50px" ></div>
             </ion-scroll>
         </ion-card>
       </ion-slide>
@@ -222,9 +257,66 @@
             <ion-card-header>
               Step 5/5
             </ion-card-header>
-            <!-- <hr> -->
             <ion-card-content>
-              You have successfully added all details, click to upload this product!
+              <ion-scroll direction="y" scrollY="true" style="height:80vh;">
+                
+              <ion-list>
+                <ion-item>
+                  <ion-slides>
+                    <ion-slide *ngFor="let img of images">
+                      <img src="{{img}}" >
+                    </ion-slide>
+                  </ion-slides>
+                </ion-item>
+                <ion-item>
+                  <p>Hall Name: {{form1data.hallname}}</p>
+                </ion-item>
+                <ion-item>
+                  <p>Booking Price: Rs {{form1data.price}}</p>
+                </ion-item>
+                <ion-item>
+                  <p>Booking Advance: Rs {{form1data.booking_advance}}</p>
+                </ion-item>
+                  <div>
+                      <p>Details: {{form1data.details}}</p>
+                  </div>
+                <ion-item>
+                  <p>Search Tags: {{form1data.tags}}</p>
+                </ion-item>
+                <div *ngIf="form2data.same_as_business">
+                  <ion-item>
+                    <p>Address: Same as business</p>
+                  </ion-item>
+                </div>
+                <div *ngIf="!form2data.same_as_business">
+                  <p>Full Address: {{form2data.full_address}}</p>
+                </div>
+                <ion-item>
+                  <p>Hall capacity: {{form3data.capacity}}</p>
+                </ion-item>
+                <ion-item>
+                  <p>Non veg food allowed: <span *ngIf="form3data.all_food_type"> yes</span>
+                    <span *ngIf="!form3data.all_food_type"> no</span></p>
+                </ion-item>
+                <ion-item>
+                  <p>AC available: <span *ngIf="form3data.ac"> yes</span>
+                  <span *ngIf="!form3data.ac"> no</span></p>
+                  
+                </ion-item>
+                <div *ngIf="form3data.ac">
+                  <ion-item>
+                    <p>AC rate: Rs {{form3data.ac_charge}}</p>
+                  </ion-item>
+                </div>
+                <ion-item>
+                  <p>Parking available: <span *ngIf="form3data.parking"> yes</span>
+                    <span *ngIf="!form3data.parking"> no</span></p>
+                </ion-item>
+                <ion-item>
+                  <div style="height: 50px"></div>
+                </ion-item>
+              </ion-list>
+            </ion-scroll>
             </ion-card-content>
         </ion-card>
       </ion-slide>

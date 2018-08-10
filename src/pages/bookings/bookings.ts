@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, MenuController, LoadingController, ActionSheetController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, MenuController, LoadingController, ActionSheetController, AlertController, Platform } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { BookingDetailsPage } from '../booking-details/booking-details';
 let scroll = null;
@@ -23,11 +23,16 @@ export class BookingsPage {
   params: any;
   apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
 
-  constructor(private menuCtrl: MenuController, private navCtrl: NavController, private actionCtrl: ActionSheetController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController,public alertCtrl: AlertController) {
+  constructor(private menuCtrl: MenuController, private navCtrl: NavController, private actionCtrl: ActionSheetController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController,public alertCtrl: AlertController, public platform: Platform) {
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
     this.token = data.success.token;
     this.categories= [];
+
+    let backAction =  platform.registerBackButtonAction(() => {
+      this.navCtrl.pop();
+      backAction();
+    },2)
   }
 
   ionViewDidLoad()

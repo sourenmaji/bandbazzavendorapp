@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 @IonicPage()
@@ -15,7 +15,7 @@ export class BookingDetailsPage {
   booking: any;
   apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private authService: AuthServiceProvider) {
+  constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams,private authService: AuthServiceProvider) {
     this.responseData = {};
     this.authService.pageReset=false;
     const data = JSON.parse(localStorage.getItem('userData'));
@@ -23,6 +23,10 @@ export class BookingDetailsPage {
     this.booking = this.navParams.data;
     this.message="";
     console.log(this.booking)
+    let backAction =  platform.registerBackButtonAction(() => {
+      this.navCtrl.pop();
+      backAction();
+    },2)
   }
 
   ionViewDidLoad() {

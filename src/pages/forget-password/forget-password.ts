@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
@@ -10,7 +10,11 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class ForgetPasswordPage implements OnInit{
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public platform: Platform,public navCtrl: NavController, public navParams: NavParams) {
+    let backAction =  platform.registerBackButtonAction(() => {
+      this.navCtrl.pop();
+      backAction();
+    },2)
   }
 
   forgetPasswordform: FormGroup;

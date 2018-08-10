@@ -33,6 +33,10 @@ export class AddbusinessPage {
 
     this.userPostData.user = this.userDetails;
     this.userPostData.token = data.success.token;
+    let backAction =  platform.registerBackButtonAction(() => {
+      this.navCtrl.pop();
+      backAction();
+    },2)
    }
 
    ionViewDidEnter(){
@@ -103,7 +107,7 @@ export class AddbusinessPage {
   public takePicture(sourceType) {
     // Create options for the Camera Dialog
     var options = {
-      quality: 100,
+      quality: 60,
       sourceType: sourceType,
       saveToPhotoAlbum: false,
       correctOrientation: true

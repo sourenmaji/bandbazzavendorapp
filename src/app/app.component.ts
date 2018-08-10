@@ -13,6 +13,7 @@ import { EnquiriesPage } from '../pages/enquiries/enquiries';
 import { BookingsPage } from '../pages/bookings/bookings';
 import { CustomPackageEnquiriesPage } from '../pages/custom-package-enquiries/custom-package-enquiries';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+import { AddBanquetPage } from '../pages/add-banquet/add-banquet';
 
 @Component({
   templateUrl: 'app.html'
