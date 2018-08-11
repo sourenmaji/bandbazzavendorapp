@@ -26,6 +26,7 @@
     "@ionic-native/file": "4.11.0",
     "@ionic-native/file-path": "4.11.0",
     "@ionic-native/file-transfer": "4.11.0",
+    "@ionic-native/firebase": "^4.11.0",
     "@ionic-native/geolocation": "4.11.0",
     "@ionic-native/image-picker": "^4.11.0",
     "@ionic-native/network": "4.11.0",
