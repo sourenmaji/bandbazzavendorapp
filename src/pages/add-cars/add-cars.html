@@ -29,6 +29,7 @@
       </ion-col>
     </ion-row>
   </div>
+  <div>
   <ion-slides #formslides style="position: fixed; height: 80vh;margin-top: 5px">
     <ion-slide style="height: 100vh">
       <ion-card style="max-height: 100vh; height: 100vh;position: fixed;top: 0px;margin-top: 10px;margin-bottom: 5px">
@@ -100,9 +101,9 @@
           Step 2/4
         </ion-card-header>
         <hr>
-        <ion-item style="color: red" *ngIf="errormessage">
+        <p style="color: red" *ngIf="errormessage">
           {{errormessage}}
-        </ion-item>
+        </p>
         <ion-scroll direction="y" scrollY="true" style="height: 80%; margin-bottom: 0px">
           <ion-card-content >
             <ion-list >
@@ -252,9 +253,9 @@
         <hr>
         <ion-card-content>
           <ion-scroll direction="y" scrollY="true" style="height:80vh;">
-            <p>You have successfully added all details, now you can add this product!</p> 
+           
             <ion-list>
-
+              <h3>You have successfully added all details, now you can add this product!</h3> 
               <div *ngIf="unknowncar">
                 <ion-item>
                   <p>Car Brand: {{form1data.brand}}</p>
@@ -310,6 +311,7 @@
       </ion-card>
     </ion-slide>
   </ion-slides>
+</div>
   <hr>
   
 </ion-content>

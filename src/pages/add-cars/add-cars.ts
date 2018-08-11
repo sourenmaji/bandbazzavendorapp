@@ -176,16 +176,31 @@ export class AddCarsPage {
     {
       if(this.isInvalid(this.form2data.no_of_seats, "Enter valid no. of seats"))
       return false;
-      else if(this.form2data.min_hire_period > this.form2data.max_hire_period || this.form2data.min_hire_period == null)
+
+      if(this.isInvalid(this.form2data.min_hire_period, "Enter valid minimum hire period"))
+      return false;
+
+      if(this.isInvalid(this.form2data.max_hire_period, "Enter valid maximum hire period"))
+      return false;
+
+      if(this.isInvalid(this.form2data.min_hire_distance, "Enter valid minimum hire distance"))
+      return false;
+
+      if(this.isInvalid(this.form2data.max_hire_distance, "Enter valid maximum hire distance"))
+      return false;
+
+      if((+this.form2data.min_hire_period) > (+this.form2data.max_hire_period))
       {
-        this.errormessage = "Enter valid minimum hiring period";
+        this.errormessage = "Minimum hire period cannot be greater than maximum  gjhkj      hgtjhgkj    rhkjrthy  jerhyjrekhy";
         return false;
       }
-      else if(this.form2data.max_hire_period < this.form2data.min_hire_period || this.form2data.max_hire_period == null)
+
+      if((+this.form2data.min_hire_distance) > (+this.form2data.max_hire_distance))
       {
-        this.errormessage = "Enter valid maximum hiring period";
+        this.errormessage = "Minimum hire distance cannot be greater than maximum  gjhkj      hgtjhgkj    rhkjrthy  jerhyjrekhy";
         return false;
       }
+
       else if(this.isInvalid(this.form2data.car_price_hour, "Enter valid rate per hour (Non-AC)"))
       return false;
 
@@ -220,8 +235,6 @@ export class AddCarsPage {
   //functions for form 1
   initCarData()
   {
-    //call rest endpoint and populate the initial data required here
-    //TODO: token to load from local storage
     this.restServ.getData("get_car_details", this.token).then((result) => {
       this.responseData = result;
       this.carbrands = [];
@@ -248,7 +261,6 @@ export class AddCarsPage {
 
   updateModels(brand: {car_company_name:string, id: number})
   {
-    //TODO: change the token to load from local storage
     console.log(brand);
     this.form1data.brand = brand.id+"";
     this.brand_name=brand.car_company_name;
@@ -268,7 +280,6 @@ export class AddCarsPage {
       console.log(this.responseData);
       this.carmodels = [];
     }
-
   );
   }
 
