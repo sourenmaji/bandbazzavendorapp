@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "343465164111",
+    "firebase_url": "https://bandbazza-195112.firebaseio.com",
+    "project_id": "bandbazza-195112",
+    "storage_bucket": "bandbazza-195112.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:343465164111:android:d1229e4ea9c08a3d",
+        "android_client_info": {
+          "package_name": "com.bandbazza.vendor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "343465164111-qjso0tvbirkuo2bsm8obk3ah41mgr38i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4T-gin4PUUPX96oYHGXgFB4l7mhb0lXk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -7,9 +7,9 @@
 
 <ion-content style="overflow: hidden;height: 100vh">
 
-  <ion-slides #formslides style="height: 80vh">
+  <ion-slides #formslides style="position: fixed; height: 80vh;margin-top: 5px">
       <ion-slide style="height: 100vh">
-        <ion-card style="max-height: 100vh; height: 100vh;">
+        <ion-card style="max-height: 100vh; height: 100vh;position: fixed;top: 0px;margin-top: 10px;margin-bottom: 5px">
             <ion-card-header>
               Step 1/4
             </ion-card-header>
@@ -147,6 +147,7 @@
       </ion-slide>
   </ion-slides>
   <hr>
+  <div style="position: fixed;bottom: 0px;width:100%; right: 0px">
   <ion-row style="height: fit-content" no-padding>
       <ion-col style="width: 25%">
         <div *ngIf="pageNo != 0">
@@ -168,4 +169,5 @@
         </div>
           </ion-col>
   </ion-row>
+  </div>
 </ion-content>
