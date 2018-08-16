@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, Platform } from 'ionic-angular';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 
 @IonicPage()
@@ -10,9 +11,12 @@ import { IonicPage, NavController, NavParams, MenuController, Platform } from 'i
 export class DashboardPage {
 
   userDetails : any;
+  responseData: any;
   userPostData = {"user":"","token":""};
   constructor(public navCtrl: NavController,
-              private menuCtrl: MenuController, public platform: Platform) 
+              private menuCtrl: MenuController,
+              public platform: Platform,
+              private authService: AuthServiceProvider)
   {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.success.user;
@@ -23,7 +27,7 @@ export class DashboardPage {
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
       backAction();
-    },2)
+    },2);
   }
 
   ionViewDidLoad() {

@@ -27,16 +27,9 @@ import { File } from '@ionic-native/file';
 import { Camera } from '@ionic-native/camera';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { FilePath } from '@ionic-native/file-path';
-// import { EditProfilePage } from '../pages/edit-profile/edit-profile';
-// import { AddbusinessPage } from '../pages/addbusiness/addbusiness';
-// import { AddCatererPage } from '../pages/add-caterer/add-caterer';
-// import { EnquiryDetailsPage } from '../pages/enquiry-details/enquiry-details';
-// import { BookingDetailsPage } from '../pages/booking-details/booking-details';
-// import { AddCarsPage } from '../pages/add-cars/add-cars';
 import { HttpClientModule } from '../../node_modules/@angular/common/http';
-// import { AddBanquetPage } from '../pages/add-banquet/add-banquet';
-// import { AgmCoreModule } from '@agm/core';
 import { ImagePicker } from '../../node_modules/@ionic-native/image-picker';
+import { FCM } from '@ionic-native/fcm';
 
 import { AddBanquetPageModule } from '../pages/add-banquet/add-banquet.module';
 import { AddCarsPageModule } from '../pages/add-cars/add-cars.module';
@@ -66,28 +59,7 @@ import { WelcomePageModule } from '../pages/welcome/welcome.module';
   declarations: [
     MyApp,
     HomePage
-    // WelcomePage,
-    // LoginPage,
-    // RegisterPage,
-    // ForgetPasswordPage,
-    // DashboardPage,
-    // ProfilePage,
-    // BusinessPage,
-    // ProductsPage,
-    // EnquiriesPage,
-    // EnquiryDetailsPage,
-    // BookingsPage,
-    // BookingDetailsPage,
-    // CustomPackageEnquiriesPage,
-    // EditProfilePage,
-    // AddbusinessPage,
-    // EditbusinessPage,
-    // ViewProductBanquatePage,
-    // ViewProductCatererPage,
-    // ViewProductCarPage,
-    // AddCatererPage,
-    // AddCarsPage,
-    // AddBanquetPage
+
   ],
   imports: [
     BrowserModule,
@@ -121,28 +93,6 @@ import { WelcomePageModule } from '../pages/welcome/welcome.module';
   entryComponents: [
     MyApp,
     HomePage
-    // WelcomePage,
-    // LoginPage,
-    // RegisterPage,
-    // ForgetPasswordPage,
-    // DashboardPage,
-    // ProfilePage,
-    // BusinessPage,
-    // ProductsPage,
-    // EnquiriesPage,
-    // EnquiryDetailsPage,
-    // BookingsPage,
-    // BookingDetailsPage,
-    // CustomPackageEnquiriesPage,
-    // EditProfilePage,
-    // AddbusinessPage,
-    // EditbusinessPage,
-    // ViewProductBanquatePage,
-    // ViewProductCatererPage,
-    // ViewProductCarPage,
-    // AddCatererPage,
-    // AddCarsPage,
-    // AddBanquetPage
   ],
   providers: [
     Camera,
@@ -155,7 +105,8 @@ import { WelcomePageModule } from '../pages/welcome/welcome.module';
     File,
     FileTransfer,
     Camera,
-    FilePath
+    FilePath,
+    FCM
   ]
 })
 export class AppModule {}
