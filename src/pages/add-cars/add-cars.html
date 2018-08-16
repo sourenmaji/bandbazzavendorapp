@@ -44,13 +44,13 @@
             </ion-item>
             <div *ngIf="!unknowncar" >
               <ion-item>
-                <ion-label>Select Brand</ion-label>
+                <ion-label><p>Select Brand</p></ion-label>
                 <ion-select >
                   <ion-option [selected]="b.car_company_name == 'All Brands'" (ionSelect)="updateModels(b)" *ngFor="let b of carbrands">{{b.car_company_name}}</ion-option>
                 </ion-select>
               </ion-item>
               <ion-item *ngIf="form1data.brand != null">
-                <ion-label>Select Model</ion-label>
+                <ion-label><p>Select Model</p></ion-label>
                 <ion-select >
                   <ion-option (ionSelect)="storeModel(m)"  *ngFor="let m of carmodels">{{m.car_model}}</ion-option>
                 </ion-select>
@@ -64,14 +64,14 @@
             <div *ngIf="unknowncar" >
               <ion-item>
                 <ion-label stacked>
-                  Car Brand
+                  <p>Car Brand</p>
                 </ion-label>
                 <ion-input [(ngModel)]="form1data.brand" placeholder="Enter Car Brand">
                 </ion-input>
               </ion-item>
               <ion-item>
                 <ion-label stacked>
-                  Car Model
+                  <p>Car Model</p>
                 </ion-label>
                 <ion-input [(ngModel)]="form1data.model" placeholder="Enter Car Model">
                 </ion-input>
@@ -84,8 +84,8 @@
             </ion-item>
             
             <ion-item>
-              <ion-label>Car Type</ion-label>
-              <ion-select interface="popover" >
+              <ion-label><p>Car Type</p></ion-label>
+              <ion-select>
                 <ion-option (ionSelect)="storeType(type)" *ngFor="let type of cartypes" >
                   {{type.type}}
                 </ion-option>
@@ -109,7 +109,7 @@
             <ion-list >
               <ion-item>
                 <ion-label stacked>
-                  No Of Seats
+                  <p>No Of Seats</p>
                 </ion-label>
                 <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.no_of_seats" placeholder="No. Of Seats">
                   
@@ -118,14 +118,14 @@
               <ion-row>
                 <ion-col>
                   <ion-label stacked>
-                    Minimum Hire Period (in Hrs)
+                    <p>Minimum Hire Period (in Hrs)</p>
                   </ion-label>
                   <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.min_hire_period" placeholder="Min. Hire Period">
                   </ion-input>
                 </ion-col>
                 <ion-col>
                   <ion-label stacked>
-                    Maximum Hire Period (in Hrs)
+                    <p>Maximum Hire Period (in Hrs)</p>
                   </ion-label>
                   <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.max_hire_period" placeholder="Max. Hire Period">
                   </ion-input>
@@ -134,51 +134,51 @@
               <ion-row>
                 <ion-col>
                   <ion-label stacked>
-                    Minimum Hire Distance (in KM)
+                    <p>Minimum Hire Distance (in KM)</p>
                   </ion-label>
                   <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.min_hire_distance" placeholder="Min. Hire Distance">
                   </ion-input>
                 </ion-col>
                 <ion-col>
                   <ion-label stacked>
-                    Maximum Hire Distance (in KM)
+                    <p>Maximum Hire Distance (in KM)</p>
                   </ion-label>
                   <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.max_hire_distance" placeholder="Max. Hire Distance">
                   </ion-input>
                 </ion-col>
               </ion-row>
               <ion-label>
-                Price Rate (Non-AC)
+                <p>Price Rate (Non-AC)</p>
               </ion-label>
               <ion-row>
                 <ion-col>
-                  <ion-label stacked>Per Hour</ion-label>
+                  <ion-label stacked><p>Per Hour</p></ion-label>
                   <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.car_price_hour" placeholder="Non-AC Price">
                   </ion-input>
                 </ion-col>
                 <ion-col>
-                  <ion-label stacked>Per KM</ion-label>
+                  <ion-label stacked><p>Per KM</p></ion-label>
                   <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.car_price_kil" placeholder="Non-AC Price">
                   </ion-input>
                 </ion-col>
               </ion-row>
               <ion-item>
-                <ion-label>AC Available</ion-label>
+                <ion-label><p>AC Available</p></ion-label>
                 <ion-checkbox (ionChange)="clearAcRates()" [(ngModel)]="ac_available" ></ion-checkbox>
               </ion-item>
               <div *ngIf="ac_available" >
                 <ion-label>
-                  Price Rate (AC)
+                  <p>Price Rate (AC)</p>
                 </ion-label>
                 <ion-row>
                   <ion-col>
-                    <ion-label stacked>Per Hour</ion-label>
+                    <ion-label stacked><p>Per Hour</p></ion-label>
                     <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.ac_car_price_hour" placeholder="AC Price">
                       
                     </ion-input>
                   </ion-col>
                   <ion-col>
-                    <ion-label stacked>Per KM</ion-label>
+                    <ion-label stacked><p>Per KM</p></ion-label>
                     <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.ac_car_price_kil" placeholder="AC Price">
                       
                     </ion-input>
@@ -187,19 +187,18 @@
               </div>
               <ion-item>
                 <ion-label stacked>
-                  Advance Amount
+                  <p>Advance Amount</p>
                 </ion-label>
                 <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.book_advance" placeholder="Advance Amount"></ion-input>
               </ion-item>
               
               <ion-item>
-                <ion-label stacked>Search Tags (comma separated)</ion-label>
+                <ion-label stacked><p>Search Tags (comma separated)</p></ion-label>
                 <ion-input (ionChange)="errormessage=''" type="text" [(ngModel)]="form2data.car_tags" placeholder="Car Search Tags"></ion-input>
               </ion-item>
               
               <ion-item>
                 <div style="height: 20px">
-                  
                 </div>
               </ion-item>
             </ion-list>
@@ -255,31 +254,25 @@
           <ion-scroll direction="y" scrollY="true" style="height:80vh;">
            
             <ion-list>
-              <h3>You have successfully added all details, now you can add this product!</h3> 
+              <p>You have successfully added all details, now you can add this product!</p>
+              <ion-item>
               <div *ngIf="unknowncar">
-                <ion-item>
                   <p>Car Brand: {{form1data.brand}}</p>
                   <p>Car Model: {{form1data.model}}</p>
-                </ion-item>
               </div>
               <div *ngIf="!unknowncar">
-                <ion-item>
                   <p>Car Brand: {{brand_name}}</p>
                   <p>Car Model: {{model_name}}</p>
-                </ion-item>
               </div>
-              
-              <ion-item>
-                <p>Car Type: {{car_type}}</p>
-                <p>No. of Seats: {{form2data.no_of_seats}}</p>
+              <p>Car Type: {{car_type}}</p>
               </ion-item>
               
               <ion-item>
+                <p>No. of Seats: {{form2data.no_of_seats}}</p>
+                
                 <p>Min. Hire Period (in Hrs): {{form2data.min_hire_period}}</p>
                 <p>Max. Hire Period (in Hrs): {{form2data.max_hire_period}}</p>
-              </ion-item>
-              
-              <ion-item>
+
                 <p>Min. Hire Distance (in KM): {{form2data.min_hire_distance}}</p>
                 <p>Max. Hire Distance (in KM): {{form2data.max_hire_distance}}</p>
               </ion-item>

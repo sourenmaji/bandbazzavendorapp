@@ -30,7 +30,7 @@
                 </ion-item>
 
               <ion-item>
-                  <ion-label stacked color="primary">Package Type<span style="color: red"> *</span></ion-label>
+                  <ion-label stacked color="primary"><p>Package Type<span style="color: red"> *</span></p></ion-label>
                 </ion-item>
                 <ion-list radio-group>
                     <ion-item>
@@ -58,17 +58,17 @@
             <ion-card-content>
               <ion-list>
                 <ion-item>
-                  <ion-label stacked >Package Starting Price (per plate)<span style="color: red" >*</span></ion-label>
+                  <ion-label stacked ><p>Package Starting Price (per plate)<span style="color: red" >*</span></p></ion-label>
                   <ion-input type="number" [(ngModel)]="step2data.start_price"  (ionChange)="errormessage=''" placeholder="Starting range for package"></ion-input>
                 </ion-item>
 
                 <ion-item>
-                    <ion-label stacked >Minimum No. of Plates<span style="color: red" >*</span></ion-label>
+                    <ion-label stacked ><p>Minimum No. of Plates<span style="color: red" >*</span></p></ion-label>
                     <ion-input type="number" [(ngModel)]="step2data.min_no_plates"  (ionChange)="errormessage=''" placeholder="Minimum no. of plates"></ion-input>
                   </ion-item>
 
                   <ion-item>
-                      <ion-label stacked >Search Tags (comma separated)</ion-label>
+                      <ion-label stacked ><p>Search Tags (comma separated)</p></ion-label>
                       <ion-input type="text" [(ngModel)]="step2data.tags"  (ionChange)="errormessage=''" placeholder="Package Search Tags"></ion-input>
                     </ion-item>
               </ion-list>
@@ -124,20 +124,10 @@
                 <ion-list>
                   <ion-item>
                     <p>Package Name: {{step1data.packagename}}</p>
-                  </ion-item>
-                  <ion-item>
                     <p>Package Type:  {{step1data.veg ? 'Veg' : 'All'}}</p>
-                  </ion-item>
-                  <ion-item>
                     <p>Package Starting Price: Rs {{step2data.start_price}}</p>
-                  </ion-item>
-                  <ion-item>
                     <p>Minimum No. Of Plates: {{step2data.min_no_plates}}</p>
-                  </ion-item>
-                  <ion-item>
                     <p>Search Tags: {{step2data.tags}}</p>
-                  </ion-item>
-                  <ion-item>
                     <div style="height: 50px"></div>
                   </ion-item>
                 </ion-list>
@@ -146,7 +136,6 @@
         </ion-card>
       </ion-slide>
   </ion-slides>
-</div>
   <hr>
   <div style="position: fixed;bottom: 0px;width:100%; right: 0px">
   <ion-row style="height: fit-content" no-padding>

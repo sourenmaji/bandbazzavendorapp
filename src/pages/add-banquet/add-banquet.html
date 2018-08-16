@@ -196,19 +196,8 @@
                           </div>
                         </ion-label>
                       </ion-item>
-                      <!-- <ion-list radio-group>
-                          <ion-item>
-                            <ion-label>Yes</ion-label>
-                            <ion-radio value="true" (ionSelect)="form3data.parking = true;errormessage=''"></ion-radio>
-                          </ion-item>
-                          <ion-item>
-                            <ion-label>No</ion-label>
-                            <ion-radio value="false" (ionSelect)="form3data.parking = false;errormessage=''"></ion-radio>
-                          </ion-item>
-                        </ion-list> -->
                         <ion-row radio-group>
                           <ion-col>
-                            
                             <ion-item>
                               <ion-label>Yes</ion-label>
                               <ion-radio value="true" (ionSelect)="form3data.parking = true;errormessage=''"></ion-radio>
@@ -260,20 +249,25 @@
             </ion-card-header>
             <ion-card-content>
               <ion-scroll direction="y" scrollY="true" style="height:80vh;">
-              <h3>You have successfully added all details, now you add this product!</h3> 
               <ion-list>
+                <p>You have successfully added all details, now you add this product!</p> 
                 <ion-item>
                   <p>Hall Name: {{form1data.hallname}}</p>
                   <p>Booking Price: Rs {{form1data.price}}</p>
                   <p>Booking Advance: Rs {{form1data.booking_advance}}</p>
                   <p>Details: {{form1data.details}}</p>
                   <p>Search Tags: {{form1data.tags}}</p>
+                </ion-item>
+                <ion-item>
                 <div *ngIf="form2data.same_as_business">
                     <p>Address: Same as business</p>
                 </div>
                 <div *ngIf="!form2data.same_as_business">
                     <p>Full Address: {{form2data.full_address}}</p>
+                    <p>Location: {{form2data.map_address}}</p>
                 </div>
+                </ion-item>
+                <ion-item>
                   <p>Hall capacity: {{form3data.capacity}}</p>
                   <p>Non veg food allowed: <span> {{form3data.all_food_type ? "Yes" : "No" }}</span></p>
                   <p>AC available: <span> {{form3data.ac ? "Yes" : "No" }}</span></p>
