@@ -52,7 +52,7 @@ export class MyApp {
         });
 
         fcm.onNotification().subscribe(data => {
-          alert(data);
+          alert(JSON.stringify(data));
           if(data.wasTapped){
             alert("Received in background");
           } else {
