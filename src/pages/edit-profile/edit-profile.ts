@@ -35,7 +35,7 @@ export class EditProfilePage implements OnInit{
                   this.disableButton = true;
                 }
                 console.log(this.userDetails);
-            
+
                 this.userPostData.user = this.userDetails;
                 this.userPostData.token = data.success.token;
                 console.log(this.userPostData.token);
@@ -54,7 +54,7 @@ export class EditProfilePage implements OnInit{
     //console.log(this.user_OTP);
     let EMAILPATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let PHONEPATTERN = /^[0-9]{10}$/;
-    
+
     this.editform = new FormGroup({
       numb: new FormControl(this.user_OTP),
       pno: new FormControl(this.user_phone),
@@ -63,10 +63,10 @@ export class EditProfilePage implements OnInit{
       email: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)]),
       address: new FormControl('', Validators.compose([])),
       otp: new FormControl('', Validators.compose([])),
-     
+
       // otp: new FormControl('', Validators.compose([Validators.required,Validators.minLength(6),this.equalto('numb')]))
-    });   
-  
+    });
+
    // console.log(this.buttonClicked)
   }
   // ngOnChanges(){
@@ -76,7 +76,7 @@ export class EditProfilePage implements OnInit{
   // }
 
   showVal($value) {
-     console.log(this.userData.phone_no); 
+     console.log(this.userData.phone_no);
      if(this.userDetails.phone_no != null){
       this.user_phone = this.userDetails.phone_no;
       console.log(this.user_phone);
@@ -88,12 +88,12 @@ export class EditProfilePage implements OnInit{
         this.disableButton = true;
       }
     }
-    
+
   }
 
   equals(field_name): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
-      
+
       let isValid = false;
       //console.log(this.userData.otp)
     //let input = control.value;
@@ -103,7 +103,7 @@ export class EditProfilePage implements OnInit{
       if(!isValid){
         return { 'equalTo': {isValid} };
       }
-      else 
+      else
     return null;
     }
   };
@@ -121,23 +121,23 @@ export class EditProfilePage implements OnInit{
       console.log(this.userData.otp)
       if(this.user_OTP != this.userData.otp){
         return { 'equalTo': {isValid} };
-        
+
       }
     let input = control.value;
     //console.log(this.user_OTP);
     isValid=this.user_OTP==input;
-    if(!isValid) 
+    if(!isValid)
     {
       //console.log( { 'equalTo': {isValid} });
       return { 'equalTo': {isValid} };
     }
-    else 
+    else
     return null;
     };
     }
-    
+
   sendOtp(){
-    
+
     this.authService.getData('send_otp?phone_no='+this.userData.phone_no,this.userPostData.token).then((result: any) => {
       this.responseData = result;
       if(result.status)
@@ -153,11 +153,11 @@ export class EditProfilePage implements OnInit{
       console.log(this.user_OTP);
       // localStorage.setItem('OTP', JSON.stringify(this.responseData));
       // console.log(JSON.parse(localStorage.getItem('OTP')));
-      
+
       const alert = this.alertCtrl.create({
        subTitle: this.responseData.message,
        buttons: ['OK']
-       
+
      })
      alert.present();
       }
@@ -175,7 +175,7 @@ export class EditProfilePage implements OnInit{
 
 
   editProfile(){
-   
+
     this.authService.authData(this.userData,'edit_profile',this.userPostData.token).then((result: any) => {
       this.responseData = result;
       if(result.status)
@@ -191,7 +191,7 @@ export class EditProfilePage implements OnInit{
       const alert = this.alertCtrl.create({
        subTitle: this.responseData.success.message,
        buttons: ['OK']
-       
+
      })
      alert.present();
      this.navCtrl.pop();

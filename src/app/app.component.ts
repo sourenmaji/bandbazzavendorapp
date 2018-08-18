@@ -45,11 +45,28 @@ export class MyApp {
         statusBar.styleDefault();
         splashScreen.hide();
         fcm.getToken().then(device_token => {
-          alert(device_token);
-          localStorage.setItem('device_token', JSON.stringify(device_token));
+          localStorage.setItem('device_token', device_token);
+          alert(localStorage.getItem('device_token'));
         }, (err) => {
           alert(err);
         });
+
+        fcm.onNotification().subscribe(data => {
+          alert(data);
+          if(data.wasTapped){
+            alert("Received in background");
+          } else {
+            alert("Received in foreground");
+          };
+        });
+
+        fcm.onTokenRefresh().subscribe(refresh_token => {
+          localStorage.setItem('device_token', refresh_token);
+          alert('Refresh'+localStorage.getItem('device_token'));
+        }, (err) => {
+          alert(err);
+        });
+
       });
 
 
