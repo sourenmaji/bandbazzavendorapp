@@ -46,7 +46,6 @@ export class MyApp {
         splashScreen.hide();
         fcm.getToken().then(device_token => {
           localStorage.setItem('device_token', device_token);
-          alert(localStorage.getItem('device_token'));
         }, (err) => {
           alert(err);
         });
