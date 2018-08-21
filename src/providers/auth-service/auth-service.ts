@@ -1,13 +1,11 @@
 import { LoadingController , Loading} from 'ionic-angular';
-import { FileTransferObject ,FileTransfer, FileUploadResult} from '@ionic-native/file-transfer';
+import { FileTransfer, FileUploadResult} from '@ionic-native/file-transfer';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Http, Headers} from '@angular/http';
 
 
-//let apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
-let apiUrl = 'http://www.bandbazza.com/api/';
-// let apiUrl = 'http://localhost:8000/api/';
+let apiUrl = 'http://192.168.0.130/BandBazza/public/api/v1/';
 
 @Injectable()
 export class AuthServiceProvider {

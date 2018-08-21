@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, MenuController, LoadingController, ActionSheetController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, MenuController, LoadingController, ActionSheetController, AlertController, Platform } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { BookingDetailsPage } from '../booking-details/booking-details';
 let scroll = null;
@@ -21,13 +21,14 @@ export class BookingsPage {
   lastClicked: any;
   next_page: number;
   params: any;
-  apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
+  apiUrl = 'http://192.168.0.130/BandBazza/public/';
 
-  constructor(private menuCtrl: MenuController, private navCtrl: NavController, private actionCtrl: ActionSheetController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController,
-  public platform: Platform) {
+  constructor(private menuCtrl: MenuController, private navCtrl: NavController, private actionCtrl: ActionSheetController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController,public alertCtrl: AlertController, public platform: Platform) {
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
     this.token = data.success.token;
+    this.categories= [];
+
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
       backAction();
@@ -37,7 +38,7 @@ export class BookingsPage {
   ionViewDidLoad()
    {
     //initialize all variables with default values and call the service
-    this.categories= [];
+    // this.categories= [];
     this.category = "";
     this.bookings = [];
     this.message = "";
@@ -59,11 +60,21 @@ export class BookingsPage {
            this.responseData = result;
              console.log(this.responseData)
              this.categories=this.responseData.categories;
+             if(this.categories.length){
              this.category=this.categories[0].module_name;
              console.log(this.categories)
              loader.dismiss();
              //trigger the first category with reset = true, so it sets all variables to default
              this.getBookings(this.categories[0],true);
+             }
+             else{
+              const alert = this.alertCtrl.create({
+                subTitle: 'No Business Added Yet',
+                buttons: ['OK']
+              })
+              alert.present();
+              loader.dismiss();
+            }
          }, (err) => {
           loader.dismiss();
           console.log(err)

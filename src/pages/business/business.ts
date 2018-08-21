@@ -116,11 +116,7 @@ export class BusinessPage {
    (err) => {
     this.responseData = err.json();
     console.log(this.responseData)
-   });
-  
-   //this.navCtrl.push(AddbusinessPage);
-   //this.navCtrl.remove(this.navCtrl.length()-1);
-   
+   }); 
   }
 
 
@@ -134,9 +130,9 @@ export class BusinessPage {
 
    let alert = this.alertCtrl.create({
     title: 'Confirm',
-    message: 'Do you want to deactive?',
+    message: 'Do you want to deactivate?',
     buttons: [{
-      text: "deactive",
+      text: "deactivate",
       handler: () => { 
 
         this.authService.getData('deactivate_business?business_id='+businessid,this.userPostData.token).then((result) => {

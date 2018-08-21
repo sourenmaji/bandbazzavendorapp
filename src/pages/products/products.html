@@ -8,7 +8,7 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-buttons end >
+    <ion-buttons end *ngIf="categories.length">
       <button ion-button small icon-only (click)="addProduct()" tooltip="add">
         <ion-icon name="add"></ion-icon>
       </button>
@@ -19,7 +19,6 @@
 
 
 <ion-content>
-  
     <!-- dynamically generating the categories -->
     <ion-segment [(ngModel)]="category" color="energy">
       <ion-segment-button *ngFor="let category of categories" value={{category.module_name}} (click)="getProducts(category)">
@@ -44,30 +43,29 @@
           <ion-col col-auto> 
               <h1 ion-text color="danger">{{products.product_name}}</h1>
           </ion-col>
-          <ion-col *ngIf="products.is_ac" >
-              <ion-badge color="ac" item-end>AC</ion-badge>
+          <ion-col col-3>
+              <ion-badge color="ac">{{products.request_type}}</ion-badge>
           </ion-col>
-          <ion-col *ngIf="!products.is_ac" >
-              <ion-badge color="dash2" item-end>Non AC</ion-badge>
-            </ion-col>
         </ion-row>
       <ion-row>
         <ion-col>
             <h2 ion-text color="dark"><b>Rs.{{products.price | number:'1.0-0'}}</b></h2>
         </ion-col>
-        <ion-col col-3>
-            <ion-badge color="ac">{{products.request_type}}</ion-badge>
+          <ion-col *ngIf="products.is_ac" col-3>
+              <ion-badge color="ac" item-end>AC</ion-badge>
+          </ion-col>
+          <ion-col *ngIf="!products.is_ac" col-3>
+              <ion-badge color="dash2" item-end>Non AC</ion-badge>
           </ion-col>
       </ion-row>
-             
-      </ion-card-title>
       <ion-row>
         <ion-col>
             <ion-label color="dash6">Ac Charge :</ion-label>
             <h3 *ngIf="products.is_ac">{{products.ac_charge}}</h3>
             <h3 *ngIf="!products.is_ac">N/A</h3>
         </ion-col>
-      </ion-row>
+      </ion-row>         
+    </ion-card-title>
       <div class="extra-p">
       <ion-row>
         <ion-col>
@@ -101,20 +99,21 @@
                 <ion-badge color="ac">{{products.request_type}}</ion-badge>
               </ion-col>
           </ion-row>  
-        </ion-card-title>
+
         <ion-row>
-          <ion-col *ngIf="products.ac_car_price_hour != null">
+          <ion-col *ngIf="products.ac_car_price_hour != null" col-auto>
               <ion-label color="dash6">Ac Charge :</ion-label>
               <h3 >Rs.{{products.ac_car_price_hour | number:'1.0-0'}}/HR</h3>
               <h3 >Rs.{{products.ac_car_price_kil | number:'1.0-0'}}/KM</h3>
           </ion-col>
           
-          <ion-col>
+          <ion-col col-auto>
               <ion-label color="dash6">Non Ac Charge :</ion-label>
               <h3 >Rs.{{products.car_price_hour | number:'1.0-0'}}/HR</h3>
               <h3 >Rs.{{products.car_price_kil | number:'1.0-0'}}/KM</h3>
           </ion-col>
         </ion-row>
+      </ion-card-title>
         <div class="extra-p">
         <ion-row>
             <ion-col>

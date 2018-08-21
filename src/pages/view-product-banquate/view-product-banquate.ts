@@ -21,7 +21,7 @@ export class ViewProductBanquatePage implements OnInit{
   productImages: any[]=[];
   lat: any;
   log: any;
-  URL = 'http://192.168.0.130/BandBazza/public/api/';
+  URL = 'http://192.168.0.130/BandBazza/public/api/v1/';
  editProductform: FormGroup;
  userData = {banquetId: "", hallPrice: "",advanceAmount: "",capacity: "",acCharges: "",availableAc: 0,foodType: 0, images: []};
  userPostData = {"user":"","token":""};

@@ -110,7 +110,7 @@ export class AddBanquetPage {
     {
       this.slides.push({});
     }
-
+    
     this.formSlide.lockSwipes(true);
     this.sliderbubbles.lockSwipes(true);
   }

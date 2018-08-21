@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, Platform } from 'ionic-angular';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 
 @IonicPage()
@@ -10,12 +11,18 @@ import { IonicPage, NavController, NavParams, MenuController, Platform } from 'i
 export class DashboardPage {
 
   userDetails : any;
+  responseData: any;
   userPostData = {"user":"","token":""};
+  device_token: any = null;
   constructor(public navCtrl: NavController,
-              private menuCtrl: MenuController, public platform: Platform) 
+              private menuCtrl: MenuController,
+              public platform: Platform,
+              private authService: AuthServiceProvider)
   {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.success.user;
+
+    this.device_token = localStorage.getItem('device_token');
 
     this.userPostData.user = this.userDetails;
     this.userPostData.token = data.success.token;
@@ -23,15 +30,28 @@ export class DashboardPage {
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
       backAction();
-    },2)
+    },2);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AfterLoginPage');
+    if(this.device_token)
+    this.sendToken();
   }
   onOpenMenu(){
     this.menuCtrl.open();
     }
+  sendToken()
+  {
+    this.authService.getData('send_device_token?device_token='+this.device_token,this.userPostData.token).then((result: any) => {
+      this.responseData = result;
+      if(result.status)
+      {
+       alert('token sent');
+      }
 
-
+    }, (err) => {
+      alert(err);
+    });
+  }
 }

@@ -23,7 +23,7 @@ selectOptions: any;
 next_page: number;
 page: number;
 params: any;
-apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
+apiUrl = 'http://192.168.0.130/BandBazza/public/';
 
 
   constructor(public platform: Platform,private menuCtrl: MenuController, private navCtrl: NavController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController, private actionCtrl: ActionSheetController, private alertCtrl: AlertController) {
@@ -31,6 +31,7 @@ apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
     const data = JSON.parse(localStorage.getItem('userData'));
     this.token = data.success.token;
     this.authService.pageReset=false;
+    this.categories= [];
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
       backAction();
@@ -40,7 +41,7 @@ apiUrl = 'http://192.168.0.130/BandBazza/public/api/';
 
   ionViewDidLoad(){
         //initialize all variables with default values and call the service
-        this.categories= [];
+        // this.categories= [];
         this.category = "";
         this.enquiries = [];
         this.enquiries_history = [];

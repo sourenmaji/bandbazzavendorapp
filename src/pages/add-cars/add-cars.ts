@@ -40,7 +40,9 @@ export class AddCarsPage {
   public aimage:string;
   public bimage:string;
 
-
+  public brand_name:string = null;
+  public model_name:string = null;
+  public car_type:string = null;
 
 
 
@@ -174,13 +176,31 @@ export class AddCarsPage {
     {
       if(this.isInvalid(this.form2data.no_of_seats, "Enter valid no. of seats"))
       return false;
-      else if(this.isInvalid(this.form2data.min_hire_period, "Enter valid minimum period of hire"))
+
+      if(this.isInvalid(this.form2data.min_hire_period, "Enter valid minimum hire period"))
       return false;
-      else if((this.form2data.max_hire_period < this.form2data.min_hire_period) || (this.form2data.max_hire_period == null))
+
+      if(this.isInvalid(this.form2data.max_hire_period, "Enter valid maximum hire period"))
+      return false;
+
+      if(this.isInvalid(this.form2data.min_hire_distance, "Enter valid minimum hire distance"))
+      return false;
+
+      if(this.isInvalid(this.form2data.max_hire_distance, "Enter valid maximum hire distance"))
+      return false;
+
+      if((+this.form2data.min_hire_period) > (+this.form2data.max_hire_period))
       {
-        this.errormessage = "Enter valid maximum hiring period";
+        this.errormessage = "Minimum hire period cannot be greater than maximum  gjhkj      hgtjhgkj    rhkjrthy  jerhyjrekhy";
         return false;
       }
+
+      if((+this.form2data.min_hire_distance) > (+this.form2data.max_hire_distance))
+      {
+        this.errormessage = "Minimum hire distance cannot be greater than maximum  gjhkj      hgtjhgkj    rhkjrthy  jerhyjrekhy";
+        return false;
+      }
+
       else if(this.isInvalid(this.form2data.car_price_hour, "Enter valid rate per hour (Non-AC)"))
       return false;
 
@@ -198,12 +218,7 @@ export class AddCarsPage {
 
       else if(this.isInvalid(this.form2data.book_advance, "Enter a valid advance booking fee"))
       return false;
-
-      // else if(this.form2data.car_tags.trim() == "")
-      // {
-      //   this.errormessage = "Enter some tags to identify your product";
-      //   return false;
-      // }
+      
       return true;
 
     }
@@ -220,8 +235,6 @@ export class AddCarsPage {
   //functions for form 1
   initCarData()
   {
-    //call rest endpoint and populate the initial data required here
-    //TODO: token to load from local storage
     this.restServ.getData("get_car_details", this.token).then((result) => {
       this.responseData = result;
       this.carbrands = [];
@@ -248,9 +261,9 @@ export class AddCarsPage {
 
   updateModels(brand: {car_company_name:string, id: number})
   {
-    //TODO: change the token to load from local storage
     console.log(brand);
     this.form1data.brand = brand.id+"";
+    this.brand_name=brand.car_company_name;
     this.form1data.model = null;
     this.errormessage = "";
     this.restServ.getData("get_car_models?id="+brand.id, this.token).then((result)=>
@@ -267,19 +280,20 @@ export class AddCarsPage {
       console.log(this.responseData);
       this.carmodels = [];
     }
-
   );
   }
 
   storeModel(model: {car_model:string, model_id:number})
   {
     this.form1data.model = model.model_id+"";
+    this.model_name = model.car_model;
     this.errormessage = "";
   }
 
   storeType(type: {type:string, id:number})
   {
     this.form1data.type = type.id;
+    this.car_type = type.type;
   }
   switchInputMethod()
   {
