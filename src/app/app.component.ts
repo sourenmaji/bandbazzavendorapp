@@ -48,16 +48,23 @@ export class MyApp {
         splashScreen.hide();
         fcm.getToken().then(device_token => {
           localStorage.setItem('device_token', device_token);
+<<<<<<< HEAD
           //alert(localStorage.getItem('device_token'));
+=======
+>>>>>>> 8bf8bf5fdd5f3cbf4bebbb832317d1446b4cef21
         }, (err) => {
           alert(err);
         });
 
         fcm.onNotification().subscribe(data => {
+<<<<<<< HEAD
           this.scheduleNotification(data);
           //alert(data);
           //alert("stringified:"+JSON.stringify(data));
           //console.log(data);
+=======
+          alert(JSON.stringify(data));
+>>>>>>> 8bf8bf5fdd5f3cbf4bebbb832317d1446b4cef21
           if(data.wasTapped){
             alert("Received in background");
             if(data.type == 'enquiry')

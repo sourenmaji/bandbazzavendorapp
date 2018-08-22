@@ -1,6 +1,6 @@
 import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, MenuController, AlertController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, MenuController, AlertController, Platform, LoadingController } from 'ionic-angular';
 import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 
 @IonicPage()
@@ -20,10 +20,11 @@ export class EditProfilePage implements OnInit{
   public buttonClicked: boolean = false;
   public otpButton: boolean = true;
   public disableButton: boolean = false;
+  private isDisabled: boolean=false;
   public otpmessage="";
   //public otpval = "123456";
   constructor(public navCtrl: NavController, public menuCtrl: MenuController, public authService: AuthServiceProvider,
-              public alertCtrl: AlertController, public platform: Platform) {
+              public alertCtrl: AlertController, public platform: Platform, public loadingCtrl: LoadingController) {
 
                 const data = JSON.parse(localStorage.getItem('userData'));
                 this.userDetails = data.success.user;
@@ -137,13 +138,64 @@ export class EditProfilePage implements OnInit{
     }
 
   sendOtp(){
-
+    let loader = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loader.present();
     this.authService.getData('send_otp?phone_no='+this.userData.phone_no,this.userPostData.token).then((result: any) => {
       this.responseData = result;
       if(result.status)
       {
         this.buttonClicked = !this.buttonClicked;
         this.disableButton = !this.disableButton;
+        this.isDisabled = !this.isDisabled;
+        if(this.buttonClicked)
+        this.editform.get('otp').setValidators(Validators.compose([Validators.required, Validators.minLength(6), this.equalto('numb')]));
+        // this.otpval = this.userData.otp= "";
+       // this.secret= null;
+       loader.dismiss();
+      console.log(this.responseData);
+      this.user_OTP = this.responseData.otp;
+      console.log(this.user_OTP);
+      // localStorage.setItem('OTP', JSON.stringify(this.responseData));
+      // console.log(JSON.parse(localStorage.getItem('OTP')));
+
+      const alert = this.alertCtrl.create({
+       subTitle: this.responseData.message,
+       buttons: ['OK']
+
+     })
+     alert.present();
+     
+      }
+      else{ console.log(this.responseData.message); }
+    }, (err) => {
+     this.responseData = err.json();
+     console.log(this.responseData)
+     loader.dismiss();
+     const alert = this.alertCtrl.create({
+       subTitle: this.responseData.message,
+       buttons: ['OK']
+
+     })
+     alert.present();
+    });
+  }
+
+  reSendOtp(){
+    let loader = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loader.present();
+    this.userData.otp = "";
+    this.authService.getData('send_otp?phone_no='+this.userData.phone_no,this.userPostData.token).then((result: any) => {
+      this.responseData = result;
+      if(result.status)
+      {
+        loader.dismiss();
+        this.buttonClicked = true;
+        this.disableButton = true;
+        this.isDisabled = true;
         if(this.buttonClicked)
         this.editform.get('otp').setValidators(Validators.compose([Validators.required, Validators.minLength(6), this.equalto('numb')]));
         // this.otpval = this.userData.otp= "";
@@ -160,9 +212,12 @@ export class EditProfilePage implements OnInit{
 
      })
      alert.present();
+     
       }
-      else{ console.log(this.responseData.message); }
+      else{loader.dismiss(); 
+        console.log(this.responseData.message); }
     }, (err) => {
+      loader.dismiss();
      this.responseData = err.json();
      console.log(this.responseData)
      const alert = this.alertCtrl.create({
@@ -172,7 +227,6 @@ export class EditProfilePage implements OnInit{
      alert.present();
     });
   }
-
 
   editProfile(){
 

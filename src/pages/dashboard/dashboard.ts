@@ -23,7 +23,6 @@ export class DashboardPage {
     this.userDetails = data.success.user;
 
     this.device_token = localStorage.getItem('device_token');
-    alert(this.device_token);
 
     this.userPostData.user = this.userDetails;
     this.userPostData.token = data.success.token;
@@ -44,7 +43,7 @@ export class DashboardPage {
     }
   sendToken()
   {
-    this.authService.getDataParams('send_device_token',{device_token: this.device_token},this.userPostData.token).then((result: any) => {
+    this.authService.getData('send_device_token?device_token='+this.device_token,this.userPostData.token).then((result: any) => {
       this.responseData = result;
       if(result.status)
       {
@@ -55,6 +54,4 @@ export class DashboardPage {
       alert(err);
     });
   }
-
-
 }
