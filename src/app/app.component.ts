@@ -33,6 +33,9 @@ export class MyApp {
   userDetails : any;
   responseData: any;
   userPostData = {"user":"","token":""};
+  haspendingnotification : boolean;
+  noti_type : string;
+  noti_category : string;
 
   @ViewChild('nav') nav: NavController;
 
@@ -43,42 +46,79 @@ export class MyApp {
       platform.ready().then(() => {
         // Okay, so the platform is ready and our plugins are available.
         // Here you can do any higher level native things you might need.
-        
+        //alert("platform ready");
+        fcm.onNotification().subscribe(data => {
+          //alert(data);
+          //alert("stringified:"+JSON.stringify(data));
+          //console.log(data);
+          //alert("inside notification handler");
+          //alert(JSON.stringify(data));
+          if(data.wasTapped){
+            //alert("Received in background");
+            if(data.type == 'enquiry')
+            {
+              //this.nav.push(EnquiriesPage, data);
+              this.haspendingnotification = true;
+              this.noti_type = data.type;
+              this.noti_category = data.category;
+              this.rootPage = EnquiriesPage;
+              //alert("trying to open approval");
+            }
+            else if(data.type == 'approval')
+            {
+              //this.nav.push(ProductsPage, data);
+              this.haspendingnotification = true;
+              this.noti_type = data.type;
+              this.noti_category = data.category;
+              this.rootPage = ProductsPage;
+              //alert("trying to open products");
+            }
+          } else {
+            //this.scheduleNotification(data);
+            //alert("Received in foreground");
+          };
+        });
+        //delete till here, added by krishna 22nd august 2018
         statusBar.styleDefault();
         splashScreen.hide();
         fcm.getToken().then(device_token => {
           localStorage.setItem('device_token', device_token);
-<<<<<<< HEAD
           //alert(localStorage.getItem('device_token'));
-=======
->>>>>>> 8bf8bf5fdd5f3cbf4bebbb832317d1446b4cef21
         }, (err) => {
           alert(err);
         });
 
-        fcm.onNotification().subscribe(data => {
-<<<<<<< HEAD
-          this.scheduleNotification(data);
-          //alert(data);
-          //alert("stringified:"+JSON.stringify(data));
-          //console.log(data);
-=======
-          alert(JSON.stringify(data));
->>>>>>> 8bf8bf5fdd5f3cbf4bebbb832317d1446b4cef21
-          if(data.wasTapped){
-            alert("Received in background");
-            if(data.type == 'enquiry')
-            {
-              this.nav.push(EnquiriesPage, data);
-            }
-            else if(data.type == 'approval')
-            {
-              this.nav.push(ProductsPage, data);
-            }
-          } else {
-            alert("Received in foreground");
-          };
-        });
+        // fcm.onNotification().subscribe(data => {
+        //   //alert(data);
+        //   //alert("stringified:"+JSON.stringify(data));
+        //   //console.log(data);
+        //   alert("inside notification handler");
+        //   //alert(JSON.stringify(data));
+        //   if(data.wasTapped){
+        //     alert("Received in background");
+        //     if(data.type == 'enquiry')
+        //     {
+        //       //this.nav.push(EnquiriesPage, data);
+        //       this.haspendingnotification = true;
+        //       this.noti_type = data.type;
+        //       this.noti_category = data.category;
+        //       this.rootPage = EnquiriesPage;
+        //       //alert("trying to open approval");
+        //     }
+        //     else if(data.type == 'approval')
+        //     {
+        //       //this.nav.push(ProductsPage, data);
+        //       this.haspendingnotification = true;
+        //       this.noti_type = data.type;
+        //       this.noti_category = data.category;
+        //       this.rootPage = ProductsPage;
+        //       //alert("trying to open products");
+        //     }
+        //   } else {
+        //     this.scheduleNotification(data);
+        //     //alert("Received in foreground");
+        //   };
+        // });
 
         fcm.onTokenRefresh().subscribe(refresh_token => {
           localStorage.setItem('device_token', refresh_token);
@@ -110,14 +150,15 @@ export class MyApp {
 
     scheduleNotification(data)
     {
-      alert("stringified:"+JSON.stringify(data));
+      //alert("stringified:"+JSON.stringify(data));
 
       this.local.schedule({
         title:data.title,
         text:data.body,
-        trigger: {at: new Date(new Date().getTime() + 3600)},
+        trigger: {at: new Date(new Date().getTime() + 100)},
         icon:data.icon
       });
+      
     }
 
     onload(page: any){

@@ -25,6 +25,7 @@ export class LoginPage  implements OnInit{
   signinform: FormGroup;
   responseData : any;
   userData = {password: "", email: ""};
+  pushtoken : string;
 
   ionViewDidEnter(){
     this.navBar.backButtonClick = (e:UIEvent)=>{
@@ -40,6 +41,8 @@ export class LoginPage  implements OnInit{
       email: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)])
 
     });
+    //added by krishna, should be deleted
+    this.pushtoken = localStorage.getItem('device_token');
   }
   login(){
     let loader = this.loadingCtrl.create({
