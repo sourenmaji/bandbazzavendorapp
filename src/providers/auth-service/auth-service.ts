@@ -6,6 +6,7 @@ import {Http, Headers} from '@angular/http';
 
 
 let apiUrl = 'http://192.168.0.130/BandBazza/public/api/v1/';
+// let apiUrl = 'http://www.bandbazza.com/api/';
 
 @Injectable()
 export class AuthServiceProvider {

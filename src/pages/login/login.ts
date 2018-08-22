@@ -25,6 +25,7 @@ export class LoginPage  implements OnInit{
   signinform: FormGroup;
   responseData : any;
   userData = {password: "", email: ""};
+  pushtoken : string;
 
   ionViewDidEnter(){
     this.navBar.backButtonClick = (e:UIEvent)=>{
@@ -40,6 +41,7 @@ export class LoginPage  implements OnInit{
       email: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)])
 
     });
+
   }
   login(){
     let loader = this.loadingCtrl.create({
@@ -60,7 +62,7 @@ export class LoginPage  implements OnInit{
      }
      else{
       loader.dismiss();
-        console.log(this.responseData.error); 
+        console.log(this.responseData.error);
         const alert = this.alertCtrl.create({
           subTitle: this.responseData.error,
           buttons: ['OK']

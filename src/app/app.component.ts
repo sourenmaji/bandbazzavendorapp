@@ -33,6 +33,9 @@ export class MyApp {
   userDetails : any;
   responseData: any;
   userPostData = {"user":"","token":""};
+  haspendingnotification : boolean;
+  noti_type : string;
+  noti_category : string;
 
   @ViewChild('nav') nav: NavController;
 
@@ -47,7 +50,7 @@ export class MyApp {
         statusBar.styleDefault();
         splashScreen.hide();
         fcm.getToken().then(device_token => {
-          if(!localStorage.getItem('device_token') || (device_token != localStorage.getItem('device_token')))
+          if(!localStorage.getItem('device_token'))
           {
             alert("New token/refreshed token");
             localStorage.setItem('device_token', device_token)
@@ -63,16 +66,28 @@ export class MyApp {
             alert("Received in background");
             if(data.type == 'Enquiry')
             {
-              this.nav.push(EnquiriesPage, data);
+              //this.nav.push(EnquiriesPage, data);
+              this.haspendingnotification = true;
+              this.noti_type = data.type;
+              this.noti_category = data.category;
+              this.rootPage = EnquiriesPage;
+              //alert("trying to open approval");
             }
             else if(data.type == 'Approval')
             {
-              this.nav.push(ProductsPage, data);
+              //this.nav.push(ProductsPage, data);
+              this.haspendingnotification = true;
+              this.noti_type = data.type;
+              this.noti_category = data.category;
+              this.rootPage = ProductsPage;
+              //alert("trying to open products");
             }
           } else {
-            alert("Received in foreground");
+            //this.scheduleNotification(data);
+            //alert("Received in foreground");
           };
         });
+        //delete till here, added by krishna 22nd august 2018
 
         fcm.onTokenRefresh().subscribe(refresh_token => {
           localStorage.setItem('device_token', refresh_token);
@@ -102,14 +117,15 @@ export class MyApp {
 
     scheduleNotification(data)
     {
-      alert("stringified:"+JSON.stringify(data));
+      //alert("stringified:"+JSON.stringify(data));
 
       this.local.schedule({
         title:data.title,
         text:data.body,
-        trigger: {at: new Date(new Date().getTime() + 3600)},
+        trigger: {at: new Date(new Date().getTime() + 100)},
         icon:data.icon
       });
+
     }
 
     onload(page: any){
