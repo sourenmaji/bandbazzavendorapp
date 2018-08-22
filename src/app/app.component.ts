@@ -45,7 +45,12 @@ export class MyApp {
         statusBar.styleDefault();
         splashScreen.hide();
         fcm.getToken().then(device_token => {
-          localStorage.setItem('device_token', device_token);
+          if(!localStorage.getItem('device_token') || (device_token != localStorage.getItem('device_token')))
+          {
+            alert("New token/refreshed token");
+            localStorage.setItem('device_token', device_token)
+          }
+
         }, (err) => {
           alert(err);
         });
