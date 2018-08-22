@@ -14,6 +14,7 @@ import { BookingsPage } from '../pages/bookings/bookings';
 import { CustomPackageEnquiriesPage } from '../pages/custom-package-enquiries/custom-package-enquiries';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { FCM } from '@ionic-native/fcm';
+import { LocalNotifications } from '../../node_modules/@ionic-native/local-notifications';
 
 
 @Component({
@@ -37,11 +38,12 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
     private menuCtrl: MenuController,public authService:AuthServiceProvider,
-    public alertCtrl: AlertController, public fcm: FCM,) {
+    public alertCtrl: AlertController, public fcm: FCM,private local: LocalNotifications) {
 
       platform.ready().then(() => {
         // Okay, so the platform is ready and our plugins are available.
         // Here you can do any higher level native things you might need.
+
         statusBar.styleDefault();
         splashScreen.hide();
         fcm.getToken().then(device_token => {
@@ -50,15 +52,23 @@ export class MyApp {
             alert("New token/refreshed token");
             localStorage.setItem('device_token', device_token)
           }
-
         }, (err) => {
           alert(err);
         });
 
         fcm.onNotification().subscribe(data => {
+          this.scheduleNotification(data);
           alert(JSON.stringify(data));
           if(data.wasTapped){
             alert("Received in background");
+            if(data.type == 'Enquiry')
+            {
+              this.nav.push(EnquiriesPage, data);
+            }
+            else if(data.type == 'Approval')
+            {
+              this.nav.push(ProductsPage, data);
+            }
           } else {
             alert("Received in foreground");
           };
@@ -72,8 +82,6 @@ export class MyApp {
         });
 
       });
-
-
 
       const data = JSON.parse(localStorage.getItem('userData'));
       if(data)
@@ -90,6 +98,20 @@ export class MyApp {
         this.rootPage = WelcomePage;
       }
     }
+
+
+    scheduleNotification(data)
+    {
+      alert("stringified:"+JSON.stringify(data));
+
+      this.local.schedule({
+        title:data.title,
+        text:data.body,
+        trigger: {at: new Date(new Date().getTime() + 3600)},
+        icon:data.icon
+      });
+    }
+
     onload(page: any){
       this.nav.setRoot(page);
       this.menuCtrl.close();

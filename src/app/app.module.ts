@@ -38,6 +38,7 @@ import { ForgetPasswordPageModule } from '../pages/forget-password/forget-passwo
 import { RegisterPageModule } from '../pages/register/register.module';
 import { LoginPageModule } from '../pages/login/login.module';
 import { WelcomePageModule } from '../pages/welcome/welcome.module';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 
 @NgModule({
@@ -91,7 +92,8 @@ import { WelcomePageModule } from '../pages/welcome/welcome.module';
     FileTransfer,
     Camera,
     FilePath,
-    FCM
+    FCM,
+    LocalNotifications
   ]
 })
 export class AppModule {}
