@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, Navbar, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Navbar, Platform, LoadingController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { HomePage } from '../home/home';
 import { LoginPage } from '../login/login';
@@ -14,7 +14,7 @@ import { WelcomePage } from '../welcome/welcome';
 export class RegisterPage implements OnInit{
 
   @ViewChild(Navbar) navBar: Navbar;
-   constructor(public platform: Platform,public navCtrl: NavController, public authService:AuthServiceProvider, public alertCtrl: AlertController) {
+   constructor(public loadingCtrl: LoadingController, public platform: Platform,public navCtrl: NavController, public authService:AuthServiceProvider, public alertCtrl: AlertController) {
   
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
@@ -103,11 +103,15 @@ export class RegisterPage implements OnInit{
    }
  
    sendOtp(){
-    
+    let loader = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loader.present();
     this.authService.getDataWithoutToken('send_otp?phone_no='+this.userData.user).then((result: any) => {
       this.responseData = result;
       if(result.status)
       {
+        loader.dismiss();
         this.buttonClicked = !this.buttonClicked;
         //this.disableButton = !this.disableButton;
         if(this.buttonClicked)
@@ -129,6 +133,7 @@ export class RegisterPage implements OnInit{
       }
       else{ console.log(this.responseData.message); }
     }, (err) => {
+      loader.dismiss();
      this.responseData = err.json();
      console.log(this.responseData)
      const alert = this.alertCtrl.create({
@@ -142,13 +147,17 @@ export class RegisterPage implements OnInit{
 
 
   register(){
-    console.log(this.userData)
+    let loader = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loader.present();
      this.authService.postData(this.userData,'register')
      .then((result) => {
       this.responseData = result;
 
       if(this.responseData.success)
       {
+        loader.dismiss();
       console.log("Response data "+this.responseData);
       localStorage.setItem('userData', JSON.stringify(this.responseData));
       console.log("Local storage "+JSON.parse(localStorage.getItem('userData')));
@@ -160,9 +169,10 @@ export class RegisterPage implements OnInit{
       alert.present();
       this.navCtrl.push(LoginPage);
       }
-      else{ console.log('hfgvrhejgrehgrjheg'); }
+      else{ loader.dismiss(); }
     },
     (err) => {
+      loader.dismiss();
       this.responseData = err.json();
       console.log(this.responseData.error)
       const alert = this.alertCtrl.create({

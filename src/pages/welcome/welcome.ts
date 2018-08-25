@@ -1,14 +1,19 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, Navbar, Platform,ToastController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Navbar, Platform,ToastController, ModalController} from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { RegisterPage } from '../register/register';
-import {Network} from '@ionic-native/network';
+import { Network } from '@ionic-native/network';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ForgetPasswordPage } from '../forget-password/forget-password';
 import { HomePage } from '../home/home';
 import { DashboardPage } from '../dashboard/dashboard';
+import { ModuleLoader } from 'ionic-angular/util/module-loader';
 
+export enum ConnectionStatusEnum {
+  Online,
+  Offline
+}
 @IonicPage()
 @Component({
   selector: 'page-welcome',
@@ -16,38 +21,20 @@ import { DashboardPage } from '../dashboard/dashboard';
 })
 
 export class WelcomePage implements OnInit{
-
-  @ViewChild(Navbar) navBar: Navbar;
-  constructor(public navCtrl: NavController, public toast: ToastController,public network: Network, public platform: Platform,public authService:AuthServiceProvider, public alertCtrl: AlertController) {}
+  previousStatus;
   signinform: FormGroup;
   responseData : any;
   userData = {password: "", email: ""};
-  
+
+  @ViewChild(Navbar) navBar: Navbar;
+  constructor(public navCtrl: NavController, public toast: ToastController,public network: Network, public platform: Platform,public authService:AuthServiceProvider, public alertCtrl: AlertController) {
+  this.previousStatus = ConnectionStatusEnum.Online;
+  }
   ionViewDidLoad() {
     this.platform.registerBackButtonAction(() => {
       this.platform.exitApp();
       console.log("backPressed 1");
     },1);
-  
-    //  this.platform.ready().then(() => {
-    //   let connectSubscription = this.network.onConnect().subscribe(() =>{
-    //   console.log('network was connected :-(');
-    //    this.toast.create({
-    //     message: 'Network connected',
-    //    duration: 3000
-    //   }).present();
-    // });
-
-    // connectSubscription.unsubscribe();
-    // let disconnectSubscription  = this.network.onDisconnect().subscribe(() =>{
-    //       console.log('network was disconnected :-(');
-    //       this.toast.create({
-    //         message: 'Network Disconnected',
-    //         duration: 3000
-    //       }).present();
-    //     });
-    //     disconnectSubscription.unsubscribe();
-    // });
   }
 
   ionViewDidEnter(){
@@ -110,14 +97,4 @@ export class WelcomePage implements OnInit{
   signin(){
     this.navCtrl.push(DashboardPage);
   }
-
-  
-  // login(){
-  // this.navCtrl.push(LoginPage);
-  // }
-
-  // register(){
-  //   console.log("hggh");
-  // this.navCtrl.push(RegisterPage);
-  // }
 }

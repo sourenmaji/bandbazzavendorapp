@@ -53,12 +53,13 @@
                 </ion-item>
                   <ion-item>
                       <ion-label floating>PHONE <span style="color: red">*</span></ion-label>
-                      <ion-input id="phone_no" type="text" [(ngModel)]="userData.phone_no" value="{{userDetails.phone_no}}"
+                      <ion-input  disabled="{{isDisabled}}" id="phone_no" type="text" [(ngModel)]="userData.phone_no" value="{{userDetails.phone_no}}"
                       formControlName="phone_no" [class.error1]="!editform.controls.phone_no.valid && editform.controls.phone_no.dirty"
                       (keyup)="showVal(this.value)"></ion-input>
                       <button *ngIf="!( editform.get('phone_no').hasError('minlength') || editform.get('phone_no').hasError('pattern') || editform.get('phone_no').hasError('required') ) && !buttonClicked && otpButton" 
                       ion-button  clear item-right (click)="sendOtp()">Send OTP</button>
-                      
+                      <button *ngIf="isDisabled" 
+                      ion-button  clear item-right (click)="reSendOtp()">Resend OTP</button>
                     </ion-item>
                     
                     <ion-item no-lines *ngIf="( editform.get('phone_no').hasError('minlength') || editform.get('phone_no').hasError('pattern') ||editform.get('phone_no').hasError('required')) && editform.get('phone_no').touched">
@@ -71,7 +72,7 @@
                     
                     </ion-item>
                     <ion-item *ngIf="buttonClicked">
-                      <ion-input  type="text" placeholder="Enter Six Digit Password"
+                      <ion-input type="text" placeholder="Enter Six Digit Password"
                       [(ngModel)]="userData.otp" formControlName="otp"  ></ion-input>
                     </ion-item>
                     <ion-item *ngIf="buttonClicked">

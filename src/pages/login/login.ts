@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, Navbar, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Navbar, Platform, LoadingController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { RegisterPage } from '../register/register';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -15,7 +15,8 @@ import { DashboardPage } from '../dashboard/dashboard';
 })
 export class LoginPage  implements OnInit{
   @ViewChild(Navbar) navBar: Navbar;
-  constructor(public platform: Platform,public navCtrl: NavController, public authService:AuthServiceProvider, public alertCtrl: AlertController) {
+  constructor(public platform: Platform,public navCtrl: NavController, public authService:AuthServiceProvider, public alertCtrl: AlertController,
+                   public loadingCtrl: LoadingController) {
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
       backAction();
@@ -24,6 +25,7 @@ export class LoginPage  implements OnInit{
   signinform: FormGroup;
   responseData : any;
   userData = {password: "", email: ""};
+  pushtoken : string;
 
   ionViewDidEnter(){
     this.navBar.backButtonClick = (e:UIEvent)=>{
@@ -39,21 +41,28 @@ export class LoginPage  implements OnInit{
       email: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)])
 
     });
+
   }
   login(){
+    let loader = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loader.present();
     console.log(JSON.stringify(this.userData))
     this.authService.postData(this.userData,'login').then((result) => {
      this.responseData = result;
 
      if(this.responseData.success)
      {
+       loader.dismiss();
      console.log(this.responseData);
      localStorage.setItem('userData', JSON.stringify(this.responseData));
      console.log("Local storage "+JSON.parse(localStorage.getItem('userData')));
      this.navCtrl.push(DashboardPage);
      }
      else{
-        console.log(this.responseData.error); 
+      loader.dismiss();
+        console.log(this.responseData.error);
         const alert = this.alertCtrl.create({
           subTitle: this.responseData.error,
           buttons: ['OK']
@@ -61,6 +70,7 @@ export class LoginPage  implements OnInit{
         alert.present();
       }
    }, (err) => {
+    loader.dismiss();
     this.responseData = err.json();
     console.log(this.responseData)
     const alert = this.alertCtrl.create({

@@ -1,3 +1,5 @@
+import { ErrorPageModule } from './../pages/error/error.module';
+import { NetworkProvider } from './../providers/network-provider/network_provider';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -38,6 +40,7 @@ import { ForgetPasswordPageModule } from '../pages/forget-password/forget-passwo
 import { RegisterPageModule } from '../pages/register/register.module';
 import { LoginPageModule } from '../pages/login/login.module';
 import { WelcomePageModule } from '../pages/welcome/welcome.module';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 
 @NgModule({
@@ -72,7 +75,8 @@ import { WelcomePageModule } from '../pages/welcome/welcome.module';
     ViewProductCarPageModule,
     AddBanquetPageModule,
     AddCarsPageModule,
-    AddCatererPageModule
+    AddCatererPageModule,
+    ErrorPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -85,13 +89,15 @@ import { WelcomePageModule } from '../pages/welcome/welcome.module';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
+    NetworkProvider,
     ImagePicker,
     Network,
     File,
     FileTransfer,
     Camera,
     FilePath,
-    FCM
+    FCM,
+    LocalNotifications
   ]
 })
 export class AppModule {}
