@@ -48,7 +48,8 @@ export class MyApp {
     public events: Events,
     public network: Network,
     public networkProvider: NetworkProvider,
-    public alertCtrl: AlertController, public fcm: FCM,private local: LocalNotifications) {
+    public alertCtrl: AlertController,
+    public fcm: FCM) {
 
       platform.ready().then(() => {
         // Okay, so the platform is ready and our plugins are available.
@@ -59,7 +60,7 @@ export class MyApp {
         fcm.getToken().then(device_token => {
           if(!localStorage.getItem('device_token'))
           {
-            alert("New token/refreshed token");
+            //alert("New token/refreshed token");
             localStorage.setItem('device_token', device_token)
           }
         }, (err) => {
@@ -68,52 +69,21 @@ export class MyApp {
 
         fcm.onNotification().subscribe(data => {
 
-          alert(JSON.stringify(data));
+          //alert(JSON.stringify(data));
           if(data.wasTapped){
-            alert("Received in background");
-            if(data.category == 'Enquiry')
-            {
-              this.haspendingnotification = true;
-              this.noti_type = data.type;
-              this.noti_category = data.category;
-              this.nav.setRoot(EnquiriesPage,{category: data.subcategory, filter: data.type});
-              alert("trying to open approval");
-            }
-            else if(data.category == 'Product')
-            {
-              this.haspendingnotification = true;
-              this.noti_type = data.type;
-              this.noti_category = data.category;
-              this.nav.setRoot(ProductsPage,{category: data.subcategory});
-              alert("trying to open products");
-            }
-            else if(data.category == 'Booking')
-            {
-              this.haspendingnotification = true;
-              this.noti_type = data.type;
-              this.noti_category = data.category;
-              this.nav.setRoot(BookingsPage,{category: data.subcategory, filter: data.type});
-              alert("trying to open bookings");
-            }
-            else if(data.category == 'Business')
-            {
-              this.haspendingnotification = true;
-              this.noti_type = data.type;
-              this.noti_category = data.category;
-              this.nav.setRoot(BusinessPage);
-              alert("trying to open business");
-            }
+            //alert("Received in background");
+            this.goToPage(data);
           }
           else
           {
             this.scheduleNotification(data);
-            alert("Received in foreground");
+            //alert("Received in foreground");
           };
         });
 
         fcm.onTokenRefresh().subscribe(refresh_token => {
           localStorage.setItem('device_token', refresh_token);
-          alert('Refresh'+localStorage.getItem('device_token'));
+          //alert('Refresh'+localStorage.getItem('device_token'));
         }, (err) => {
           alert(err);
         });
@@ -124,7 +94,7 @@ export class MyApp {
       //     alert("hi");
       //    this.nav.push(ErrorPage);    
       // });
-        alert("Netwrk state is "+this.networkProvider.getNetworkState());
+        //alert("Netwrk state is "+this.networkProvider.getNetworkState());
 
         // Offline event
      this.events.subscribe('network:offline', () => {
@@ -157,15 +127,59 @@ export class MyApp {
     }
 
 
+    goToPage(data)
+    {
+      if(data.category == 'Enquiry')
+            {
+              this.nav.setRoot(EnquiriesPage,{category: data.subcategory, filter: data.type});
+              //alert("trying to open approval");
+            }
+            else if(data.category == 'Product')
+            {
+              this.nav.setRoot(ProductsPage,{category: data.subcategory});
+              //alert("trying to open products");
+            }
+            else if(data.category == 'Booking')
+            {
+              this.nav.setRoot(BookingsPage,{category: data.subcategory, filter: data.type});
+              //alert("trying to open bookings");
+            }
+            else if(data.category == 'Business')
+            {
+              this.nav.setRoot(BusinessPage);
+              //alert("trying to open business");
+            }
+    }
     scheduleNotification(data)
     {
-      this.local.schedule({
+      // this.local.schedule({
+      //   title: data.title,
+      //   text: data.push,
+      //   sound: data.sound,
+      //   trigger: {at: new Date(new Date().getTime() + 100)},
+      //   icon:data.icon
+      // });
+      let alert = this.alertCtrl.create({
         title: data.title,
-        text: data.push,
-        sound: data.sound,
-        trigger: {at: new Date(new Date().getTime() + 100)},
-        icon:data.icon
+        message: data.push,
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          },
+          {
+            text: 'Go to '+data.category+' page',
+            handler: () => {
+              console.log('redirecting to page');
+              this.goToPage(data);
+            }
+          }
+        ]
       });
+      alert.present();
     }
 
     onload(page: any){
