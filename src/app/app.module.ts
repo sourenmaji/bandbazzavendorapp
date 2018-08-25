@@ -1,3 +1,5 @@
+import { ErrorPageModule } from './../pages/error/error.module';
+import { NetworkProvider } from './../providers/network-provider/network_provider';
 // import { ViewProductCarPage } from './../pages/view-product-car/view-product-car';
 // import { ViewProductCatererPage } from './../pages/view-product-caterer/view-product-caterer';
 // import { ViewProductBanquatePage } from './../pages/view-product-banquate/view-product-banquate';
@@ -87,7 +89,8 @@ import { WelcomePageModule } from '../pages/welcome/welcome.module';
     ViewProductCarPageModule,
     AddBanquetPageModule,
     AddCarsPageModule,
-    AddCatererPageModule
+    AddCatererPageModule,
+    ErrorPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -100,6 +103,7 @@ import { WelcomePageModule } from '../pages/welcome/welcome.module';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
+    NetworkProvider,
     ImagePicker,
     Network,
     File,

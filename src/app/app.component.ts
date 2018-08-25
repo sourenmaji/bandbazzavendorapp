@@ -1,5 +1,8 @@
+
+import { NetworkProvider } from './../providers/network-provider/network_provider';
+import { Network } from '@ionic-native/network';
 import { Component, ViewChild } from '@angular/core';
-import { Platform, NavController, MenuController, App, AlertController } from 'ionic-angular';
+import { Platform, NavController, MenuController, App, AlertController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -14,6 +17,7 @@ import { BookingsPage } from '../pages/bookings/bookings';
 import { CustomPackageEnquiriesPage } from '../pages/custom-package-enquiries/custom-package-enquiries';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { FCM } from '@ionic-native/fcm';
+import { ErrorPage } from '../pages/error/error';
 
 
 @Component({
@@ -35,9 +39,12 @@ export class MyApp {
 
   @ViewChild('nav') nav: NavController;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
+  constructor(public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
     private menuCtrl: MenuController,public authService:AuthServiceProvider,
-    public alertCtrl: AlertController, public fcm: FCM,) {
+    public alertCtrl: AlertController, public fcm: FCM, 
+    public events: Events,
+    public network: Network,
+    public networkProvider: NetworkProvider) {
 
       platform.ready().then(() => {
         // Okay, so the platform is ready and our plugins are available.
@@ -66,6 +73,26 @@ export class MyApp {
           alert(err);
         });
 
+        this.networkProvider.initializeNetworkEvents();
+
+      //   this.events.subscribe('network:none', () => {
+      //     alert("hi");
+      //    this.nav.push(ErrorPage);    
+      // });
+        alert("Netwrk state is "+this.networkProvider.getNetworkState());
+
+        // Offline event
+     this.events.subscribe('network:offline', () => {
+         alert('network:offline ==> '+this.network.type);
+         this.nav.push(ErrorPage);      
+     });
+ 
+     // Online event
+     this.events.subscribe('network:online', () => {
+         alert('network:online ==> '+this.network.type);   
+         this.nav.push(WelcomePage);     
+     });
+
       });
 
 
@@ -85,6 +112,9 @@ export class MyApp {
         this.rootPage = WelcomePage;
       }
     }
+
+
+
     onload(page: any){
       this.nav.setRoot(page);
       this.menuCtrl.close();

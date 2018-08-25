@@ -81,7 +81,6 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^1.2.1" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.1.2" />
     <plugin name="cordova.plugins.diagnostic" spec="^4.0.8" />
-    <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
     <allow-navigation href="http://192.168.0.130:8000/" />
@@ -93,5 +92,6 @@
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="Please select image" />
     </plugin>
     <plugin name="cordova-plugin-fcm-with-dependecy-updated" spec="^2.2.4" />
+    <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
     <engine name="android" spec="7.1.1" />
 </widget>
