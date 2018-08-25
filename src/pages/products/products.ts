@@ -27,7 +27,7 @@ export class ProductsPage {
   message: string;
   productDetails: any;
   productImages: any;
-  data:any;
+
   pageReset: boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController,
               public loadingCtrl: LoadingController, public authService: AuthServiceProvider, public alertCtrl: AlertController, platform: Platform) {
@@ -38,7 +38,7 @@ export class ProductsPage {
     this.responseData = {};
     this.pageReset = this.authService.pageReset;
     this.categories= [];
-    this.data.category = this.navParams.get('category');
+
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
       backAction();
@@ -76,12 +76,7 @@ export class ProductsPage {
             if(this.categories.length){
              this.category=this.categories[0].module_name;
              loader.dismiss();
-             if(this.data.category == null)
              this.getProducts(this.categories[0]);
-             else{
-               this.category = this.data.category;
-               this.getProducts(this.category);
-             }
             }else{
               const alert = this.alertCtrl.create({
                 subTitle: 'No Business Added Yet',
@@ -90,8 +85,6 @@ export class ProductsPage {
               alert.present();
               loader.dismiss();
             }
-
-
 
         }, (err) => {
           loader.dismiss();
@@ -218,29 +211,29 @@ export class ProductsPage {
         text: "ok",
         handler: () => { this.authService.getData('delete_product?product_id='+productId+'&category='+type,this.userPostData.token).then((result) => {
           this.responseData = result;
-          
-          
+
+
           if(this.responseData.status == true)
           {
-        
+
             const alert = this.alertCtrl.create({
               subTitle: this.responseData.message,
               buttons: [{
                 text: 'Ok',
               handler: () => {
-                
+
                 let navTransition = alert.dismiss();
-    
+
                   navTransition.then(() => {
                     this.getProducts(this.lastClicked);
                   });
-    
+
                 return false;
               }
             }]
             });
             alert.present();
-            
+
           }
           else{
            const alert = this.alertCtrl.create({
@@ -249,7 +242,7 @@ export class ProductsPage {
            })
            alert.present();
          }
-        }, 
+        },
         (err) => {
          this.responseData = err.json();
          const alert = this.alertCtrl.create({
@@ -257,7 +250,7 @@ export class ProductsPage {
           buttons: ['OK']
         })
         alert.present();
-        }); 
+        });
       }
       }, {
         text: "Cancel",
@@ -266,7 +259,7 @@ export class ProductsPage {
     })
     alert.present();
 
-  
+
   }
 
 }

@@ -60,34 +60,49 @@ export class MyApp {
         });
 
         fcm.onNotification().subscribe(data => {
-          this.scheduleNotification(data);
+
           alert(JSON.stringify(data));
           if(data.wasTapped){
             alert("Received in background");
-            if(data.type == 'Enquiry')
+            if(data.category == 'Enquiry')
             {
-              //this.nav.push(EnquiriesPage, data);
               this.haspendingnotification = true;
               this.noti_type = data.type;
               this.noti_category = data.category;
-              this.rootPage = EnquiriesPage;
-              //alert("trying to open approval");
+              this.nav.setRoot(EnquiriesPage,{category: data.subcategory, filter: data.type});
+              alert("trying to open approval");
             }
-            else if(data.type == 'Approval')
+            else if(data.category == 'Product')
             {
-              //this.nav.push(ProductsPage, data);
               this.haspendingnotification = true;
               this.noti_type = data.type;
               this.noti_category = data.category;
-              this.rootPage = ProductsPage;
-              //alert("trying to open products");
+              this.nav.setRoot(ProductsPage,{category: data.subcategory});
+              alert("trying to open products");
             }
-          } else {
-            //this.scheduleNotification(data);
-            //alert("Received in foreground");
+            else if(data.category == 'Booking')
+            {
+              this.haspendingnotification = true;
+              this.noti_type = data.type;
+              this.noti_category = data.category;
+              this.nav.setRoot(BookingsPage,{category: data.subcategory, filter: data.type});
+              alert("trying to open bookings");
+            }
+            else if(data.category == 'Business')
+            {
+              this.haspendingnotification = true;
+              this.noti_type = data.type;
+              this.noti_category = data.category;
+              this.nav.setRoot(BusinessPage);
+              alert("trying to open business");
+            }
+          }
+          else
+          {
+            this.scheduleNotification(data);
+            alert("Received in foreground");
           };
         });
-        //delete till here, added by krishna 22nd august 2018
 
         fcm.onTokenRefresh().subscribe(refresh_token => {
           localStorage.setItem('device_token', refresh_token);
@@ -95,7 +110,6 @@ export class MyApp {
         }, (err) => {
           alert(err);
         });
-
       });
 
       const data = JSON.parse(localStorage.getItem('userData'));
@@ -117,15 +131,13 @@ export class MyApp {
 
     scheduleNotification(data)
     {
-      //alert("stringified:"+JSON.stringify(data));
-
       this.local.schedule({
-        title:data.title,
-        text:data.body,
+        title: data.title,
+        text: data.push,
+        sound: data.sound,
         trigger: {at: new Date(new Date().getTime() + 100)},
         icon:data.icon
       });
-
     }
 
     onload(page: any){
