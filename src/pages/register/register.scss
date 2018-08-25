@@ -12,4 +12,60 @@ page-register {
         color: rgb(84, 245, 10);
         font-size: 11px;
       }
+      .rg-wrp ion-card-content {
+        padding: 0;
+      }
+      .rg-wrp ion-item {
+        padding-left: 0;
+        background: none;
+      }
+      .rg-wrp ion-card{
+        background: none;
+        box-shadow: none;
+      }
+      .scroll-content {
+        background-color: #5a1403;
+    }
+    .rg-wrp ion-label{
+      color:#ffb431 !important;
+  }
+  .rg-wrp a[disabled], button[disabled], [ion-button][disabled] {
+    cursor: default;
+    opacity: 1;
+    pointer-events: none;
+}
+.button-md-success {
+  color: #fff;
+  background-color: #ffb431;
+  margin-top: 25px;   
+}
+.rg-wrp .toolbar-md-headers .toolbar-background-md {
+	background: #322a02;
+}
+.rg-wrp input {
+  color: #f3ecec;
+}
+.error {
+  font-size: 13px;
+  color: #e3e0e0;
+}
+.rg-wrp ion-card{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+// .rg-wrp .list-md .item-block .item-inner {
+// 	border-bottom: 1px solid #ffb431 !important;
+// }
+// .label-md {
+// 	margin: 1px 8px 10px 0;
+// }
+.alrdy-usr {
+	text-align: center;
+}
+.alrdy-usr span{
+  color: #efe7e7;
+}
+.alrdy-usr a {
+	text-decoration: none;
+}
 }

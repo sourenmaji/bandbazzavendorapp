@@ -24,4 +24,72 @@ page-products {
     .extra-p .col{
         width: 50% ;
       }
+      .ac {
+        text-align: right;
+        width: 140px;
+        display: inline-block;
+        font-size: 14px;
+        color: #6f6565;
+        vertical-align: middle;
+    }
+    .non-ac {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    .ac-chrg{
+        font-size:18px;
+        margin: 0;
+    }
+    .item-md .text-md-danger {
+        color: #3d3c3f;
+        font-size: 24px;
+        font-weight: 600;
+    }
+    page-products .prd-wrp {
+        border: 3px solid #a7a5a1;
+        padding: 5px;
+        margin: 0 0 15px 0;
+        width: 100%;
+    }
+    page-products .card-content {
+        position: relative;
+        background: #f5f5f6;
+}
+.prd-wrp .card-title-md {
+	padding: 0;
+}
+.prd-wrp ion-label{
+    font-size: 15px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+}
+.price-ptrn{
+    display: inline-block;
+    vertical-align: middle;
+}
+.prd-wrp .card-content-md{
+    margin-bottom: 15px;
+}
+.prd-wrp {
+	margin-left: 0;
+	margin-right: 0;
+	width: 100%;
+	border: 1px solid #efe9e9;
+	background: #f8f9f8;
+	box-shadow: 0 0px 2px 1px rgba(0,0,0,0.1);
+}
+.price-ptrn h3 {
+	display: inline-block;
+	font-size: 12px;
+	vertical-align: middle;
+}
+.prd-wrp .ion-h2{
+    margin-top: 15px;
+}
+.item-md .text-md-dark {
+	color: #222;
+	font-weight: 600;
+}
 }

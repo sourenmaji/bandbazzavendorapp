@@ -28,7 +28,7 @@
   <ion-list>
      <ion-item>
     <div *ngFor ="let products of alProducts" >
-  <ion-card>
+  <ion-card class="prd-wrp">
 
     <img src="http://192.168.0.130/BandBazza/public/{{products.product_image}}">
 
@@ -54,27 +54,28 @@
           <ion-col *ngIf="products.is_ac" col-3>
               <ion-badge color="ac" item-end>AC</ion-badge>
           </ion-col>
-          <ion-col *ngIf="!products.is_ac" col-3>
-              <ion-badge color="dash2" item-end>Non AC</ion-badge>
+          <ion-col *ngIf="!products.is_ac">
+              <ion-badge class="non-ac" color="dash2" item-end>Non AC</ion-badge>
           </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col>
-            <ion-label color="dash6">Ac Charge :</ion-label>
-            <h3 *ngIf="products.is_ac">{{products.ac_charge}}</h3>
-            <h3 *ngIf="!products.is_ac">N/A</h3>
+        <ion-col col-12>
+            <ion-label class="ac-chrg" color="dash6">Ac Charge :
+              <span class="ac" *ngIf="products.is_ac">{{products.ac_charge}}</span>
+              <span class="ac" *ngIf="!products.is_ac">N/A</span>
+            </ion-label>
         </ion-col>
       </ion-row>         
     </ion-card-title>
       <div class="extra-p">
       <ion-row>
-        <ion-col>
+        <ion-col col-6>
             <button ion-button icon-left round full color="dash2" [disabled]="products.request_type=='Delete'" (click)="detailsProduct(products.product_id,'edit')">
               <ion-icon color="white" name="create"></ion-icon>
               <div ion-text color="white"> Edit </div>
             </button>
           </ion-col>
-          <ion-col>
+          <ion-col col-6>
             <button ion-button icon-left round full color="success"  (click)="detailsProduct(products.product_id,'details')">
               <ion-icon name="eye"></ion-icon>
               <div> Details </div>
@@ -96,33 +97,35 @@
                 <h2 ion-text color="dash6">{{products.no_of_seats}} Seater</h2>
             </ion-col>
             <ion-col col-3>
-                <ion-badge color="ac">{{products.request_type}}</ion-badge>
-              </ion-col>
+              <ion-badge color="ac">{{products.request_type}}</ion-badge>
+            </ion-col>
           </ion-row>  
 
-        <ion-row>
-          <ion-col *ngIf="products.ac_car_price_hour != null" col-auto>
-              <ion-label color="dash6">Ac Charge :</ion-label>
-              <h3 >Rs.{{products.ac_car_price_hour | number:'1.0-0'}}/HR</h3>
-              <h3 >Rs.{{products.ac_car_price_kil | number:'1.0-0'}}/KM</h3>
-          </ion-col>
-          
-          <ion-col col-auto>
-              <ion-label color="dash6">Non Ac Charge :</ion-label>
-              <h3 >Rs.{{products.car_price_hour | number:'1.0-0'}}/HR</h3>
-              <h3 >Rs.{{products.car_price_kil | number:'1.0-0'}}/KM</h3>
-          </ion-col>
-        </ion-row>
+          <ion-row>
+              <ion-col *ngIf="products.ac_car_price_hour != null" col-auto>
+                  <ion-label color="dash6">Ac Charge :</ion-label>
+                  <h3 >Rs.{{products.ac_car_price_hour | number:'1.0-0'}}/HR</h3>
+                  <h3 >Rs.{{products.ac_car_price_kil | number:'1.0-0'}}/KM</h3>
+              </ion-col>
+              
+              <ion-col col-12>
+                  <ion-label color="dash6">Non Ac Charge :</ion-label>
+                  <span class="price-ptrn">
+                    <h3>Rs.{{products.car_price_hour | number:'1.0-0'}}/HR</h3>
+                    <h3>Rs.{{products.car_price_kil | number:'1.0-0'}}/KM</h3>
+                  </span>
+              </ion-col>
+            </ion-row>
       </ion-card-title>
         <div class="extra-p">
         <ion-row>
-            <ion-col>
+            <ion-col col-6>
                 <button ion-button icon-left round full color="dash2" [disabled]="products.request_type=='Delete'" (click)="detailsProduct(products.product_id,'edit')">
                   <ion-icon color="white" name="create"></ion-icon>
                   <div ion-text color="white"> Edit </div>
                 </button>
               </ion-col>
-              <ion-col>
+              <ion-col col-6>
                 <button ion-button icon-left round full color="success"  (click)="detailsProduct(products.product_id,'details')">
                   <ion-icon name="eye"></ion-icon>
                   <div> Details </div>
@@ -142,12 +145,12 @@
             <ion-row>
               <ion-col col-auto *ngIf="products.is_veg == 1"> 
                   <h1 ion-text color="danger">{{products.product_name}}</h1>
-                  <h2 ion-text color="dash6">Veg : <span ion-text color="dark">Rs.{{products.price_per_plate | number:'1.0-0'}}</span></h2>
+                  <h2 class="ion-h2" ion-text color="dash6">Veg : <span ion-text color="dark">Rs.{{products.price_per_plate | number:'1.0-0'}}</span></h2>
               </ion-col>
               <ion-col col-auto *ngIf="products.is_veg == 0"> 
                   <!-- <h1 ion-text color="dash6">Non Veg :<span ion-text color="dash6">{{products.price_per_plate}}</span></h1> -->
                   <h1 ion-text color="danger">{{products.product_name}}</h1>
-                  <h2 ion-text color="dash6">Non Veg : <span ion-text color="dark">Rs.{{products.price_per_plate | number:'1.0-0'}}</span></h2>
+                  <h2 class="ion-h2" ion-text color="dash6">Non Veg : <span ion-text color="dark">Rs.{{products.price_per_plate | number:'1.0-0'}}</span></h2>
               </ion-col>
               <ion-col col-3>
                   <ion-badge color="ac">{{products.request_type}}</ion-badge>
@@ -156,13 +159,13 @@
           </ion-card-title>
           <div class="extra-p">
           <ion-row>
-            <ion-col>
+            <ion-col col-6>
                 <button ion-button icon-left round full color="dash2" [disabled]="products.request_type=='Delete'" (click)="detailsProduct(products.product_id,'edit')">
                   <ion-icon color="white" name="create"></ion-icon>
                   <div ion-text color="white"> Edit </div>
                 </button>
               </ion-col>
-              <ion-col>
+              <ion-col col-6>
                 <button ion-button icon-left round full color="success"  (click)="detailsProduct(products.product_id,'details')">
                   <ion-icon name="eye"></ion-icon>
                   <div> Details </div>

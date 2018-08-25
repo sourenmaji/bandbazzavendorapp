@@ -44,32 +44,6 @@ export class MyApp {
         // Here you can do any higher level native things you might need.
         statusBar.styleDefault();
         splashScreen.hide();
-        fcm.getToken().then(device_token => {
-          if(!localStorage.getItem('device_token') || (device_token != localStorage.getItem('device_token')))
-          {
-            alert("New token/refreshed token");
-            localStorage.setItem('device_token', device_token)
-          }
-
-        }, (err) => {
-          alert(err);
-        });
-
-        fcm.onNotification().subscribe(data => {
-          alert(JSON.stringify(data));
-          if(data.wasTapped){
-            alert("Received in background");
-          } else {
-            alert("Received in foreground");
-          };
-        });
-
-        fcm.onTokenRefresh().subscribe(refresh_token => {
-          localStorage.setItem('device_token', refresh_token);
-          alert('Refresh'+localStorage.getItem('device_token'));
-        }, (err) => {
-          alert(err);
-        });
 
       });
 
