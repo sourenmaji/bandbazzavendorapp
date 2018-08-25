@@ -47,7 +47,7 @@ export class DashboardPage {
       this.responseData = result;
       if(result.status)
       {
-       alert('token sent');
+       alert('token created');
       }
 
     }, (err) => {

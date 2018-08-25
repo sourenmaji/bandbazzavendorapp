@@ -1,9 +1,5 @@
 import { ErrorPageModule } from './../pages/error/error.module';
 import { NetworkProvider } from './../providers/network-provider/network_provider';
-// import { ViewProductCarPage } from './../pages/view-product-car/view-product-car';
-// import { ViewProductCatererPage } from './../pages/view-product-caterer/view-product-caterer';
-// import { ViewProductBanquatePage } from './../pages/view-product-banquate/view-product-banquate';
-// import { EditbusinessPage } from './../pages/editbusiness/editbusiness';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -11,19 +7,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-// import { WelcomePage } from '../pages/welcome/welcome';
-// import { LoginPage } from '../pages/login/login';
-// import { RegisterPage } from '../pages/register/register';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { HttpModule } from '@angular/http';
-// import { ForgetPasswordPage } from '../pages/forget-password/forget-password';
-// import { DashboardPage } from '../pages/dashboard/dashboard';
-// import { ProfilePage } from '../pages/profile/profile';
-// import { BusinessPage } from '../pages/business/business';
-// import { ProductsPage } from '../pages/products/products';
-// import { EnquiriesPage } from '../pages/enquiries/enquiries';
-// import { BookingsPage } from '../pages/bookings/bookings';
-// import { CustomPackageEnquiriesPage } from '../pages/custom-package-enquiries/custom-package-enquiries';
 import { Network} from '@ionic-native/network';
 import { File } from '@ionic-native/file';
 import { Camera } from '@ionic-native/camera';
@@ -55,6 +40,7 @@ import { ForgetPasswordPageModule } from '../pages/forget-password/forget-passwo
 import { RegisterPageModule } from '../pages/register/register.module';
 import { LoginPageModule } from '../pages/login/login.module';
 import { WelcomePageModule } from '../pages/welcome/welcome.module';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 
 @NgModule({
@@ -110,7 +96,8 @@ import { WelcomePageModule } from '../pages/welcome/welcome.module';
     FileTransfer,
     Camera,
     FilePath,
-    FCM
+    FCM,
+    LocalNotifications
   ]
 })
 export class AppModule {}

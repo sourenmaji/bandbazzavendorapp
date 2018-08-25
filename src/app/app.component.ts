@@ -18,6 +18,7 @@ import { CustomPackageEnquiriesPage } from '../pages/custom-package-enquiries/cu
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { FCM } from '@ionic-native/fcm';
 import { ErrorPage } from '../pages/error/error';
+import { LocalNotifications } from '../../node_modules/@ionic-native/local-notifications';
 
 
 @Component({
@@ -36,32 +37,76 @@ export class MyApp {
   userDetails : any;
   responseData: any;
   userPostData = {"user":"","token":""};
+  haspendingnotification : boolean;
+  noti_type : string;
+  noti_category : string;
 
   @ViewChild('nav') nav: NavController;
 
   constructor(public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
     private menuCtrl: MenuController,public authService:AuthServiceProvider,
-    public alertCtrl: AlertController, public fcm: FCM, 
     public events: Events,
     public network: Network,
-    public networkProvider: NetworkProvider) {
+    public networkProvider: NetworkProvider,
+    public alertCtrl: AlertController, public fcm: FCM,private local: LocalNotifications) {
 
       platform.ready().then(() => {
         // Okay, so the platform is ready and our plugins are available.
         // Here you can do any higher level native things you might need.
+
         statusBar.styleDefault();
         splashScreen.hide();
         fcm.getToken().then(device_token => {
-          localStorage.setItem('device_token', device_token);
+          if(!localStorage.getItem('device_token'))
+          {
+            alert("New token/refreshed token");
+            localStorage.setItem('device_token', device_token)
+          }
         }, (err) => {
           alert(err);
         });
 
         fcm.onNotification().subscribe(data => {
+
           alert(JSON.stringify(data));
           if(data.wasTapped){
             alert("Received in background");
-          } else {
+            if(data.category == 'Enquiry')
+            {
+              this.haspendingnotification = true;
+              this.noti_type = data.type;
+              this.noti_category = data.category;
+              this.nav.setRoot(EnquiriesPage,{category: data.subcategory, filter: data.type});
+              alert("trying to open approval");
+            }
+            else if(data.category == 'Product')
+            {
+              this.haspendingnotification = true;
+              this.noti_type = data.type;
+              this.noti_category = data.category;
+              this.nav.setRoot(ProductsPage,{category: data.subcategory});
+              alert("trying to open products");
+            }
+            else if(data.category == 'Booking')
+            {
+              this.haspendingnotification = true;
+              this.noti_type = data.type;
+              this.noti_category = data.category;
+              this.nav.setRoot(BookingsPage,{category: data.subcategory, filter: data.type});
+              alert("trying to open bookings");
+            }
+            else if(data.category == 'Business')
+            {
+              this.haspendingnotification = true;
+              this.noti_type = data.type;
+              this.noti_category = data.category;
+              this.nav.setRoot(BusinessPage);
+              alert("trying to open business");
+            }
+          }
+          else
+          {
+            this.scheduleNotification(data);
             alert("Received in foreground");
           };
         });
@@ -93,9 +138,7 @@ export class MyApp {
          this.nav.push(WelcomePage);     
      });
 
-      });
-
-
+  });
 
       const data = JSON.parse(localStorage.getItem('userData'));
       if(data)
@@ -114,6 +157,16 @@ export class MyApp {
     }
 
 
+    scheduleNotification(data)
+    {
+      this.local.schedule({
+        title: data.title,
+        text: data.push,
+        sound: data.sound,
+        trigger: {at: new Date(new Date().getTime() + 100)},
+        icon:data.icon
+      });
+    }
 
     onload(page: any){
       this.nav.setRoot(page);

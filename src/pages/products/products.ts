@@ -27,6 +27,7 @@ export class ProductsPage {
   message: string;
   productDetails: any;
   productImages: any;
+
   pageReset: boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController,
               public loadingCtrl: LoadingController, public authService: AuthServiceProvider, public alertCtrl: AlertController, platform: Platform) {
@@ -84,8 +85,6 @@ export class ProductsPage {
               alert.present();
               loader.dismiss();
             }
-
-
 
         }, (err) => {
           loader.dismiss();
@@ -212,29 +211,29 @@ export class ProductsPage {
         text: "ok",
         handler: () => { this.authService.getData('delete_product?product_id='+productId+'&category='+type,this.userPostData.token).then((result) => {
           this.responseData = result;
-          
-          
+
+
           if(this.responseData.status == true)
           {
-        
+
             const alert = this.alertCtrl.create({
               subTitle: this.responseData.message,
               buttons: [{
                 text: 'Ok',
               handler: () => {
-                
+
                 let navTransition = alert.dismiss();
-    
+
                   navTransition.then(() => {
                     this.getProducts(this.lastClicked);
                   });
-    
+
                 return false;
               }
             }]
             });
             alert.present();
-            
+
           }
           else{
            const alert = this.alertCtrl.create({
@@ -243,7 +242,7 @@ export class ProductsPage {
            })
            alert.present();
          }
-        }, 
+        },
         (err) => {
          this.responseData = err.json();
          const alert = this.alertCtrl.create({
@@ -251,7 +250,7 @@ export class ProductsPage {
           buttons: ['OK']
         })
         alert.present();
-        }); 
+        });
       }
       }, {
         text: "Cancel",
@@ -260,7 +259,7 @@ export class ProductsPage {
     })
     alert.present();
 
-  
+
   }
 
 }
