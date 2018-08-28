@@ -37,7 +37,7 @@
 
 <button ion-item *ngFor="let booking of bookings" (click)="goToBookingDetails(booking,category.module_name, booking.mode)">
 <ion-thumbnail item-start>
-<img src={{this.apiUrl+booking.cover_image}} alt="image">
+<img src={{this.imageUrl+booking.cover_image}} alt="image">
 </ion-thumbnail>
 
 <div item-end *ngIf="category.module_name=='Banquet Hall'">

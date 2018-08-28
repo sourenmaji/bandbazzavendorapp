@@ -8,14 +8,13 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
   templateUrl: 'enquiry-details.html',
 })
 export class EnquiryDetailsPage {
-  
+
   responseData: any;
   token: any;
   type: string;
   message: string;
   enquiry: any;
-  apiUrl = 'http://192.168.0.130/BandBazza/public/api/v1/';
-  
+  imageUrl: string = '';
   constructor(public platform: Platform,private navParams: NavParams, private menuCtrl: MenuController, private navCtrl: NavController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController, private actionCtrl: ActionSheetController, private toastCtrl: ToastController) {
     this.responseData = {};
     this.authService.pageReset=false;
@@ -28,15 +27,16 @@ export class EnquiryDetailsPage {
       backAction();
     },2)
   }
-  
+
   ionViewDidLoad() {
+    this.imageUrl=this.authService.imageUrl;
     console.log('ionViewDidLoad EnquiryDetailsPage');
   }
   ionViewDidEnter()
   {
-    
+
   }
-  
+
   //approve or decline an enquiry actionsheet
   enquiryAction(enquiry_id: number, module: string) {
     console.log(enquiry_id);
@@ -65,10 +65,10 @@ export class EnquiryDetailsPage {
     });
     actionSheet.present();
   }
-  
+
   enquiryApproval(id, name, status)
   {
-    //status is 1 for approve, 0 for decline  
+    //status is 1 for approve, 0 for decline
     if(name=='Banquet Hall')
     {
       this.type='finalize_hall_enquiry';
@@ -81,7 +81,7 @@ export class EnquiryDetailsPage {
     {
       this.type='finalize_caterer_enquiry';
     }
-    
+
     //create loader
     let loader = this.loadingCtrl.create({
       content: 'Please wait...'
@@ -93,8 +93,8 @@ export class EnquiryDetailsPage {
       duration: 2000,
       position: 'top'
     });
-  
-    
+
+
     loader.present();
     this.authService.getData(this.type+'?id='+id+'&status='+status,this.token).then((result) => {
       this.responseData = result;
@@ -114,7 +114,7 @@ export class EnquiryDetailsPage {
           this.authService.pageReset=true;
           this.navCtrl.pop();
         });
-       
+
       }
     },
     (err) => {
@@ -124,6 +124,6 @@ export class EnquiryDetailsPage {
       toast.setMessage(this.message);
       toast.present();
     });
-    
+
   }
 }

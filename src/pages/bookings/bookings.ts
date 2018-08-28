@@ -21,14 +21,14 @@ export class BookingsPage {
   lastClicked: any;
   next_page: number;
   params: any;
-  apiUrl = 'http://192.168.0.130/BandBazza/public/';
+  imageUrl: string = '';
 
-  constructor(private menuCtrl: MenuController, 
-    private navCtrl: NavController, 
-    private actionCtrl: ActionSheetController, 
-    private authService: AuthServiceProvider, 
+  constructor(private menuCtrl: MenuController,
+    private navCtrl: NavController,
+    private actionCtrl: ActionSheetController,
+    private authService: AuthServiceProvider,
     private loadingCtrl: LoadingController,
-    public alertCtrl: AlertController, 
+    public alertCtrl: AlertController,
     public platform: Platform,
     public navParams: NavParams
   ) {
@@ -36,7 +36,7 @@ export class BookingsPage {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.token = data.success.token;
     this.categories= [];
-  
+
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
       backAction();
@@ -53,6 +53,7 @@ export class BookingsPage {
     this.filter_type = 'online future';
     this.page = 1;
     this.next_page = 0;
+    this.imageUrl = this.authService.imageUrl;
     this.getCategories();
    }
 
@@ -81,12 +82,11 @@ export class BookingsPage {
               this.getBookings(this.navParams.get('category'), true);
               alert("category found from data passed from FCM handler");
              }
-              
+
              else{
               this.getBookings(this.categories[0],true);
-              alert("didnt get it "+JSON.stringify(this.navParams.data));
              }
-              
+
              }
              else{
               const alert = this.alertCtrl.create({

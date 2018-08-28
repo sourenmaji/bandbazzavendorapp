@@ -30,7 +30,7 @@
     <div *ngFor ="let products of alProducts" >
   <ion-card class="prd-wrp">
 
-    <img src="http://192.168.0.130/BandBazza/public/{{products.product_image}}">
+    <img src="{{this.imageUrl+products.product_image}}">
 
     <ion-card-content *ngIf="category=='Banquet Hall'">
         <ion-fab class="dl-p">
@@ -38,9 +38,9 @@
               <ion-icon name="trash" color="light"></ion-icon>
             </button>
           </ion-fab>
-      <ion-card-title > 
+      <ion-card-title >
         <ion-row>
-          <ion-col col-auto> 
+          <ion-col col-auto>
               <h1 ion-text color="danger">{{products.product_name}}</h1>
           </ion-col>
           <ion-col col-3>
@@ -65,7 +65,7 @@
               <span class="ac" *ngIf="!products.is_ac">N/A</span>
             </ion-label>
         </ion-col>
-      </ion-row>         
+      </ion-row>
     </ion-card-title>
       <div class="extra-p">
       <ion-row>
@@ -92,14 +92,14 @@
           </ion-fab>
         <ion-card-title >
           <ion-row>
-            <ion-col col-auto> 
+            <ion-col col-auto>
                 <h1 ion-text color="danger">{{products.product_name}}</h1>
                 <h2 ion-text color="dash6">{{products.no_of_seats}} Seater</h2>
             </ion-col>
             <ion-col col-3>
               <ion-badge color="ac">{{products.request_type}}</ion-badge>
             </ion-col>
-          </ion-row>  
+          </ion-row>
 
           <ion-row>
               <ion-col *ngIf="products.ac_car_price_hour != null" col-auto>
@@ -107,7 +107,7 @@
                   <h3 >Rs.{{products.ac_car_price_hour | number:'1.0-0'}}/HR</h3>
                   <h3 >Rs.{{products.ac_car_price_kil | number:'1.0-0'}}/KM</h3>
               </ion-col>
-              
+
               <ion-col col-12>
                   <ion-label color="dash6">Non Ac Charge :</ion-label>
                   <span class="price-ptrn">
@@ -143,19 +143,19 @@
             </ion-fab>
           <ion-card-title >
             <ion-row>
-              <ion-col col-auto *ngIf="products.is_veg == 1"> 
+              <ion-col col-auto *ngIf="products.is_veg == 1">
                   <h1 ion-text color="danger">{{products.product_name}}</h1>
                   <h2 class="ion-h2" ion-text color="dash6">Veg : <span ion-text color="dark">Rs.{{products.price_per_plate | number:'1.0-0'}}</span></h2>
               </ion-col>
-              <ion-col col-auto *ngIf="products.is_veg == 0"> 
+              <ion-col col-auto *ngIf="products.is_veg == 0">
                   <!-- <h1 ion-text color="dash6">Non Veg :<span ion-text color="dash6">{{products.price_per_plate}}</span></h1> -->
                   <h1 ion-text color="danger">{{products.product_name}}</h1>
                   <h2 class="ion-h2" ion-text color="dash6">Non Veg : <span ion-text color="dark">Rs.{{products.price_per_plate | number:'1.0-0'}}</span></h2>
               </ion-col>
               <ion-col col-3>
                   <ion-badge color="ac">{{products.request_type}}</ion-badge>
-                </ion-col>  
-            </ion-row>  
+                </ion-col>
+            </ion-row>
           </ion-card-title>
           <div class="extra-p">
           <ion-row>
