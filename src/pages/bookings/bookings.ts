@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, MenuController, LoadingController, ActionSheetController, AlertController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, MenuController, LoadingController, ActionSheetController, AlertController, Platform, NavParams } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { BookingDetailsPage } from '../booking-details/booking-details';
 let scroll = null;
@@ -23,12 +23,20 @@ export class BookingsPage {
   params: any;
   apiUrl = 'http://192.168.0.130/BandBazza/public/';
 
-  constructor(private menuCtrl: MenuController, private navCtrl: NavController, private actionCtrl: ActionSheetController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController,public alertCtrl: AlertController, public platform: Platform) {
+  constructor(private menuCtrl: MenuController, 
+    private navCtrl: NavController, 
+    private actionCtrl: ActionSheetController, 
+    private authService: AuthServiceProvider, 
+    private loadingCtrl: LoadingController,
+    public alertCtrl: AlertController, 
+    public platform: Platform,
+    public navParams: NavParams
+  ) {
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
     this.token = data.success.token;
     this.categories= [];
-
+  
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
       backAction();
@@ -65,7 +73,20 @@ export class BookingsPage {
              console.log(this.categories)
              loader.dismiss();
              //trigger the first category with reset = true, so it sets all variables to default
-             this.getBookings(this.categories[0],true);
+            //  if(this.navParams.get('category')){
+            //   this.getBookings(this.navParams.get('category'), true);
+            //   alert("category found from data passed from FCM handler");
+            //  }
+            if(this.navParams.get('category')){
+              this.getBookings(this.navParams.get('category'), true);
+              alert("category found from data passed from FCM handler");
+             }
+              
+             else{
+              this.getBookings(this.categories[0],true);
+              alert("didnt get it "+JSON.stringify(this.navParams.data));
+             }
+              
              }
              else{
               const alert = this.alertCtrl.create({

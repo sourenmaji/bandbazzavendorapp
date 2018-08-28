@@ -1,8 +1,8 @@
-<!-- <ion-header>
-  <ion-navbar hideBackButton color="energy">
-    <ion-title><img src="assets/imgs/logo.png" class="logo"/></ion-title>
-  </ion-navbar>
-</ion-header> -->
+<!-- <ion-header> -->
+  <!-- <ion-navbar hideBackButton color="energy"> -->
+    <!-- <ion-title><img src="assets/imgs/logo.png" class="logo"/></ion-title> -->
+  <!-- </ion-navbar> -->
+<!-- </ion-header> -->
 
 
 <ion-content padding id="welcome" class="scroll-content">
@@ -11,21 +11,64 @@
     <ion-row>
       <ion-col>
         <img src="assets/imgs/logo.png" class="logo"/>
+        <small>Vendor</small>
       </ion-col>
     </ion-row>
   </ion-grid>
-
+  
   <ion-grid>
     <!-- <img src="assets/imgs/bg-ban-seller.png"/> -->
-    <ion-row><ion-col><h3></h3></ion-col></ion-row>
-    <ion-row><ion-col><h3></h3></ion-col></ion-row>
-    <ion-row><ion-col><h3></h3></ion-col></ion-row>
-    <ion-row><ion-col><h3></h3></ion-col></ion-row>
     <ion-row>
+        <ion-card class="wlcm-crd">
+            <ion-card-content>
+              <ion-list>
+                <form novalidate [formGroup]="signinform">
+                  <ion-item class="wlcm-itm">
+                    <ion-label floating>Email or Phone <span style="color: red">*</span></ion-label>
+                    <ion-input type="email" [(ngModel)]="userData.email"
+                    formControlName="email" [class.error1]="!signinform.controls.email.valid && signinform.controls.email.dirty"
+                    [class.error2]="signinform.controls.email.valid && !signinform.controls.email.dirty"></ion-input>
+                  </ion-item>
+                  <ion-item class="wlcm-itm" no-lines *ngIf="( signinform.get('email').hasError('minlength') || signinform.get('email').hasError('pattern') ||signinform.get('email').hasError('required') ) && signinform.get('email').touched">
+                    <div class="error" *ngIf="signinform.get('email').hasError('required') && signinform.get('email').touched">
+                      Please enter your email or Phone
+                    </div>
+                    <div class="error" *ngIf="signinform.get('email').hasError('pattern') && signinform.get('email').touched">
+                      This value should be a valid email or Valid Phone No.
+                    </div>
+                  </ion-item>
+                  <ion-item class="wlcm-itm">
+                    <ion-label floating>Password <span style="color: red">*</span></ion-label>
+                    <ion-input type="password" [(ngModel)]="userData.password" clearOnEdit="false"
+                    formControlName="password" [class.error1]="!signinform.controls.password.valid && signinform.controls.password.dirty"></ion-input>
+                  </ion-item>
+                  <ion-item no-lines *ngIf="( signinform.get('password').hasError('minlength') || signinform.get('password').hasError('maxlength') ||signinform.get('password').hasError('required') ) && signinform.get('password').touched">
+                    <div class="error" *ngIf="signinform.get('password').hasError('required') && signinform.get('password').touched">
+                     Please enter your password
+                    </div>
+                    <div class="error" *ngIf="signinform.get('password').hasError('minlength') && signinform.get('password').touched">
+                      This value is too short. It should have 6 characters or more.
+                    </div>
+                    <div class="error" *ngIf="signinform.get('password').hasError('maxlength') && signinform.get('password').touched">
+                      This value is too long. It should have 12 characters.
+                    </div>
+                  </ion-item>
+                  <div class="frgt-area">
+                    <button ion-button block color="success" [disabled]="signinform.invalid" (click)="login()">Login</button><br> 
+                    <!-- <button ion-button block color= "success" (click)="signin()">Login</button> -->
+                    <a href="#" class="frgt-pass" (click)="forgetPassword()" ion-text color="energy">Forget Password</a><br>
+                    <span class="nw-bb">New to Bandbazza?</span> <a href="#" (click)="register()" ion-text color="buttons">Register Now.</a>
+                  </div>
+                </form>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+    </ion-row>
+    <!-- <ion-row>
       <ion-col center text-center>
         <button ion-button block color="buttons" (click)="login()">Log in</button><br>
        <h4 ion-text color="light"> New to Bandbazza? <a href="#" (click)="register()" ion-text color="buttons">Register Now</a></h4>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
   </ion-grid>
 </ion-content>

@@ -6,7 +6,7 @@
 
 </ion-header>
 
-<ion-content padding>
+<ion-content class="rg-wrp" padding>
   <ion-card>
     <ion-card-content>
       <ion-list>
@@ -95,7 +95,7 @@
           </div>
         </ion-item>
         <button  ion-button block color="success" [disabled]="signupform.invalid" (click)="register()">Register</button><br/>
-        Already a user? <a href="#" (click)="login()" ion-text color="buttons">Login Now.</a>
+        <div class="alrdy-usr"><span>Already a user?</span> <a href="#" (click)="login()" ion-text color="buttons">Login Now.</a></div>
         </form>
       </ion-list>
     </ion-card-content>
