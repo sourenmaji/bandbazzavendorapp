@@ -1,3 +1,4 @@
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, Navbar, Platform,ToastController, ModalController} from 'ionic-angular';
 import { LoginPage } from '../login/login';
@@ -9,6 +10,8 @@ import { ForgetPasswordPage } from '../forget-password/forget-password';
 import { HomePage } from '../home/home';
 import { DashboardPage } from '../dashboard/dashboard';
 import { ModuleLoader } from 'ionic-angular/util/module-loader';
+import { NetworkProvider } from '../../providers/network-provider/network_provider';
+import { ErrorPage } from '../error/error';
 
 export enum ConnectionStatusEnum {
   Online,
@@ -25,23 +28,31 @@ export class WelcomePage implements OnInit{
   signinform: FormGroup;
   responseData : any;
   userData = {password: "", email: ""};
-
   @ViewChild(Navbar) navBar: Navbar;
-  constructor(public navCtrl: NavController, public toast: ToastController,public network: Network, public platform: Platform,public authService:AuthServiceProvider, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public toast: ToastController,public network: Network, public platform: Platform,public authService:AuthServiceProvider, public alertCtrl: AlertController
+             ,public networkProvider: NetworkProvider) {
   this.previousStatus = ConnectionStatusEnum.Online;
   }
   ionViewDidLoad() {
+    console.log(this.networkProvider.networkState);
     this.platform.registerBackButtonAction(() => {
       this.platform.exitApp();
       console.log("backPressed 1");
     },1);
   }
-
+  
   ionViewDidEnter(){
-    this.navBar.backButtonClick = (e:UIEvent)=>{
-      // todo something
-      this.navCtrl.setRoot(WelcomePage);
-     }
+    // alert("networkState"+this.networkProvider.networkState);
+    // this.networkChange = this.networkProvider.networkState;
+    // this.navBar.backButtonClick = (e:UIEvent)=>{
+    //   // todo something
+    //   this.navCtrl.setRoot(WelcomePage);
+    //  }
+     
+    //  this.networkState = this.networkProvider.getNetworkState();
+    
+
+
     }
 
     ngOnInit() {
@@ -75,7 +86,11 @@ export class WelcomePage implements OnInit{
           alert.present();
         }
      }, (err) => {
+      
       this.responseData = err.json();
+      console.log(this.network.type);
+      if(this.network.type === 'none')
+        this.navCtrl.push(ErrorPage);
       console.log(this.responseData)
       const alert = this.alertCtrl.create({
         subTitle: this.responseData,
@@ -94,7 +109,7 @@ export class WelcomePage implements OnInit{
   forgetPassword(){
     this.navCtrl.push(ForgetPasswordPage);
   }
-  signin(){
-    this.navCtrl.push(DashboardPage);
-  }
+  // signin(){
+  //   this.navCtrl.push(DashboardPage);
+  // }
 }

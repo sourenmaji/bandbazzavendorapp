@@ -52,11 +52,9 @@ page-welcome {
         -webkit-box-shadow: inset 0 -1px 0 0 #ffb431 !important;
         box-shadow: inset 0 -1px 0 0 #ffb431 !important;
     }
-    .button-md-success {
-        color: #fff;
-        background-color: #ffb431;
-        margin-top: 25px;   
-    }
+    .button-ios-success {
+        background-color: #ffb431;  
+      }
     .wlcm-crd ion-label{
         color:#ffb431 !important;
     }
@@ -83,7 +81,7 @@ page-welcome {
     }
     .wlcm-crd a[disabled], button[disabled], [ion-button][disabled] {
         cursor: default;
-        opacity: 1;
+        // opacity: 1;
         pointer-events: none;
     }
     .wlcm-crd .list-md .item[no-lines], .list-md .item[no-lines] .item-inner {
@@ -109,5 +107,9 @@ page-welcome {
         left: 0;
         right: 0;
         bottom: -20px;
+    }
+    #welcome .item-ios{
+        background: none;
+        padding-left: 0;
     }
     }

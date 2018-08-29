@@ -1,3 +1,4 @@
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, Navbar, Platform, LoadingController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
@@ -186,7 +187,7 @@ export class RegisterPage implements OnInit{
 
   login(){
     //Login page link
-    this.navCtrl.push(LoginPage);
+    this.navCtrl.push(WelcomePage);
   }
 
 }

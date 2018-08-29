@@ -94,18 +94,20 @@ export class MyApp {
       //     alert("hi");
       //    this.nav.push(ErrorPage);    
       // });
-        //alert("Netwrk state is "+this.networkProvider.getNetworkState());
+      //  alert("Netwrk state is "+this.networkProvider.getNetworkState());
+       this.networkProvider.getNetworkState();
 
         // Offline event
      this.events.subscribe('network:offline', () => {
-         alert('network:offline ==> '+this.network.type);
+        //  alert('network:offline ==> '+this.network.type);
          this.nav.push(ErrorPage);      
      });
  
      // Online event
      this.events.subscribe('network:online', () => {
-         alert('network:online ==> '+this.network.type);   
-         this.nav.push(WelcomePage);     
+        //  alert('network:online ==> '+this.network.type);  
+         
+         this.nav.pop();     
      });
 
   });

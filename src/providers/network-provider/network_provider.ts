@@ -11,6 +11,7 @@ export enum ConnectionStatusEnum {
 export class NetworkProvider {
 
   previousStatus;
+networkState : boolean = true;
 
   constructor(public alertCtrl: AlertController, 
               public network: Network,
@@ -26,8 +27,9 @@ export class NetworkProvider {
         var networkType = this.network.type;
         //alert("oninsialize"+networkType);
         if(this.network.type === 'none'){
-            alert("You are Ofline");
-            //this.eventCtrl.publish('network:offline');
+            // alert("You are Ofline");
+            this.networkState = false;
+            
         }
         this.network.onDisconnect().subscribe(() => {
             if (this.previousStatus === ConnectionStatusEnum.Online) {
@@ -47,6 +49,7 @@ export class NetworkProvider {
 
     public getNetworkState(): string{
         return this.network.type;
+        
     }
 
 
