@@ -19,12 +19,10 @@ export class ViewProductCarPage implements OnInit{
   productImages: any[] = [];
   productValue: any;
   requestType: any;
-  URL = 'http://192.168.0.130/BandBazza/public/api/v1/';
   editProductform: FormGroup;
   public carbrands: {car_company_name:string, id: number}[];
   public carmodels: {car_model:string, model_id:number}[];
   public cartypes:  {type:string, id:number}[];
-  //userData = { maxHirePeriod: "",minHireDistance: "",advanceAmount: "",nonAcPriceHourly: "",nonAcpriceKm: "",acPriceHourly: "",acpriceKm:"", availableAc: 0, images: []};
   userPostData = {"user":"","token":""};
   userData = {carId: "", miniHirePeriod: "",seatNo: "",minHireDistance: "",advanceAmount: "",nonAcPriceHourly: "",nonAcpriceKm: "",acPriceHourly: "",acpriceKm:"", availableAc: 0, images: []};
 
@@ -37,8 +35,6 @@ export class ViewProductCarPage implements OnInit{
 
   this.requestType = this.navParams.get('requestType');
   this.productValue = this.productDetails.details.car;
-  // this.userData.brandName = this.productValue.car_company_name;
-  // this.userData.models = this.productValue.car_model;
   if(this.productValue.ac_car_price_hour != null){
     this.acAvailable = true;
     this.userData.availableAc = 1;
@@ -58,14 +54,6 @@ export class ViewProductCarPage implements OnInit{
     this.navCtrl.pop();
     backAction();
   },2)
- // let urlimages:any[] = [];
-  // this.productImages.forEach(element => {
-  //   element.url = this.URL+element.url;
-  //   urlimages.push(element);
-  // });
-  // this.productImages = urlimages;
-  //this.initCarData()
-  //console.log(this.productDetails);
 }
 onChange(value){
 console.log(value);
@@ -76,12 +64,9 @@ if(value == 1){
 }
 }
 
-
-
 ngOnInit() {
   let AMOUNTPATTERN = /^[0-9]/;
   this.editProductform = new FormGroup({
-    // username: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(10)]),
     miniHirePeriod: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
     seatNo: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
     minHireDistance: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
@@ -92,8 +77,8 @@ ngOnInit() {
     availableAc: new FormControl('',  Validators.compose([])),
     carId: new FormControl('',  Validators.compose([])),
     acpriceKm: new FormControl('', [ Validators.pattern(AMOUNTPATTERN)])
-    
-  }); 
+
+  });
 }
 
 presentActionSheet() {
@@ -102,7 +87,6 @@ presentActionSheet() {
     buttons: [
       {
         text: 'Take a picture',
-        //role: 'destructive',
         handler: () => {
           this.chooseFromCam();
           console.log('Destructive clicked');
@@ -151,11 +135,8 @@ this.camera.getPicture(options).then((imageData) => {
  }, (err) => {
   // Handle error
  });
- 
+
 }
-
-
-
 
 pickImage()
 {
@@ -167,12 +148,9 @@ pickImage()
   this.imagePicker.getPictures({maximumImagesCount:remaining, quality:50, outputType:1}).then
   (results =>{
     console.log(results);
-    
+
     for(let i=0; i < results.length;i++){
-        // this.productImages.push(results[i]);
-       // this.imagestring.push("data:image/jpeg;base64,"+results[i]);
         this.productImages.push("data:image/jpeg;base64,"+results[i]);
-        // alert(this.productImages);
     };
   });
 }
@@ -185,11 +163,7 @@ uploadData()
   this.productImages.forEach(element => {
     data.images.push(element);
   });
-  
-
   console.log(data);
-  //alert(carData);
-  //call the rest here..
   this.authService.authData(data,'edit_product_car',this.userPostData.token).then((data) => {
     this.responseData = data;
     if(this.responseData.status == true){
@@ -197,22 +171,22 @@ uploadData()
       const alert = this.alertCtrl.create({
         subTitle: this.responseData.message,
         buttons: ['OK']
-        
+
       })
       alert.present();
     }else{
       const alert = this.alertCtrl.create({
         subTitle: this.responseData.message,
         buttons: ['OK']
-        
+
       })
       alert.present();
     }
-    
+
   }, (err) => {
    this.responseData = err;
    console.log(this.responseData)
-  
+
   });
 }
 
@@ -228,66 +202,5 @@ removeImage(src: any)
     console.log(newimage)
     this.productImages = newimage;
   }
-
-
-// initCarData()
-//   {
-//     //call rest endpoint and populate the initial data required here
-//     //TODO: token to load from local storage
-//     this.authService.getData("get_car_details", this.userPostData.token).then((result) => {
-//       this.responseData = result;
-//       this.carbrands = [];
-//       this.responseData.brands.forEach(element => {
-//         console.log(element);
-//         this.carbrands.push(element);
-//       });
-
-//       this.cartypes = [];
-//       this.responseData.types.forEach(element => {
-//         this.cartypes.push({type:element.type, id: element.id});
-//       });
-
-//       this.cartypes.forEach(element => {
-//         console.log(element);
-//       });
-//     },
-//     (err) => {
-//       this.responseData = err.json();
-//       console.log(this.responseData);
-//      });
-
-//   }
-
-  // updateModels(brand: {car_company_name:string, id: number})
-  // {
-  //   console.log(brand);
-  //   // this.userData.brandName = brand.id+"";
-  //   this.userData.models = null;
-  //   // this.errormessage = "";
-  //   //TODO: change the token to load from local storage
-  //   console.log(brand);
-  //   this.authService.getData("get_car_models?id="+brand.id, this.userPostData.token).then((result)=>
-  //   {
-
-  //     this.carmodels = [];
-  //     this.responseData = result;
-  //     this.carModelAvailable = true;
-  //     this.responseData.models.forEach(element => {
-  //       this.carmodels.push({car_model:element.car_model, model_id: element.model_id});
-  //     });
-  //   },
-  //   (err)=>{
-  //     this.responseData = err.json();
-  //     console.log(this.responseData);
-  //     this.carmodels = [];
-  //   }   
-
-  // ); 
-  // }
-  // storeModel(model: {car_model:string, model_id:number})
-  // {
-  //   this.userData.models = model.model_id+"";
-  //  // this.errormessage = "";
-  // }
 
 }

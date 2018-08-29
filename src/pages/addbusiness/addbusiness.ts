@@ -9,7 +9,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Headers} from '@angular/http';
 declare var cordova: any;
-let apiUrl = 'http://192.168.0.130/BandBazza/public/api/v1/';
+
 @IonicPage()
 @Component({
   selector: 'page-addbusiness',
@@ -20,7 +20,7 @@ export class AddbusinessPage {
   loading: Loading;
   businessDetails : any;
   userDetails : any;
-  
+  apiUrl: string = '';
   constructor(public navParams: NavParams,public navCtrl: NavController, private camera: Camera, private transfer: FileTransfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController,
              public platform: Platform, public loadingCtrl: LoadingController, public authService: AuthServiceProvider, public alertCtrl: AlertController) {
 
@@ -33,6 +33,7 @@ export class AddbusinessPage {
 
     this.userPostData.user = this.userDetails;
     this.userPostData.token = data.success.token;
+    this.apiUrl=this.authService.apiUrl;
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
       backAction();
@@ -45,11 +46,11 @@ export class AddbusinessPage {
     this.businessDetails = dataBusiness.options;
     // console.log(dataBusiness.length);
    }
-  
+
 
    result : FileUploadResult = null;
-    
-  
+
+
 
   addBusinessform: FormGroup;
   userData = { phone: "",email: "",companyName: "",address: "",city: "",details: "",businessType: "",filename: ""};
@@ -69,7 +70,7 @@ export class AddbusinessPage {
       businessType: new FormControl('', [Validators.required])
     });
 
-    
+
   }
 
 
@@ -79,7 +80,7 @@ export class AddbusinessPage {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Select Image Source',
       buttons: [
-       
+
         {
           text: 'Load from Library',
           handler: () => {
@@ -102,7 +103,7 @@ export class AddbusinessPage {
     actionSheet.present();
   }
 
-  
+
 
   public takePicture(sourceType) {
     // Create options for the Camera Dialog
@@ -112,7 +113,7 @@ export class AddbusinessPage {
       saveToPhotoAlbum: false,
       correctOrientation: true
     };
-   
+
     // Get the data of an image
     this.camera.getPicture(options).then((imagePath) => {
       // Special handling for Android library
@@ -140,7 +141,7 @@ export class AddbusinessPage {
     newFileName =  n + ".jpg";
     return newFileName;
   }
-   
+
   // Copy the image to a local folder
   private copyFileToLocalDir(namePath, currentName, newFileName) {
     this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
@@ -149,7 +150,7 @@ export class AddbusinessPage {
       this.presentToast('Error while storing file.');
     });
   }
-   
+
   private presentToast(text) {
     let toast = this.toastCtrl.create({
       message: text,
@@ -158,7 +159,7 @@ export class AddbusinessPage {
     });
     toast.present();
   }
-   
+
   // Always get the accurate path to your apps folder
   public pathForImage(img) {
     if (img === null) {
@@ -167,7 +168,7 @@ export class AddbusinessPage {
       return cordova.file.dataDirectory + img;
     }
   }
-  
+
   // addBusiness(){
   //   this.authService.authData(this.userData,'add_business',this.userPostData.token).then((result) => {
   //    this.responseData = result;
@@ -211,7 +212,7 @@ export class AddbusinessPage {
     };
 
     const fileTransfer: FileTransferObject = this.transfer.create();
-    fileTransfer.upload(targetPath, apiUrl+'add_business', options).then((data) => {
+    fileTransfer.upload(targetPath, this.apiUrl+'add_business', options).then((data) => {
       // Success!
      // alert('success')
       this.result = data;
@@ -223,12 +224,12 @@ export class AddbusinessPage {
       const alert = this.alertCtrl.create({
         subTitle: 'Business added successfully',
         buttons: ['OK']
-        
+
       })
       alert.present();
       this.navCtrl.pop();
       }
-     
+
     },
     (err) => {
       var error = JSON.parse(err.body);
@@ -236,7 +237,6 @@ export class AddbusinessPage {
       this.navCtrl.push(BusinessPage);
       this.navCtrl.remove(this.navCtrl.length()-1);
       }
-    });  
+    });
   }
   }
- 

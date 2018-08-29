@@ -27,24 +27,24 @@ export class HomePage {
       new_password_confirmation: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12), this.equalto('new_password')]))
     });
 
-    
+
   }
 
   equalto(field_name): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
-    
+
     let input = control.value;
-    
+
     let isValid=control.root.value[field_name]==input
-    if(!isValid) 
+    if(!isValid)
     return { 'equalTo': {isValid} }
-    else 
+    else
     return null;
     };
     }
 
-  constructor(public navCtrl: NavController, public authService:AuthServiceProvider, 
-               public alertCtrl: AlertController, private menuCtrl: MenuController, public platform: Platform) 
+  constructor(public navCtrl: NavController, public authService:AuthServiceProvider,
+               public alertCtrl: AlertController, private menuCtrl: MenuController, public platform: Platform)
   {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.success.user;
@@ -77,7 +77,7 @@ change_password(){
   alert.present();
   this.navCtrl.push(DashboardPage);
    }
-   else{ 
+   else{
     const alert = this.alertCtrl.create({
       subTitle: this.responseData.success.message,
       buttons: ['OK']
@@ -98,13 +98,9 @@ onOpenMenu(){
 this.menuCtrl.open();
 }
 
-// backToWelcome(){
-//   this.navCtrl.push(WelcomePage);
-// }
-
-// logout()
-//   {
-//     localStorage.clear();
-//     setTimeout(() => this.backToWelcome(), 1000);
-//   }
+onLogout()
+{
+  localStorage.clear();
+  setTimeout(() => this.navCtrl.setRoot(WelcomePage), 1000);
+}
 }

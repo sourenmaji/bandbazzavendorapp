@@ -35,7 +35,7 @@
 
         <button ion-item *ngFor="let enquiry of enquiries" (click)="goToEnquiryDetails(enquiry,category.module_name)">
           <ion-thumbnail item-start>
-            <img src={{this.apiUrl+enquiry.cover_image}} alt="image">
+            <img src={{this.imageUrl+enquiry.cover_image}} alt="image">
           </ion-thumbnail>
 
           <div item-end *ngIf="category.module_name=='Banquet Hall'">

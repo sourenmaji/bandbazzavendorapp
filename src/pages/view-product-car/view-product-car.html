@@ -13,19 +13,15 @@
   <ion-card *ngIf="requestType == 'details'">
 
     <ion-slides autoplay="5000" loop="true" speed="3000" height="200" pager>
-        <!-- <ion-slide>
-            <img src="{{this.URL+productValue.cover_image}}">
-        </ion-slide> -->
-          
         <ion-slide *ngFor="let slide of productImages">
           <img src="{{slide}}">
         </ion-slide>
       </ion-slides>
   <ion-card-content>
   <ion-card-title>
-   
+
           <h1 ion-text color="danger">{{productValue.car_company_name}}</h1>
-    
+
    </ion-card-title>
   <ion-row>
       <ion-col align-self-start>
@@ -57,9 +53,9 @@
         <h3>Rs.{{productValue.ac_car_price_kil | number:'1.0-0'}}</h3>
     </ion-col>
   </ion-row>
- 
+
 </ion-card-content>
-  
+
 </ion-card>
 
 <!-- for edit section -->
@@ -69,11 +65,7 @@
     <ion-card-content>
 
         <ul class="img-y">
-          <!-- <li><img src="{{this.URL+productValue.cover_image}}">
-            <div class="ico-p">
-              <ion-icon (click)="removeImage(this.URL+productValue.cover_image)" style="color: red;font-size: 16px" name="close-circle" ></ion-icon>
-            </div>
-          </li> -->
+
           <li *ngFor="let slide of productImages">
               <img src="{{slide}}">
               <div class="ico-p">
@@ -81,44 +73,32 @@
               </div>
           </li>
           <li>
-              <a href="#" (click)="presentActionSheet()"><img src="assets/imgs/add-image.png"></a> 
+              <a href="#" (click)="presentActionSheet()"><img src="assets/imgs/add-image.png"></a>
           <div class="ico-p">
             </div>
           </li>
         </ul>
-           
+
            <ion-card-title>
-   
+
               <h1 ion-text color="danger">{{productValue.car_company_name}} {{productValue.car_model}}</h1>
-        
-       </ion-card-title> 
+
+       </ion-card-title>
 
            <ion-list>
             <form novalidate  [formGroup]="editProductform">
               <ion-item [hidden]="true">
                 <ion-input  type="text" [(ngModel)]="userData.carId" value="{{productValue.id}}"
                 formControlName="carId"></ion-input>
-                
+
               </ion-item>
-                <!-- <ion-item>
-                    <ion-label>Select Brand</ion-label>
-                    <ion-select [(ngModel)]="userData.brandName" formControlName="brandName">
-                      <ion-option  (ionSelect)="updateModels(b)" *ngFor="let b of carbrands"value="{{b.id}}">{{b.car_company_name}}</ion-option>
-                    </ion-select>
-                  </ion-item>
-                  <ion-item *ngIf="carModelAvailable">
-                    <ion-label>Select Model</ion-label>
-                    <ion-select [(ngModel)]="userData.models" formControlName="models">
-                      <ion-option  *ngFor="let m of carmodels" value="{{m.model_id}}" >{{m.car_model}}</ion-option>
-                    </ion-select>
-                  </ion-item>  -->
-                
+
                   <ion-item>
                     <ion-label floating>Minimum Hire Period<small>(Hourly)</small> <span style="color: red">*</span></ion-label>
                     <ion-input type="text" [(ngModel)]="userData.miniHirePeriod" value="{{productValue.min_hire_period}}"
                     formControlName="miniHirePeriod" [class.error1]="!editProductform.controls.miniHirePeriod.valid && editProductform.controls.miniHirePeriod.dirty">
                   </ion-input>
-                  </ion-item> 
+                  </ion-item>
                   <ion-item no-lines *ngIf="( editProductform.get('miniHirePeriod').hasError('required') ||editProductform.get('miniHirePeriod').hasError('pattern')) && editProductform.get('miniHirePeriod').touched">
                     <div class="error" *ngIf="editProductform.get('miniHirePeriod').hasError('required') && editProductform.get('miniHirePeriod').touched">
                       Please enter Minimum Hire Period
@@ -131,7 +111,7 @@
                     <ion-label floating>Minimum Hire Distance<small> in Km. </small><span style="color: red">*</span></ion-label>
                     <ion-input type="text" [(ngModel)]="userData.minHireDistance" value="{{productValue.min_hire_distance}}"
                     formControlName="minHireDistance" [class.error1]="!editProductform.controls.minHireDistance.valid && editProductform.controls.minHireDistance.dirty"></ion-input>
-                  </ion-item> 
+                  </ion-item>
                   <ion-item no-lines *ngIf="( editProductform.get('minHireDistance').hasError('required') ||editProductform.get('minHireDistance').hasError('pattern')) && editProductform.get('minHireDistance').touched">
                     <div class="error" *ngIf="editProductform.get('minHireDistance').hasError('required') && editProductform.get('minHireDistance').touched">
                       Please enter Minimum Hire Distance
@@ -144,7 +124,7 @@
                       <ion-label floating>No. Of Seats<span style="color: red">*</span></ion-label>
                       <ion-input type="text" [(ngModel)]="userData.seatNo" value="{{productValue.no_of_seats}}"
                       formControlName="seatNo" [class.error1]="!editProductform.controls.seatNo.valid && editProductform.controls.seatNo.dirty"></ion-input>
-                    </ion-item> 
+                    </ion-item>
                     <ion-item no-lines *ngIf="( editProductform.get('seatNo').hasError('required') ||editProductform.get('seatNo').hasError('pattern')) && editProductform.get('seatNo').touched">
                       <div class="error" *ngIf="editProductform.get('seatNo').hasError('required') && editProductform.get('seatNo').touched">
                         Please enter No. Of Seats
@@ -157,7 +137,7 @@
                       <ion-label floating>Advance Amount<span style="color: red">*</span></ion-label>
                       <ion-input type="text" [(ngModel)]="userData.advanceAmount" value="{{productValue.book_advance}}"
                       formControlName="advanceAmount" [class.error1]="!editProductform.controls.advanceAmount.valid && editProductform.controls.advanceAmount.dirty"></ion-input>
-                    </ion-item> 
+                    </ion-item>
                     <ion-item no-lines *ngIf="( editProductform.get('advanceAmount').hasError('required') ||editProductform.get('advanceAmount').hasError('pattern')) && editProductform.get('advanceAmount').touched">
                       <div class="error" *ngIf="editProductform.get('advanceAmount').hasError('required') && editProductform.get('advanceAmount').touched">
                         Please enter Advance Amount
@@ -171,7 +151,7 @@
                     <ion-input type="text" [(ngModel)]="userData.nonAcPriceHourly" value="{{productValue.car_price_hour}}"
                     formControlName="nonAcPriceHourly" [class.error1]="!editProductform.controls.nonAcPriceHourly.valid && editProductform.controls.nonAcPriceHourly.dirty">
                   </ion-input>
-                  </ion-item> 
+                  </ion-item>
                   <ion-item no-lines *ngIf="( editProductform.get('nonAcPriceHourly').hasError('required') ||editProductform.get('nonAcPriceHourly').hasError('pattern')) && editProductform.get('nonAcPriceHourly').touched">
                     <div class="error" *ngIf="editProductform.get('nonAcPriceHourly').hasError('required') && editProductform.get('nonAcPriceHourly').touched">
                       Please enter Price
@@ -185,7 +165,7 @@
                     <ion-input type="text" [(ngModel)]="userData.nonAcpriceKm" value="{{productValue.car_price_kil}}"
                     formControlName="nonAcpriceKm" [class.error1]="!editProductform.controls.nonAcpriceKm.valid && editProductform.controls.nonAcpriceKm.dirty">
                   </ion-input>
-                  </ion-item> 
+                  </ion-item>
                   <ion-item no-lines *ngIf="(editProductform.get('nonAcpriceKm').hasError('required') ||editProductform.get('nonAcpriceKm').hasError('pattern') ) && editProductform.get('nonAcpriceKm').touched">
                       <div class="error" *ngIf="editProductform.get('nonAcpriceKm').hasError('required') && editProductform.get('nonAcpriceKm').touched">
                           Please enter Price
@@ -197,7 +177,7 @@
                   <ion-item>
                       <ion-label>Available AC
                       </ion-label>
-                      
+
                       <ion-select #C (ionChange)="onChange(C.value)" [(ngModel)]="userData.availableAc" formControlName="availableAc" >
                       <ion-option value="1" >Yes</ion-option>
                       <ion-option value="0" >No</ion-option>
@@ -209,9 +189,9 @@
                         <ion-input type="text" [(ngModel)]="userData.acPriceHourly" value="{{productValue.ac_car_price_hour}}"
                         formControlName="acPriceHourly" [class.error1]="!editProductform.controls.acPriceHourly.valid && editProductform.controls.acPriceHourly.dirty">
                       </ion-input>
-                      </ion-item> 
+                      </ion-item>
                       <ion-item no-lines *ngIf="(editProductform.get('acPriceHourly').hasError('pattern')) && editProductform.get('acPriceHourly').touched">
-                        
+
                         <div class="error" *ngIf="editProductform.get('acPriceHourly').hasError('pattern') && editProductform.get('acPriceHourly').touched">
                           Please enter only digit
                         </div>
@@ -221,9 +201,9 @@
                         <ion-input type="text" [(ngModel)]="userData.acpriceKm" value="{{productValue.ac_car_price_kil}}"
                         formControlName="acpriceKm" [class.error1]="!editProductform.controls.acpriceKm.valid && editProductform.controls.acpriceKm.dirty">
                       </ion-input>
-                      </ion-item> 
+                      </ion-item>
                       <ion-item no-lines *ngIf="(editProductform.get('acpriceKm').hasError('pattern') ) && editProductform.get('acpriceKm').touched">
-                         
+
                         <div class="error" *ngIf="editProductform.get('acpriceKm').hasError('pattern') && editProductform.get('acpriceKm').touched">
                           Please enter only digit
                         </div>
@@ -233,10 +213,6 @@
                   <button  ion-button block color="success" [disabled]="editProductform.invalid" (click)="uploadData()">Submit</button><br/>
                   </form>
           </ion-list>
-
-
-
-
 
         </ion-card-content>
 </ion-card>

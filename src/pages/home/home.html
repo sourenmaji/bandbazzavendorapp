@@ -8,18 +8,12 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    
+
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <h2>Change Password</h2>
-  <!-- <ion-card>
-    <ion-card-content>
-      Name: {{userDetails.name}}<br/>
-      Email: {{userDetails.email}}
-    </ion-card-content>
-  </ion-card> -->
   <ion-card>
     <ion-card-content>
       <ion-list>
@@ -75,10 +69,11 @@
                     Your passwords does not match
                   </div>
                 </ion-item><br/>
-        <button  ion-button block color="success" [disabled]="forgetpasswordform.invalid" (click)="change_password()">Change Password</button><br/>
+        <button ion-button block color="success" [disabled]="forgetpasswordform.invalid" (click)="change_password()">Change Password</button><br/>
         </form>
       </ion-list>
     </ion-card-content>
   </ion-card>
- 
+    <ion-label>Do you want to logout?</ion-label>
+    <button ion-button color="dark" (click)="onLogout()">Logout</button>
 </ion-content>

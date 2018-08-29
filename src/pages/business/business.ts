@@ -14,16 +14,17 @@ export class BusinessPage {
   businessDetails : any;
   userDetails : any;
   responseData: any;
+  imageUrl: string ='';
   userPostData = {"user":"","token":""};
-  
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController,
               public authService: AuthServiceProvider, private alertCtrl: AlertController, public platform: Platform) {
-    // const data = JSON.parse(localStorage.getItem('businessData'));
-    // console.log(data);
+
      this.businessDetails = [];
      const data = JSON.parse(localStorage.getItem('userData'));
      this.userDetails = data.success.user;
- 
+     this.imageUrl= this.authService.imageUrl;
+
      this.userPostData.user = this.userDetails;
      this.userPostData.token = data.success.token;
 
@@ -33,38 +34,33 @@ export class BusinessPage {
     },2)
 
   }
- 
 
   ionViewWillEnter(){
-   
+
       const data = JSON.parse(localStorage.getItem('userData'));
       this.userDetails = data.success.user;
-  
+
       this.userPostData.user = this.userDetails;
       this.userPostData.token = data.success.token;
-      
+
       console.log(this.userPostData.token);
       console.log( this.userPostData.user);
 
      this.openBusiness();
-    
-  } 
-
+  }
 
   openBusiness(){
     this.authService.getData('get_all_business',this.userPostData.token).then((result) => {
       this.responseData = result;
-      
-      
+
+
       if(this.responseData.status == true)
       {
       console.log(this.responseData.businesses);
-     //  localStorage.setItem('businessData', JSON.stringify(this.responseData.businesses));
-     //  console.log("Local storage "+JSON.parse(localStorage.getItem('businessData')));
 
       const value = this.responseData.businesses;
       this.businessDetails = value;
-     
+
       }
       else{
        const alert = this.alertCtrl.create({
@@ -74,12 +70,11 @@ export class BusinessPage {
        alert.present();
        this.businessDetails = [];
      }
-    }, 
+    },
     (err) => {
      this.responseData = err.json();
      console.log(this.responseData)
     });
-   // this.nav.push(BusinessPage);
     this.menuCtrl.close();
 
   }
@@ -90,19 +85,17 @@ export class BusinessPage {
 
     this.userPostData.user = this.userDetails;
     this.userPostData.token = data.success.token;
-    
+
     console.log(this.userPostData.token);
     console.log( this.userPostData.user);
 
     this.authService.getData('check_businesses',this.userPostData.token).then((result) => {
      this.responseData = result;
-     
-     
+
+
      if(this.responseData.status == true)
      {
      console.log(this.responseData.data);
-    //  localStorage.setItem('businessOptions', JSON.stringify(this.responseData.data));
-    //  console.log("Local storage "+JSON.parse(localStorage.getItem('businessOptions')));
      this.navCtrl.push(AddbusinessPage,this.responseData.data);
      }
      else{
@@ -112,11 +105,11 @@ export class BusinessPage {
       })
       alert.present();
     }
-   }, 
+   },
    (err) => {
     this.responseData = err.json();
     console.log(this.responseData)
-   }); 
+   });
   }
 
 
@@ -126,22 +119,21 @@ export class BusinessPage {
   }
 
   deactiveBusiness(businessid){
-   // console.log(businessid);
 
    let alert = this.alertCtrl.create({
     title: 'Confirm',
     message: 'Do you want to deactivate?',
     buttons: [{
       text: "deactivate",
-      handler: () => { 
+      handler: () => {
 
         this.authService.getData('deactivate_business?business_id='+businessid,this.userPostData.token).then((result) => {
           this.responseData = result;
-          
-          
+
+
           if(this.responseData.status == true)
           {
-        
+
             const alert = this.alertCtrl.create({
               subTitle: this.responseData.message,
               buttons: ['OK']
@@ -156,7 +148,7 @@ export class BusinessPage {
            })
            alert.present();
          }
-        }, 
+        },
         (err) => {
          this.responseData = err.json();
          const alert = this.alertCtrl.create({
@@ -165,7 +157,7 @@ export class BusinessPage {
         })
         alert.present();
         });
-     
+
        }
     }, {
       text: "Cancel",
@@ -182,15 +174,15 @@ export class BusinessPage {
      message: 'Do you want to reactivate your business?',
      buttons: [{
        text: "Reactivate",
-       handler: () => { 
- 
+       handler: () => {
+
          this.authService.getData('reactivate_business?business_id='+businessid,this.userPostData.token).then((result) => {
            this.responseData = result;
-           
-           
+
+
            if(this.responseData.status == true)
            {
-         
+
              const alert = this.alertCtrl.create({
                subTitle: this.responseData.message,
                buttons: ['OK']
@@ -205,7 +197,7 @@ export class BusinessPage {
             })
             alert.present();
           }
-         }, 
+         },
          (err) => {
           this.responseData = err.json();
           const alert = this.alertCtrl.create({
@@ -214,7 +206,7 @@ export class BusinessPage {
          })
          alert.present();
          });
-      
+
         }
      }, {
        text: "Cancel",
@@ -226,7 +218,6 @@ export class BusinessPage {
 
 
   deleteBusiness(businessid){
-    //console.log(businessid);
 
     let alert = this.alertCtrl.create({
       title: 'Confirm',
@@ -235,29 +226,29 @@ export class BusinessPage {
         text: "ok",
         handler: () => { this.authService.getData('delete_business?business_id='+businessid,this.userPostData.token).then((result) => {
           this.responseData = result;
-          
-          
+
+
           if(this.responseData.status == true)
           {
-        
+
             const alert = this.alertCtrl.create({
               subTitle: this.responseData.message,
               buttons: [{
                 text: 'Ok',
               handler: () => {
-                
+
                 let navTransition = alert.dismiss();
-    
+
                   navTransition.then(() => {
                     this.openBusiness();
                   });
-    
+
                 return false;
               }
             }]
             });
             alert.present();
-            
+
           }
           else{
            const alert = this.alertCtrl.create({
@@ -266,7 +257,7 @@ export class BusinessPage {
            })
            alert.present();
          }
-        }, 
+        },
         (err) => {
          this.responseData = err.json();
          const alert = this.alertCtrl.create({
@@ -274,7 +265,7 @@ export class BusinessPage {
           buttons: ['OK']
         })
         alert.present();
-        }); 
+        });
       }
       }, {
         text: "Cancel",
@@ -282,8 +273,6 @@ export class BusinessPage {
       }]
     })
     alert.present();
-
-  
   }
 
   onOpenMenu(){

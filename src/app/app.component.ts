@@ -18,7 +18,7 @@ import { CustomPackageEnquiriesPage } from '../pages/custom-package-enquiries/cu
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { FCM } from '@ionic-native/fcm';
 import { ErrorPage } from '../pages/error/error';
-import { LocalNotifications } from '../../node_modules/@ionic-native/local-notifications';
+//import { LocalNotifications } from '../../node_modules/@ionic-native/local-notifications';
 
 
 @Component({
@@ -37,9 +37,6 @@ export class MyApp {
   userDetails : any;
   responseData: any;
   userPostData = {"user":"","token":""};
-  haspendingnotification : boolean;
-  noti_type : string;
-  noti_category : string;
 
   @ViewChild('nav') nav: NavController;
 
@@ -58,18 +55,12 @@ export class MyApp {
         statusBar.styleDefault();
         splashScreen.hide();
         fcm.getToken().then(device_token => {
-          if(!localStorage.getItem('device_token'))
-          {
-            //alert("New token/refreshed token");
             localStorage.setItem('device_token', device_token)
-          }
         }, (err) => {
-          alert(err);
+          console.log(err);
         });
 
         fcm.onNotification().subscribe(data => {
-
-          //alert(JSON.stringify(data));
           if(data.wasTapped){
             //alert("Received in background");
             this.goToPage(data);
@@ -83,30 +74,20 @@ export class MyApp {
 
         fcm.onTokenRefresh().subscribe(refresh_token => {
           localStorage.setItem('device_token', refresh_token);
-          //alert('Refresh'+localStorage.getItem('device_token'));
         }, (err) => {
-          alert(err);
+          console.log(err);
         });
 
         this.networkProvider.initializeNetworkEvents();
-
-      //   this.events.subscribe('network:none', () => {
-      //     alert("hi");
-      //    this.nav.push(ErrorPage);    
-      // });
-      //  alert("Netwrk state is "+this.networkProvider.getNetworkState());
        this.networkProvider.getNetworkState();
 
         // Offline event
      this.events.subscribe('network:offline', () => {
-        //  alert('network:offline ==> '+this.network.type);
          this.nav.push(ErrorPage);      
      });
  
      // Online event
      this.events.subscribe('network:online', () => {
-        //  alert('network:online ==> '+this.network.type);  
-         
          this.nav.pop();     
      });
 
@@ -132,25 +113,25 @@ export class MyApp {
     goToPage(data)
     {
       if(data.category == 'Enquiry')
-            {
-              this.nav.setRoot(EnquiriesPage,{category: data.subcategory, filter: data.type});
-              //alert("trying to open approval");
-            }
-            else if(data.category == 'Product')
-            {
-              this.nav.setRoot(ProductsPage,{category: data.subcategory});
-              //alert("trying to open products");
-            }
-            else if(data.category == 'Booking')
-            {
-              this.nav.setRoot(BookingsPage,{category: data.subcategory, filter: data.type});
-              //alert("trying to open bookings");
-            }
-            else if(data.category == 'Business')
-            {
-              this.nav.setRoot(BusinessPage);
-              //alert("trying to open business");
-            }
+      {
+        this.nav.setRoot(EnquiriesPage,{category: data.subcategory, filter: data.type});
+        //alert("trying to open approval");
+      }
+      else if(data.category == 'Product')
+      {
+        this.nav.setRoot(ProductsPage,{category: data.subcategory});
+        //alert("trying to open products");
+      }
+      else if(data.category == 'Booking')
+      {
+        this.nav.setRoot(BookingsPage,{category: data.subcategory, filter: data.type});
+        //alert("trying to open bookings");
+      }
+      else if(data.category == 'Business')
+      {
+        this.nav.setRoot(BusinessPage);
+        //alert("trying to open business");
+      }
     }
     scheduleNotification(data)
     {
@@ -194,10 +175,10 @@ export class MyApp {
       this.menuCtrl.close();
     }
 
-    onLogout()
-    {
-      localStorage.clear();
-      setTimeout(() => this.backToWelcome(), 1000);
-    }
+    // onLogout()
+    // {
+    //   localStorage.clear();
+    //   setTimeout(() => this.nav.push(WelcomePage), 1000);
+    // }
   }
 

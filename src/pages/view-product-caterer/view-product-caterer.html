@@ -16,16 +16,16 @@
         <!-- <ion-slide>
             <img src="{{this.URL+productValue.cover_image}}">
         </ion-slide> -->
-          
+
         <ion-slide *ngFor="let slide of productImages">
           <img src="{{slide}}">
         </ion-slide>
       </ion-slides>
   <ion-card-content>
   <ion-card-title>
-   
+
           <h1 ion-text color="danger">{{productValue.name}}</h1>
-    
+
    </ion-card-title>
   <ion-row>
       <ion-col align-self-start>
@@ -37,7 +37,7 @@
           <h3>{{productValue.package_min_plates}}</h3>
         </ion-col>
       </ion-row>
-      
+
 </ion-card-content>
   <!-- for edit section -->
 </ion-card>
@@ -46,11 +46,6 @@
   <ion-card-content>
 
     <ul class="img-y">
-      <!-- <li><img src="{{this.URL+productValue.cover_image}}">
-        <div class="ico-p">
-          <ion-icon (click)="removeImage(productDetails.details.view)" style="color: red;font-size: 16px" name="close-circle" ></ion-icon>
-        </div>
-      </li> -->
       <li *ngFor="let slide of productImages">
           <img src="{{slide}}">
           <div class="ico-p">
@@ -58,36 +53,21 @@
           </div>
       </li>
       <li>
-          <a href="#" (click)="presentActionSheet()"><img src="assets/imgs/add-image.png"></a> 
+          <a href="#" (click)="presentActionSheet()"><img src="assets/imgs/add-image.png"></a>
       <div class="ico-p">
         </div>
       </li>
     </ul>
-        <!-- <ion-card-title>
-                  <h1 ion-text color="danger">{{productDetails.details.name}}</h1> 
-       </ion-card-title> -->
-
 
        <ion-list>
         <form novalidate  [formGroup]="editProductform">
-          <!-- <ion-item>
-            <ion-label floating>Package Name <span style="color: red">*</span></ion-label>
-            <ion-input type="text" [(ngModel)]="userData.packageName" value="{{productValue.name}}"
-            formControlName="packageName" [class.error1]="!editProductform.controls.packageName.valid && editProductform.controls.packageName.dirty">
-          </ion-input>
-          </ion-item> -->
+
           <ion-item [hidden]="true">
             <ion-input  type="text" [(ngModel)]="userData.catererId" value="{{productValue.id}}"
             formControlName="catererId"></ion-input>
-            
+
           </ion-item>
-          <!-- <ion-item no-lines *ngIf="( editProductform.get('packageName').hasError('required') ) && editProductform.get('packageName').touched">
-            <div class="error" *ngIf="editProductform.get('packageName').hasError('required') && editProductform.get('packageName').touched">
-              Please enter Package Name
-            </div>
-            
-          </ion-item> -->
-            
+
           <ion-item>
               <ion-label floating>Starting Price <small>(per plate)</small><span style="color: red">*</span></ion-label>
               <ion-input type="text" [(ngModel)]="userData.startingPrice" value="{{productValue.price_per_plate}}"
@@ -99,7 +79,7 @@
                 Please enter Starting Price
               </div>
               <div class="error" *ngIf="editProductform.get('startingPrice').hasError('pattern') && editProductform.get('startingPrice').touched">
-                  Please enter only digit
+                  Please enter only digits
                 </div>
             </ion-item>
 
@@ -109,7 +89,7 @@
                 <ion-input type="text" [(ngModel)]="userData.minimumPlate" value="{{productValue.package_min_plates}}"
                 formControlName="minimumPlate" [class.error1]="!editProductform.controls.minimumPlate.valid && editProductform.controls.minimumPlate.dirty">
               </ion-input>
-              </ion-item> 
+              </ion-item>
               <ion-item no-lines *ngIf="( editProductform.get('minimumPlate').hasError('required') ||editProductform.get('minimumPlate').hasError('pattern')) && editProductform.get('hallPrice').touched">
                 <div class="error" *ngIf="editProductform.get('minimumPlate').hasError('required') && editProductform.get('minimumPlate').touched">
                   Please enter Minimum no. of Plate
@@ -118,15 +98,10 @@
                   Please enter only digit
                 </div>
               </ion-item>
-              
+
               <button  ion-button block color="success" [disabled]="editProductform.invalid" (click)="uploadData()">Submit</button><br/>
               </form>
       </ion-list>
-
-
-
-
-
     </ion-card-content>
 
 </ion-card>

@@ -20,7 +20,7 @@
         <button *ngIf="enquiry.details.enquiry_status==-1" ion-button block (click)="enquiryAction(enquiry.details.id,enquiry.module)" color="energy">Action</button>
       </ion-card>
       <ion-card>
-          <img src="{{this.apiUrl+enquiry.details.cover_image}}" alt="image"/>
+          <img src="{{this.imageUrl+enquiry.details.cover_image}}" alt="image"/>
           <ion-card-content>
             <ion-card-title>
              Product Information
@@ -58,5 +58,5 @@
             </p>
           </ion-card-content>
         </ion-card>
-       
+
 </ion-content>

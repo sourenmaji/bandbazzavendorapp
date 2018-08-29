@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, MenuController, LoadingController, ActionSheetController, AlertController, NavController, Platform } from 'ionic-angular';
+import { IonicPage, MenuController, LoadingController, ActionSheetController, AlertController, NavController, Platform, NavParams } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { EnquiryDetailsPage } from '../enquiry-details/enquiry-details';
 let scroll = null;
@@ -23,15 +23,18 @@ selectOptions: any;
 next_page: number;
 page: number;
 params: any;
-apiUrl = 'http://192.168.0.130/BandBazza/public/';
+notify_category: string="";
+imageUrl:string = '';
 
 
-  constructor(public platform: Platform,private menuCtrl: MenuController, private navCtrl: NavController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController, private actionCtrl: ActionSheetController, private alertCtrl: AlertController) {
+  constructor(public platform: Platform, public navParams: NavParams, private menuCtrl: MenuController, private navCtrl: NavController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController, private actionCtrl: ActionSheetController, private alertCtrl: AlertController) {
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
     this.token = data.success.token;
     this.authService.pageReset=false;
     this.categories= [];
+    if(this.navParams.get('category'))
+    this.notify_category=this.navParams.get('category');
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
       backAction();
@@ -47,6 +50,7 @@ apiUrl = 'http://192.168.0.130/BandBazza/public/';
         this.enquiries_history = [];
         this.message="";
         this.enquiry_type="active";
+        this.imageUrl = this.authService.imageUrl;
         this.selectOptions = {
           title: 'Show bookings',
           buttons: []

@@ -1,5 +1,4 @@
 import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
-import { BusinessPage } from './../business/business';
 import { FileUploadOptions, FileTransferObject, FileTransfer, FileUploadResult } from '@ionic-native/file-transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
@@ -8,7 +7,7 @@ import { Component } from '@angular/core';
 import { File } from '@ionic-native/file';
 import { IonicPage, NavController, NavParams, ActionSheetController, ToastController, Platform, AlertController } from 'ionic-angular';
 declare var cordova: any;
-let apiUrl = 'http://192.168.0.130/BandBazza/public/api/v1/';
+
 @IonicPage()
 @Component({
   selector: 'page-editbusiness',
@@ -23,14 +22,15 @@ export class EditbusinessPage {
   targetPath = "";
   result : FileUploadResult = null;
   responseData: any;
- 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, 
+  apiUrl: string = '';
+  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController,
     public toastCtrl: ToastController,private camera: Camera, public platform: Platform ,private filePath: FilePath,
     private file: File, private alertCtrl: AlertController, private transfer: FileTransfer,private authService: AuthServiceProvider) {
 
-    this.business = this.navParams.get('business');
+  this.business = this.navParams.get('business');
   this.businessImage = this.business.business_image;
-  this.businessImageSrc = 'http://192.168.0.130/BandBazza/public/'+this.businessImage;
+  this.apiUrl = this.authService.apiUrl;
+  this.businessImageSrc = this.authService.imageUrl+this.businessImage;
 
   const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.success.user;
@@ -40,7 +40,7 @@ export class EditbusinessPage {
       this.navCtrl.pop();
       backAction();
     },2)
-    
+
   }
  editBusinessform: FormGroup;
   userData = { phone: "",email: "",companyName: "",address: "",city: "",details: "",businessType: "",filename: "", business_id: ""};
@@ -50,7 +50,6 @@ export class EditbusinessPage {
     let EMAILPATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let PHONEPATTERN = /^[0-9]{10}$/;
     this.editBusinessform = new FormGroup({
-      // username: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(10)]),
       phone: new FormControl('', Validators.compose([Validators.required, Validators.pattern(PHONEPATTERN)])),
       companyName: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)]),
@@ -61,7 +60,7 @@ export class EditbusinessPage {
       business_id: new FormControl('', Validators.compose([]))
     });
 
-    
+
   }
 
 
@@ -71,11 +70,10 @@ export class EditbusinessPage {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Select Image Source',
       buttons: [
-       
+
         {
           text: 'Load from Library',
           handler: () => {
-            //this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
             this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
           }
         },
@@ -94,8 +92,6 @@ export class EditbusinessPage {
     actionSheet.present();
   }
 
-  
-
   public takePicture(sourceType) {
     // Create options for the Camera Dialog
     var options = {
@@ -104,7 +100,7 @@ export class EditbusinessPage {
       saveToPhotoAlbum: false,
       correctOrientation: true
     };
-   
+
     // Get the data of an image
     this.camera.getPicture(options).then((imagePath) => {
       // Special handling for Android library
@@ -132,7 +128,7 @@ export class EditbusinessPage {
     newFileName =  n + ".jpg";
     return newFileName;
   }
-   
+
   // Copy the image to a local folder
   private copyFileToLocalDir(namePath, currentName, newFileName) {
     this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
@@ -142,7 +138,7 @@ export class EditbusinessPage {
       this.presentToast('Error while storing file.');
     });
   }
-   
+
   private presentToast(text) {
     let toast = this.toastCtrl.create({
       message: text,
@@ -151,7 +147,7 @@ export class EditbusinessPage {
     });
     toast.present();
   }
-   
+
   // Always get the accurate path to your apps folder
   public pathForImage(img) {
     if (img === null) {
@@ -162,7 +158,6 @@ export class EditbusinessPage {
   }
 
   saveEditProfile(){
-    //alert(this.targetPath);
     this.targetPath = this.pathForImage(this.lastImage);
     var data = this.userData;
     if(this.targetPath != ""){
@@ -178,54 +173,42 @@ export class EditbusinessPage {
         params : data,
         headers: {'Authorization': 'Bearer '+ this.userPostData.token}
       };
-  
+
       const fileTransfer: FileTransferObject = this.transfer.create();
-      fileTransfer.upload(this.targetPath, apiUrl+'edit_business', options).then((data) => {
-        // Success!
-       // alert('success')
+      fileTransfer.upload(this.targetPath, this.apiUrl+'edit_business', options).then((data) => {
         this.result = data;
-        //alert(this.result.response);
         var success = JSON.parse(this.result.response);
-       // alert(success.status);
         if(success.status===true){
-        //localStorage.setItem('businessData', success.businesses);
         const alert = this.alertCtrl.create({
           subTitle: success.message,
           buttons: ['OK']
-          
         })
         alert.present();
         this.navCtrl.pop();
-        //this.navCtrl.push(BusinessPage);
-        //this.navCtrl.remove(this.navCtrl.length()-1);
-        }else{
+        }
+        else
+        {
           const alert = this.alertCtrl.create({
             subTitle: success.message,
             buttons: ['OK']
-            
+
           })
           alert.present();
           this.navCtrl.pop();
         }
-       
+
       },
       (err) => {
         // Error
-        //alert('error! Try again')
-        //alert(err.body);
         var error = JSON.parse(err.body);
-        //alert(error.status);
         const alert = this.alertCtrl.create({
           subTitle: error.message,
           buttons: ['OK']
-          
+
         })
         alert.present();
-        // if(error.status==false){
-        // this.navCtrl.push(BusinessPage);
-        // this.navCtrl.remove(this.navCtrl.length()-1);
-        // }
-      }); 
+
+      });
     }
     else{
       this.authService.authData(this.userData,'edit_business',this.userPostData.token).then((data) => {
@@ -236,7 +219,7 @@ export class EditbusinessPage {
           const alert = this.alertCtrl.create({
             subTitle: this.responseData.message,
             buttons: ['OK']
-            
+
           })
           alert.present();
           this.navCtrl.pop();
@@ -244,7 +227,7 @@ export class EditbusinessPage {
           const alert = this.alertCtrl.create({
             subTitle: this.responseData.message,
             buttons: ['OK']
-            
+
           })
           alert.present();
           this.navCtrl.pop();

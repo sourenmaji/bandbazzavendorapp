@@ -29,24 +29,24 @@
                   </button>
               </ion-item>
             </ion-card-header>
-         
+
          <ion-item>
               <ion-row >
                   <ion-col col-auto>
-                    <h1 ion-text color="danger">{{business.module_name}}</h1> 
+                    <h1 ion-text color="danger">{{business.module_name}}</h1>
                 </ion-col>
                   <ion-col col-3>
                     <ion-badge color="ac">{{business.request_type}}</ion-badge>
                   </ion-col>
                 </ion-row>
-            
+
             <h2>{{business.email}}</h2>
             <p>{{business.phone_no}}</p>
          </ion-item>
-      
-      <img src="http://192.168.0.130/BandBazza/public/{{business.business_image}}">        
+
+      <img src="{{this.imageUrl+business.business_image}}">
         <ion-card-content>
-          <p>{{business.address}}</p>  
+          <p>{{business.address}}</p>
           <h3>Since: {{business.since}}</h3>
         <div class="extra-p">
           <ion-row>

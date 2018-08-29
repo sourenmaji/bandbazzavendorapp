@@ -13,7 +13,7 @@ export class BookingDetailsPage {
   type: string;
   message: string;
   booking: any;
-  apiUrl = 'http://192.168.0.130/BandBazza/public/';
+  imageUrl: string = '';
 
   constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams,private authService: AuthServiceProvider) {
     this.responseData = {};
@@ -30,12 +30,13 @@ export class BookingDetailsPage {
   }
 
   ionViewDidLoad() {
+    this.imageUrl = this.authService.imageUrl;
     console.log('ionViewDidLoad BookingDetailsPage');
   }
 
   ionViewDidEnter()
   {
-    
+
   }
 
 }

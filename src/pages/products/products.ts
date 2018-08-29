@@ -27,6 +27,7 @@ export class ProductsPage {
   message: string;
   productDetails: any;
   productImages: any;
+  imageUrl: string ='';
 
   pageReset: boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController,
@@ -38,7 +39,6 @@ export class ProductsPage {
     this.responseData = {};
     this.pageReset = this.authService.pageReset;
     this.categories= [];
-
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
       backAction();
@@ -46,13 +46,13 @@ export class ProductsPage {
   }
 
   ionViewDidLoad(){
-    // this.categories= [];
     this.category = "";
     this.alProducts = [];
     this.businessProducts = "";
     this.message="";
     this.productDetails = "";
     this.productImages = [];
+    this.imageUrl= this.authService.imageUrl;
     this.getBusinessCatagories();
   }
   ionViewDidEnter(){

@@ -23,11 +23,10 @@ export class ViewProductCatererPage implements OnInit{
   productImages: any[]=[];
   productValue: any;
   requestType: any;
-  URL = 'http://192.168.0.130/BandBazza/public/api/v1/';
   editProductform: FormGroup;
   userData = {catererId: "", startingPrice: "",minimumPlate: "", images: []};
   userPostData = {"user":"","token":""};
- 
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public actionSheetCtrl: ActionSheetController,
     public camera: Camera, public authService: AuthServiceProvider,
@@ -47,27 +46,16 @@ export class ViewProductCatererPage implements OnInit{
     this.navCtrl.pop();
     backAction();
   },2)
-
-  //this.productImages = this.productDetails.details.images;
-  // let urlimages:any[] = [];
-  // this.productImages.forEach(element => {
-  //   element.url = this.URL+element.url;
-  //   urlimages.push(element);
-  // });
-  // this.productImages = urlimages;
   console.log(this.productImages);
 }
 
 ngOnInit() {
   let AMOUNTPATTERN = /^[0-9]/;
   this.editProductform = new FormGroup({
-    // username: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(10)]),
-    // packageName: new FormControl('', Validators.compose([Validators.required])),
     startingPrice: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
     minimumPlate: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
     catererId: new FormControl('',  Validators.compose([]))
-    
-  }); 
+  });
 }
 
 presentActionSheet() {
@@ -76,7 +64,6 @@ presentActionSheet() {
     buttons: [
       {
         text: 'Take a picture',
-        //role: 'destructive',
         handler: () => {
           this.chooseFromCam();
           console.log('Destructive clicked');
@@ -121,10 +108,9 @@ this.camera.getPicture(options).then((imageData) => {
   //let base64Image = 'data:image/jpeg;base64,' + imageData;
   //this.imagestring.push("data:image/jpeg;base64,"+imageData);
       this.productImages.push("data:image/jpeg;base64,"+imageData);
-      // alert(this.productImages);
-  //console.log(imageData);
  }, (err) => {
   // Handle error
+  alert(err);
  });
 }
 
@@ -142,8 +128,6 @@ pickImage()
   (results =>{
     console.log(results);
     for(let i=0; i < results.length;i++){
-        // this.productImages.push(results[i]);
-       // this.imagestring.push("data:image/jpeg;base64,"+results[i]);
         this.productImages.push("data:image/jpeg;base64,"+results[i]);
         // alert(this.productImages);
     };
@@ -158,7 +142,7 @@ uploadData()
   this.productImages.forEach(element => {
     data.images.push(element);
   });
-  
+
 
   console.log(data);
   //alert(carData);
@@ -170,21 +154,21 @@ uploadData()
       const alert = this.alertCtrl.create({
         subTitle: this.responseData.message,
         buttons: ['OK']
-        
+
       })
       alert.present();
     }else{
       const alert = this.alertCtrl.create({
         subTitle: this.responseData.message,
         buttons: ['OK']
-        
+
       })
       alert.present();
     }
   }, (err) => {
    this.responseData = err;
    console.log(this.responseData)
-  
+
   });
 }
 
