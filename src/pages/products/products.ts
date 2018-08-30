@@ -7,6 +7,8 @@ import { AddCatererPage } from '../add-caterer/add-caterer';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { AddCarsPage } from '../add-cars/add-cars';
 import { AddBanquetPage } from '../add-banquet/add-banquet';
+import { AddPhotographyPage } from '../add-photography/add-photography';
+import { AddMakeupArtistPage } from '../add-makeup-artist/add-makeup-artist';
 
 @IonicPage()
 @Component({
@@ -118,6 +120,14 @@ export class ProductsPage {
     {
       this.type="get_caterer_products";
     }
+    else if(this.category=='Photography')
+    {
+      this.type="get_photography_products";
+    }
+    else if(this.category=='Makeup Artist')
+    {
+      this.type="get_makeup_artist_products";
+    }
     console.log(this.type)
     this.authService.getData(this.type+'?id='+c.id,this.userPostData.token).then((result) => {
       this.responseData = result;
@@ -185,6 +195,10 @@ export class ProductsPage {
     this.navCtrl.push(AddCatererPage,this.businessProducts.id);
     else if(this.category == 'Banquet Hall')
     this.navCtrl.push(AddBanquetPage,this.businessProducts.id);
+    else if(this.category == 'Photography')
+    this.navCtrl.push(AddPhotographyPage,this.businessProducts.id);
+    else if(this.category == 'Makeup Artist')
+    this.navCtrl.push(AddMakeupArtistPage,this.businessProducts.id);
   }
 
   onOpenMenu(){
@@ -202,7 +216,6 @@ export class ProductsPage {
 
 
   deleteProduct(productId,type){
-    //console.log(businessid);
 
     let alert = this.alertCtrl.create({
       title: 'Confirm',

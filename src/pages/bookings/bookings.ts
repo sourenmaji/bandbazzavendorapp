@@ -129,6 +129,7 @@ export class BookingsPage {
       this.type="get_caterer_bookings";
     }
 
+
     //if there's no next page or the page needs to be manually refreshed, reset values to default
     if(!this.next_page || reset)
     {
@@ -173,14 +174,11 @@ export class BookingsPage {
         else //if there's no bookings
         {
           this.next_page=0;
-          // this.bookings=[];
           this.message=this.responseData.message;
         }
     },
     (err) => {
       console.log(err)
-      // this.next_page=0;
-      // this.bookings=[];
       this.message="Oops! Something went wrong.";
     });
   }
@@ -194,8 +192,6 @@ export class BookingsPage {
           text: 'Upcoming Online',
           handler: () => {
             this.filter_type='online future';
-            // this.page=1;
-            // this.bookings=[];
             console.log('Upcoming clicked');
             this.getBookings(this.lastClicked,true);
           }
@@ -204,8 +200,6 @@ export class BookingsPage {
           text: 'Past Online',
           handler: () => {
             this.filter_type='online past';
-            // this.page=1;
-            // this.bookings=[];
             console.log('Past clicked');
             this.getBookings(this.lastClicked,true);
           }
@@ -214,8 +208,6 @@ export class BookingsPage {
           text: 'Upcoming Offline',
           handler: () => {
             this.filter_type='offline future';
-            // this.page=1;
-            // this.bookings=[];
             console.log('Online Bookings clicked');
             this.getBookings(this.lastClicked,true);
           }
@@ -224,8 +216,6 @@ export class BookingsPage {
           text: 'Past Offline',
           handler: () => {
             this.filter_type='offline past';
-            // this.page=1;
-            // this.bookings=[];
             console.log('Offline Bookings clicked');
             this.getBookings(this.lastClicked,true);
           }

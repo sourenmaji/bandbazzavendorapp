@@ -83,12 +83,12 @@ export class MyApp {
 
         // Offline event
      this.events.subscribe('network:offline', () => {
-         this.nav.push(ErrorPage);      
+         this.nav.push(ErrorPage);
      });
- 
+
      // Online event
      this.events.subscribe('network:online', () => {
-         this.nav.pop();     
+         this.nav.pop();
      });
 
   });
@@ -174,11 +174,5 @@ export class MyApp {
       this.nav.push(WelcomePage);
       this.menuCtrl.close();
     }
-
-    // onLogout()
-    // {
-    //   localStorage.clear();
-    //   setTimeout(() => this.nav.push(WelcomePage), 1000);
-    // }
   }
 

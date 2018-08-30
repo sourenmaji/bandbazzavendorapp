@@ -40,7 +40,8 @@ import { ForgetPasswordPageModule } from '../pages/forget-password/forget-passwo
 import { RegisterPageModule } from '../pages/register/register.module';
 import { LoginPageModule } from '../pages/login/login.module';
 import { WelcomePageModule } from '../pages/welcome/welcome.module';
-import { LocalNotifications } from '@ionic-native/local-notifications';
+import { AddPhotographyPageModule } from '../pages/add-photography/add-photography.module';
+import { AddMakeupArtistPageModule } from '../pages/add-makeup-artist/add-makeup-artist.module';
 
 
 @NgModule({
@@ -76,6 +77,8 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
     AddBanquetPageModule,
     AddCarsPageModule,
     AddCatererPageModule,
+    AddPhotographyPageModule,
+    AddMakeupArtistPageModule,
     ErrorPageModule
   ],
   bootstrap: [IonicApp],
@@ -96,8 +99,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
     FileTransfer,
     Camera,
     FilePath,
-    FCM,
-    LocalNotifications
+    FCM
   ]
 })
 export class AppModule {}
