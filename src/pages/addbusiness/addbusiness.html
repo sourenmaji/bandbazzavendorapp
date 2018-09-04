@@ -9,11 +9,11 @@
 
 
 <ion-content padding>
-  
+
     <ion-card>
         <ion-card-content>
           <ion-list>
-              <form novalidate  [formGroup]="addBusinessform">
+              <form novalidate [formGroup]="addBusinessform">
                   <ion-item>
                       <ion-label>Business Type <span style="color: red">*</span></ion-label>
                       <ion-select [(ngModel)]="userData.businessType"
@@ -21,17 +21,17 @@
                         <ion-option *ngFor ="let business of businessDetails; let i = index" value="{{business.id}}">{{business.title}}</ion-option>
                       </ion-select>
                     </ion-item>
-                  
+
                     <ion-item>
                       <ion-label floating>Company Name <span style="color: red">*</span></ion-label>
                       <ion-input type="text" [(ngModel)]="userData.companyName"
                       formControlName="companyName" [class.error1]="!addBusinessform.controls.companyName.valid && addBusinessform.controls.companyName.dirty"></ion-input>
-                    </ion-item> 
+                    </ion-item>
                     <ion-item no-lines *ngIf="( addBusinessform.get('companyName').hasError('required') ) && addBusinessform.get('companyName').touched">
                       <div class="error" *ngIf="addBusinessform.get('companyName').hasError('required') && addBusinessform.get('companyName').touched">
                         Please enter company name
                       </div>
-                      
+
                     </ion-item>
                     <ion-item>
                       <ion-label floating>City <span style="color: red">*</span></ion-label>
@@ -53,27 +53,27 @@
                       <ion-label floating>Address <span style="color: red">*</span></ion-label>
                       <ion-textarea type="text" [(ngModel)]="userData.address"
                       formControlName="address" [class.error1]="!addBusinessform.controls.address.valid && addBusinessform.controls.address.dirty"></ion-textarea>
-                    </ion-item> 
+                    </ion-item>
                     <ion-item no-lines *ngIf="( addBusinessform.get('address').hasError('required') ) && addBusinessform.get('address').touched">
                       <div class="error" *ngIf="addBusinessform.get('address').hasError('required') && addBusinessform.get('address').touched">
                         Please enter address
                       </div>
-                      
+
                     </ion-item>
                     <ion-item>
                       <ion-label floating>Details <span style="color: red">*</span></ion-label>
                       <ion-textarea type="text" [(ngModel)]="userData.details"
                       formControlName="details" [class.error1]="!addBusinessform.controls.details.valid && addBusinessform.controls.details.dirty"></ion-textarea>
-                    </ion-item> 
+                    </ion-item>
                     <ion-item no-lines *ngIf="( addBusinessform.get('details').hasError('required') ) && addBusinessform.get('details').touched">
                       <div class="error" *ngIf="addBusinessform.get('details').hasError('required') && addBusinessform.get('details').touched">
                         Please enter details
                       </div>
-                      
+
                     </ion-item>
                     <ion-item>
                       <ion-label floating>Email <span style="color: red">*</span></ion-label>
-                      <ion-input type="email" [(ngModel)]="userData.email" 
+                      <ion-input type="email" [(ngModel)]="userData.email"
                       formControlName="email" [class.error1]="!addBusinessform.controls.email.valid && addBusinessform.controls.email.dirty"></ion-input>
                     </ion-item>
                     <ion-item no-lines *ngIf="( addBusinessform.get('email').hasError('minlength') || addBusinessform.get('email').hasError('pattern') ||addBusinessform.get('email').hasError('required') ) && addBusinessform.get('email').touched">
@@ -101,7 +101,7 @@
                          <!-- <ion-input type="file" [hidden]="true" [(ngModel)]="userData.image" formControlName="image" name="image" value="{{lastImage}}"></ion-input> -->
                       <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === null">
                       <h3 [hidden]="lastImage !== null">Please Select Image!</h3>
-                    </ion-item> 
+                    </ion-item>
                     <ion-row>
                       <ion-col color="primary">
                         <ion-buttons>

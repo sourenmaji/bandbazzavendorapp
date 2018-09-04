@@ -174,6 +174,39 @@
             </ion-row>
             </div>
         </ion-card-content>
+        <ion-card-content *ngIf="category=='Photography'">
+          <ion-fab class="dl-p">
+              <button ion-fab mini [disabled]="products.request_type=='Delete'" (click)="deleteProduct(products.product_id,category)">
+                <ion-icon name="trash" color="light"></ion-icon>
+              </button>
+            </ion-fab>
+          <ion-card-title >
+            <ion-row>
+              <ion-col col-auto *ngIf="products.is_veg == 1">
+                  <h1 ion-text color="danger">{{products.product_name}}</h1>
+              </ion-col>
+              <ion-col col-3>
+                  <ion-badge color="ac">{{products.request_type}}</ion-badge>
+              </ion-col>
+            </ion-row>
+          </ion-card-title>
+          <div class="extra-p">
+          <ion-row>
+            <ion-col col-6>
+                <button ion-button icon-left round full color="dash2" [disabled]="products.request_type=='Delete'" (click)="detailsProduct(products.product_id,'edit')">
+                  <ion-icon color="white" name="create"></ion-icon>
+                  <div ion-text color="white"> Edit </div>
+                </button>
+              </ion-col>
+              <ion-col col-6>
+                <button ion-button icon-left round full color="success"  (click)="detailsProduct(products.product_id,'details')">
+                  <ion-icon name="eye"></ion-icon>
+                  <div> Details </div>
+                </button>
+              </ion-col>
+            </ion-row>
+            </div>
+        </ion-card-content>
 
   </ion-card>
 </div>

@@ -13,11 +13,13 @@
 <ion-content padding>
 
 <!-- dynamically generating the categories -->
+
 <ion-segment [(ngModel)]="category" color="energy" *ngIf="categories.length">
-<ion-segment-button *ngFor="let category of categories" value={{category.module_name}} (click)="getBookings(category,true)">
-{{category.module_name}}
-</ion-segment-button>
+    <ion-segment-button *ngFor="let category of categories" value={{category.module_name}} (click)="getBookings(category,true)">
+    {{category.module_name}}
+    </ion-segment-button>
 </ion-segment>
+
 
 <ion-buttons end *ngIf="categories.length">
   <button small ion-button clear (click)="filterBookings()" icon-end>

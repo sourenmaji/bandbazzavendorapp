@@ -9,7 +9,7 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-  
+
 </ion-header>
 
 
@@ -18,7 +18,7 @@
   <ion-card>
     <ion-card-content>
       <ion-list>
-          <form novalidate  [formGroup]="editform">
+          <form novalidate [formGroup]="editform">
             <ion-item>
               <ion-label floating>Name <span style="color: red">*</span></ion-label>
               <ion-input type="text" [(ngModel)]="userData.name" value="{{userDetails.name}}"
@@ -56,12 +56,12 @@
                       <ion-input  disabled="{{isDisabled}}" id="phone_no" type="text" [(ngModel)]="userData.phone_no" value="{{userDetails.phone_no}}"
                       formControlName="phone_no" [class.error1]="!editform.controls.phone_no.valid && editform.controls.phone_no.dirty"
                       (keyup)="showVal(this.value)"></ion-input>
-                      <button *ngIf="!( editform.get('phone_no').hasError('minlength') || editform.get('phone_no').hasError('pattern') || editform.get('phone_no').hasError('required') ) && !buttonClicked && otpButton" 
+                      <button *ngIf="!( editform.get('phone_no').hasError('minlength') || editform.get('phone_no').hasError('pattern') || editform.get('phone_no').hasError('required') ) && !buttonClicked && otpButton"
                       ion-button  clear item-right (click)="sendOtp()">Send OTP</button>
-                      <button *ngIf="isDisabled" 
+                      <button *ngIf="isDisabled"
                       ion-button  clear item-right (click)="reSendOtp()">Resend OTP</button>
                     </ion-item>
-                    
+
                     <ion-item no-lines *ngIf="( editform.get('phone_no').hasError('minlength') || editform.get('phone_no').hasError('pattern') ||editform.get('phone_no').hasError('required')) && editform.get('phone_no').touched">
                       <div class="error" *ngIf="editform.get('phone_no').hasError('required') && editform.get('phone_no').touched">
                         Please enter your phone no.
@@ -69,7 +69,7 @@
                       <div class="error" *ngIf="editform.get('phone_no').hasError('pattern') && editform.get('phone_no').touched">
                         This value should be a valid phone no.
                       </div>
-                    
+
                     </ion-item>
                     <ion-item *ngIf="buttonClicked">
                       <ion-input type="text" placeholder="Enter Six Digit Password"
