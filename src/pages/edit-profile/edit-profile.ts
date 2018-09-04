@@ -92,32 +92,9 @@ export class EditProfilePage implements OnInit{
 
   }
 
-  equals(field_name): ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} => {
-
-      let isValid = false;
-      //console.log(this.userData.otp)
-    //let input = control.value;
-    if(this.userDetails.phone_no != null){
-      this.user_phone = this.userDetails.phone_no;
-      isValid=this.user_phone==this.userData.phone_no;
-      if(!isValid){
-        return { 'equalTo': {isValid} };
-      }
-      else
-    return null;
-    }
-  };
-    }
-
-
   equalto(field_name): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
-      // if(!this.buttonClicked)
-      // {
-      //     console.log( { 'equalTo': false });
-      //     return { 'equalTo': false };
-      // }
+
       let isValid = false;
       console.log(this.userData.otp)
       if(this.user_OTP != this.userData.otp){
@@ -166,7 +143,7 @@ export class EditProfilePage implements OnInit{
 
      })
      alert.present();
-     
+
       }
       else{ console.log(this.responseData.message); }
     }, (err) => {
@@ -212,9 +189,9 @@ export class EditProfilePage implements OnInit{
 
      })
      alert.present();
-     
+
       }
-      else{loader.dismiss(); 
+      else{loader.dismiss();
         console.log(this.responseData.message); }
     }, (err) => {
       loader.dismiss();
