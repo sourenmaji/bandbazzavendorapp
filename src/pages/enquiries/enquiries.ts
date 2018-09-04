@@ -180,7 +180,7 @@ imageUrl:string = '';
     }, (err) => {
       loader.dismiss();
       console.log(err)
-      this.message="Oops! Something went wrong.";
+      this.message="Oops! something went wrong.";
 
     });
   }

@@ -39,18 +39,18 @@
         <hr>
         <ion-card-content>
           <ion-list>
-            <ion-item style="color: red" *ngIf="errormessage">
+            <p style="color: red" *ngIf="errormessage">
               {{errormessage}}
-            </ion-item>
+            </p>
             <div *ngIf="!unknowncar" >
               <ion-item>
-                <ion-label><p>Select Brand</p></ion-label>
+                <ion-label><p>Select Brand <span style="color: red" > *</span></p></ion-label>
                 <ion-select >
                   <ion-option [selected]="b.car_company_name == 'All Brands'" (ionSelect)="updateModels(b)" *ngFor="let b of carbrands">{{b.car_company_name}}</ion-option>
                 </ion-select>
               </ion-item>
               <ion-item *ngIf="form1data.brand != null">
-                <ion-label><p>Select Model</p></ion-label>
+                <ion-label><p>Select Model <span style="color: red" > *</span></p></ion-label>
                 <ion-select >
                   <ion-option (ionSelect)="storeModel(m)"  *ngFor="let m of carmodels">{{m.car_model}}</ion-option>
                 </ion-select>
@@ -84,7 +84,7 @@
             </ion-item>
             
             <ion-item>
-              <ion-label><p>Car Type</p></ion-label>
+              <ion-label><p>Car Type <span style="color: red" > *</span></p></ion-label>
               <ion-select>
                 <ion-option (ionSelect)="storeType(type)" *ngFor="let type of cartypes" >
                   {{type.type}}
@@ -104,60 +104,57 @@
         <p style="color: red" *ngIf="errormessage">
           {{errormessage}}
         </p>
-        <ion-scroll direction="y" scrollY="true" style="height: 80%; margin-bottom: 0px">
+        <ion-content direction="y" locking="false"  scrollY="true" style="height:450px; margin-bottom: 0px">
           <ion-card-content >
             <ion-list >
               <ion-item>
                 <ion-label stacked>
-                  <p>No Of Seats</p>
+                  <p>No Of Seats<span style="color: red" > *</span></p>
                 </ion-label>
                 <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.no_of_seats" placeholder="No. Of Seats">
                   
                 </ion-input>
               </ion-item>
-              <ion-row>
-                <ion-col>
+              <ion-item>
                   <ion-label stacked>
-                    <p>Minimum Hire Period (in Hrs)</p>
+                    <p>Minimum Hire Period (in hrs)<span style="color: red" > *</span></p>
                   </ion-label>
                   <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.min_hire_period" placeholder="Min. Hire Period">
                   </ion-input>
-                </ion-col>
-                <ion-col>
+                </ion-item>
+                <ion-item>
                   <ion-label stacked>
-                    <p>Maximum Hire Period (in Hrs)</p>
+                    <p>Maximum Hire Period (in hrs)<span style="color: red" > *</span></p>
                   </ion-label>
                   <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.max_hire_period" placeholder="Max. Hire Period">
                   </ion-input>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
+                </ion-item>
+              <ion-item>
                   <ion-label stacked>
-                    <p>Minimum Hire Distance (in KM)</p>
+                    <p>Minimum Hire Distance (in Km)<span style="color: red" > *</span></p>
                   </ion-label>
                   <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.min_hire_distance" placeholder="Min. Hire Distance">
                   </ion-input>
-                </ion-col>
-                <ion-col>
+                </ion-item>
+              <ion-item>
                   <ion-label stacked>
-                    <p>Maximum Hire Distance (in KM)</p>
+                    <p>Maximum Hire Distance (in Km)<span style="color: red" > *</span></p>
                   </ion-label>
                   <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.max_hire_distance" placeholder="Max. Hire Distance">
                   </ion-input>
-                </ion-col>
-              </ion-row>
+                  </ion-item>
+                
               <ion-label>
                 <p>Price Rate (Non-AC)</p>
               </ion-label>
               <ion-row>
                 <ion-col>
-                  <ion-label stacked><p>Per Hour</p></ion-label>
+                  <ion-label stacked><p>Per Hour<span style="color: red" > *</span></p></ion-label>
                   <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.car_price_hour" placeholder="Non-AC Price">
                   </ion-input>
                 </ion-col>
                 <ion-col>
-                  <ion-label stacked><p>Per KM</p></ion-label>
+                  <ion-label stacked><p>Per Km<span style="color: red" > *</span></p></ion-label>
                   <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.car_price_kil" placeholder="Non-AC Price">
                   </ion-input>
                 </ion-col>
@@ -172,13 +169,13 @@
                 </ion-label>
                 <ion-row>
                   <ion-col>
-                    <ion-label stacked><p>Per Hour</p></ion-label>
+                    <ion-label stacked><p>Per Hour<span style="color: red" > *</span></p></ion-label>
                     <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.ac_car_price_hour" placeholder="AC Price">
                       
                     </ion-input>
                   </ion-col>
                   <ion-col>
-                    <ion-label stacked><p>Per KM</p></ion-label>
+                    <ion-label stacked><p>Per Km<span style="color: red" > *</span></p></ion-label>
                     <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.ac_car_price_kil" placeholder="AC Price">
                       
                     </ion-input>
@@ -187,7 +184,7 @@
               </div>
               <ion-item>
                 <ion-label stacked>
-                  <p>Advance Amount</p>
+                  <p>Advance Amount<span style="color: red" > *</span></p>
                 </ion-label>
                 <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.book_advance" placeholder="Advance Amount"></ion-input>
               </ion-item>
@@ -203,7 +200,7 @@
               </ion-item>
             </ion-list>
           </ion-card-content>
-        </ion-scroll>
+        </ion-content>
       </ion-card>
     </ion-slide>
     <ion-slide style="height: fit-content">
@@ -214,8 +211,8 @@
         <hr>
         <hr>
         <button ion-button (click)="presentActionSheet()" >Pick Image</button>
-        <p>(Max 5 images. Your last image will be your cover image.)</p>
-        <ion-scroll direction="y" scrollY="true" style="height: 80%;">
+        <p>(Max 5 images. your last image will be your cover image.)</p>
+        <ion-content direction="y" scrollY="true" style="height: 80%;">
           <ion-card-content>
             
             <ion-grid>
@@ -240,7 +237,7 @@
             </ion-grid>
           </ion-card-content>
           <div  style="margin-bottom: 80px" ></div>
-        </ion-scroll>
+        </ion-content>
       </ion-card>
       
     </ion-slide>
@@ -251,7 +248,7 @@
         </ion-card-header>
         <hr>
         <ion-card-content>
-          <ion-scroll direction="y" scrollY="true" style="height:80vh;">
+          <ion-content direction="y" scrollY="true" style="height:80vh;">
            
             <ion-list>
               <p>You have successfully added all details, now you can add this product!</p>
@@ -270,11 +267,11 @@
               <ion-item>
                 <p>No. of Seats: {{form2data.no_of_seats}}</p>
                 
-                <p>Min. Hire Period (in Hrs): {{form2data.min_hire_period}}</p>
-                <p>Max. Hire Period (in Hrs): {{form2data.max_hire_period}}</p>
+                <p>Min. Hire Period (in hrs): {{form2data.min_hire_period}}</p>
+                <p>Max. Hire Period (in hrs): {{form2data.max_hire_period}}</p>
 
-                <p>Min. Hire Distance (in KM): {{form2data.min_hire_distance}}</p>
-                <p>Max. Hire Distance (in KM): {{form2data.max_hire_distance}}</p>
+                <p>Min. Hire Distance (in Km): {{form2data.min_hire_distance}}</p>
+                <p>Max. Hire Distance (in Km): {{form2data.max_hire_distance}}</p>
               </ion-item>
               
               <ion-label>Price Rate (Non-AC)</ion-label>
@@ -299,7 +296,7 @@
                 <div style="height: 50px"></div>
               </ion-item>
             </ion-list>
-          </ion-scroll>
+          </ion-content>
         </ion-card-content>
       </ion-card>
     </ion-slide>

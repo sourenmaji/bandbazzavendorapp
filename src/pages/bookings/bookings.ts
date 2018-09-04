@@ -80,7 +80,7 @@ export class BookingsPage {
             //  }
             if(this.navParams.get('category')){
               this.getBookings(this.navParams.get('category'), true);
-              alert("category found from data passed from FCM handler");
+              alert("Category found from data passed from FCM handler");
              }
 
              else{
@@ -181,7 +181,7 @@ export class BookingsPage {
       console.log(err)
       // this.next_page=0;
       // this.bookings=[];
-      this.message="Oops! Something went wrong.";
+      this.message="Oops! something went wrong.";
     });
   }
 
@@ -191,7 +191,7 @@ export class BookingsPage {
       title: 'Show booking by',
       buttons: [
         {
-          text: 'Upcoming Online',
+          text: 'Upcoming online',
           handler: () => {
             this.filter_type='online future';
             // this.page=1;
@@ -201,7 +201,7 @@ export class BookingsPage {
           }
         },
         {
-          text: 'Past Online',
+          text: 'Past online',
           handler: () => {
             this.filter_type='online past';
             // this.page=1;
@@ -211,7 +211,7 @@ export class BookingsPage {
           }
         },
         {
-          text: 'Upcoming Offline',
+          text: 'Upcoming offline',
           handler: () => {
             this.filter_type='offline future';
             // this.page=1;
@@ -221,7 +221,7 @@ export class BookingsPage {
           }
         },
         {
-          text: 'Past Offline',
+          text: 'Past offline',
           handler: () => {
             this.filter_type='offline past';
             // this.page=1;

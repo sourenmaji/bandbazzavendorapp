@@ -95,13 +95,13 @@
 
                   <ion-item>
                     <ion-label floating>Minimum Hire Period<small>(Hourly)</small> <span style="color: red">*</span></ion-label>
-                    <ion-input type="text" [(ngModel)]="userData.miniHirePeriod" value="{{productValue.min_hire_period}}"
+                    <ion-input type="number" [(ngModel)]="userData.miniHirePeriod" value="{{productValue.min_hire_period}}"
                     formControlName="miniHirePeriod" [class.error1]="!editProductform.controls.miniHirePeriod.valid && editProductform.controls.miniHirePeriod.dirty">
                   </ion-input>
                   </ion-item>
                   <ion-item no-lines *ngIf="( editProductform.get('miniHirePeriod').hasError('required') ||editProductform.get('miniHirePeriod').hasError('pattern')) && editProductform.get('miniHirePeriod').touched">
                     <div class="error" *ngIf="editProductform.get('miniHirePeriod').hasError('required') && editProductform.get('miniHirePeriod').touched">
-                      Please enter Minimum Hire Period
+                      Please enter minimum hire period
                     </div>
                     <div class="error" *ngIf="editProductform.get('miniHirePeriod').hasError('pattern') && editProductform.get('miniHirePeriod').touched">
                       Please enter only digit
@@ -109,12 +109,12 @@
                   </ion-item>
                   <ion-item>
                     <ion-label floating>Minimum Hire Distance<small> in Km. </small><span style="color: red">*</span></ion-label>
-                    <ion-input type="text" [(ngModel)]="userData.minHireDistance" value="{{productValue.min_hire_distance}}"
+                    <ion-input type="number" [(ngModel)]="userData.minHireDistance" value="{{productValue.min_hire_distance}}"
                     formControlName="minHireDistance" [class.error1]="!editProductform.controls.minHireDistance.valid && editProductform.controls.minHireDistance.dirty"></ion-input>
                   </ion-item>
                   <ion-item no-lines *ngIf="( editProductform.get('minHireDistance').hasError('required') ||editProductform.get('minHireDistance').hasError('pattern')) && editProductform.get('minHireDistance').touched">
                     <div class="error" *ngIf="editProductform.get('minHireDistance').hasError('required') && editProductform.get('minHireDistance').touched">
-                      Please enter Minimum Hire Distance
+                      Please enter minimum hire distance
                     </div>
                     <div class="error" *ngIf="editProductform.get('minHireDistance').hasError('pattern') && editProductform.get('minHireDistance').touched">
                       Please enter only digit
@@ -122,12 +122,12 @@
                   </ion-item>
                   <ion-item>
                       <ion-label floating>No. Of Seats<span style="color: red">*</span></ion-label>
-                      <ion-input type="text" [(ngModel)]="userData.seatNo" value="{{productValue.no_of_seats}}"
+                      <ion-input type="number" [(ngModel)]="userData.seatNo" value="{{productValue.no_of_seats}}"
                       formControlName="seatNo" [class.error1]="!editProductform.controls.seatNo.valid && editProductform.controls.seatNo.dirty"></ion-input>
                     </ion-item>
                     <ion-item no-lines *ngIf="( editProductform.get('seatNo').hasError('required') ||editProductform.get('seatNo').hasError('pattern')) && editProductform.get('seatNo').touched">
                       <div class="error" *ngIf="editProductform.get('seatNo').hasError('required') && editProductform.get('seatNo').touched">
-                        Please enter No. Of Seats
+                        Please enter no. of seats
                       </div>
                       <div class="error" *ngIf="editProductform.get('seatNo').hasError('pattern') && editProductform.get('seatNo').touched">
                         Please enter only digit
@@ -135,12 +135,12 @@
                     </ion-item>
                   <ion-item>
                       <ion-label floating>Advance Amount<span style="color: red">*</span></ion-label>
-                      <ion-input type="text" [(ngModel)]="userData.advanceAmount" value="{{productValue.book_advance}}"
+                      <ion-input type="number" [(ngModel)]="userData.advanceAmount" value="{{productValue.book_advance}}"
                       formControlName="advanceAmount" [class.error1]="!editProductform.controls.advanceAmount.valid && editProductform.controls.advanceAmount.dirty"></ion-input>
                     </ion-item>
                     <ion-item no-lines *ngIf="( editProductform.get('advanceAmount').hasError('required') ||editProductform.get('advanceAmount').hasError('pattern')) && editProductform.get('advanceAmount').touched">
                       <div class="error" *ngIf="editProductform.get('advanceAmount').hasError('required') && editProductform.get('advanceAmount').touched">
-                        Please enter Advance Amount
+                        Please enter advance amount
                       </div>
                       <div class="error" *ngIf="editProductform.get('advanceAmount').hasError('pattern') && editProductform.get('advanceAmount').touched">
                         Please enter only digit
@@ -148,7 +148,7 @@
                     </ion-item>
                   <ion-item>
                     <ion-label floating>Price(Non Ac)<small>(Hourly)</small> <span style="color: red">*</span></ion-label>
-                    <ion-input type="text" [(ngModel)]="userData.nonAcPriceHourly" value="{{productValue.car_price_hour}}"
+                    <ion-input type="number" [(ngModel)]="userData.nonAcPriceHourly" value="{{productValue.car_price_hour}}"
                     formControlName="nonAcPriceHourly" [class.error1]="!editProductform.controls.nonAcPriceHourly.valid && editProductform.controls.nonAcPriceHourly.dirty">
                   </ion-input>
                   </ion-item>
@@ -162,13 +162,13 @@
                   </ion-item>
                   <ion-item>
                     <ion-label floating>Price(Non Ac)<small>(Per Km.)</small></ion-label>
-                    <ion-input type="text" [(ngModel)]="userData.nonAcpriceKm" value="{{productValue.car_price_kil}}"
+                    <ion-input type="number" [(ngModel)]="userData.nonAcpriceKm" value="{{productValue.car_price_kil}}"
                     formControlName="nonAcpriceKm" [class.error1]="!editProductform.controls.nonAcpriceKm.valid && editProductform.controls.nonAcpriceKm.dirty">
                   </ion-input>
                   </ion-item>
                   <ion-item no-lines *ngIf="(editProductform.get('nonAcpriceKm').hasError('required') ||editProductform.get('nonAcpriceKm').hasError('pattern') ) && editProductform.get('nonAcpriceKm').touched">
                       <div class="error" *ngIf="editProductform.get('nonAcpriceKm').hasError('required') && editProductform.get('nonAcpriceKm').touched">
-                          Please enter Price
+                          Please enter price
                         </div>
                     <div class="error" *ngIf="editProductform.get('nonAcpriceKm').hasError('pattern') && editProductform.get('nonAcpriceKm').touched">
                       Please enter only digit
@@ -186,7 +186,7 @@
                     <div *ngIf="acAvailable">
                     <ion-item>
                         <ion-label floating>Price(Ac)<small>(Hourly)</small> <span style="color: red">*</span></ion-label>
-                        <ion-input type="text" [(ngModel)]="userData.acPriceHourly" value="{{productValue.ac_car_price_hour}}"
+                        <ion-input type="number" [(ngModel)]="userData.acPriceHourly" value="{{productValue.ac_car_price_hour}}"
                         formControlName="acPriceHourly" [class.error1]="!editProductform.controls.acPriceHourly.valid && editProductform.controls.acPriceHourly.dirty">
                       </ion-input>
                       </ion-item>
@@ -198,7 +198,7 @@
                       </ion-item>
                       <ion-item>
                         <ion-label floating>Price(Ac)<small>(Per Km.)</small> </ion-label>
-                        <ion-input type="text" [(ngModel)]="userData.acpriceKm" value="{{productValue.ac_car_price_kil}}"
+                        <ion-input type="number" [(ngModel)]="userData.acpriceKm" value="{{productValue.ac_car_price_kil}}"
                         formControlName="acpriceKm" [class.error1]="!editProductform.controls.acpriceKm.valid && editProductform.controls.acpriceKm.dirty">
                       </ion-input>
                       </ion-item>

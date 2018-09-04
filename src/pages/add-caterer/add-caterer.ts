@@ -154,16 +154,17 @@ export class AddCatererPage {
     }
     else if(stepNo == 2)
     {
-      if(this.step2data.min_no_plates == null || this.step2data.min_no_plates<0)
-      {
-        this.errormessage = "Enter valid 'minimum no. of plates'";
-        return false;
-      }
-      else if(this.step2data.start_price == null || this.step2data.start_price<=0)
+       if(this.step2data.start_price == null || this.step2data.start_price<=0)
       {
         this.errormessage = "Enter a valid starting price for this package!";
         return false;
       }
+      else if(this.step2data.min_no_plates == null || this.step2data.min_no_plates<0)
+      {
+        this.errormessage = "Enter valid 'minimum no. of plates'";
+        return false;
+      }
+      
       // else if(this.step2data.tags.trim() == "")
       // {
       //   this.errormessage = "Please enter tags to identify your products";
@@ -325,7 +326,7 @@ export class AddCatererPage {
      this.responseData = err;
      console.log(this.responseData)
      const alert = this.alertCtrl.create({
-      subTitle: "Something went wrong! Please try again.",
+      subTitle: "Something went wrong! please try again.",
       buttons: ['OK']
     })
     alert.present();

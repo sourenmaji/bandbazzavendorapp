@@ -33,18 +33,20 @@
                     </ion-item> 
                     <ion-item no-lines *ngIf="( editBusinessform.get('companyName').hasError('required') ) && editBusinessform.get('companyName').touched">
                       <div class="error" *ngIf="editBusinessform.get('companyName').hasError('required') && editBusinessform.get('companyName').touched">
-                        Please enter Company Name
+                        Please enter company name
                       </div>
                       
                     </ion-item>
                     <ion-item>
                       <ion-label floating>City <span style="color: red">*</span></ion-label>
-                      <ion-input type="text" [(ngModel)]="userData.city" value="{{business.city}}"
+                      <ion-input type="text" id="city" [(ngModel)]="userData.city" value="{{business.city}}" (keyup)="loadMap()"
                       formControlName="city" [class.error1]="!editBusinessform.controls.city.valid && editBusinessform.controls.city.dirty"></ion-input>
                     </ion-item> 
-                    <ion-item no-lines *ngIf="( editBusinessform.get('city').hasError('required') ) && editBusinessform.get('city').touched">
-                      <div class="error" *ngIf="editBusinessform.get('city').hasError('required') && editBusinessform.get('city').touched">
-                        Please enter City
+                    <ion-input type="hidden" [(ngModel)]="userData.lat" formControlName="lat" value="{{business.lat}}"></ion-input>
+                    <ion-input type="hidden" [(ngModel)]="userData.lng" formControlName="lng" value="{{business.lng}}"></ion-input>
+                    <ion-item no-lines *ngIf="( editBusinessform.get('city').hasError('required') && editBusinessform.get('city').touched) || editBusinessform.get('lat').hasError('required') ">
+                      <div class="error" *ngIf="(editBusinessform.get('city').hasError('required') && editBusinessform.get('city').touched) && editBusinessform.get('lat').hasError('required')">
+                        Please enter valid city
                       </div>
                       
                     </ion-item>
@@ -55,7 +57,7 @@
                     </ion-item> 
                     <ion-item no-lines *ngIf="( editBusinessform.get('address').hasError('required') ) && editBusinessform.get('address').touched">
                       <div class="error" *ngIf="editBusinessform.get('address').hasError('required') && editBusinessform.get('address').touched">
-                        Please enter Address
+                        Please enter address
                       </div>
                       
                     </ion-item>
@@ -66,7 +68,7 @@
                     </ion-item> 
                     <ion-item no-lines *ngIf="( editBusinessform.get('details').hasError('required') ) && editBusinessform.get('details').touched">
                       <div class="error" *ngIf="editBusinessform.get('details').hasError('required') && editBusinessform.get('details').touched">
-                        Please enter Details
+                        Please enter details
                       </div>
                       
                     </ion-item>
@@ -90,10 +92,10 @@
                         </ion-item>
                         <ion-item no-lines *ngIf="( editBusinessform.get('phone').hasError('minlength') || editBusinessform.get('phone').hasError('pattern') ||editBusinessform.get('phone').hasError('required') ) && editBusinessform.get('phone').touched">
                           <div class="error" *ngIf="editBusinessform.get('phone').hasError('required') && editBusinessform.get('phone').touched">
-                            Please enter your Phone No.
+                            Please enter your phone no.
                           </div>
                           <div class="error" *ngIf="editBusinessform.get('phone').hasError('pattern') && editBusinessform.get('phone').touched">
-                            This value should be a valid Phone No.
+                            This value should be a valid phone no.
                           </div>
                         </ion-item>
                     <ion-item>

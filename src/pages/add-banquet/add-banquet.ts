@@ -98,7 +98,6 @@ export class AddBanquetPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddBanquetPage');
-    this.loadMap();
   }
 
   ionViewDidEnter()
@@ -157,12 +156,7 @@ export class AddBanquetPage {
     {
       if(this.form1data.hallname.trim() == "")
       {
-        this.errormessage = "Enter a Hall name!";
-        return false;
-      }
-      else if(this.form1data.details.trim() == "")
-      {
-        this.errormessage = "Enter details about your hall";
+        this.errormessage = "Enter a hall name!";
         return false;
       }
       else if(this.form1data.price<=0 || this.form1data.price==null)
@@ -175,6 +169,19 @@ export class AddBanquetPage {
         this.errormessage = "Enter a valid advance booking amount";
         return false;
       }
+      else if((+this.form1data.booking_advance) > (+this.form1data.price))
+      {
+        this.errormessage = "Booking advance amount cannot be greater than booking price";
+        return false;
+      }
+      else if(this.form1data.details.trim() == "")
+      {
+        this.errormessage = "Enter details about your hall";
+        return false;
+      }
+     
+      
+     
       // else if(this.form1data.tags.trim() == "")
       // {
       //   this.errormessage = "Enter some search tags for your hall";
@@ -192,16 +199,17 @@ export class AddBanquetPage {
       }
       else
       {
-        if(this.form2data.full_address.trim() == "")
-        {
-          this.errormessage = "Enter full address to display on your product";
-          return false;
-        }
-        else if(this.form2data.map_address.trim() == "")
+        if(this.form2data.map_address.trim() == "")
         {
           this.errormessage = "Enter a location to pick from map";
           return false;
         }
+        else if(this.form2data.full_address.trim() == "")
+        {
+          this.errormessage = "Enter full address to display on your product";
+          return false;
+        }
+        
         else
         {
           this.errormessage = "";
@@ -223,12 +231,12 @@ export class AddBanquetPage {
       }
       else if(this.form3data.ac == null)
       {
-        this.errormessage = "Choose if AC is available";
+        this.errormessage = "Choose if ac is available";
         return false;
       }
       else if(this.form3data.ac == true && this.form3data.ac_charge==null)
       {
-        this.errormessage = "Enter a AC charge";
+        this.errormessage = "Enter a ac charge";
         return false;
       }
       else if(this.form3data.parking == null)
@@ -297,6 +305,8 @@ export class AddBanquetPage {
               }
 
               //set latitude, longitude and zoom
+              this.form2data.full_address = place.formatted_address;
+              this.form2data.map_address = place.formatted_address;
               this.latitude = place.geometry.location.lat();
               this.longitude = place.geometry.location.lng();
               this.latmap = this.latitude;

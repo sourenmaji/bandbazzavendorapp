@@ -15,9 +15,9 @@
             </ion-card-header>
             <hr>
 
-            <ion-item style="color: red" *ngIf="errormessage">
+            <p style="color: red" *ngIf="errormessage">
               {{errormessage}}
-              </ion-item>
+            </p>
             <ion-card-content>
               <ion-list>
                 <ion-item>
@@ -52,9 +52,9 @@
               Step 2/4
             </ion-card-header>
             <hr>
-            <ion-item style="color: red" *ngIf="errormessage">
+            <p style="color: red" *ngIf="errormessage">
               {{errormessage}}
-              </ion-item>
+            </p>
             <ion-card-content>
               <ion-list>
                 <ion-item>
@@ -83,8 +83,8 @@
             <hr>
             <hr>
             <button ion-button (click)="presentActionSheet()" >Pick Image</button>
-            <p>(Max 5 images. Your last image will be your cover image.)</p>
-            <ion-scroll direction="y" scrollY="true" style="height: 80%;">
+            <p>(Max 5 images. your last image will be your cover image.)</p>
+            <ion-content direction="y" scrollY="true" style="height: 80%;">
                 <ion-card-content>
 
                     <ion-grid>
@@ -109,7 +109,7 @@
                           </ion-grid>
                   </ion-card-content>
                   <div  style="margin-bottom: 80px" ></div>
-                  </ion-scroll>
+                  </ion-content>
         </ion-card>
       </ion-slide>
       <ion-slide style="height: 100vh">
@@ -119,7 +119,7 @@
             </ion-card-header>
             <hr>
             <ion-card-content>
-              <ion-scroll direction="y" scrollY="true" style="height:80vh;">
+              <ion-content direction="y" scrollY="true" style="height:80vh;">
                 <p>You have successfully added all details, now you can add this product!</p> 
                 <ion-list>
                   <ion-item>
@@ -131,7 +131,7 @@
                     <div style="height: 50px"></div>
                   </ion-item>
                 </ion-list>
-              </ion-scroll>
+              </ion-content>
             </ion-card-content>
         </ion-card>
       </ion-slide>

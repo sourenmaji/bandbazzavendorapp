@@ -37,7 +37,7 @@
           (keyup)="showVal(this.value)">
           </ion-input>
           <button *ngIf="!( signupform.get('user').hasError('minlength') || signupform.get('user').hasError('pattern') ||signupform.get('user').hasError('required') ) && !buttonClicked && otpButton" 
-                      ion-button  clear item-right (click)="sendOtp()">Send OTP</button>
+                      ion-button  clear item-right (click)="sendOtp()" ion-text color="light">Send OTP</button>
         </ion-item>
         <ion-item no-lines *ngIf="( signupform.get('user').hasError('minlength') || signupform.get('user').hasError('pattern') ||signupform.get('user').hasError('required') ) && signupform.get('user').touched">
           <div class="error" *ngIf="signupform.get('user').hasError('required') && signupform.get('user').touched">
@@ -56,7 +56,7 @@
             Your OTP does not match
           </div>
           <div class="success" *ngIf="!(signupform.get('otp').hasError('equalsTo'))">
-            Your OTP match Successfully
+            Your OTP match successfully
           </div>
         </ion-item>
         <ion-item>

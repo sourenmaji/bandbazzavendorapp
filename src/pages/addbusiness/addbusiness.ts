@@ -1,5 +1,6 @@
+import { MapsAPILoader } from '@agm/core';
 import { BusinessPage } from './../business/business';
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, Loading, ActionSheetController, ToastController, Platform, LoadingController, AlertController } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
 import { FileTransfer, FileTransferObject, FileUploadOptions, FileUploadResult } from '@ionic-native/file-transfer';
@@ -9,7 +10,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Headers} from '@angular/http';
 declare var cordova: any;
-
+declare var google;
 @IonicPage()
 @Component({
   selector: 'page-addbusiness',
@@ -21,8 +22,10 @@ export class AddbusinessPage {
   businessDetails : any;
   userDetails : any;
   apiUrl: string = '';
+  // public latitude: any;
+  // public longitude: any;
   constructor(public navParams: NavParams,public navCtrl: NavController, private camera: Camera, private transfer: FileTransfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController,
-             public platform: Platform, public loadingCtrl: LoadingController, public authService: AuthServiceProvider, public alertCtrl: AlertController) {
+    private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, public platform: Platform, public loadingCtrl: LoadingController, public authService: AuthServiceProvider, public alertCtrl: AlertController) {
 
     const dataBusiness  = this.navParams.data;
     console.log(dataBusiness);
@@ -47,13 +50,16 @@ export class AddbusinessPage {
     // console.log(dataBusiness.length);
    }
 
+  //  ionViewDidLoad() {
+  //   this.loadMap();
+  // }
 
    result : FileUploadResult = null;
 
 
 
   addBusinessform: FormGroup;
-  userData = { phone: "",email: "",companyName: "",address: "",city: "",details: "",businessType: "",filename: ""};
+  userData = { phone: "",email: "",companyName: "",address: "",city: "",details: "",businessType: "",filename: "",lat: "",lng: ""};
   userPostData = {"user":"","token":""};
 
   ngOnInit() {
@@ -67,13 +73,43 @@ export class AddbusinessPage {
       address: new FormControl('', [Validators.required]),
       city: new FormControl('', [Validators.required]),
       details: new FormControl('', [Validators.required]),
-      businessType: new FormControl('', [Validators.required])
+      businessType: new FormControl('', [Validators.required]),
+      lat: new FormControl('', [Validators.required]),
+      lng: new FormControl('', [Validators.required])
     });
-
-
   }
 
+  loadMap()
+  {
+    this.mapsAPILoader.load().then(() => {
+      this.userData.address = "";  
+      this.userData.lat = "";
+      this.userData.lng = "";
+      let nativeHomeInputBox = document.getElementById('city').getElementsByTagName('input')[0];
+      let autocomplete = new google.maps.places.Autocomplete(nativeHomeInputBox, {
+          types: ["geocode"],componentRestrictions: {country: 'in'}
+      });
+      autocomplete.addListener("place_changed", () => {
+          this.ngZone.run(() => {
+              //get the place result
+              let place: any = autocomplete.getPlace();
+           
+              //verify result
+              if (!place.geometry) {
+                console.log('place not found');
+                return;
 
+              }
+
+              //set latitude, longitude and zoom
+              this.userData.city = place.formatted_address;
+              this.userData.address = place.formatted_address;
+              this.userData.lat = place.geometry.location.lat();
+              this.userData.lng = place.geometry.location.lng();
+          });
+      });
+  });
+  }
 
 
   public presentActionSheet() {
@@ -168,32 +204,6 @@ export class AddbusinessPage {
       return cordova.file.dataDirectory + img;
     }
   }
-
-  // addBusiness(){
-  //   this.authService.authData(this.userData,'add_business',this.userPostData.token).then((result) => {
-  //    this.responseData = result;
-  //    if(this.responseData.success)
-  //    {
-  //    console.log(this.responseData);
-  //    localStorage.setItem('userData', JSON.stringify(this.responseData));
-  //    console.log("Local storage "+JSON.parse(localStorage.getItem('userData')));
-  //    const alert = this.alertCtrl.create({
-  //     subTitle: this.responseData.success.message,
-  //     buttons: ['OK']
-  //   })
-  //   alert.present();
-  //    }
-  //    else{ console.log(this.responseData.error); }
-  //  }, (err) => {
-  //   this.responseData = err.json();
-  //   console.log(this.responseData)
-  //   const alert = this.alertCtrl.create({
-  //     subTitle: this.responseData.error,
-  //     buttons: ['OK']
-  //   })
-  //   alert.present();
-  //  });
-  // }
 
   uploadImage(){
     var targetPath = this.pathForImage(this.lastImage);

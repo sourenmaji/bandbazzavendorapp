@@ -69,11 +69,7 @@ export class RegisterPage implements OnInit{
 
     equalsto(field_name): ValidatorFn {
       return (control: AbstractControl): {[key: string]: any} => {
-        // if(!this.buttonClicked)
-        // {
-        //     console.log( { 'equalTo': false });
-        //     return { 'equalTo': false };
-        // }
+        
         let isValid = false;
         console.log(this.userData.otp)
         if(this.user_OTP != this.userData.otp){

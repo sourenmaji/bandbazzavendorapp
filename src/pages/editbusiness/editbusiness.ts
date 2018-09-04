@@ -1,13 +1,14 @@
+import { MapsAPILoader } from '@agm/core';
 import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
 import { FileUploadOptions, FileTransferObject, FileTransfer, FileUploadResult } from '@ionic-native/file-transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { File } from '@ionic-native/file';
 import { IonicPage, NavController, NavParams, ActionSheetController, ToastController, Platform, AlertController } from 'ionic-angular';
 declare var cordova: any;
-
+declare var google;
 @IonicPage()
 @Component({
   selector: 'page-editbusiness',
@@ -23,7 +24,7 @@ export class EditbusinessPage {
   result : FileUploadResult = null;
   responseData: any;
   apiUrl: string = '';
-  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController,
+  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController,
     public toastCtrl: ToastController,private camera: Camera, public platform: Platform ,private filePath: FilePath,
     private file: File, private alertCtrl: AlertController, private transfer: FileTransfer,private authService: AuthServiceProvider) {
 
@@ -43,7 +44,7 @@ export class EditbusinessPage {
 
   }
  editBusinessform: FormGroup;
-  userData = { phone: "",email: "",companyName: "",address: "",city: "",details: "",businessType: "",filename: "", business_id: ""};
+  userData = { phone: "",email: "",companyName: "",address: "",city: "",details: "",businessType: "",filename: "", business_id: "",lat: "", lng: ""};
   userPostData = {"user":"","token":""};
 
   ngOnInit() {
@@ -57,6 +58,8 @@ export class EditbusinessPage {
       city: new FormControl('', [Validators.required]),
       details: new FormControl('', [Validators.required]),
       businessType: new FormControl('', [Validators.required]),
+      lat: new FormControl('', [Validators.required]),
+      lng: new FormControl('', [Validators.required]),
       business_id: new FormControl('', Validators.compose([]))
     });
 
@@ -64,7 +67,37 @@ export class EditbusinessPage {
   }
 
 
+  loadMap()
+  {
+    this.mapsAPILoader.load().then(() => {
+      this.userData.address = "";  
+      this.userData.lat = "";
+      this.userData.lng = "";
+      let nativeHomeInputBox = document.getElementById('city').getElementsByTagName('input')[0];
+      let autocomplete = new google.maps.places.Autocomplete(nativeHomeInputBox, {
+          types: ["geocode"],componentRestrictions: {country: 'in'}
+      });
+      autocomplete.addListener("place_changed", () => {
+          this.ngZone.run(() => {
+              //get the place result
+              let place: any = autocomplete.getPlace();
+           
+              //verify result
+              if (!place.geometry) {
+                console.log('place not found');
+                return;
 
+              }
+
+              //set latitude, longitude and zoom
+              this.userData.city = place.formatted_address;
+              this.userData.address = place.formatted_address;
+              this.userData.lat = place.geometry.location.lat();
+              this.userData.lng = place.geometry.location.lng();
+          });
+      });
+  });
+  }
 
   public presentActionSheet() {
     let actionSheet = this.actionSheetCtrl.create({

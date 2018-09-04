@@ -70,13 +70,13 @@
 
           <ion-item>
               <ion-label floating>Starting Price <small>(per plate)</small><span style="color: red">*</span></ion-label>
-              <ion-input type="text" [(ngModel)]="userData.startingPrice" value="{{productValue.price_per_plate}}"
+              <ion-input type="number" [(ngModel)]="userData.startingPrice" value="{{productValue.price_per_plate}}"
               formControlName="startingPrice" [class.error1]="!editProductform.controls.startingPrice.valid && editProductform.controls.startingPrice.dirty">
             </ion-input>
             </ion-item>
             <ion-item no-lines *ngIf="( editProductform.get('startingPrice').hasError('required') ||editProductform.get('startingPrice').hasError('pattern')) && editProductform.get('startingPrice').touched">
               <div class="error" *ngIf="editProductform.get('startingPrice').hasError('required') && editProductform.get('startingPrice').touched">
-                Please enter Starting Price
+                Please enter starting price
               </div>
               <div class="error" *ngIf="editProductform.get('startingPrice').hasError('pattern') && editProductform.get('startingPrice').touched">
                   Please enter only digits
@@ -86,13 +86,13 @@
 
               <ion-item>
                 <ion-label floating>Minimum no. of Plates <span style="color: red">*</span></ion-label>
-                <ion-input type="text" [(ngModel)]="userData.minimumPlate" value="{{productValue.package_min_plates}}"
+                <ion-input type="number" [(ngModel)]="userData.minimumPlate" value="{{productValue.package_min_plates}}"
                 formControlName="minimumPlate" [class.error1]="!editProductform.controls.minimumPlate.valid && editProductform.controls.minimumPlate.dirty">
               </ion-input>
               </ion-item>
               <ion-item no-lines *ngIf="( editProductform.get('minimumPlate').hasError('required') ||editProductform.get('minimumPlate').hasError('pattern')) && editProductform.get('hallPrice').touched">
                 <div class="error" *ngIf="editProductform.get('minimumPlate').hasError('required') && editProductform.get('minimumPlate').touched">
-                  Please enter Minimum no. of Plate
+                  Please enter minimum no. of plate
                 </div>
                 <div class="error" *ngIf="editProductform.get('minimumPlate').hasError('pattern') && editProductform.get('minimumPlate').touched">
                   Please enter only digit

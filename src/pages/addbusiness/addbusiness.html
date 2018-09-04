@@ -29,20 +29,25 @@
                     </ion-item> 
                     <ion-item no-lines *ngIf="( addBusinessform.get('companyName').hasError('required') ) && addBusinessform.get('companyName').touched">
                       <div class="error" *ngIf="addBusinessform.get('companyName').hasError('required') && addBusinessform.get('companyName').touched">
-                        Please enter Company Name
+                        Please enter company name
                       </div>
                       
                     </ion-item>
                     <ion-item>
                       <ion-label floating>City <span style="color: red">*</span></ion-label>
-                      <ion-input type="text" [(ngModel)]="userData.city" 
+                      <ion-input type="text" [(ngModel)]="userData.city" id="city" (keyup)="loadMap()"
                       formControlName="city" [class.error1]="!addBusinessform.controls.city.valid && addBusinessform.controls.city.dirty"></ion-input>
+                     
                     </ion-item> 
-                    <ion-item no-lines *ngIf="( addBusinessform.get('city').hasError('required') ) && addBusinessform.get('city').touched">
-                      <div class="error" *ngIf="addBusinessform.get('city').hasError('required') && addBusinessform.get('city').touched">
-                        Please enter City
+                    <ion-input type="hidden" [(ngModel)]="userData.lat" formControlName="lat"></ion-input>
+                    <ion-input type="hidden" [(ngModel)]="userData.lng" formControlName="lng" ></ion-input>
+                    <ion-item no-lines *ngIf="( addBusinessform.get('city').hasError('required') && addBusinessform.get('city').touched) || addBusinessform.get('lat').hasError('required') ">
+                      <div class="error" *ngIf="(addBusinessform.get('city').hasError('required') && addBusinessform.get('city').touched) && addBusinessform.get('lat').hasError('required')">
+                        Please enter valid city
                       </div>
-                      
+                      <!-- <div class="error" *ngIf="addBusinessform.get('lat').hasError('required') && addBusinessform.get('city').touched">
+                        Please enter valid City
+                      </div> -->
                     </ion-item>
                     <ion-item>
                       <ion-label floating>Address <span style="color: red">*</span></ion-label>
@@ -51,7 +56,7 @@
                     </ion-item> 
                     <ion-item no-lines *ngIf="( addBusinessform.get('address').hasError('required') ) && addBusinessform.get('address').touched">
                       <div class="error" *ngIf="addBusinessform.get('address').hasError('required') && addBusinessform.get('address').touched">
-                        Please enter Address
+                        Please enter address
                       </div>
                       
                     </ion-item>
@@ -62,7 +67,7 @@
                     </ion-item> 
                     <ion-item no-lines *ngIf="( addBusinessform.get('details').hasError('required') ) && addBusinessform.get('details').touched">
                       <div class="error" *ngIf="addBusinessform.get('details').hasError('required') && addBusinessform.get('details').touched">
-                        Please enter Details
+                        Please enter details
                       </div>
                       
                     </ion-item>
@@ -86,10 +91,10 @@
                         </ion-item>
                         <ion-item no-lines *ngIf="( addBusinessform.get('phone').hasError('minlength') || addBusinessform.get('phone').hasError('pattern') ||addBusinessform.get('phone').hasError('required') ) && addBusinessform.get('phone').touched">
                           <div class="error" *ngIf="addBusinessform.get('phone').hasError('required') && addBusinessform.get('phone').touched">
-                            Please enter your Phone No.
+                            Please enter your phone no.
                           </div>
                           <div class="error" *ngIf="addBusinessform.get('phone').hasError('pattern') && addBusinessform.get('phone').touched">
-                            This value should be a valid Phone No.
+                            This value should be a valid phone no.
                           </div>
                         </ion-item>
                     <ion-item>

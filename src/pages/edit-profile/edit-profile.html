@@ -20,7 +20,7 @@
       <ion-list>
           <form novalidate  [formGroup]="editform">
             <ion-item>
-              <ion-label floating>NAME <span style="color: red">*</span></ion-label>
+              <ion-label floating>Name <span style="color: red">*</span></ion-label>
               <ion-input type="text" [(ngModel)]="userData.name" value="{{userDetails.name}}"
               formControlName="name" [class.error1]="!editform.controls.name.valid && editform.controls.name.dirty"></ion-input>
             </ion-item>
@@ -35,11 +35,11 @@
                 Maximum 30 characters
               </div>
               <div class="error" *ngIf="editform.get('name').hasError('pattern') && editform.get('name').touched">
-                pattern Your name must contain alphabets and spaces only
+                Pattern your name must contain alphabets and spaces only
               </div>
             </ion-item>
                 <ion-item>
-                  <ion-label floating>EMAIL <span style="color: red">*</span></ion-label>
+                  <ion-label floating>Email <span style="color: red">*</span></ion-label>
                   <ion-input type="email" [(ngModel)]="userData.email" value="{{userDetails.email}}"
                   formControlName="email" [class.error1]="!editform.controls.email.valid && editform.controls.email.dirty"></ion-input>
                 </ion-item>
@@ -52,7 +52,7 @@
                   </div>
                 </ion-item>
                   <ion-item>
-                      <ion-label floating>PHONE <span style="color: red">*</span></ion-label>
+                      <ion-label floating>Phone <span style="color: red">*</span></ion-label>
                       <ion-input  disabled="{{isDisabled}}" id="phone_no" type="text" [(ngModel)]="userData.phone_no" value="{{userDetails.phone_no}}"
                       formControlName="phone_no" [class.error1]="!editform.controls.phone_no.valid && editform.controls.phone_no.dirty"
                       (keyup)="showVal(this.value)"></ion-input>
@@ -64,10 +64,10 @@
                     
                     <ion-item no-lines *ngIf="( editform.get('phone_no').hasError('minlength') || editform.get('phone_no').hasError('pattern') ||editform.get('phone_no').hasError('required')) && editform.get('phone_no').touched">
                       <div class="error" *ngIf="editform.get('phone_no').hasError('required') && editform.get('phone_no').touched">
-                        Please enter your Phone No.
+                        Please enter your phone no.
                       </div>
                       <div class="error" *ngIf="editform.get('phone_no').hasError('pattern') && editform.get('phone_no').touched">
-                        This value should be a valid Phone No.
+                        This value should be a valid phone no.
                       </div>
                     
                     </ion-item>
@@ -80,7 +80,7 @@
                         Your OTP does not match
                       </div>
                       <div class="success" *ngIf="!(editform.get('otp').hasError('equalTo'))">
-                        Your OTP match Successfully
+                        Your OTP match successfully
                       </div>
                     </ion-item>
                     <!-- <ion-item>
@@ -89,7 +89,7 @@
                       </div>
                     </ion-item> -->
                     <ion-item>
-                        <ion-label floating>ADDRESS</ion-label>
+                        <ion-label floating>Address</ion-label>
                         <ion-textarea myInput type="text" value="{{userDetails.address}}" [(ngModel)]="userData.address" formControlName="address"></ion-textarea>
                       </ion-item>
                       <button  ion-button block color="success" [disabled]="editform.invalid || !disableButton" (click)="editProfile()">Save</button><br/>

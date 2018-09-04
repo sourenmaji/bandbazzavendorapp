@@ -42,10 +42,11 @@ export class ProductsPage {
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
       backAction();
-    },2)
+    },2);
+    this.getBusinessCatagories();
   }
 
-  ionViewDidLoad(){
+  ionViewWillEnter(){
     this.category = "";
     this.alProducts = [];
     this.businessProducts = "";
@@ -53,11 +54,12 @@ export class ProductsPage {
     this.productDetails = "";
     this.productImages = [];
     this.imageUrl= this.authService.imageUrl;
-    this.getBusinessCatagories();
+   
   }
   ionViewDidEnter(){
     if(this.authService.pageReset)
     {
+      console.log(this.lastClicked);
       this.getProducts(this.lastClicked);
     }
   }

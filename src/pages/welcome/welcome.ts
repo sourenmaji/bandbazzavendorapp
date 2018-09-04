@@ -1,6 +1,6 @@
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, Navbar, Platform,ToastController, ModalController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Navbar, Platform, ToastController, ModalController, LoadingController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { RegisterPage } from '../register/register';
 import { Network } from '@ionic-native/network';
@@ -29,7 +29,7 @@ export class WelcomePage implements OnInit{
   responseData : any;
   userData = {password: "", email: ""};
   @ViewChild(Navbar) navBar: Navbar;
-  constructor(public navCtrl: NavController, public toast: ToastController,public network: Network, public platform: Platform,public authService:AuthServiceProvider, public alertCtrl: AlertController
+  constructor(public loadingCtrl : LoadingController , public navCtrl: NavController, public toast: ToastController,public network: Network, public platform: Platform,public authService:AuthServiceProvider, public alertCtrl: AlertController
              ,public networkProvider: NetworkProvider) {
   this.previousStatus = ConnectionStatusEnum.Online;
   }
@@ -66,18 +66,24 @@ export class WelcomePage implements OnInit{
     }
 
     login(){
+      let loader = this.loadingCtrl.create({
+        content: 'Please wait...'
+      });
+      loader.present();
       console.log(JSON.stringify(this.userData))
       this.authService.postData(this.userData,'login').then((result) => {
        this.responseData = result;
   
        if(this.responseData.success)
        {
+        loader.dismiss();
        console.log(this.responseData);
        localStorage.setItem('userData', JSON.stringify(this.responseData));
        console.log("Local storage "+JSON.parse(localStorage.getItem('userData')));
        this.navCtrl.push(DashboardPage);
        }
        else{
+        loader.dismiss();
           console.log(this.responseData.error); 
           const alert = this.alertCtrl.create({
             subTitle: this.responseData.error,
@@ -86,7 +92,7 @@ export class WelcomePage implements OnInit{
           alert.present();
         }
      }, (err) => {
-      
+      loader.dismiss();
       this.responseData = err.json();
       console.log(this.network.type);
       if(this.network.type === 'none')

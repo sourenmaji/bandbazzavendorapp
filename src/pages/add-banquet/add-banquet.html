@@ -16,10 +16,10 @@
             </ion-card-header>
             <hr>
             
-            <ion-item style="color: red" *ngIf="errormessage">
+            <p style="color: red" *ngIf="errormessage">
               {{errormessage}}
-              </ion-item>
-              <ion-scroll direction="y" scrollY="true" style="height: 80%;">
+            </p>
+              <ion-content direction="y" scrollY="true" style="height: 80%;">
 
                   
             <ion-card-content>
@@ -73,7 +73,7 @@
               </ion-list>
             </ion-card-content>
             <div  style="margin-bottom: 80px" ></div>
-              </ion-scroll>
+              </ion-content>
         </ion-card>
       </ion-slide>
       <ion-slide style="height: 100vh">
@@ -82,17 +82,21 @@
               Step 2/5
             </ion-card-header>
             <!-- <hr> -->
-            <ion-item style="color: red" *ngIf="errormessage">
-                {{errormessage}}
-                </ion-item>
-                <ion-scroll direction="y" scrollY="true" style="height: 80%;">
+            <p style="color: red" *ngIf="errormessage">
+              {{errormessage}}
+            </p>
+                <ion-content direction="y" scrollY="true" style="height: 80%;">
             <ion-card-content>
               <!-- <ion-item no-padding>
                   <ion-label>Address same as Business address</ion-label>
                   <ion-checkbox (ionChange)="errormessage=''" [(ngModel)]="form2data.same_as_business" ></ion-checkbox>
               </ion-item> -->
 
-
+              <ion-item no-padding>
+                  <ion-label stacked><p>Location</p></ion-label>
+                  <ion-input [(ngModel)]="form2data.map_address" (keyup)="loadMap()" id="txtHome" type="text" placeholder="Enter a location to pick from map"></ion-input>
+                </ion-item>
+                
                   <ion-item no-padding>
                       <ion-label stacked>
                         <p>Full Address</p>
@@ -100,10 +104,7 @@
                       <ion-input (ionChange)="errormessage=''" [(ngModel)]="form2data.full_address" placeholder="Enter Full Address"></ion-input>
                     </ion-item>
       
-                    <ion-item no-padding>
-                      <ion-label stacked><p>Location</p></ion-label>
-                      <ion-input [(ngModel)]="form2data.map_address" id="txtHome" type="text" placeholder="Enter a location to pick from map"></ion-input>
-                    </ion-item>
+                   
               
                   <agm-map 
                   [disableDefaultUI]="false"
@@ -112,7 +113,7 @@
                   </agm-map>
             </ion-card-content>
             <div  style="margin-bottom: 80px" ></div>
-          </ion-scroll>
+          </ion-content>
         </ion-card>
       </ion-slide>
       <ion-slide style="height: 100vh">
@@ -121,10 +122,10 @@
               Step 3/5
             </ion-card-header>
             <!-- <hr> -->
-            <ion-item style="color: red" *ngIf="errormessage">
-                {{errormessage}}
-                </ion-item>
-            <ion-scroll direction="y" scrollY="true" style="height:80vh;">
+            <p style="color: red" *ngIf="errormessage">
+              {{errormessage}}
+            </p>
+            <ion-content direction="y" scrollY="true" style="height:80vh;">
               <ion-card-content>
               <ion-list>
                 <ion-item>
@@ -213,7 +214,7 @@
               </ion-list>
             </ion-card-content>
                 <div  style="margin-bottom: 50px" ></div>
-            </ion-scroll>
+            </ion-content>
         </ion-card>
       </ion-slide>
       <ion-slide style="height: 100vh">
@@ -223,12 +224,12 @@
             </ion-card-header>
             <hr>
             <hr>
-            <ion-item style="color: red" *ngIf="errormessage">
-                {{errormessage}}
-                </ion-item>
+            <p style="color: red" *ngIf="errormessage">
+              {{errormessage}}
+            </p>
             <button ion-button (click)="presentActionSheet()" >Pick Image</button>
-            <p>(Max 5 images. Your last image will be your cover image.)</p>
-            <ion-scroll direction="y" scrollY="true" style="height: 80%;">
+            <p>(Max 5 images. your last image will be your cover image.)</p>
+            <ion-content direction="y" scrollY="true" style="height: 80%;">
                 <ion-card-content>     
                   <ion-card *ngFor="let img of images"  style="position: relative" >
                     <img src="{{'data:image/jpeg;base64,' + img}}">
@@ -239,7 +240,7 @@
                               
                 </ion-card-content>
                 <div  style="margin-bottom: 80px" ></div>
-            </ion-scroll>
+            </ion-content>
         </ion-card>
       </ion-slide>
       <ion-slide style="height: 100vh">
@@ -248,7 +249,7 @@
               Step 5/5
             </ion-card-header>
             <ion-card-content>
-              <ion-scroll direction="y" scrollY="true" style="height:80vh;">
+              <ion-content direction="y" scrollY="true" style="height:80vh;">
               <ion-list>
                 <p>You have successfully added all details, now you add this product!</p> 
                 <ion-item>
@@ -280,7 +281,7 @@
                   <div style="height: 50px"></div>
                 </ion-item>
               </ion-list>
-            </ion-scroll>
+            </ion-content>
             </ion-card-content>
         </ion-card>
       </ion-slide>
