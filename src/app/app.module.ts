@@ -42,6 +42,7 @@ import { LoginPageModule } from '../pages/login/login.module';
 import { WelcomePageModule } from '../pages/welcome/welcome.module';
 import { AddPhotographyPageModule } from '../pages/add-photography/add-photography.module';
 import { AddMakeupArtistPageModule } from '../pages/add-makeup-artist/add-makeup-artist.module';
+import { ViewProductPhotographyPageModule } from '../pages/view-product-photography/view-product-photography.module';
 
 
 @NgModule({
@@ -74,6 +75,7 @@ import { AddMakeupArtistPageModule } from '../pages/add-makeup-artist/add-makeup
     ViewProductBanquatePageModule,
     ViewProductCatererPageModule,
     ViewProductCarPageModule,
+    ViewProductPhotographyPageModule,
     AddBanquetPageModule,
     AddCarsPageModule,
     AddCatererPageModule,

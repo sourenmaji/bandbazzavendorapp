@@ -9,6 +9,7 @@ import { AddCarsPage } from '../add-cars/add-cars';
 import { AddBanquetPage } from '../add-banquet/add-banquet';
 import { AddPhotographyPage } from '../add-photography/add-photography';
 import { AddMakeupArtistPage } from '../add-makeup-artist/add-makeup-artist';
+import { ViewProductPhotographyPage } from '../view-product-photography/view-product-photography';
 
 @IonicPage()
 @Component({
@@ -45,10 +46,6 @@ export class ProductsPage {
       this.navCtrl.pop();
       backAction();
     },2);
-    this.getBusinessCatagories();
-  }
-
-  ionViewWillEnter(){
     this.category = "";
     this.alProducts = [];
     this.businessProducts = "";
@@ -56,7 +53,18 @@ export class ProductsPage {
     this.productDetails = "";
     this.productImages = [];
     this.imageUrl= this.authService.imageUrl;
-   
+    this.getBusinessCatagories();
+  }
+
+  ionViewWillEnter(){
+    // this.category = "";
+    // this.alProducts = [];
+    // this.businessProducts = "";
+    // this.message="";
+    // this.productDetails = "";
+    // this.productImages = [];
+    // this.imageUrl= this.authService.imageUrl;
+
   }
   ionViewDidEnter(){
     if(this.authService.pageReset)
@@ -275,6 +283,12 @@ export class ProductsPage {
     alert.present();
 
 
+  }
+
+  detailsModule(action: string)
+  {
+    if(this.category=='Photography')
+    this.navCtrl.push(ViewProductPhotographyPage,{action: action,product: this.alProducts[0]});
   }
 
 }
