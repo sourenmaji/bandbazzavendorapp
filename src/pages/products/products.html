@@ -248,6 +248,16 @@
             </div>
         </ion-card-content>
   </ion-card>
+  <ion-card *ngIf="alProducts[0].status=='Live'">
+      <ion-card-header>
+         Photography Actions
+      </ion-card-header>
+      <ion-list>
+          <button ion-item (click)="addModule('Plan')"><ion-icon name="camera" item-start></ion-icon>Add Photography Plan</button>
+          <button ion-item (click)="addModule('Images')"><ion-icon name="images" item-start></ion-icon>Add Images</button>
+          <button ion-item (click)="addModule('Videos')"><ion-icon name="logo-youtube" item-start></ion-icon>Add Videos</button>
+      </ion-list>
+  </ion-card>
 </ion-item>
 
 </ion-list>

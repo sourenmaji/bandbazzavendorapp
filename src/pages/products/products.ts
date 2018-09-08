@@ -10,6 +10,7 @@ import { AddBanquetPage } from '../add-banquet/add-banquet';
 import { AddPhotographyPage } from '../add-photography/add-photography';
 import { AddMakeupArtistPage } from '../add-makeup-artist/add-makeup-artist';
 import { ViewProductPhotographyPage } from '../view-product-photography/view-product-photography';
+import { AddPhotoPlanPage } from '../add-photo-plan/add-photo-plan';
 
 @IonicPage()
 @Component({
@@ -145,6 +146,7 @@ export class ProductsPage {
 
            this.alProducts=this.responseData.all_products;
            this.businessProducts=this.responseData.business_details;
+
 
            if(!this.alProducts.length){
             const alert = this.alertCtrl.create({
@@ -287,8 +289,24 @@ export class ProductsPage {
 
   detailsModule(action: string)
   {
-    if(this.category=='Photography')
+    if(this.category=='Photography' && !this.alProducts[0].edit_status && action=="edit")
     this.navCtrl.push(ViewProductPhotographyPage,{action: action,product: this.alProducts[0]});
+    else if(this.category=='Photography' && action=="details")
+    this.navCtrl.push(ViewProductPhotographyPage,{action: action,product: this.alProducts[0], videos: this.responseData.all_photography_video, plans: this.responseData.all_photography_plan, images:this.responseData.all_photography_image});
+    else
+    {
+      const alert = this.alertCtrl.create({
+        subTitle: "You have already sent an edit request for this product. Please wait for admin approval.",
+        buttons: ['OK']
+      })
+      alert.present();
+    }
+  }
+
+  addModule(module: string)
+  {
+    console.log(module);
+    this.navCtrl.push(AddPhotoPlanPage,{module:module,id: this.alProducts[0].id})
   }
 
 }
