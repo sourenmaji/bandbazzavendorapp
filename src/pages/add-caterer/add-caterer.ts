@@ -64,15 +64,7 @@ export class AddCatererPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddCatererPage');
-    //console.log(this.formSlide.length);
-  }
 
-  ngOnInit()
-  {
-    //this.formstep1 = new FormGroup({
-    //pkgnm: new FormControl("", [Validators.required, Validators.minLength(3)])
-    //}
-    //);
   }
 
   ionViewDidEnter()
@@ -136,11 +128,6 @@ export class AddCatererPage {
         this.errormessage = "Enter a package name!";
         return false;
       }
-        else if (this.step1data.packagename.length < 4)
-        {
-          this.errormessage = "Package name is short! (should be greater than 4 characters)"
-          return false;
-        }
         else if(this.step1data.veg == null)
         {
           this.errormessage = "Choose a package type!";
@@ -164,7 +151,7 @@ export class AddCatererPage {
         this.errormessage = "Enter valid 'minimum no. of plates'";
         return false;
       }
-      
+
       // else if(this.step2data.tags.trim() == "")
       // {
       //   this.errormessage = "Please enter tags to identify your products";
@@ -174,8 +161,8 @@ export class AddCatererPage {
     }
     else if(stepNo == 3)
     {
-      // let min_required_images = 1;
-      // if(this.imagesleft.length+this.imagesright.length> min_required_images)
+      let min_required_images = 1;
+      if(this.imagesleft.length+this.imagesright.length> min_required_images)
       return true;
     }
     return false;
@@ -309,7 +296,7 @@ export class AddCatererPage {
         const alert = this.alertCtrl.create({
         subTitle: this.responseData.message,
         buttons: ['OK']
-        
+
       })
       alert.present();
       }
@@ -321,7 +308,7 @@ export class AddCatererPage {
       })
       alert.present();
       }
-      
+
     }, (err) => {
      this.responseData = err;
      console.log(this.responseData)

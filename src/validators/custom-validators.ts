@@ -7,7 +7,7 @@ export class CustomValidator {
       let x = group.controls[value1];
       let y = group.controls[value2];
 
-      if(x.value <= y.value && y.value && x.value)
+      if(+x.value <= +y.value && +y.value && +x.value)
         {
           return x.setErrors({ lte: true });
         }
@@ -18,7 +18,7 @@ export class CustomValidator {
       }
     }
     static validpercent(control: FormControl) {
-        if(control.value > 100)
+        if(+control.value > 100)
           {
             return { validpercent: true };
           }
