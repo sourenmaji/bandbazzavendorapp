@@ -131,56 +131,47 @@
                 </ion-item>
               <ion-item>
                   <ion-label stacked>
-                    <p>Minimum Hire Distance (in Km)<span style="color: red" > *</span></p>
+                    <p>Minimum Hire Distance (in km)<span style="color: red" > *</span></p>
                   </ion-label>
                   <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.min_hire_distance" placeholder="Min. Hire Distance">
                   </ion-input>
                 </ion-item>
               <ion-item>
                   <ion-label stacked>
-                    <p>Maximum Hire Distance (in Km)<span style="color: red" > *</span></p>
+                    <p>Maximum Hire Distance (in km)<span style="color: red" > *</span></p>
                   </ion-label>
                   <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.max_hire_distance" placeholder="Max. Hire Distance">
                   </ion-input>
                   </ion-item>
-                
-              <ion-label>
-                <p>Price Rate (Non-AC)</p>
-              </ion-label>
-              <ion-row>
-                <ion-col>
-                  <ion-label stacked><p>Per Hour<span style="color: red" > *</span></p></ion-label>
+               
+                  <ion-item>
+                  <ion-label stacked><p>Price Per Hour (Non-AC)<span style="color: red" > *</span></p></ion-label>
                   <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.car_price_hour" placeholder="Non-AC Price">
                   </ion-input>
-                </ion-col>
-                <ion-col>
-                  <ion-label stacked><p>Per Km<span style="color: red" > *</span></p></ion-label>
+               </ion-item>
+               <ion-item>
+                  <ion-label stacked><p>Price Per Km (Non-AC)<span style="color: red" > *</span></p></ion-label>
                   <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.car_price_kil" placeholder="Non-AC Price">
                   </ion-input>
-                </ion-col>
-              </ion-row>
+                </ion-item>
               <ion-item>
                 <ion-label><p>AC Available</p></ion-label>
                 <ion-checkbox (ionChange)="clearAcRates()" [(ngModel)]="ac_available" ></ion-checkbox>
               </ion-item>
               <div *ngIf="ac_available" >
-                <ion-label>
-                  <p>Price Rate (AC)</p>
-                </ion-label>
-                <ion-row>
-                  <ion-col>
-                    <ion-label stacked><p>Per Hour<span style="color: red" > *</span></p></ion-label>
+                  <ion-item>
+                
+                    <ion-label stacked><p>Price Per Hour (AC)<span style="color: red" > *</span></p></ion-label>
                     <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.ac_car_price_hour" placeholder="AC Price">
                       
                     </ion-input>
-                  </ion-col>
-                  <ion-col>
-                    <ion-label stacked><p>Per Km<span style="color: red" > *</span></p></ion-label>
+                  </ion-item>
+                <ion-item>
+                    <ion-label stacked><p>Price Per Km (AC)<span style="color: red" > *</span></p></ion-label>
                     <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.ac_car_price_kil" placeholder="AC Price">
                       
                     </ion-input>
-                  </ion-col>
-                </ion-row>
+                  </ion-item>
               </div>
               <ion-item>
                 <ion-label stacked>
@@ -270,8 +261,8 @@
                 <p>Min. Hire Period (in hrs): {{form2data.min_hire_period}}</p>
                 <p>Max. Hire Period (in hrs): {{form2data.max_hire_period}}</p>
 
-                <p>Min. Hire Distance (in Km): {{form2data.min_hire_distance}}</p>
-                <p>Max. Hire Distance (in Km): {{form2data.max_hire_distance}}</p>
+                <p>Min. Hire Distance (in km): {{form2data.min_hire_distance}}</p>
+                <p>Max. Hire Distance (in km): {{form2data.max_hire_distance}}</p>
               </ion-item>
               
               <ion-label>Price Rate (Non-AC)</ion-label>

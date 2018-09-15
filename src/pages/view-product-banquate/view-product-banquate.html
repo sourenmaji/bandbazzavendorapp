@@ -127,12 +127,15 @@
                       formControlName="hallPrice" [class.error1]="!editProductform.controls.hallPrice.valid && editProductform.controls.hallPrice.dirty">
                     </ion-input>
                     </ion-item>
-                    <ion-item no-lines *ngIf="( editProductform.get('hallPrice').hasError('required') ||editProductform.get('hallPrice').hasError('pattern')) && editProductform.get('hallPrice').touched">
+                    <ion-item no-lines *ngIf="( editProductform.get('hallPrice').hasError('required') ||editProductform.get('hallPrice').hasError('pattern') || editProductform.get('hallPrice').hasError('lessThan'))">
                       <div class="error" *ngIf="editProductform.get('hallPrice').hasError('required') && editProductform.get('hallPrice').touched">
                         Please enter hall price
                       </div>
                       <div class="error" *ngIf="editProductform.get('hallPrice').hasError('pattern') && editProductform.get('hallPrice').touched">
                         Please enter only digit
+                      </div>
+                      <div class="error" *ngIf="editProductform.get('hallPrice').hasError('lessThan')">
+                        Booking price amount cannot be less than booking advance
                       </div>
                     </ion-item>
                     <ion-item>
@@ -140,12 +143,16 @@
                       <ion-input type="number" [(ngModel)]="userData.advanceAmount" value="{{productDetails.details.book_advance}}"
                       formControlName="advanceAmount" [class.error1]="!editProductform.controls.advanceAmount.valid && editProductform.controls.advanceAmount.dirty"></ion-input>
                     </ion-item>
-                    <ion-item no-lines *ngIf="( editProductform.get('advanceAmount').hasError('required') ||editProductform.get('advanceAmount').hasError('pattern')) && editProductform.get('advanceAmount').touched">
+                    
+                    <ion-item no-lines *ngIf="( editProductform.get('advanceAmount').hasError('required') ||editProductform.get('advanceAmount').hasError('pattern') || editProductform.get('advanceAmount').hasError('greaterThan')) ">
                       <div class="error" *ngIf="editProductform.get('advanceAmount').hasError('required') && editProductform.get('advanceAmount').touched">
                         Please enter advance amount
                       </div>
                       <div class="error" *ngIf="editProductform.get('advanceAmount').hasError('pattern') && editProductform.get('advanceAmount').touched">
                         Please enter only digit
+                      </div>
+                      <div class="error" *ngIf="editProductform.get('advanceAmount').hasError('greaterThan')">
+                        Booking advance amount cannot be greater than booking price
                       </div>
                     </ion-item>
                     <ion-item>

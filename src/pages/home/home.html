@@ -1,14 +1,15 @@
 <ion-header>
   <ion-navbar color="headers" hideBackButton="true">
-    <ion-title>
+      <ion-buttons style="float:left">
+          <button ion-button icon-only (click)="onOpenMenu()">
+            <ion-icon name="menu"></ion-icon>
+          </button>
+        </ion-buttons>
+    
+    <ion-title style="float:right">
       Change Password
     </ion-title>
-    <ion-buttons start>
-      <button ion-button icon-only (click)="onOpenMenu()">
-        <ion-icon name="menu"></ion-icon>
-      </button>
-    </ion-buttons>
-
+   
   </ion-navbar>
 </ion-header>
 

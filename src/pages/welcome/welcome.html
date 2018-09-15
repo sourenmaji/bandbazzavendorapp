@@ -25,10 +25,10 @@
                   </ion-item>
                   <ion-item class="wlcm-itm" no-lines *ngIf="( signinform.get('email').hasError('minlength') || signinform.get('email').hasError('pattern') ||signinform.get('email').hasError('required') ) && signinform.get('email').touched">
                     <div class="error" *ngIf="signinform.get('email').hasError('required') && signinform.get('email').touched">
-                      Please enter your email or Phone
+                      Please enter your email or phone
                     </div>
                     <div class="error" *ngIf="signinform.get('email').hasError('pattern') && signinform.get('email').touched">
-                      This value should be a valid email or Valid Phone No.
+                      This value should be a valid email or valid phone no.
                     </div>
                   </ion-item>
                   <ion-item class="wlcm-itm">

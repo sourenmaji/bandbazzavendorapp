@@ -203,7 +203,7 @@ export class AddCarsPage {
       else if(this.isInvalid(this.form2data.car_price_hour, "Enter valid rate per hour (Non-AC)"))
       return false;
 
-      else if(this.isInvalid(this.form2data.car_price_kil, "Enter valid rate per Km (Non-AC)"))
+      else if(this.isInvalid(this.form2data.car_price_kil, "Enter valid rate per km (Non-AC)"))
       return false;
 
       else if(this.ac_available)
@@ -211,7 +211,7 @@ export class AddCarsPage {
         if(this.isInvalid(this.form2data.ac_car_price_hour, "Enter valid rate per hour (AC)"))
         return false;
 
-        if(this.isInvalid(this.form2data.ac_car_price_kil, "Enter valid rate per Km (AC)"))
+        if(this.isInvalid(this.form2data.ac_car_price_kil, "Enter valid rate per km (AC)"))
         return false;
       }
 

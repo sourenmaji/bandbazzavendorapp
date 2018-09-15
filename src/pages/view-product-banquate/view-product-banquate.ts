@@ -1,7 +1,7 @@
 import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, ActionSheetController, AlertController, Platform } from 'ionic-angular';
 
@@ -58,8 +58,8 @@ ionViewDidLoad(){
 ngOnInit() {
   let AMOUNTPATTERN = /^[0-9]/;
   this.editProductform = new FormGroup({
-    hallPrice: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
-    advanceAmount: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
+    hallPrice: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN), this.lessThan('advanceAmount')]),
+    advanceAmount: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN), this.greaterThan('hallPrice')]),
     capacity: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
     acCharges: new FormControl('', [Validators.pattern(AMOUNTPATTERN)]),
     availableAc: new FormControl('',  Validators.compose([])),
@@ -67,6 +67,35 @@ ngOnInit() {
     banquetId: new FormControl('',  Validators.compose([]))
   });
 }
+
+lessThan(field_name): ValidatorFn {
+  return (control: AbstractControl): {[key: string]: any} => {
+  
+  let input = control.value;
+  //console.log(input);
+  let isValid=(+control.root.value[field_name])<(+input)
+ // console.log(isValid);
+  if(!isValid) 
+  return { 'lessThan': true }
+  else 
+  return null;
+  };
+  }
+
+greaterThan(field_name): ValidatorFn {
+  return (control: AbstractControl): {[key: string]: any} => {
+  
+  let input = control.value;
+ // console.log(input);
+  let isValid=(+control.root.value[field_name])>(+input)
+ // console.log(isValid);
+  if(!isValid) 
+  return { 'greaterThan': true }
+  else 
+  return null;
+  };
+  }
+
 
 
 presentActionSheet() {
