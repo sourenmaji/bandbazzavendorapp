@@ -11,6 +11,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Headers} from '@angular/http';
 declare var cordova: any;
 declare var google;
+
 @IonicPage()
 @Component({
   selector: 'page-addbusiness',
@@ -22,51 +23,52 @@ export class AddbusinessPage {
   businessDetails : any;
   userDetails : any;
   apiUrl: string = '';
-  // public latitude: any;
-  // public longitude: any;
+  result : FileUploadResult = null;
+  addBusinessform: FormGroup;
+  userData = { phone: "",email: "",companyName: "",address: "",city: "",details: "",businessType: "",filename: "",lat: "",lng: ""};
+  userPostData = {"user":"","token":""};
+  autocomplete: any;
+
   constructor(public navParams: NavParams,public navCtrl: NavController, private camera: Camera, private transfer: FileTransfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController,
     private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, public platform: Platform, public loadingCtrl: LoadingController, public authService: AuthServiceProvider, public alertCtrl: AlertController) {
 
     const dataBusiness  = this.navParams.data;
     console.log(dataBusiness);
     this.businessDetails = dataBusiness.options;
-    // console.log(dataBusiness.length);
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.success.user;
-
     this.userPostData.user = this.userDetails;
     this.userPostData.token = data.success.token;
     this.apiUrl=this.authService.apiUrl;
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
       backAction();
-    },2)
+    },2);
+    this.userData.address = "";
+    this.userData.lat = "";
+    this.userData.lng = "";
+
    }
 
    ionViewDidEnter(){
     const dataBusiness  = this.navParams.data;
     console.log(dataBusiness);
     this.businessDetails = dataBusiness.options;
-    // console.log(dataBusiness.length);
+    this.mapsAPILoader.load().then(() => {
+      let nativeHomeInputBox = document.getElementById('city').getElementsByTagName('input')[0];
+      console.log(nativeHomeInputBox);
+      this.autocomplete = new google.maps.places.Autocomplete(nativeHomeInputBox, {
+          types: ["geocode"],componentRestrictions: {country: 'in'}
+      });
+      console.log(this.autocomplete);
+      });
    }
 
-  //  ionViewDidLoad() {
-  //   this.loadMap();
-  // }
-
-   result : FileUploadResult = null;
-
-
-
-  addBusinessform: FormGroup;
-  userData = { phone: "",email: "",companyName: "",address: "",city: "",details: "",businessType: "",filename: "",lat: "",lng: ""};
-  userPostData = {"user":"","token":""};
 
   ngOnInit() {
     let EMAILPATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let PHONEPATTERN = /^[0-9]{10}$/;
     this.addBusinessform = new FormGroup({
-      // username: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(10)]),
       phone: new FormControl('', Validators.compose([Validators.required, Validators.pattern(PHONEPATTERN)])),
       companyName: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)]),
@@ -79,28 +81,24 @@ export class AddbusinessPage {
     });
   }
 
-  loadMap()
+  autolocation()
   {
+    console.log("keyup");
+    this.userData.address = "";
+    this.userData.lat = "";
+    this.userData.lng = "";
     this.mapsAPILoader.load().then(() => {
-      this.userData.address = "";  
-      this.userData.lat = "";
-      this.userData.lng = "";
-      let nativeHomeInputBox = document.getElementById('city').getElementsByTagName('input')[0];
-      let autocomplete = new google.maps.places.Autocomplete(nativeHomeInputBox, {
-          types: ["geocode"],componentRestrictions: {country: 'in'}
-      });
-      autocomplete.addListener("place_changed", () => {
+      this.autocomplete.addListener("place_changed", () => {
           this.ngZone.run(() => {
               //get the place result
-              let place: any = autocomplete.getPlace();
-           
+              let place: any = this.autocomplete.getPlace();
+
               //verify result
               if (!place.geometry) {
                 console.log('place not found');
                 return;
 
               }
-
               //set latitude, longitude and zoom
               this.userData.city = place.formatted_address;
               this.userData.address = place.formatted_address;
@@ -120,7 +118,6 @@ export class AddbusinessPage {
         {
           text: 'Load from Library',
           handler: () => {
-            //this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
             this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
           }
         },
@@ -138,8 +135,6 @@ export class AddbusinessPage {
     });
     actionSheet.present();
   }
-
-
 
   public takePicture(sourceType) {
     // Create options for the Camera Dialog
@@ -228,7 +223,6 @@ export class AddbusinessPage {
       this.result = data;
      // alert(this.result.response);
       var success = JSON.parse(this.result.response);
-     // alert(success.status);
       if(success.status===true){
       localStorage.setItem('businessData', success.businesses);
       const alert = this.alertCtrl.create({

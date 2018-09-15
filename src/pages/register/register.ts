@@ -16,7 +16,7 @@ export class RegisterPage implements OnInit{
 
   @ViewChild(Navbar) navBar: Navbar;
    constructor(public loadingCtrl: LoadingController, public platform: Platform,public navCtrl: NavController, public authService:AuthServiceProvider, public alertCtrl: AlertController) {
-  
+
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
       backAction();
@@ -50,47 +50,47 @@ export class RegisterPage implements OnInit{
       password_confirmation: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12), this.equalto('password')]))
     });
 
-    
+
   }
 
 
     equalto(field_name): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
-    
+
     let input = control.value;
-    
+
     let isValid=control.root.value[field_name]==input
-    if(!isValid) 
+    if(!isValid)
     return { 'equalTo': {isValid} }
-    else 
+    else
     return null;
     };
     }
 
     equalsto(field_name): ValidatorFn {
       return (control: AbstractControl): {[key: string]: any} => {
-        
+
         let isValid = false;
         console.log(this.userData.otp)
         if(this.user_OTP != this.userData.otp){
           return { 'equalsTo': {isValid} };
-          
+
         }
       let input = control.value;
       //console.log(this.user_OTP);
       isValid=this.user_OTP==input;
-      if(!isValid) 
+      if(!isValid)
       {
         //console.log( { 'equalTo': {isValid} });
         return { 'equalsTo': {isValid} };
       }
-      else 
+      else
       return null;
       };
       }
-    
+
     showVal($value) {
-      console.log(this.userData.user); 
+      console.log(this.userData.user);
       console.log(!isNaN(+this.userData.user));
        if(!isNaN(+this.userData.user)){
       this.otpButton = true;
@@ -98,7 +98,7 @@ export class RegisterPage implements OnInit{
         this.otpButton = false;
        }
    }
- 
+
    sendOtp(){
     let loader = this.loadingCtrl.create({
       content: 'Please wait...'
@@ -120,11 +120,11 @@ export class RegisterPage implements OnInit{
       console.log(this.user_OTP);
       // localStorage.setItem('OTP', JSON.stringify(this.responseData));
       // console.log(JSON.parse(localStorage.getItem('OTP')));
-      
+
       const alert = this.alertCtrl.create({
        subTitle: this.responseData.message,
        buttons: ['OK']
-       
+
      })
      alert.present();
       }
@@ -164,7 +164,7 @@ export class RegisterPage implements OnInit{
         buttons: ['OK']
       })
       alert.present();
-      this.navCtrl.push(LoginPage);
+      this.navCtrl.push(WelcomePage);
       }
       else{ loader.dismiss(); }
     },

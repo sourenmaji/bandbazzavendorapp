@@ -1,0 +1,342 @@
+<ion-header>
+  <ion-navbar color="headers">
+    <ion-title *ngIf="requestType == 'details'">View Product</ion-title>
+    <ion-title *ngIf="requestType == 'edit'">Edit Product</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div *ngIf="requestType == 'edit'">
+    <ion-card>
+      <ion-card-content>
+        <form novalidate [formGroup]="editPhotographyForm" (ngSubmit)="updatePhotography()">
+          <ion-item>
+            <ion-label floating>Travel Policy</ion-label>
+            <ion-input type="text" formControlName="travel_policy">
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Working Since</ion-label>
+            <ion-datetime displayFormat="YYYY" formControlName="working_since"></ion-datetime>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Completed Project</ion-label>
+            <ion-input type="number"
+            formControlName="completed_project"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Primary Market</ion-label>
+            <ion-input type="text"
+            formControlName="primary_market"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Price From <span style="color: red">*</span></ion-label>
+            <ion-input type="number"
+            formControlName="price_from"></ion-input>
+          </ion-item>
+          <div class="error" *ngIf="editPhotographyForm.get('price_from').hasError('required') && editPhotographyForm.get('price_from').touched">
+            This field is required
+          </div>
+
+          <ion-item>
+            <ion-label floating>Price To</ion-label>
+            <ion-input type="number"
+            formControlName="price_to"></ion-input>
+          </ion-item>
+          <p class="error" *ngIf="editPhotographyForm.get('price_to').hasError('lte')">
+            Price To must be greater than price from
+          </p>
+
+          <ion-item>
+            <ion-label floating>Achievements</ion-label>
+            <ion-input type="text"
+            formControlName="achievements">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Cancellation Policy</ion-label>
+          <ion-input type="text"
+          formControlName="cancellation_policy">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Payment Mode <span style="color: red">*</span></ion-label>
+        <ion-select formControlName="payment_mode" multiple="true">
+          <ion-option value="bank transfer">Bank Transfer</ion-option>
+          <ion-option value="cash">By Cash</ion-option>
+          <ion-option value="paytm">PayTM</ion-option>
+          <ion-option value="cheque">Cheque</ion-option>
+        </ion-select>
+      </ion-item>
+      <p class="error" *ngIf="editPhotographyForm.get('payment_mode').hasError('required') && editPhotographyForm.get('payment_mode').touched">
+        This field is required
+      </p>
+
+
+      <ion-item>
+        <ion-label floating>Advance Booking Charge (in %)</ion-label>
+        <ion-input type="number"
+        formControlName="advance_booking_charge"></ion-input>
+      </ion-item>
+      <p class="error" *ngIf="editPhotographyForm.get('advance_booking_charge').hasError('validpercent')">
+        Percentage cannot be greater than 100
+      </p>
+
+      <ion-item>
+        <ion-label floating>Event Date Charge (in %)</ion-label>
+        <ion-input type="number"
+        formControlName="event_date_charge"></ion-input>
+      </ion-item>
+      <p class="error" *ngIf="editPhotographyForm.get('event_date_charge').hasError('validpercent')">
+        Percentage cannot be greater than 100
+      </p>
+
+      <ion-item>
+        <ion-label floating>At Delivery Charge (in %)</ion-label>
+        <ion-input type="number"
+        formControlName="at_delivery_charge"></ion-input>
+      </ion-item>
+      <p class="error" *ngIf="editPhotographyForm.get('at_delivery_charge').hasError('validpercent')">
+        Percentage cannot be greater than 100
+      </p>
+
+      <ion-list>
+
+        <ion-item>
+          <ion-label>Pre-Wedding Price (per day)</ion-label>
+          <ion-checkbox [(ngModel)]="pre_wedding" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'pre_wedding', status: pre_wedding})"></ion-checkbox>
+        </ion-item>
+        <ion-item *ngIf="pre_wedding">
+          <ion-input type="number" formControlName="pre_wedding_price" placeholder="Pre-Wedding Price (per day)"></ion-input>
+        </ion-item>
+
+
+        <ion-item>
+          <ion-label>Wedding Price (per day)</ion-label>
+          <ion-checkbox [(ngModel)]="wedding" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'wedding', status: wedding})"></ion-checkbox>
+        </ion-item>
+        <ion-item *ngIf="wedding">
+          <ion-input type="number" formControlName="wedding_price" placeholder="Wedding Price (per day)"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Candid Price (per day)</ion-label>
+          <ion-checkbox [(ngModel)]="candid" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'candid', status: candid})"></ion-checkbox>
+        </ion-item>
+        <ion-item *ngIf="candid">
+          <ion-input type="number" formControlName="candid_price" placeholder="Candid Price (per day)"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Studio Price (per day)</ion-label>
+          <ion-checkbox [(ngModel)]="studio" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'studio', status: studio})"></ion-checkbox>
+        </ion-item>
+        <ion-item *ngIf="studio">
+          <ion-input type="number" formControlName="studio_price" placeholder="Studio Price (per day)"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Cinematography Price (per day)</ion-label>
+          <ion-checkbox [(ngModel)]="cinematic" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'cinematic', status: cinematic})"></ion-checkbox>
+        </ion-item>
+        <ion-item *ngIf="cinematic">
+          <ion-input type="number" formControlName="cinematic_price" placeholder="Cinematic Price (per day)"></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <ion-item>
+        <ion-label floating>Photo Album Price <span style="color: red">*</span></ion-label>
+        <ion-input type="number" formControlName="photo_album_price"></ion-input>
+      </ion-item>
+      <p class="error" *ngIf="editPhotographyForm.get('photo_album_price').hasError('required') && editPhotographyForm.get('photo_album_price').touched">
+        This field is required
+      </p>
+
+      <ion-item>
+        <ion-label>Storage Device <span style="color: red">*</span></ion-label>
+        <ion-select multiple="true" formControlName="storage_device">
+          <ion-option value="google drive">Google Drive</ion-option>
+          <ion-option value="onedrive">OneDrive</ion-option>
+          <ion-option value="pendrive">Pen Drive</ion-option>
+          <ion-option value="cd/dvd">CD/DVD</ion-option>
+          <ion-option value="hard disk">Hard Disk</ion-option>
+        </ion-select>
+      </ion-item>
+      <p class="error" *ngIf="editPhotographyForm.get('storage_device').hasError('required') && editPhotographyForm.get('storage_device').touched">
+        This field is required
+      </p>
+
+      <ion-item>
+        <ion-label>Raw Image Delivery <span style="color: red">*</span></ion-label>
+        <ion-select formControlName="raw_image_delivery">
+          <ion-option value="1">Yes</ion-option>
+          <ion-option value="0">No</ion-option>
+        </ion-select>
+      </ion-item>
+      <p class="error" *ngIf="editPhotographyForm.get('raw_image_delivery').hasError('required') && editPhotographyForm.get('raw_image_delivery').touched">
+        This field is required
+      </p>
+
+      <ion-item>
+        <ion-label floating>Delivery Duration</ion-label>
+        <ion-input type="text" formControlName="delivery_duration">
+        </ion-input>
+      </ion-item>
+
+      <button type="submit" ion-button block color="success" [disabled]="editPhotographyForm.invalid">Update</button><br/>
+    </form>
+
+  </ion-card-content>
+</ion-card>
+
+</div>
+
+<div *ngIf="requestType == 'details'">
+  <ion-card>
+    <ion-card-header>
+      Plan Details
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngIf="!plans.length">
+        No plans added yet!
+      </div>
+      <div *ngIf="plans.length">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              Plan Name
+            </ion-col>
+            <ion-col>
+              Plan Offers
+            </ion-col>
+            <ion-col>
+              Plan Price
+            </ion-col>
+            <ion-col>
+              Action
+            </ion-col>
+          </ion-row>
+          <ion-row *ngFor="let plan of plans">
+            <ion-col>
+              {{plan.plan_name}}
+            </ion-col>
+            <ion-col>
+              {{plan.plan_offers}}
+            </ion-col>
+            <ion-col>
+              Rs {{plan.plan_price}}
+            </ion-col>
+            <ion-col>
+              N/A
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Images Gallery
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngIf="!images.length">
+        No images added yet!
+      </div>
+      <div *ngIf="images.length">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              Image Link
+            </ion-col>
+            <ion-col>
+              Action
+            </ion-col>
+          </ion-row>
+          <ion-row *ngFor="let image of images">
+            <ion-col>
+              {{image.image}}
+            </ion-col>
+            <ion-col>
+              N/A
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Video Links
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngIf="!videos.length">
+        No videos added yet!
+      </div>
+      <div *ngIf="videos.length">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              Video Link
+            </ion-col>
+            <ion-col>
+              Action
+            </ion-col>
+
+          </ion-row>
+          <ion-row *ngFor="let video of videos">
+            <ion-col>
+              {{video.video_link}}
+            </ion-col>
+            <ion-col>
+              N/A
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Product Details
+    </ion-card-header>
+    <ion-card-content>
+
+      <p>Travel Policy: {{productDetails.travel_policy}}</p>
+      <p>Working Since: {{productDetails.working_since}}</p>
+      <p>Completed Project: {{productDetails.completed_project}}</p>
+      <p>Primary Market: {{productDetails.primary_market}}</p>
+      <p>Price From <span style="color: red">*</span>: Rs {{productDetails.price_from}}</p>
+      <p>Price To: Rs {{productDetails.price_to}}</p>
+      <p>Achievements: {{productDetails.achievements}}</p>
+      <p>Cancellation Policy: {{productDetails.cancellation_policy}}</p>
+      <p>Payment Mode <span style="color: red">*</span>: {{productDetails.payment_mode}}</p>
+      <p>Advance Booking Charge (in %): {{productDetails.advance_booking_charge}}%</p>
+      <p>Event Date Charge (in %): {{productDetails.event_date_charge}}%</p>
+      <p>At Delivery Charge (in %): {{productDetails.at_delivery_charge}}%</p>
+      <p>Pre-Wedding Price (per day): {{productDetails.pre_wedding_price ? 'Rs '+productDetails.pre_wedding_price : 'N/A'}}</p>
+      <p>Wedding Price (per day): {{productDetails.wedding_price ? 'Rs '+productDetails.wedding_price : 'N/A'}}</p>
+      <p>Candid Price (per day): {{productDetails.candid_price ? 'Rs '+productDetails.candid_price : 'N/A'}}</p>
+      <p>Studio Price (per day): {{productDetails.studio_price ? 'Rs '+productDetails.studio_price : 'N/A'}}</p>
+      <p>Cinematography Price (per day): {{productDetails.cinematic_price ? 'Rs '+productDetails.cinematic_price : 'N/A'}}</p>
+      <p>Photo Album Price <span style="color: red">*</span>: {{productDetails.photo_album_price}}</p>
+      <p>Storage Device <span style="color: red">*</span>: {{productDetails.storage_device}}</p>
+      <p>Raw Image Delivery <span style="color: red">*</span>: {{productDetails.raw_image_delivery}}</p>
+      <p>Delivery Duration: {{productDetails.delivery_duration}}</p>
+
+
+    </ion-card-content>
+  </ion-card>
+</div>
+
+</ion-content>

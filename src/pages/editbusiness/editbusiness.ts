@@ -24,6 +24,11 @@ export class EditbusinessPage {
   result : FileUploadResult = null;
   responseData: any;
   apiUrl: string = '';
+  autocomplete: any;
+  editBusinessform: FormGroup;
+  userData = { phone: "",email: "",companyName: "",address: "",city: "",details: "",businessType: "",filename: "", business_id: "",lat: "", lng: ""};
+  userPostData = {"user":"","token":""};
+
   constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController,
     public toastCtrl: ToastController,private camera: Camera, public platform: Platform ,private filePath: FilePath,
     private file: File, private alertCtrl: AlertController, private transfer: FileTransfer,private authService: AuthServiceProvider) {
@@ -32,6 +37,9 @@ export class EditbusinessPage {
   this.businessImage = this.business.business_image;
   this.apiUrl = this.authService.apiUrl;
   this.businessImageSrc = this.authService.imageUrl+this.businessImage;
+  this.userData.address = "";
+  this.userData.lat = "";
+  this.userData.lng = "";
 
   const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.success.user;
@@ -40,14 +48,23 @@ export class EditbusinessPage {
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
       backAction();
-    },2)
-
+    },2);
   }
- editBusinessform: FormGroup;
-  userData = { phone: "",email: "",companyName: "",address: "",city: "",details: "",businessType: "",filename: "", business_id: "",lat: "", lng: ""};
-  userPostData = {"user":"","token":""};
+
+  ionViewDidEnter()
+  {
+    this.mapsAPILoader.load().then(() => {
+      let nativeHomeInputBox = document.getElementById('city').getElementsByTagName('input')[0];
+      console.log(nativeHomeInputBox);
+      this.autocomplete = new google.maps.places.Autocomplete(nativeHomeInputBox, {
+          types: ["geocode"],componentRestrictions: {country: 'in'}
+      });
+      console.log(this.autocomplete);
+      });
+  }
 
   ngOnInit() {
+    console.log(this.business.module_name);
     let EMAILPATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let PHONEPATTERN = /^[0-9]{10}$/;
     this.editBusinessform = new FormGroup({
@@ -57,31 +74,26 @@ export class EditbusinessPage {
       address: new FormControl('', [Validators.required]),
       city: new FormControl('', [Validators.required]),
       details: new FormControl('', [Validators.required]),
-      businessType: new FormControl('', [Validators.required]),
+      businessType: new FormControl(''),
       lat: new FormControl('', [Validators.required]),
       lng: new FormControl('', [Validators.required]),
       business_id: new FormControl('', Validators.compose([]))
     });
-
-
   }
 
 
-  loadMap()
+  autolocation()
   {
     this.mapsAPILoader.load().then(() => {
-      this.userData.address = "";  
+      this.userData.address = "";
       this.userData.lat = "";
       this.userData.lng = "";
-      let nativeHomeInputBox = document.getElementById('city').getElementsByTagName('input')[0];
-      let autocomplete = new google.maps.places.Autocomplete(nativeHomeInputBox, {
-          types: ["geocode"],componentRestrictions: {country: 'in'}
-      });
-      autocomplete.addListener("place_changed", () => {
+
+      this.autocomplete.addListener("place_changed", () => {
           this.ngZone.run(() => {
               //get the place result
-              let place: any = autocomplete.getPlace();
-           
+              let place: any = this.autocomplete.getPlace();
+
               //verify result
               if (!place.geometry) {
                 console.log('place not found');

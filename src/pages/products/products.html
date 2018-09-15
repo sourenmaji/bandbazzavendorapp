@@ -10,7 +10,7 @@
     <ion-title style="float:right">Products</ion-title>
     
     <ion-buttons end *ngIf="categories.length">
-      <button ion-button small icon-only (click)="addProduct()" tooltip="add">
+      <button ion-button small icon-only *ngIf="!(category=='Photography' && alProducts.length>=1)" (click)="addProduct()" tooltip="add">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
@@ -27,11 +27,11 @@
       </ion-segment-button>
     </ion-segment>
   <ion-list>
-     <ion-item>
-    <div *ngFor ="let products of alProducts" >
+  <ion-item *ngIf="category !='Photography'">
+  <div *ngFor ="let products of alProducts" >
   <ion-card class="prd-wrp">
 
-    <img src="{{this.imageUrl+products.product_image}}">
+    <img src="{{imageUrl+products.product_image}}">
 
     <ion-card-content *ngIf="category=='Banquet Hall'">
         <ion-fab class="dl-p">
@@ -149,7 +149,6 @@
                   <h2 class="ion-h2" ion-text color="dash6">Veg : <span ion-text color="dark">Rs.{{products.price_per_plate | number:'1.0-0'}}</span></h2>
               </ion-col>
               <ion-col col-auto *ngIf="products.is_veg == 0">
-                  <!-- <h1 ion-text color="dash6">Non Veg :<span ion-text color="dash6">{{products.price_per_plate}}</span></h1> -->
                   <h1 ion-text color="danger">{{products.product_name}}</h1>
                   <h2 class="ion-h2" ion-text color="dash6">Non Veg : <span ion-text color="dark">Rs.{{products.price_per_plate | number:'1.0-0'}}</span></h2>
               </ion-col>
@@ -208,10 +207,60 @@
             </ion-row>
             </div>
         </ion-card-content>
-
   </ion-card>
 </div>
 </ion-item>
-  </ion-list>
+
+<ion-item *ngIf="category =='Photography' && alProducts.length">
+    <ion-card class="prd-wrp">
+      <img src="{{imageUrl+businessProducts.business_image}}">
+      <ion-card-content>
+          <ion-fab class="dl-p">
+              <button ion-fab mini>
+                <ion-icon name="trash" color="light"></ion-icon>
+              </button>
+            </ion-fab>
+          <ion-card-title >
+            <ion-row>
+
+              <ion-col col-auto>
+                  <h1 ion-text color="danger">{{businessProducts.company_name}}</h1>
+              </ion-col>
+              <ion-col col-3>
+                  <ion-badge color="ac">{{alProducts[0].status}}</ion-badge>
+                </ion-col>
+            </ion-row>
+          </ion-card-title>
+          <div class="extra-p">
+          <ion-row>
+            <ion-col col-6>
+                <button ion-button icon-left round full color="dash2" [disabled]="alProducts[0].status=='Delete'" (click)="detailsModule('edit')">
+                  <ion-icon color="white" name="create"></ion-icon>
+                  <div ion-text color="white"> Edit </div>
+                </button>
+              </ion-col>
+              <ion-col col-6>
+                <button ion-button icon-left round full color="success" (click)="detailsModule('details')">
+                  <ion-icon name="eye"></ion-icon>
+                  <div> Details </div>
+                </button>
+              </ion-col>
+            </ion-row>
+            </div>
+        </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="alProducts[0].status=='Live'">
+      <ion-card-header>
+         Photography Actions
+      </ion-card-header>
+      <ion-list>
+          <button ion-item (click)="addModule('Plan')"><ion-icon name="camera" item-start></ion-icon>Add Photography Plan</button>
+          <button ion-item (click)="addModule('Images')"><ion-icon name="images" item-start></ion-icon>Add Images</button>
+          <button ion-item (click)="addModule('Videos')"><ion-icon name="logo-youtube" item-start></ion-icon>Add Videos</button>
+      </ion-list>
+  </ion-card>
+</ion-item>
+
+</ion-list>
 
 </ion-content>

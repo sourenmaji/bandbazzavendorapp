@@ -40,28 +40,16 @@ export class WelcomePage implements OnInit{
       console.log("backPressed 1");
     },1);
   }
-  
+
   ionViewDidEnter(){
-    // alert("networkState"+this.networkProvider.networkState);
-    // this.networkChange = this.networkProvider.networkState;
-    // this.navBar.backButtonClick = (e:UIEvent)=>{
-    //   // todo something
-    //   this.navCtrl.setRoot(WelcomePage);
-    //  }
-     
-    //  this.networkState = this.networkProvider.getNetworkState();
-    
-
-
     }
 
     ngOnInit() {
       let EMAILPATTERN =/^([_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,5}))|[0-9]{10}$/;
       this.signinform = new FormGroup({
-        // username: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(10)]),
         password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12)])),
         email: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)])
-  
+
       });
     }
 
@@ -73,7 +61,7 @@ export class WelcomePage implements OnInit{
       console.log(JSON.stringify(this.userData))
       this.authService.postData(this.userData,'login').then((result) => {
        this.responseData = result;
-  
+
        if(this.responseData.success)
        {
         loader.dismiss();
@@ -84,7 +72,7 @@ export class WelcomePage implements OnInit{
        }
        else{
         loader.dismiss();
-          console.log(this.responseData.error); 
+          console.log(this.responseData.error);
           const alert = this.alertCtrl.create({
             subTitle: this.responseData.error,
             buttons: ['OK']
@@ -104,18 +92,16 @@ export class WelcomePage implements OnInit{
       })
       alert.present();
      });
-  
+
    }
-  
+
    register(){
     //Register page link
     this.navCtrl.push(RegisterPage);
   }
-  
+
   forgetPassword(){
     this.navCtrl.push(ForgetPasswordPage);
   }
-  // signin(){
-  //   this.navCtrl.push(DashboardPage);
-  // }
+
 }

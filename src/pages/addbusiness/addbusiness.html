@@ -35,19 +35,17 @@
                     </ion-item>
                     <ion-item>
                       <ion-label floating>City <span style="color: red">*</span></ion-label>
-                      <ion-input type="text" [(ngModel)]="userData.city" id="city" (keyup)="loadMap()"
+                      <ion-input type="text" [(ngModel)]="userData.city" id="city" (keyup)="autolocation()"
                       formControlName="city" [class.error1]="!addBusinessform.controls.city.valid && addBusinessform.controls.city.dirty"></ion-input>
-                     
-                    </ion-item> 
+
+                    </ion-item>
                     <ion-input type="hidden" [(ngModel)]="userData.lat" formControlName="lat"></ion-input>
                     <ion-input type="hidden" [(ngModel)]="userData.lng" formControlName="lng" ></ion-input>
                     <ion-item no-lines *ngIf="( addBusinessform.get('city').hasError('required') && addBusinessform.get('city').touched) || addBusinessform.get('lat').hasError('required') ">
                       <div class="error" *ngIf="(addBusinessform.get('city').hasError('required') && addBusinessform.get('city').touched) && addBusinessform.get('lat').hasError('required')">
                         Please enter valid city
                       </div>
-                      <!-- <div class="error" *ngIf="addBusinessform.get('lat').hasError('required') && addBusinessform.get('city').touched">
-                        Please enter valid City
-                      </div> -->
+
                     </ion-item>
                     <ion-item>
                       <ion-label floating>Address <span style="color: red">*</span></ion-label>
@@ -98,9 +96,8 @@
                           </div>
                         </ion-item>
                     <ion-item>
-                         <!-- <ion-input type="file" [hidden]="true" [(ngModel)]="userData.image" formControlName="image" name="image" value="{{lastImage}}"></ion-input> -->
                       <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === null">
-                      <h3 [hidden]="lastImage !== null">Please Select Image!</h3>
+                      <h3 [hidden]="lastImage !== null" class="error">Please Select Image!</h3>
                     </ion-item>
                     <ion-row>
                       <ion-col color="primary">
@@ -108,13 +105,11 @@
                           <button ion-button icon-left full (click)="presentActionSheet()">
                             <ion-icon name="camera"></ion-icon>Select Image
                           </button>
-                          <!-- <button ion-button icon-left (click)="uploadImage()" [disabled]="lastImage === null">
-                            <ion-icon name="cloud-upload"></ion-icon>Upload
-                          </button> -->
+
                         </ion-buttons>
                       </ion-col>
                     </ion-row>
-                    <button  ion-button block color="success" [disabled]="addBusinessform.invalid || lastImage == null" (click)="uploadImage()">Add</button><br/>
+                    <button ion-button block color="success" [disabled]="addBusinessform.invalid || lastImage == null" (click)="uploadImage()">Add</button><br/>
                     </form>
             </ion-list>
             </ion-card-content>

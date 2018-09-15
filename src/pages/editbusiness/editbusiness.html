@@ -9,68 +9,68 @@
 
 
 <ion-content padding>
-  
+
     <ion-card>
         <ion-card-content>
           <ion-list>
               <form novalidate  [formGroup]="editBusinessform">
                   <ion-item >
                       <ion-label>Business Type <span style="color: red">*</span></ion-label>
-                      <ion-input disabled="true" type="text" [(ngModel)]="userData.businessType" value="{{business.module_name}}"
+                      <ion-input type="text" [(ngModel)]="userData.businessType"
                       formControlName="businessType"></ion-input>
-                      
+
                     </ion-item>
                     <ion-item [hidden]="true">
                       <ion-input  type="text" [(ngModel)]="userData.business_id" value="{{business.id}}"
                       formControlName="business_id"></ion-input>
-                      
+
                     </ion-item>
-                  
+
                     <ion-item>
                       <ion-label floating>Company Name <span style="color: red">*</span></ion-label>
                       <ion-input type="text" [(ngModel)]="userData.companyName" value="{{business.company_name}}"
                       formControlName="companyName" [class.error1]="!editBusinessform.controls.companyName.valid && editBusinessform.controls.companyName.dirty"></ion-input>
-                    </ion-item> 
+                    </ion-item>
                     <ion-item no-lines *ngIf="( editBusinessform.get('companyName').hasError('required') ) && editBusinessform.get('companyName').touched">
                       <div class="error" *ngIf="editBusinessform.get('companyName').hasError('required') && editBusinessform.get('companyName').touched">
                         Please enter company name
                       </div>
-                      
+
                     </ion-item>
                     <ion-item>
                       <ion-label floating>City <span style="color: red">*</span></ion-label>
-                      <ion-input type="text" id="city" [(ngModel)]="userData.city" value="{{business.city}}" (keyup)="loadMap()"
+                      <ion-input type="text" id="city" [(ngModel)]="userData.city" value="{{business.city}}" (keyup)="autolocation()"
                       formControlName="city" [class.error1]="!editBusinessform.controls.city.valid && editBusinessform.controls.city.dirty"></ion-input>
-                    </ion-item> 
+                    </ion-item>
                     <ion-input type="hidden" [(ngModel)]="userData.lat" formControlName="lat" value="{{business.lat}}"></ion-input>
                     <ion-input type="hidden" [(ngModel)]="userData.lng" formControlName="lng" value="{{business.lng}}"></ion-input>
                     <ion-item no-lines *ngIf="( editBusinessform.get('city').hasError('required') && editBusinessform.get('city').touched) || editBusinessform.get('lat').hasError('required') ">
                       <div class="error" *ngIf="(editBusinessform.get('city').hasError('required') && editBusinessform.get('city').touched) && editBusinessform.get('lat').hasError('required')">
                         Please enter valid city
                       </div>
-                      
+
                     </ion-item>
                     <ion-item>
                       <ion-label floating>Address <span style="color: red">*</span></ion-label>
                       <ion-textarea type="text" [(ngModel)]="userData.address" value="{{business.address}}"
                       formControlName="address" [class.error1]="!editBusinessform.controls.address.valid && editBusinessform.controls.address.dirty"></ion-textarea>
-                    </ion-item> 
+                    </ion-item>
                     <ion-item no-lines *ngIf="( editBusinessform.get('address').hasError('required') ) && editBusinessform.get('address').touched">
                       <div class="error" *ngIf="editBusinessform.get('address').hasError('required') && editBusinessform.get('address').touched">
                         Please enter address
                       </div>
-                      
+
                     </ion-item>
                     <ion-item>
                       <ion-label floating>Details <span style="color: red">*</span></ion-label>
                       <ion-textarea type="text" [(ngModel)]="userData.details" value="{{business.details}}"
                       formControlName="details" [class.error1]="!editBusinessform.controls.details.valid && editBusinessform.controls.details.dirty"></ion-textarea>
-                    </ion-item> 
+                    </ion-item>
                     <ion-item no-lines *ngIf="( editBusinessform.get('details').hasError('required') ) && editBusinessform.get('details').touched">
                       <div class="error" *ngIf="editBusinessform.get('details').hasError('required') && editBusinessform.get('details').touched">
                         Please enter details
                       </div>
-                      
+
                     </ion-item>
                     <ion-item>
                       <ion-label floating>Email <span style="color: red">*</span></ion-label>
@@ -99,23 +99,19 @@
                           </div>
                         </ion-item>
                     <ion-item>
-                         <!-- <ion-input type="file" [hidden]="true" [(ngModel)]="userData.image" formControlName="image" name="image" value="{{lastImage}}"></ion-input> -->
                       <img  src={{businessImageSrc}} style="width: 100%">
-                     
-                    </ion-item> 
+                    </ion-item>
                     <ion-row>
                       <ion-col color="primary">
                         <ion-buttons>
                           <button ion-button icon-left full (click)="presentActionSheet()">
                             <ion-icon name="camera"></ion-icon>Select Image
                           </button>
-                          <!-- <button ion-button icon-left (click)="uploadImage()" [disabled]="lastImage === null">
-                            <ion-icon name="cloud-upload"></ion-icon>Upload
-                          </button> -->
+
                         </ion-buttons>
                       </ion-col>
                     </ion-row>
-                    <button  ion-button block color="success" [disabled]="editBusinessform.invalid" (click)="saveEditProfile()">Add</button><br/>
+                    <button  ion-button block color="success" [disabled]="editBusinessform.invalid" (click)="saveEditProfile()">Update</button><br/>
                     </form>
             </ion-list>
             </ion-card-content>

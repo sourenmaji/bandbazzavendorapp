@@ -192,7 +192,7 @@ export class AddCarsPage {
       if(this.isInvalid(this.form2data.max_hire_distance, "Enter valid maximum hire distance"))
       return false;
 
-      
+
 
       if((+this.form2data.min_hire_distance) > (+this.form2data.max_hire_distance))
       {
@@ -223,8 +223,8 @@ export class AddCarsPage {
     }
     if(stepNo == 3)
     {
-      // let min_required_images = 1;
-      // if(this.imagesleft.length+this.imagesright.length> min_required_images)
+      let min_required_images = 1;
+      if(this.imagesleft.length+this.imagesright.length> min_required_images)
       return true;
     }
 

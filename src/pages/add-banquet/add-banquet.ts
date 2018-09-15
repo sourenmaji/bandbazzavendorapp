@@ -109,7 +109,7 @@ export class AddBanquetPage {
     {
       this.slides.push({});
     }
-    
+
     this.formSlide.lockSwipes(true);
     this.sliderbubbles.lockSwipes(true);
   }
@@ -179,9 +179,9 @@ export class AddBanquetPage {
         this.errormessage = "Enter details about your hall";
         return false;
       }
-     
-      
-     
+
+
+
       // else if(this.form1data.tags.trim() == "")
       // {
       //   this.errormessage = "Enter some search tags for your hall";
@@ -209,7 +209,7 @@ export class AddBanquetPage {
           this.errormessage = "Enter full address to display on your product";
           return false;
         }
-        
+
         else
         {
           this.errormessage = "";
@@ -248,14 +248,13 @@ export class AddBanquetPage {
     }
     else if(stepNo == 4)
     {
-      /*
       if(this.images.length == 0)
       {
         this.errormessage = "Enter images of your hall";
         return false;
       }
       else
-      */
+
         return true;
     }
     else
@@ -280,10 +279,10 @@ export class AddBanquetPage {
 
   mapClicked(event: any) {
     console.log(event);
-    
+
     this.latitude=event.coords.lat;
     this.longitude=event.coords.lng;
-    
+
   }
 
   //function for step 3
@@ -441,7 +440,7 @@ export class AddBanquetPage {
         const alert = this.alertCtrl.create({
         subTitle: this.responseData.message,
         buttons: ['OK']
-        
+
       })
       alert.present();
       }
@@ -453,7 +452,7 @@ export class AddBanquetPage {
       })
       alert.present();
       }
-      
+
     }, (err) => {
      this.responseData = err;
      console.log(this.responseData)
