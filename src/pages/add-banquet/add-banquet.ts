@@ -13,7 +13,7 @@ declare var google;
   templateUrl: 'add-banquet.html',
 })
 
-export class AddBanquetPage {
+export class AddBanquetPage{
 
   @ViewChild('formslides') formSlide: Slides;
   @ViewChild('sliderbubbles') sliderbubbles: Slides;
@@ -44,7 +44,7 @@ export class AddBanquetPage {
   //form 3 data
   public form3data: {capacity:number, ac_charge:number, all_food_type:boolean, ac:boolean, parking:boolean};
   //form 4 data
-  public images: string[];
+  public images: any[];
 
   public temp;
 
@@ -179,14 +179,6 @@ export class AddBanquetPage {
         this.errormessage = "Enter details about your hall";
         return false;
       }
-
-
-
-      // else if(this.form1data.tags.trim() == "")
-      // {
-      //   this.errormessage = "Enter some search tags for your hall";
-      //   return false;
-      // }
       this.errormessage = "";
       return true;
     }
@@ -361,11 +353,9 @@ export class AddBanquetPage {
     };
 
     this.camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64 (DATA_URL):
-      //let base64Image = 'data:image/jpeg;base64,' + imageData;
+
       this.images.push(imageData);
-      //console.log(imageData);
+
      }, (err) => {
       // Handle error
      });
@@ -378,9 +368,9 @@ export class AddBanquetPage {
     {
       return;
     }
-    this.imagePicker.getPictures({maximumImagesCount:remaining, quality:60, outputType:1}).then
+    this.imagePicker.getPictures({maximumImagesCount:remaining, quality:60, outputType:0}).then
     (results =>{
-      console.log(results);
+      alert(results);
       for(let i=0; i < results.length;i++){
         this.images.push(results[i]);
       };
@@ -409,14 +399,9 @@ export class AddBanquetPage {
     uploadData.price = this.form1data.price;
     uploadData.search_tags = this.form1data.tags;
     uploadData.book_advance = this.form1data.booking_advance;
-    // uploadData.address_same_as_business = this.form2data.same_as_business;
+
     uploadData.ac_charge = this.form3data.ac_charge;
-    // if(!uploadData.address_same_as_business)
-    // {
-    //   uploadData.address = this.form2data.full_address;
-    //   uploadData.lat = this.latitude;
-    //   uploadData.lng = this.longitude;
-    // }
+
     uploadData.location=this.form2data.map_address;
     uploadData.address = this.form2data.full_address;
     uploadData.lat = this.latitude;
@@ -427,40 +412,40 @@ export class AddBanquetPage {
     uploadData.is_parking = this.form3data.parking;
     uploadData.images = this.images;
     //call and upload the uploadData object here
-    console.log(uploadData);
+    alert(uploadData.images);
 
-    //call the rest here..
-    this.restServ.authData(uploadData,'add_product_hall',this.token).then((data) => {
-      this.responseData = data;
-      console.log(this.responseData);
-      if(this.responseData.status==true)
-      {
-        this.restServ.pageReset=true;
-        this.navCtrl.pop();
-        const alert = this.alertCtrl.create({
-        subTitle: this.responseData.message,
-        buttons: ['OK']
+    // //call the rest here..
+    // this.restServ.authData(uploadData,'add_product_hall',this.token).then((data) => {
+    //   this.responseData = data;
+    //   console.log(this.responseData);
+    //   if(this.responseData.status==true)
+    //   {
+    //     this.restServ.pageReset=true;
+    //     this.navCtrl.pop();
+    //     const alert = this.alertCtrl.create({
+    //     subTitle: this.responseData.message,
+    //     buttons: ['OK']
 
-      })
-      alert.present();
-      }
-      else
-      {
-      const alert = this.alertCtrl.create({
-        subTitle: this.responseData.message,
-        buttons: ['OK']
-      })
-      alert.present();
-      }
+    //   })
+    //   alert.present();
+    //   }
+    //   else
+    //   {
+    //   const alert = this.alertCtrl.create({
+    //     subTitle: this.responseData.message,
+    //     buttons: ['OK']
+    //   })
+    //   alert.present();
+    //   }
 
-    }, (err) => {
-     this.responseData = err;
-     console.log(this.responseData)
-     const alert = this.alertCtrl.create({
-      subTitle: "Something went wrong! Please try again.",
-      buttons: ['OK']
-    })
-    alert.present();
-    });
+    // }, (err) => {
+    //  this.responseData = err;
+    //  console.log(this.responseData)
+    //  const alert = this.alertCtrl.create({
+    //   subTitle: "Something went wrong! Please try again.",
+    //   buttons: ['OK']
+    // })
+    // alert.present();
+    // });
   }
 }
