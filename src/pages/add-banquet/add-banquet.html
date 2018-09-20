@@ -22,7 +22,7 @@
               <ion-content direction="y" scrollY="true" style="height: 80%;">
 
                   
-            <ion-card-content>
+            <ion-card-content class="add-cmn">
               <ion-list>
                   <ion-item>
                       <ion-label stacked>
@@ -264,8 +264,8 @@
                     <p>Address: Same as business</p>
                 </div>
                 <div *ngIf="!form2data.same_as_business">
-                    <p>Full Address: {{form2data.full_address}}</p>
-                    <p>Location: {{form2data.map_address}}</p>
+                    <p class="brk-p">Full Address: {{form2data.full_address}}</p>
+                    <p class="brk-p">Location: {{form2data.map_address}}</p>
                 </div>
                 </ion-item>
                 <ion-item>
