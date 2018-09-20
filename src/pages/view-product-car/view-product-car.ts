@@ -79,6 +79,7 @@ ngOnInit() {
     acpriceKm: new FormControl('', [ Validators.pattern(AMOUNTPATTERN)])
 
   });
+  this.authService.pageReset=false;
 }
 
 presentActionSheet() {
@@ -168,6 +169,7 @@ uploadData()
     this.responseData = data;
     if(this.responseData.status == true){
       this.navCtrl.pop();
+      this.authService.pageReset=true;
       const alert = this.alertCtrl.create({
         subTitle: this.responseData.message,
         buttons: ['OK']

@@ -5,13 +5,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController, AlertController, Platform } from 'ionic-angular';
 
-/**
- * Generated class for the ViewProductCatererPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-view-product-caterer',
@@ -56,6 +49,7 @@ ngOnInit() {
     minimumPlate: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
     catererId: new FormControl('',  Validators.compose([]))
   });
+  this.authService.pageReset=false;
 }
 
 presentActionSheet() {
@@ -151,6 +145,7 @@ uploadData()
     this.responseData = data;
     if(this.responseData.status == true){
       this.navCtrl.pop();
+      this.authService.pageReset=true;
       const alert = this.alertCtrl.create({
         subTitle: this.responseData.message,
         buttons: ['OK']

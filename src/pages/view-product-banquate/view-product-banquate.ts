@@ -51,6 +51,7 @@ this.productDetails.details.images.forEach(element => {
   },2)
 }
 ionViewDidLoad(){
+  this.authService.pageReset=false;
   this.lat = this.productDetails.details.lat;
   this.log = this.productDetails.details.lng;
 }
@@ -70,28 +71,28 @@ ngOnInit() {
 
 lessThan(field_name): ValidatorFn {
   return (control: AbstractControl): {[key: string]: any} => {
-  
+
   let input = control.value;
   //console.log(input);
   let isValid=(+control.root.value[field_name])<(+input)
  // console.log(isValid);
-  if(!isValid) 
+  if(!isValid)
   return { 'lessThan': true }
-  else 
+  else
   return null;
   };
   }
 
 greaterThan(field_name): ValidatorFn {
   return (control: AbstractControl): {[key: string]: any} => {
-  
+
   let input = control.value;
  // console.log(input);
   let isValid=(+control.root.value[field_name])>(+input)
  // console.log(isValid);
-  if(!isValid) 
+  if(!isValid)
   return { 'greaterThan': true }
-  else 
+  else
   return null;
   };
   }
@@ -183,6 +184,7 @@ uploadData()
     this.responseData = data;
     if(this.responseData.status == true){
       this.navCtrl.pop();
+      this.authService.pageReset=true;
       const alert = this.alertCtrl.create({
         subTitle: this.responseData.message,
         buttons: ['OK']

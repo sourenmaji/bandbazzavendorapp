@@ -82,15 +82,20 @@ export class ProductsPage {
       content: 'Please wait...'
     });
     loader.present();
+    this.authService.pageReset=false;
     this.authService.getData('get_added_business',this.userPostData.token).then((result) => {
           this.responseData = result;
             console.log(this.responseData);
             this.categories=this.responseData.categories;
-            if(this.categories.length){
+            if(this.categories.length)
+            {
+            loader.dismiss();
+            console.log(this.categories);
              this.category=this.categories[0].module_name;
-             loader.dismiss();
              this.getProducts(this.categories[0]);
-            }else{
+            }
+            else
+            {
               const alert = this.alertCtrl.create({
                 subTitle: 'No Business Added Yet',
                 buttons: ['OK']

@@ -6,7 +6,7 @@
           </button>
         </ion-buttons>
     <ion-title style="float:right">Enquiries</ion-title>
-   
+
   </ion-navbar>
 </ion-header>
 
@@ -41,17 +41,17 @@
 
           <div item-end *ngIf="category.module_name=='Banquet Hall'">
             <h2>{{enquiry.hall_name}}</h2>
-            <li>Enquiry time: {{enquiry.created_at}}</li>
+            <p>Enquiry time: {{enquiry.created_at}}</p>
           </div>
 
           <div item-end *ngIf="category.module_name=='Car Rental'">
             <h2>{{enquiry.car_company_name}} - {{enquiry.car_model}}</h2>
-            <li>Enquiry time: {{enquiry.created_at}}</li>
+            <p>Enquiry time: {{enquiry.created_at}}</p>
           </div>
 
           <div item-end *ngIf="category.module_name=='Caterer'">
             <h2>{{enquiry.package_name}}</h2>
-            <li>Enquiry time: {{enquiry.created_at}}</li>
+            <p>Enquiry time: {{enquiry.created_at}}</p>
           </div>
 
         </button>
