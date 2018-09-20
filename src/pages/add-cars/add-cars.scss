@@ -42,4 +42,19 @@ page-add-cars {
     ion-label#lbl-34 {
         margin-top: 0;
     }
+    .label p {
+        color: #000;
+        font-size: 16px;
+        font-weight: 600;
+    }
+    .item-cover {
+        border-bottom: 1px solid #e6e4e4;
+    }
+    .input-cover {
+        border-bottom: 1px solid #e6e4e4;
+    }
+    .brk-p{
+        overflow-wrap: break-word;
+        word-break: break-all;
+    }
 }

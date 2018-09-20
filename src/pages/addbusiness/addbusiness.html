@@ -39,8 +39,7 @@
                       formControlName="city" [class.error1]="!addBusinessform.controls.city.valid && addBusinessform.controls.city.dirty"></ion-input>
 
                     </ion-item>
-                    <ion-input type="hidden" [(ngModel)]="userData.lat" formControlName="lat"></ion-input>
-                    <ion-input type="hidden" [(ngModel)]="userData.lng" formControlName="lng" ></ion-input>
+                    
                     <ion-item no-lines *ngIf="( addBusinessform.get('city').hasError('required') && addBusinessform.get('city').touched) || addBusinessform.get('lat').hasError('required') ">
                       <div class="error" *ngIf="(addBusinessform.get('city').hasError('required') && addBusinessform.get('city').touched) && addBusinessform.get('lat').hasError('required')">
                         Please enter valid city
@@ -49,8 +48,8 @@
                     </ion-item>
                     <ion-item>
                       <ion-label floating>Address <span style="color: red">*</span></ion-label>
-                      <ion-textarea type="text" [(ngModel)]="userData.address"
-                      formControlName="address" [class.error1]="!addBusinessform.controls.address.valid && addBusinessform.controls.address.dirty"></ion-textarea>
+                      <ion-input type="text" [(ngModel)]="userData.address"
+                      formControlName="address" [class.error1]="!addBusinessform.controls.address.valid && addBusinessform.controls.address.dirty"></ion-input>
                     </ion-item>
                     <ion-item no-lines *ngIf="( addBusinessform.get('address').hasError('required') ) && addBusinessform.get('address').touched">
                       <div class="error" *ngIf="addBusinessform.get('address').hasError('required') && addBusinessform.get('address').touched">
@@ -109,6 +108,8 @@
                         </ion-buttons>
                       </ion-col>
                     </ion-row>
+                    <ion-input type="hidden" [(ngModel)]="userData.lat" formControlName="lat"></ion-input>
+                    <ion-input type="hidden" [(ngModel)]="userData.lng" formControlName="lng" ></ion-input>
                     <button ion-button block color="success" [disabled]="addBusinessform.invalid || lastImage == null" (click)="uploadImage()">Add</button><br/>
                     </form>
             </ion-list>
