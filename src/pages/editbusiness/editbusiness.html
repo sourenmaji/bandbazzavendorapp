@@ -17,7 +17,7 @@
                   <ion-item >
                       <ion-label>Business Type <span style="color: red">*</span></ion-label>
                       <ion-input type="text" [(ngModel)]="userData.businessType"
-                      formControlName="businessType"></ion-input>
+                      formControlName="businessType" value="{{business.module_name}}" ></ion-input>
 
                     </ion-item>
                     <ion-item [hidden]="true">

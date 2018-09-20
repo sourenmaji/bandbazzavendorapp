@@ -226,6 +226,8 @@ export class AddCarsPage {
       let min_required_images = 1;
       if(this.imagesleft.length+this.imagesright.length> min_required_images)
       return true;
+      else
+      this.errormessage = "Please select a image"
     }
 
     return false;

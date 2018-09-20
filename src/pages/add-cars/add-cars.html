@@ -55,12 +55,12 @@
                   <ion-option (ionSelect)="storeModel(m)"  *ngFor="let m of carmodels">{{m.car_model}}</ion-option>
                 </ion-select>
               </ion-item>
-              
+
               <ion-item *ngIf="form1data.brand == null">
                 <p>Select a brand to choose models</p>
               </ion-item>
             </div>
-            
+
             <div *ngIf="unknowncar" >
               <ion-item>
                 <ion-label stacked>
@@ -82,7 +82,7 @@
               <ion-checkbox [(ngModel)]="unknowncar" (ionChange)="switchInputMethod()">
               </ion-checkbox>
             </ion-item>
-            
+
             <ion-item>
               <ion-label><p>Car Type <span style="color: red" > *</span></p></ion-label>
               <ion-select>
@@ -112,7 +112,7 @@
                   <p>No Of Seats<span style="color: red" > *</span></p>
                 </ion-label>
                 <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.no_of_seats" placeholder="No. Of Seats">
-                  
+
                 </ion-input>
               </ion-item>
               <ion-item>
@@ -143,7 +143,7 @@
                   <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.max_hire_distance" placeholder="Max. Hire Distance">
                   </ion-input>
                   </ion-item>
-               
+
                   <ion-item>
                   <ion-label stacked><p>Price Per Hour (Non-AC)<span style="color: red" > *</span></p></ion-label>
                   <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.car_price_hour" placeholder="Non-AC Price">
@@ -160,16 +160,16 @@
               </ion-item>
               <div *ngIf="ac_available" >
                   <ion-item>
-                
+
                     <ion-label stacked><p>Price Per Hour (AC)<span style="color: red" > *</span></p></ion-label>
                     <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.ac_car_price_hour" placeholder="AC Price">
-                      
+
                     </ion-input>
                   </ion-item>
                 <ion-item>
                     <ion-label stacked><p>Price Per Km (AC)<span style="color: red" > *</span></p></ion-label>
                     <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.ac_car_price_kil" placeholder="AC Price">
-                      
+
                     </ion-input>
                   </ion-item>
               </div>
@@ -179,12 +179,12 @@
                 </ion-label>
                 <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.book_advance" placeholder="Advance Amount"></ion-input>
               </ion-item>
-              
+
               <ion-item>
                 <ion-label stacked><p>Search Tags (comma separated)</p></ion-label>
                 <ion-input (ionChange)="errormessage=''" type="text" [(ngModel)]="form2data.car_tags" placeholder="Car Search Tags"></ion-input>
               </ion-item>
-              
+
               <ion-item>
                 <div style="height: 20px">
                 </div>
@@ -201,11 +201,14 @@
         </ion-card-header>
         <hr>
         <hr>
+        <p style="color: red" *ngIf="errormessage">
+          {{errormessage}}
+        </p>
         <button ion-button (click)="presentActionSheet()" >Pick Image</button>
         <p>(Max 5 images. your last image will be your cover image.)</p>
         <ion-content direction="y" scrollY="true" style="height: 80%;">
           <ion-card-content>
-            
+
             <ion-grid>
               <ion-row>
                 <ion-col>
@@ -230,7 +233,7 @@
           <div  style="margin-bottom: 80px" ></div>
         </ion-content>
       </ion-card>
-      
+
     </ion-slide>
     <ion-slide style="height: 100vh">
       <ion-card style="height: 100vh;">
@@ -240,7 +243,7 @@
         <hr>
         <ion-card-content>
           <ion-content direction="y" scrollY="true" style="height:80vh;">
-           
+
             <ion-list>
               <p>You have successfully added all details, now you can add this product!</p>
               <ion-item>
@@ -254,23 +257,23 @@
               </div>
               <p>Car Type: {{car_type}}</p>
               </ion-item>
-              
+
               <ion-item>
                 <p>No. of Seats: {{form2data.no_of_seats}}</p>
-                
+
                 <p>Min. Hire Period (in hrs): {{form2data.min_hire_period}}</p>
                 <p>Max. Hire Period (in hrs): {{form2data.max_hire_period}}</p>
 
                 <p>Min. Hire Distance (in km): {{form2data.min_hire_distance}}</p>
                 <p>Max. Hire Distance (in km): {{form2data.max_hire_distance}}</p>
               </ion-item>
-              
+
               <ion-label>Price Rate (Non-AC)</ion-label>
               <ion-item>
                 <p>Per Hour: Rs {{form2data.car_price_hour}}</p>
                 <p>Per KM: Rs {{form2data.car_price_kil}}</p>
               </ion-item>
-              
+
               <div *ngIf="ac_available">
                 <ion-label>Price Rate (AC)</ion-label>
                 <ion-item>
@@ -278,7 +281,7 @@
                   <p>Per KM: Rs {{form2data.ac_car_price_kil}}</p>
                 </ion-item>
               </div>
-              
+
               <ion-item>
                 <p>Advance Amount: Rs {{form2data.book_advance}}</p>
                 <p>Search Tags: {{form2data.car_tags}}</p>
@@ -294,6 +297,6 @@
   </ion-slides>
 </div>
   <hr>
-  
+
 </ion-content>
 

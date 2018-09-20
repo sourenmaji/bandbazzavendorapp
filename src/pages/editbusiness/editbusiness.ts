@@ -74,11 +74,12 @@ export class EditbusinessPage {
       address: new FormControl('', [Validators.required]),
       city: new FormControl('', [Validators.required]),
       details: new FormControl('', [Validators.required]),
-      businessType: new FormControl(''),
+      businessType: new FormControl({ value: '', disabled: true }),
       lat: new FormControl('', [Validators.required]),
       lng: new FormControl('', [Validators.required]),
       business_id: new FormControl('', Validators.compose([]))
     });
+
   }
 
 
