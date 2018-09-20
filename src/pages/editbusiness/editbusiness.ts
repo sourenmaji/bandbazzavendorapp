@@ -6,7 +6,7 @@ import { Camera } from '@ionic-native/camera';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, NgZone } from '@angular/core';
 import { File } from '@ionic-native/file';
-import { IonicPage, NavController, NavParams, ActionSheetController, ToastController, Platform, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, ToastController, Platform, AlertController, LoadingController } from 'ionic-angular';
 declare var cordova: any;
 declare var google;
 @IonicPage()
@@ -31,7 +31,7 @@ export class EditbusinessPage {
 
   constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController,
     public toastCtrl: ToastController,private camera: Camera, public platform: Platform ,private filePath: FilePath,
-    private file: File, private alertCtrl: AlertController, private transfer: FileTransfer,private authService: AuthServiceProvider) {
+    private file: File, private alertCtrl: AlertController, public loadingCtrl: LoadingController, private transfer: FileTransfer,private authService: AuthServiceProvider) {
 
   this.business = this.navParams.get('business');
   this.businessImage = this.business.business_image;
@@ -204,6 +204,10 @@ export class EditbusinessPage {
   }
 
   saveEditProfile(){
+    let loader = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loader.present();
     this.targetPath = this.pathForImage(this.lastImage);
     var data = this.userData;
     if(this.targetPath != ""){
@@ -222,6 +226,7 @@ export class EditbusinessPage {
 
       const fileTransfer: FileTransferObject = this.transfer.create();
       fileTransfer.upload(this.targetPath, this.apiUrl+'edit_business', options).then((data) => {
+        loader.dismiss();
         this.result = data;
         var success = JSON.parse(this.result.response);
         if(success.status===true){
@@ -245,6 +250,7 @@ export class EditbusinessPage {
 
       },
       (err) => {
+        loader.dismiss();
         // Error
         var error = JSON.parse(err.body);
         const alert = this.alertCtrl.create({
@@ -258,6 +264,7 @@ export class EditbusinessPage {
     }
     else{
       this.authService.authData(this.userData,'edit_business',this.userPostData.token).then((data) => {
+        loader.dismiss();
         this.responseData = data;
         if(this.responseData.status===true)
         {
@@ -279,6 +286,7 @@ export class EditbusinessPage {
           this.navCtrl.pop();
         }
       }, (err) => {
+        loader.dismiss();
        this.responseData = err.json();
        console.log(this.responseData)
        const alert = this.alertCtrl.create({

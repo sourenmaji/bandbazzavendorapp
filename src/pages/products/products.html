@@ -211,6 +211,7 @@
 </div>
 </ion-item>
 <ion-item *ngIf="businessProducts.request_type=='Deactivated'">This business is deactivated</ion-item>
+<ion-item *ngIf="no_data && !alProducts.length"><img src="assets/imgs/no-data-found.gif"></ion-item>
 
 <ion-item *ngIf="category =='Photography' && alProducts.length && businessProducts.request_type!='Deactivated'">
     <ion-card class="prd-wrp">

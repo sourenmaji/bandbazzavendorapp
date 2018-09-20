@@ -32,6 +32,7 @@ export class ProductsPage {
   productDetails: any;
   productImages: any;
   imageUrl: string ='';
+  no_data: boolean = false;
 
   pageReset: boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController,
@@ -84,12 +85,12 @@ export class ProductsPage {
     loader.present();
     this.authService.pageReset=false;
     this.authService.getData('get_added_business',this.userPostData.token).then((result) => {
+      loader.dismiss();
           this.responseData = result;
             console.log(this.responseData);
             this.categories=this.responseData.categories;
             if(this.categories.length)
             {
-            loader.dismiss();
             console.log(this.categories);
              this.category=this.categories[0].module_name;
              this.getProducts(this.categories[0]);
@@ -101,7 +102,7 @@ export class ProductsPage {
                 buttons: ['OK']
               })
               alert.present();
-              loader.dismiss();
+              this.no_data=true;
             }
 
         }, (err) => {
@@ -145,7 +146,9 @@ export class ProductsPage {
       this.type="get_makeup_artist_products";
     }
     console.log(this.type)
+    this.no_data=false;
     this.authService.getData(this.type+'?id='+c.id,this.userPostData.token).then((result) => {
+      loader.dismiss();
       this.responseData = result;
         console.log(this.responseData)
 
@@ -159,10 +162,8 @@ export class ProductsPage {
               buttons: ['OK']
             })
             alert.present();
+            this.no_data=true;
            }
-
-        loader.dismiss();
-
     }, (err) => {
       loader.dismiss();
       console.log(err)

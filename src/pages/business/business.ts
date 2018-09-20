@@ -1,6 +1,6 @@
 import { EditbusinessPage } from './../editbusiness/editbusiness';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, AlertController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, AlertController, Platform, LoadingController } from 'ionic-angular';
 import { AddbusinessPage } from '../addbusiness/addbusiness';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
@@ -16,9 +16,11 @@ export class BusinessPage {
   responseData: any;
   imageUrl: string ='';
   userPostData = {"user":"","token":""};
+  no_data: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController,
-              public authService: AuthServiceProvider, private alertCtrl: AlertController, public platform: Platform) {
+              public authService: AuthServiceProvider, private alertCtrl: AlertController, public platform: Platform,
+              public loadingCtrl: LoadingController) {
 
      this.businessDetails = [];
      const data = JSON.parse(localStorage.getItem('userData'));
@@ -50,7 +52,13 @@ export class BusinessPage {
   }
 
   openBusiness(){
+    //create loader
+    let loader = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loader.present();
     this.authService.getData('get_all_business',this.userPostData.token).then((result) => {
+      loader.dismiss();
       this.responseData = result;
 
 
@@ -69,9 +77,11 @@ export class BusinessPage {
        })
        alert.present();
        this.businessDetails = [];
+       this.no_data=true;
      }
     },
     (err) => {
+      loader.dismiss();
      this.responseData = err.json();
      console.log(this.responseData)
     });

@@ -201,6 +201,10 @@ export class AddbusinessPage {
   }
 
   uploadImage(){
+    let loader = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loader.present();
     var targetPath = this.pathForImage(this.lastImage);
     var data = this.userData;
     data.filename = this.lastImage;
@@ -218,10 +222,9 @@ export class AddbusinessPage {
 
     const fileTransfer: FileTransferObject = this.transfer.create();
     fileTransfer.upload(targetPath, this.apiUrl+'add_business', options).then((data) => {
-      // Success!
-     // alert('success')
+      loader.dismiss();
       this.result = data;
-     // alert(this.result.response);
+
       var success = JSON.parse(this.result.response);
       if(success.status===true){
       localStorage.setItem('businessData', success.businesses);
@@ -236,6 +239,7 @@ export class AddbusinessPage {
 
     },
     (err) => {
+      loader.dismiss();
       var error = JSON.parse(err.body);
       if(error.status==false){
       this.navCtrl.push(BusinessPage);

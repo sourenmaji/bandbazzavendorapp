@@ -368,9 +368,9 @@ export class AddBanquetPage{
     {
       return;
     }
-    this.imagePicker.getPictures({maximumImagesCount:remaining, quality:60, outputType:0}).then
+    this.imagePicker.getPictures({maximumImagesCount:remaining, quality:60, outputType:1}).then
     (results =>{
-      alert(results);
+      // alert(results);
       for(let i=0; i < results.length;i++){
         this.images.push(results[i]);
       };
