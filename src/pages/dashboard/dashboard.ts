@@ -51,7 +51,7 @@ export class DashboardPage {
       }
 
     }, (err) => {
-      alert(err);
+      // alert(err);
     });
   }
 }

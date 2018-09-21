@@ -7,8 +7,8 @@ import {Http, Headers} from '@angular/http';
 @Injectable()
 export class AuthServiceProvider {
   pageReset: boolean = false;
-  imageUrl: string = 'http://192.168.0.130/BandBazza/public/';
-  apiUrl: string = 'http://192.168.0.130/BandBazza/public/api/v1/';
+  imageUrl: string = 'http://192.168.1.130/BandBazza/public/';
+  apiUrl: string = 'http://192.168.1.130/BandBazza/public/api/v1/';
   loading: Loading;
   constructor(public http: Http, public httpC: HttpClient, private transfer: FileTransfer, public loadingCtrl: LoadingController) {
     console.log('Hello AuthServiceProvider');

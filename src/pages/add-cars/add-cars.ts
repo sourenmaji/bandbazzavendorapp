@@ -28,6 +28,9 @@ export class AddCarsPage {
   public cartypes:  {type:string, id:number}[];
   public unknowncar: boolean;
   public responseData: any;
+  public brand_name:string = null;
+  public model_name:string = null;
+  public car_type:string = null;
 
   //form 2 data
   public ac_available: boolean = false;
@@ -36,15 +39,6 @@ export class AddCarsPage {
   //form 3 data
   public imagesleft: string[];
   public imagesright: string[];
-  public aimage:string;
-  public bimage:string;
-
-  public brand_name:string = null;
-  public model_name:string = null;
-  public car_type:string = null;
-
-
-
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -227,7 +221,7 @@ export class AddCarsPage {
       if(this.imagesleft.length+this.imagesright.length> min_required_images)
       return true;
       else
-      this.errormessage = "Please select a image"
+      this.errormessage = "Please select a car image"
     }
 
     return false;

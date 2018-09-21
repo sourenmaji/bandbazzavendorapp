@@ -26,16 +26,24 @@
         {{category.module_name}}
       </ion-segment-button>
     </ion-segment>
+
   <ion-list>
-  <ion-item *ngIf="category !='Photography' && businessProducts.request_type!='Deactivated'">
-  <div *ngFor ="let products of alProducts">
-  <ion-card class="prd-wrp">
+  <ion-card *ngIf="no_data && businessProducts.request_type!='Deactivated' && !alProducts.length">
+      <img src="assets/imgs/no-data-found.gif">
+  </ion-card>
+
+  <div *ngIf="businessProducts.request_type=='Deactivated'" padding>
+    <p>This business is deactivated</p>
+  </div>
+
+  <ion-card class="check" *ngIf="((category !='Photography') && (businessProducts.request_type!='Deactivated') && (alProducts.length))">
+  <div class="prd-wrp" *ngFor ="let products of alProducts">
 
     <img src="{{imageUrl+products.product_image}}">
 
-    <ion-card-content *ngIf="category=='Banquet Hall'">
+    <ion-card-content class="hall" *ngIf="category==='Banquet Hall'">
         <ion-fab class="dl-p">
-            <button ion-fab mini [disabled]="products.request_type=='Delete'" (click)="deleteProduct(products.product_id,category)">
+            <button ion-fab mini [disabled]="products.request_type=='Delete' || products.request_type=='Edit'" (click)="deleteProduct(products.product_id,category)">
               <ion-icon name="trash" color="light"></ion-icon>
             </button>
           </ion-fab>
@@ -85,7 +93,8 @@
         </ion-row>
         </div>
     </ion-card-content>
-    <ion-card-content *ngIf="category=='Car Rental'">
+
+    <ion-card-content *ngIf="category==='Car Rental'">
         <ion-fab class="dl-p">
             <button ion-fab mini [disabled]="products.request_type=='Delete'" (click)="deleteProduct(products.product_id,category)">
               <ion-icon name="trash" color="light"></ion-icon>
@@ -136,7 +145,7 @@
         </div>
       </ion-card-content>
 
-      <ion-card-content *ngIf="category=='Caterer'">
+      <ion-card-content *ngIf="category==='Caterer'">
           <ion-fab class="dl-p">
               <button ion-fab mini [disabled]="products.request_type=='Delete'" (click)="deleteProduct(products.product_id,category)">
                 <ion-icon name="trash" color="light"></ion-icon>
@@ -174,6 +183,7 @@
             </ion-row>
             </div>
         </ion-card-content>
+
         <ion-card-content *ngIf="category=='Photography'">
           <ion-fab class="dl-p">
               <button ion-fab mini [disabled]="products.request_type=='Delete'" (click)="deleteProduct(products.product_id,category)">
@@ -207,13 +217,10 @@
             </ion-row>
             </div>
         </ion-card-content>
-  </ion-card>
-</div>
-</ion-item>
-<ion-item *ngIf="businessProducts.request_type=='Deactivated'">This business is deactivated</ion-item>
-<ion-item *ngIf="no_data && !alProducts.length"><img src="assets/imgs/no-data-found.gif"></ion-item>
+      </div>
+</ion-card>
 
-<ion-item *ngIf="category =='Photography' && alProducts.length && businessProducts.request_type!='Deactivated'">
+<div *ngIf="category ==='Photography' && alProducts.length && businessProducts.request_type!='Deactivated'">
     <ion-card class="prd-wrp">
       <img src="{{imageUrl+businessProducts.business_image}}">
       <ion-card-content>
@@ -261,7 +268,7 @@
           <button ion-item (click)="addModule('Videos')"><ion-icon name="logo-youtube" item-start></ion-icon>Add Videos</button>
       </ion-list>
   </ion-card>
-</ion-item>
+</div>
 
 </ion-list>
 

@@ -156,7 +156,7 @@ export class AddBanquetPage{
     {
       if(this.form1data.hallname.trim() == "")
       {
-        this.errormessage = "Enter a hall name!";
+        this.errormessage = "Enter a banquet hall name!";
         return false;
       }
       else if(this.form1data.price<=0 || this.form1data.price==null)
@@ -242,7 +242,7 @@ export class AddBanquetPage{
     {
       if(this.images.length == 0)
       {
-        this.errormessage = "Enter images of your hall";
+        this.errormessage = "Enter images of your banquet hall";
         return false;
       }
       else
@@ -412,40 +412,40 @@ export class AddBanquetPage{
     uploadData.is_parking = this.form3data.parking;
     uploadData.images = this.images;
     //call and upload the uploadData object here
-    alert(uploadData.images);
+    // alert(uploadData.images);
 
-    // //call the rest here..
-    // this.restServ.authData(uploadData,'add_product_hall',this.token).then((data) => {
-    //   this.responseData = data;
-    //   console.log(this.responseData);
-    //   if(this.responseData.status==true)
-    //   {
-    //     this.restServ.pageReset=true;
-    //     this.navCtrl.pop();
-    //     const alert = this.alertCtrl.create({
-    //     subTitle: this.responseData.message,
-    //     buttons: ['OK']
+    //call the rest here..
+    this.restServ.authData(uploadData,'add_product_hall',this.token).then((data) => {
+      this.responseData = data;
+      console.log(this.responseData);
+      if(this.responseData.status==true)
+      {
+        this.restServ.pageReset=true;
+        this.navCtrl.pop();
+        const alert = this.alertCtrl.create({
+        subTitle: this.responseData.message,
+        buttons: ['OK']
 
-    //   })
-    //   alert.present();
-    //   }
-    //   else
-    //   {
-    //   const alert = this.alertCtrl.create({
-    //     subTitle: this.responseData.message,
-    //     buttons: ['OK']
-    //   })
-    //   alert.present();
-    //   }
+      })
+      alert.present();
+      }
+      else
+      {
+      const alert = this.alertCtrl.create({
+        subTitle: this.responseData.message,
+        buttons: ['OK']
+      })
+      alert.present();
+      }
 
-    // }, (err) => {
-    //  this.responseData = err;
-    //  console.log(this.responseData)
-    //  const alert = this.alertCtrl.create({
-    //   subTitle: "Something went wrong! Please try again.",
-    //   buttons: ['OK']
-    // })
-    // alert.present();
-    // });
+    }, (err) => {
+     this.responseData = err;
+     console.log(this.responseData)
+     const alert = this.alertCtrl.create({
+      subTitle: "Something went wrong! Please try again.",
+      buttons: ['OK']
+    })
+    alert.present();
+    });
   }
 }

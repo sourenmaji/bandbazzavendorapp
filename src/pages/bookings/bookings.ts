@@ -57,6 +57,15 @@ export class BookingsPage {
     this.getCategories();
    }
 
+  //  ionViewDidEnter()
+  //  {
+  //    if(this.authService.pageReset)
+  //    {
+  //      console.log(this.authService.pageReset)
+  //      this.getBookings(this.lastClicked,true);
+  //    }
+  //  }
+
   //get business categories of this vendor
    getCategories()
    {
@@ -66,24 +75,19 @@ export class BookingsPage {
      });
      loader.present();
      this.authService.getData('get_added_business',this.token).then((result) => {
+          loader.dismiss();
            this.responseData = result;
              console.log(this.responseData)
              this.categories=this.responseData.categories;
              if(this.categories.length){
              this.category=this.categories[0].module_name;
              console.log(this.categories)
-             loader.dismiss();
-             //trigger the first category with reset = true, so it sets all variables to default
-            //  if(this.navParams.get('category')){
-            //   this.getBookings(this.navParams.get('category'), true);
-            //   alert("category found from data passed from FCM handler");
-            //  }
+
             if(this.navParams.get('category')){
               this.getBookings(this.navParams.get('category'), true);
-              alert("Category found from data passed from FCM handler");
              }
-
-             else{
+             else
+             {
               this.getBookings(this.categories[0],true);
              }
 

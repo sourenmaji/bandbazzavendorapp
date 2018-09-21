@@ -13,9 +13,6 @@
   <ion-card *ngIf="requestType == 'details'">
 
     <ion-slides autoplay="5000" loop="true" speed="3000" height="200" pager>
-        <!-- <ion-slide>
-            <img src="{{this.URL+productValue.cover_image}}">
-        </ion-slide> -->
 
         <ion-slide *ngFor="let slide of productImages">
           <img src="{{slide}}">
@@ -85,7 +82,7 @@
 
 
               <ion-item>
-                <ion-label floating>Minimum no. of Plates <span style="color: red">*</span></ion-label>
+                <ion-label floating>Minimum no. of plates <span style="color: red">*</span></ion-label>
                 <ion-input type="number" [(ngModel)]="userData.minimumPlate" value="{{productValue.package_min_plates}}"
                 formControlName="minimumPlate" [class.error1]="!editProductform.controls.minimumPlate.valid && editProductform.controls.minimumPlate.dirty">
               </ion-input>

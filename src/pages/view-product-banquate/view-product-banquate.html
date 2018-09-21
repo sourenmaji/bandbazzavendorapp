@@ -122,7 +122,7 @@
                   formControlName="banquetId"></ion-input>
                 </ion-item>
                     <ion-item>
-                      <ion-label floating>Hall Price<small>(per day)</small> <span style="color: red">*</span></ion-label>
+                      <ion-label floating>Hall Price<small> (per day) </small> <span style="color: red">*</span></ion-label>
                       <ion-input type="number" [(ngModel)]="userData.hallPrice" value="{{productDetails.details.price}}"
                       formControlName="hallPrice" [class.error1]="!editProductform.controls.hallPrice.valid && editProductform.controls.hallPrice.dirty">
                     </ion-input>
@@ -143,7 +143,7 @@
                       <ion-input type="number" [(ngModel)]="userData.advanceAmount" value="{{productDetails.details.book_advance}}"
                       formControlName="advanceAmount" [class.error1]="!editProductform.controls.advanceAmount.valid && editProductform.controls.advanceAmount.dirty"></ion-input>
                     </ion-item>
-                    
+
                     <ion-item no-lines *ngIf="( editProductform.get('advanceAmount').hasError('required') ||editProductform.get('advanceAmount').hasError('pattern') || editProductform.get('advanceAmount').hasError('greaterThan')) ">
                       <div class="error" *ngIf="editProductform.get('advanceAmount').hasError('required') && editProductform.get('advanceAmount').touched">
                         Please enter advance amount
@@ -170,7 +170,7 @@
                       </div>
                     </ion-item>
                     <ion-item *ngIf="userData.availableAc==1">
-                      <ion-label floating>Ac. Charges<small>(per hour)</small> </ion-label>
+                      <ion-label floating>AC Charges<small> (per hour) </small> </ion-label>
                       <ion-input type="number" [(ngModel)]="userData.acCharges" value="{{productDetails.details.ac_charge}}"
                       formControlName="acCharges" [class.error1]="!editProductform.controls.acCharges.valid && editProductform.controls.acCharges.dirty">
                     </ion-input>
@@ -181,7 +181,7 @@
                       </div>
                     </ion-item>
                     <ion-item>
-                      <ion-label>Available AC
+                      <ion-label>AC Available
                       </ion-label>
 
                       <ion-select [(ngModel)]="userData.availableAc" formControlName="availableAc" >
@@ -191,7 +191,7 @@
                     </ion-item>
                     <ion-item>
 
-                      <ion-label>Food Type
+                      <ion-label>Permitted Food Type
                       </ion-label>
 
                       <ion-select [(ngModel)]="userData.foodType"

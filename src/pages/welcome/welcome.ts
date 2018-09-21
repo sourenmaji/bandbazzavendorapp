@@ -87,7 +87,7 @@ export class WelcomePage implements OnInit{
         this.navCtrl.push(ErrorPage);
       console.log(this.responseData)
       const alert = this.alertCtrl.create({
-        subTitle: this.responseData,
+        subTitle: "Oops! Something went wrong. Please try again.",
         buttons: ['OK']
       })
       alert.present();

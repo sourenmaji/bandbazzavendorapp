@@ -155,7 +155,6 @@ export class ProductsPage {
            this.alProducts=this.responseData.all_products;
            this.businessProducts=this.responseData.business_details;
 
-
            if(!this.alProducts.length){
             const alert = this.alertCtrl.create({
               subTitle: 'No Product Added Yet',
@@ -231,8 +230,6 @@ export class ProductsPage {
     }
   }
 
-
-
   deleteProduct(productId,type){
 
     let alert = this.alertCtrl.create({
@@ -240,8 +237,15 @@ export class ProductsPage {
       message: 'Do you want to delete?',
       buttons: [{
         text: "ok",
-        handler: () => { this.authService.getData('delete_product?product_id='+productId+'&category='+type,this.userPostData.token).then((result) => {
-          this.responseData = result;
+        handler: () => {
+            //create loader
+          let loader = this.loadingCtrl.create({
+            content: 'Please wait...'
+          });
+          loader.present();
+          this.authService.getData('delete_product?product_id='+productId+'&category='+type,this.userPostData.token).then((result) => {
+            loader.dismiss();
+            this.responseData = result;
 
 
           if(this.responseData.status == true)
@@ -275,6 +279,7 @@ export class ProductsPage {
          }
         },
         (err) => {
+          loader.dismiss();
          this.responseData = err.json();
          const alert = this.alertCtrl.create({
           subTitle: this.responseData.message,

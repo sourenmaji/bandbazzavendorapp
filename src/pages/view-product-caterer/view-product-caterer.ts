@@ -104,7 +104,7 @@ this.camera.getPicture(options).then((imageData) => {
       this.productImages.push("data:image/jpeg;base64,"+imageData);
  }, (err) => {
   // Handle error
-  alert(err);
+  // alert(err);
  });
 }
 

@@ -136,11 +136,15 @@ export class BusinessPage {
     buttons: [{
       text: "deactivate",
       handler: () => {
+         //create loader
+        let loader = this.loadingCtrl.create({
+          content: 'Please wait...'
+        });
+        loader.present();
 
         this.authService.getData('deactivate_business?business_id='+businessid,this.userPostData.token).then((result) => {
+          loader.dismiss();
           this.responseData = result;
-
-
           if(this.responseData.status == true)
           {
 
@@ -160,6 +164,7 @@ export class BusinessPage {
          }
         },
         (err) => {
+          loader.dismiss();
          this.responseData = err.json();
          const alert = this.alertCtrl.create({
           subTitle: this.responseData.message,
@@ -185,11 +190,15 @@ export class BusinessPage {
      buttons: [{
        text: "Reactivate",
        handler: () => {
+        //create loader
+        let loader = this.loadingCtrl.create({
+          content: 'Please wait...'
+        });
+        loader.present();
 
          this.authService.getData('reactivate_business?business_id='+businessid,this.userPostData.token).then((result) => {
-           this.responseData = result;
-
-
+          loader.dismiss();
+          this.responseData = result;
            if(this.responseData.status == true)
            {
 
@@ -209,6 +218,7 @@ export class BusinessPage {
           }
          },
          (err) => {
+           loader.dismiss();
           this.responseData = err.json();
           const alert = this.alertCtrl.create({
            subTitle: this.responseData.message,
@@ -234,9 +244,16 @@ export class BusinessPage {
       message: 'Do you want to delete?',
       buttons: [{
         text: "ok",
-        handler: () => { this.authService.getData('delete_business?business_id='+businessid,this.userPostData.token).then((result) => {
-          this.responseData = result;
+        handler: () => {
+          //create loader
+          let loader = this.loadingCtrl.create({
+            content: 'Please wait...'
+          });
+          loader.present();
 
+          this.authService.getData('delete_business?business_id='+businessid,this.userPostData.token).then((result) => {
+          this.responseData = result;
+            loader.dismiss();
 
           if(this.responseData.status == true)
           {
@@ -269,6 +286,7 @@ export class BusinessPage {
          }
         },
         (err) => {
+          loader.dismiss();
          this.responseData = err.json();
          const alert = this.alertCtrl.create({
           subTitle: this.responseData.message,

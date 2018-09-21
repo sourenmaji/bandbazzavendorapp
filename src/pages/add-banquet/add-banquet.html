@@ -8,20 +8,20 @@
 
 <ion-content style="overflow: hidden;height: 100vh">
 
-  <ion-slides #formslides style="position: fixed; height: 80vh;margin-top: 5px"> 
+  <ion-slides #formslides style="position: fixed; height: 80vh;margin-top: 5px">
       <ion-slide style="height: 100vh">
         <ion-card style="max-height: 100vh; height: 100vh;position: fixed;top: 0px;margin-top: 10px;margin-bottom: 5px">
             <ion-card-header>
               Step 1/5
             </ion-card-header>
             <hr>
-            
+
             <p style="color: red" *ngIf="errormessage">
               {{errormessage}}
             </p>
               <ion-content direction="y" scrollY="true" style="height: 80%;">
 
-                  
+
             <ion-card-content class="add-cmn">
               <ion-list>
                   <ion-item>
@@ -49,14 +49,14 @@
                               <div>
                                 <p>Booking Advance (in Rs)<span style="color: red" > *</span></p>
                               </div>
-                            </ion-label> 
+                            </ion-label>
                             <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form1data.booking_advance" placeholder="Enter Booking Advance">
                             </ion-input>
                           </ion-item>
 
 
                         <ion-item>
-                          <ion-label stacked><p>Search Tags (comma separated)</p></ion-label> 
+                          <ion-label stacked><p>Search Tags (comma separated)</p></ion-label>
                           <ion-input (ionChange)="errormessage = ''"  [(ngModel)]="form1data.tags" placeholder="Hall Search Tags">
                           </ion-input>
                         </ion-item>
@@ -87,26 +87,21 @@
             </p>
                 <ion-content direction="y" scrollY="true" style="height: 80%;">
             <ion-card-content>
-              <!-- <ion-item no-padding>
-                  <ion-label>Address same as Business address</ion-label>
-                  <ion-checkbox (ionChange)="errormessage=''" [(ngModel)]="form2data.same_as_business" ></ion-checkbox>
-              </ion-item> -->
 
               <ion-item no-padding>
                   <ion-label stacked><p>Location</p></ion-label>
                   <ion-input [(ngModel)]="form2data.map_address" (keyup)="loadMap()" id="txtHome" type="text" placeholder="Enter a location to pick from map"></ion-input>
                 </ion-item>
-                
+
                   <ion-item no-padding>
                       <ion-label stacked>
                         <p>Full Address</p>
                       </ion-label>
                       <ion-input (ionChange)="errormessage=''" [(ngModel)]="form2data.full_address" placeholder="Enter Full Address"></ion-input>
                     </ion-item>
-      
-                   
-              
-                  <agm-map 
+
+
+                  <agm-map
                   [disableDefaultUI]="false"
                   [zoomControl]="false" (mapClick)="mapClicked($event)" style="height:50vh" [latitude]="latmap" [longitude]="lngmap" [scrollwheel]="false" [zoom]="zoom">
                     <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
@@ -230,14 +225,14 @@
             <button ion-button (click)="presentActionSheet()" >Pick Image</button>
             <p>(Max 5 images. your last image will be your cover image.)</p>
             <ion-content direction="y" scrollY="true" style="height: 80%;">
-                <ion-card-content>     
+                <ion-card-content>
                   <ion-card *ngFor="let img of images"  style="position: relative" >
                     <img src="{{'data:image/jpeg;base64,' + img}}">
                     <div style="position: absolute; right: 2%; top: 2%" >
                       <ion-icon (click)="removeImage(img)" style="color: red;font-size: 50px" name="close-circle" ></ion-icon>
                     </div>
                   </ion-card>
-                              
+
                 </ion-card-content>
                 <div  style="margin-bottom: 80px" ></div>
             </ion-content>
@@ -251,7 +246,7 @@
             <ion-card-content>
               <ion-content direction="y" scrollY="true" style="height:80vh;">
               <ion-list>
-                <p>You have successfully added all details, now you add this product!</p> 
+                <p>You have successfully added all details, now you add this product!</p>
                 <ion-item>
                   <p>Hall Name: {{form1data.hallname}}</p>
                   <p>Booking Price: Rs {{form1data.price}}</p>

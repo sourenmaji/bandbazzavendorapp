@@ -161,9 +161,18 @@ export class AddCatererPage {
     }
     else if(stepNo == 3)
     {
-      let min_required_images = 1;
-      if(this.imagesleft.length+this.imagesright.length> min_required_images)
-      return true;
+
+      if((+this.imagesleft.length)+(+this.imagesright.length)>= 1)
+      {
+
+        return true;
+      }
+
+      else
+      {
+        this.errormessage = "Please select a package image";
+        return false;
+      }
     }
     return false;
   }

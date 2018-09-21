@@ -36,7 +36,7 @@ export class ForgetPasswordPage implements OnInit{
   }
 
   showVal($value) {
-    console.log(this.userData.email); 
+    console.log(this.userData.email);
     console.log(!isNaN(+this.userData.email));
      if(!isNaN(+this.userData.email)){
     this.otpButton = true;
@@ -51,34 +51,25 @@ export class ForgetPasswordPage implements OnInit{
   });
   loader.present();
   this.authService.getDataWithoutToken('password_reset?user='+this.userData.email).then((result: any) => {
+    loader.dismiss();
     this.responseData = result;
     if(result.status)
     {
-      loader.dismiss();
-      //this.buttonClicked = !this.buttonClicked;
-      //this.disableButton = !this.disableButton;
-      // if(this.buttonClicked)
-      // this.forgetPasswordform.get('otp').setValidators(Validators.compose([Validators.required, Validators.minLength(6), this.equalsto('numb')]));
-      // this.otpval = this.userData.otp= "";
-     // this.secret= null;
     console.log(this.responseData);
-    // this.user_OTP = this.responseData.otp;
-    // console.log(this.user_OTP);
-    // localStorage.setItem('OTP', JSON.stringify(this.responseData));
-    // console.log(JSON.parse(localStorage.getItem('OTP')));
-    
+
     const alert = this.alertCtrl.create({
      subTitle: this.responseData.message,
      buttons: ['OK']
-     
+
    })
    alert.present();
+   this.navCtrl.pop();
     }
-    else{loader.dismiss();
+    else{
       const alert = this.alertCtrl.create({
         subTitle: this.responseData.message,
         buttons: ['OK']
-        
+
       })
       alert.present();
      }
@@ -96,22 +87,22 @@ export class ForgetPasswordPage implements OnInit{
 
 equalsto(field_name): ValidatorFn {
   return (control: AbstractControl): {[key: string]: any} => {
-    
+
     let isValid = false;
     console.log(this.userData.otp)
     if(this.user_OTP != this.userData.otp){
       return { 'equalsTo': {isValid} };
-      
+
     }
   let input = control.value;
   //console.log(this.user_OTP);
   isValid=this.user_OTP==input;
-  if(!isValid) 
+  if(!isValid)
   {
     //console.log( { 'equalTo': {isValid} });
     return { 'equalsTo': {isValid} };
   }
-  else 
+  else
   return null;
   };
   }

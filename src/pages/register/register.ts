@@ -134,7 +134,7 @@ export class RegisterPage implements OnInit{
      this.responseData = err.json();
      console.log(this.responseData)
      const alert = this.alertCtrl.create({
-       subTitle: this.responseData.message,
+       subTitle: "Oops! Something went wrong. Please try again.",
        buttons: ['OK']
      })
      alert.present();
