@@ -83,11 +83,11 @@ export class AddbusinessPage {
 
   autolocation()
   {
-    console.log("keyup");
-    this.userData.address = "";
-    this.userData.lat = "";
-    this.userData.lng = "";
     this.mapsAPILoader.load().then(() => {
+      console.log("keyup");
+      this.userData.address = "";
+      this.userData.lat = "";
+      this.userData.lng = "";
       this.autocomplete.addListener("place_changed", () => {
           this.ngZone.run(() => {
               //get the place result

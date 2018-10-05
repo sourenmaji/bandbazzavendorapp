@@ -235,7 +235,6 @@ export class EditbusinessPage {
           buttons: ['OK']
         })
         alert.present();
-        this.navCtrl.pop();
         }
         else
         {
@@ -245,9 +244,8 @@ export class EditbusinessPage {
 
           })
           alert.present();
-          this.navCtrl.pop();
         }
-
+        this.navCtrl.pop();
       },
       (err) => {
         loader.dismiss();
@@ -262,29 +260,32 @@ export class EditbusinessPage {
 
       });
     }
-    else{
+    else
+    {
       this.authService.authData(this.userData,'edit_business',this.userPostData.token).then((data) => {
         loader.dismiss();
         this.responseData = data;
         if(this.responseData.status===true)
         {
-          //localStorage.setItem('businessData', this.responseData.businesses);
+
           const alert = this.alertCtrl.create({
             subTitle: this.responseData.message,
             buttons: ['OK']
 
           })
           alert.present();
-          this.navCtrl.pop();
-        }else{
-          const alert = this.alertCtrl.create({
-            subTitle: this.responseData.message,
-            buttons: ['OK']
-
-          })
-          alert.present();
-          this.navCtrl.pop();
         }
+        else{
+          const alert = this.alertCtrl.create({
+            subTitle: this.responseData.message,
+            buttons: ['OK']
+
+          })
+          alert.present();
+
+        }
+        this.navCtrl.pop();
+
       }, (err) => {
         loader.dismiss();
        this.responseData = err.json();

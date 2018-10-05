@@ -217,8 +217,7 @@ export class AddCarsPage {
     }
     if(stepNo == 3)
     {
-      let min_required_images = 1;
-      if(this.imagesleft.length+this.imagesright.length> min_required_images)
+      if((+this.imagesleft.length)+(+this.imagesright.length)>=1)
       return true;
       else
       this.errormessage = "Please select a car image"

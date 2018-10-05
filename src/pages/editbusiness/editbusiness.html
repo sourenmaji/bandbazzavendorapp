@@ -38,7 +38,7 @@
 
                     </ion-item>
                     <ion-item>
-                      <ion-label floating>City <span style="color: red">*</span></ion-label>
+                      <ion-label floating>City <span style="color: red">*</span> <small> (please select a city from dropdown first)</small></ion-label>
                       <ion-input type="text" id="city" [(ngModel)]="userData.city" value="{{business.city}}" (keyup)="autolocation()"
                       formControlName="city" [class.error1]="!editBusinessform.controls.city.valid && editBusinessform.controls.city.dirty"></ion-input>
                     </ion-item>
