@@ -17,6 +17,7 @@ import { FilePath } from '@ionic-native/file-path';
 import { HttpClientModule } from '../../node_modules/@angular/common/http';
 import { ImagePicker } from '../../node_modules/@ionic-native/image-picker';
 import { FCM } from '@ionic-native/fcm';
+import { Base64 } from '@ionic-native/base64';
 
 import { AddBanquetPageModule } from '../pages/add-banquet/add-banquet.module';
 import { AddCarsPageModule } from '../pages/add-cars/add-cars.module';
@@ -103,7 +104,8 @@ import { AddPhotoPlanPageModule } from '../pages/add-photo-plan/add-photo-plan.m
     FileTransfer,
     Camera,
     FilePath,
-    FCM
+    FCM,
+    Base64
   ]
 })
 export class AppModule {}

@@ -263,7 +263,7 @@
           </ion-row>
           <ion-row *ngFor="let image of images">
             <ion-col>
-              {{image.image}}
+              <img src={{this.imageUrl+image.image}}>
             </ion-col>
             <ion-col>
               N/A

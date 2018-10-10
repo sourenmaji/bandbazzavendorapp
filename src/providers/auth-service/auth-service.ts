@@ -7,8 +7,11 @@ import {Http, Headers} from '@angular/http';
 @Injectable()
 export class AuthServiceProvider {
   pageReset: boolean = false;
-  imageUrl: string = 'http://192.168.1.130/BandBazza/public/';
-  apiUrl: string = 'http://192.168.1.130/BandBazza/public/api/v1/';
+  // imageUrl: string = 'http://localhost/bandbazza-new-ui/public/';
+  // apiUrl: string = 'http://localhost/bandbazza-new-ui/public/api/v1/';
+
+  imageUrl: string = 'http://192.168.1.130/bandbazza-new-ui/public/';
+  apiUrl: string = 'http://192.168.1.130/bandbazza-new-ui/public/api/v1/';
   loading: Loading;
   constructor(public http: Http, public httpC: HttpClient, private transfer: FileTransfer, public loadingCtrl: LoadingController) {
     console.log('Hello AuthServiceProvider');
@@ -16,7 +19,6 @@ export class AuthServiceProvider {
   }
   responseData : FileUploadResult = null;
   getDataWithoutToken(type) {
-   // console.log(credentials)
     return new Promise((resolve, reject) => {
       let headers = new Headers();
       console.log(headers);

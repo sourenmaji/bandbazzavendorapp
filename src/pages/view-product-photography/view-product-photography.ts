@@ -26,6 +26,7 @@ export class ViewProductPhotographyPage {
   videos:any=[];
   images:any=[];
   plans:any=[];
+  imageUrl:string;
 
   constructor(
     public navCtrl: NavController,
@@ -40,6 +41,7 @@ export class ViewProductPhotographyPage {
     this.videos=this.navParams.get('videos');
     this.images=this.navParams.get('images');
     this.plans=this.navParams.get('plans');
+    this.imageUrl=this.restServ.imageUrl;
 
     if(this.productDetails.payment_mode)
     {
