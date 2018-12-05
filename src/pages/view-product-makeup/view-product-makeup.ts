@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -6,23 +7,26 @@ import { CustomValidator } from '../../validators/custom-validators';
 
 @IonicPage()
 @Component({
-  selector: 'page-view-product-photography',
-  templateUrl: 'view-product-photography.html',
+  selector: 'page-view-product-makeup',
+  templateUrl: 'view-product-makeup.html',
 })
-export class ViewProductPhotographyPage {
-  editPhotographyForm: FormGroup;
-  pre_wedding: boolean = false;
-  wedding: boolean = false;
-  candid: boolean = false;
-  studio: boolean = false;
-  cinematic: boolean = false;
+
+export class ViewProductMakeupPage {
+  editMakeupForm: FormGroup;
+  bridal_makeup: boolean = false;
+  guest_makeup: boolean = false;
+  at_venue_makeup: boolean = false;
+  party_makeup: boolean = false;
+  bridal_guest: boolean = false;
+  airbrush_makeup: boolean = false;
+
   business_id: number;
   responseData: any;
   token: string;
   requestType:string;
   productDetails:any;
   payment_mode: any=[];
-  storage_device:any=[];
+
   videos:any=[];
   images:any=[];
   plans:any=[];
@@ -49,24 +53,22 @@ export class ViewProductPhotographyPage {
       this.payment_mode=this.productDetails.payment_mode.split("##");
       console.log(this.productDetails.payment_mode);
     }
-    if(this.productDetails.storage_device)
-    {
-      this.storage_device=this.productDetails.storage_device.split("##");
-      console.log(this.productDetails.storage_device);
-    }
-    if(this.productDetails.pre_wedding_price)
-    this.pre_wedding = true;
-    if(this.productDetails.wedding_price)
-    this.wedding = true;
-    if(this.productDetails.candid_price)
-    this.candid = true;
-    if(this.productDetails.studio_price)
-    this.studio = true;
-    if(this.productDetails.cinematic_price)
-    this.cinematic = true;
 
-    this.editPhotographyForm = this.formBuilder.group({
-      photographer_id: [this.productDetails.id],
+    if(this.productDetails.bridal_makeup_price)
+    this.bridal_makeup = true;
+    if(this.productDetails.guest_makeup_price)
+    this.guest_makeup = true;
+    if(this.productDetails.at_venue_makeup_price)
+    this.at_venue_makeup = true;
+    if(this.productDetails.party_makeup_price)
+    this.party_makeup = true;
+    if(this.productDetails.bridal_guest_price)
+    this.bridal_guest = true;
+    if(this.productDetails.airbrush_makeup_price)
+    this.airbrush_makeup = true;
+
+    this.editMakeupForm = this.formBuilder.group({
+      makeup_artists_id: [this.productDetails.id],
       travel_policy: [this.productDetails.travel_policy],
       working_since: [""+this.productDetails.working_since],
       completed_project: [this.productDetails.completed_project],
@@ -79,32 +81,29 @@ export class ViewProductPhotographyPage {
       advance_booking_charge: [this.productDetails.advance_booking_charge, CustomValidator.validpercent],
       event_date_charge: [this.productDetails.event_date_charge, CustomValidator.validpercent],
       at_delivery_charge: [this.productDetails.at_delivery_charge, CustomValidator.validpercent],
-      pre_wedding_price: [this.productDetails.pre_wedding_price ? this.productDetails.pre_wedding_price:''],
-      wedding_price: [this.productDetails.wedding_price ? this.productDetails.wedding_price : ''],
-      candid_price: [this.productDetails.candid_price ? this.productDetails.candid_price : ''],
-      studio_price: [this.productDetails.studio_price ? this.productDetails.studio_price : ''],
-      cinematic_price: [this.productDetails.cinematic_price ? this.productDetails.cinematic_price : ''],
-      photo_album_price: [this.productDetails.photo_album_price, Validators.required],
-      storage_device: [this.storage_device, Validators.required],
-      raw_image_delivery: [this.productDetails.raw_image_delivery=='Yes' ? 1 : 0, Validators.required],
-      delivery_duration: [this.productDetails.delivery_duration ? this.productDetails.delivery_duration: '']
+
+      bridal_makeup_price: [this.productDetails.bridal_makeup_price ? this.productDetails.bridal_makeup_price:''],
+      guest_makeup_price: [this.productDetails.guest_makeup_price ? this.productDetails.guest_makeup_price : ''],
+      at_venue_makeup_price: [this.productDetails.at_venue_makeup_price ? this.productDetails.at_venue_makeup_price : ''],
+      party_makeup_price: [this.productDetails.party_makeup_price ? this.productDetails.party_makeup_price : ''],
+      bridal_guest_price: [this.productDetails.bridal_guest_price ? this.productDetails.bridal_guest_price : ''],
+      airbrush_makeup_price: [this.productDetails.airbrush_makeup_price ? this.productDetails.airbrush_makeup_price : ''],
     }, {validator: CustomValidator.lte('price_to', 'price_from')}); //custom validator lte takes to arguments to check lte condition, first argument is the value that needs to be checked against second argument
 
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
     this.token = data.success.token;
-
-    console.log(this.editPhotographyForm);
+    console.log(this.editMakeupForm);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViewProductPhotographyPage');
   }
 
-  updatePhotography()
+  updateMakeup()
   {
-    console.log(this.editPhotographyForm.value);
-    this.restServ.authData(this.editPhotographyForm.value,'edit_product_photography',this.token).then((data) => {
+    console.log(this.editMakeupForm.value);
+    this.restServ.authData(this.editMakeupForm.value,'edit_product_makeup_artist',this.token).then((data) => {
       this.responseData = data;
       console.log(this.responseData);
       if(this.responseData.status==true)
@@ -141,16 +140,19 @@ export class ViewProductPhotographyPage {
   resetCheckboxes(type: any)
   {
     console.log(type);
-    if(type.name=='candid' && !type.candid)
-    this.editPhotographyForm.get('candid_price').setValue('');
-    if(type.name=='studio' && !type.studio)
-    this.editPhotographyForm.get('studio_price').setValue('');
-    if(type.name=='wedding' && !type.wedding)
-    this.editPhotographyForm.get('wedding_price').setValue('');
-    if(type.name=='pre_wedding' && !type.pre_wedding)
-    this.editPhotographyForm.get('pre_wedding_price').setValue('');
-    if(type.name=='cinematic' && !type.cinematic)
-    this.editPhotographyForm.get('cinematic_price').setValue('');
+    if(type.name=='bridal_makeup' && !type.bridal_makeup)
+    this.editMakeupForm.get('bridal_makeup_price').setValue('');
+    if(type.name=='guest_makeup' && !type.guest_makeup)
+    this.editMakeupForm.get('guest_makeup_price').setValue('');
+    if(type.name=='at_venue_makeup' && !type.at_venue_makeup)
+    this.editMakeupForm.get('at_venue_makeup_price').setValue('');
+    if(type.name=='party_makeup' && !type.party_makeup)
+    this.editMakeupForm.get('party_makeup_price').setValue('');
+    if(type.name=='bridal_guest' && !type.bridal_guest)
+    this.editMakeupForm.get('bridal_guest_price').setValue('');
+    if(type.name=='airbrush_makeup' && !type.airbrush_makeup)
+    this.editMakeupForm.get('airbrush_makeup_price').setValue('');
   }
 
 }
+

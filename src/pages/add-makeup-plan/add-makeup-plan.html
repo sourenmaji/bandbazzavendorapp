@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-navbar color="headers">
+    <ion-title>Add Makeup {{module}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+<ion-card>
+  <ion-card-header>
+    Add your {{module}}
+  </ion-card-header>
+
+<ion-card-content>
+ <div *ngIf="module=='Plan'">
+  <form novalidate [formGroup]="addPlanForm" (ngSubmit)="addPlan()">
+  <ion-item>
+      <ion-label stacked>Plan Name <span style="color: red" > *</span></ion-label>
+      <ion-input type="text" formControlName="plan_name"></ion-input>
+  </ion-item>
+  <p class="error" *ngIf="addPlanForm.get('plan_name').hasError('required') && addPlanForm.get('plan_name').touched">
+      This field is required
+    </p>
+  <ion-item>
+      <ion-label stacked>Plan Price <span style="color: red" > *</span></ion-label>
+      <ion-input type="number" formControlName="plan_price"></ion-input>
+  </ion-item>
+  <p class="error" *ngIf="addPlanForm.get('plan_price').hasError('required') && addPlanForm.get('plan_price').touched">
+      This field is required
+    </p>
+  <ion-item>
+      <ion-label stacked>Plan Offers <span style="color: red" > *</span></ion-label>
+      <ion-textarea formControlName="plan_offers"></ion-textarea>
+  </ion-item>
+  <p class="error" *ngIf="addPlanForm.get('plan_offers').hasError('required') && addPlanForm.get('plan_offers').touched">
+      This field is required
+    </p>
+  <button type="submit" ion-button block color="success" [disabled]="addPlanForm.invalid">Add</button>
+  </form>
+ </div>
+ <div *ngIf="module=='Images'">
+    {{file_uri.length}} photos
+  <button ion-button (click)="presentActionSheet()">Select Image</button>
+
+  <ion-card style="position: relative" *ngFor="let image of file_uri">
+      <ion-thumbnail>
+      <img src={{image}}>
+      </ion-thumbnail>
+      <div style="position: absolute; right: 2%; top: 2%" >
+        <ion-icon (click)="removeImage(image)" style="color: red;font-size: 50px" name="close-circle" ></ion-icon>
+      </div>
+    </ion-card>
+    <button ion-button block color="success" [disabled]="!file_uri.length" (click)="UploadImages()">Add Images</button>
+ </div>
+ <div *ngIf="module=='Videos'">
+    <form novalidate [formGroup]="addVideoForm" (ngSubmit)="addVideo()">
+    <ion-item>
+        <ion-label stacked>Video Link<span style="color: red" > *</span></ion-label>
+        <ion-input type="text" formControlName="video_link" placeholder="Links should be from YouTube only"></ion-input>
+    </ion-item>
+    <p class="error" *ngIf="addVideoForm.get('video_link').hasError('required') && addVideoForm.get('video_link').touched">
+        This field is required
+      </p>
+      <p class="error" *ngIf="addVideoForm.get('video_link').hasError('pattern')">
+          Please enter valid youtube url
+      </p>
+
+    <button type="submit" ion-button block color="success" [disabled]="addVideoForm.invalid">Add</button>
+  </form>
+ </div>
+</ion-card-content>
+</ion-card>
+
+</ion-content>

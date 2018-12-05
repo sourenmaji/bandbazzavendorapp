@@ -1,0 +1,306 @@
+<ion-header>
+  <ion-navbar color="headers">
+    <ion-title *ngIf="requestType == 'details'">View Product</ion-title>
+    <ion-title *ngIf="requestType == 'edit'">Edit Product</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div *ngIf="requestType == 'edit'">
+    <ion-card>
+      <ion-card-content>
+            <form novalidate [formGroup]="editMakeupForm" (ngSubmit)="updateMakeup()">
+                <ion-item>
+                    <ion-label floating>Travel Policy</ion-label>
+                    <ion-input type="text" formControlName="travel_policy">
+                    </ion-input>
+                  </ion-item>
+
+                  <ion-item>
+                    <ion-label floating>Working Since</ion-label>
+                    <ion-datetime displayFormat="YYYY" formControlName="working_since"></ion-datetime>
+                  </ion-item>
+
+                  <ion-item>
+                    <ion-label floating>Completed Project</ion-label>
+                    <ion-input type="number"
+                    formControlName="completed_project"></ion-input>
+                  </ion-item>
+
+                  <ion-item>
+                    <ion-label floating>Primary Market</ion-label>
+                    <ion-input type="text"
+                    formControlName="primary_market"></ion-input>
+                  </ion-item>
+
+                  <ion-item>
+                    <ion-label floating>Price From <span style="color: red">*</span></ion-label>
+                    <ion-input type="number"
+                    formControlName="price_from"></ion-input>
+                    </ion-item>
+                    <div class="error" *ngIf="editMakeupForm.get('price_from').hasError('required') && editMakeupForm.get('price_from').touched">
+                      This field is required
+                    </div>
+
+                    <ion-item>
+                    <ion-label floating>Price To</ion-label>
+                    <ion-input type="number"
+                    formControlName="price_to"></ion-input>
+                  </ion-item>
+                  <p class="error" *ngIf="editMakeupForm.get('price_to').hasError('lte')">
+                    Price To must be greater than price from
+                  </p>
+
+                  <ion-item>
+                    <ion-label floating>Achievements</ion-label>
+                    <ion-input type="text"
+                    formControlName="achievements">
+                    </ion-input>
+                  </ion-item>
+
+                  <ion-item>
+                    <ion-label floating>Cancellation Policy</ion-label>
+                    <ion-input type="text"
+                    formControlName="cancellation_policy">
+                    </ion-input>
+                  </ion-item>
+
+                  <ion-item>
+                    <ion-label>Payment Mode <span style="color: red">*</span></ion-label>
+                    <ion-select formControlName="payment_mode" multiple="true">
+                      <ion-option value="bank transfer">Bank Transfer</ion-option>
+                      <ion-option value="cash">By Cash</ion-option>
+                      <ion-option value="paytm">PayTM</ion-option>
+                      <ion-option value="cheque">Cheque</ion-option>
+                    </ion-select>
+                  </ion-item>
+                  <p class="error" *ngIf="editMakeupForm.get('payment_mode').hasError('required') && editMakeupForm.get('payment_mode').touched">
+                    This field is required
+                  </p>
+
+
+                  <ion-item>
+                    <ion-label floating>Advance Booking Charge (in %)</ion-label>
+                    <ion-input type="number"
+                    formControlName="advance_booking_charge"></ion-input>
+                  </ion-item>
+                  <p class="error" *ngIf="editMakeupForm.get('advance_booking_charge').hasError('validpercent')">
+                    Percentage cannot be greater than 100
+                  </p>
+
+                  <ion-item>
+                    <ion-label floating>Event Date Charge (in %)</ion-label>
+                    <ion-input type="number"
+                    formControlName="event_date_charge"></ion-input>
+                  </ion-item>
+                  <p class="error" *ngIf="editMakeupForm.get('event_date_charge').hasError('validpercent')">
+                    Percentage cannot be greater than 100
+                  </p>
+
+                  <ion-item>
+                    <ion-label floating>At Delivery Charge (in %)</ion-label>
+                    <ion-input type="number"
+                    formControlName="at_delivery_charge"></ion-input>
+                  </ion-item>
+                  <p class="error" *ngIf="editMakeupForm.get('at_delivery_charge').hasError('validpercent')">
+                    Percentage cannot be greater than 100
+                  </p>
+
+                  <ion-list>
+
+                    <ion-item>
+                      <ion-label>Bridal Makeup Price</ion-label>
+                      <ion-checkbox [(ngModel)]="bridal_makeup" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'bridal_makeup', status: bridal_makeup})"></ion-checkbox>
+                    </ion-item>
+                    <ion-item *ngIf="bridal_makeup">
+                      <ion-input type="number" formControlName="bridal_makeup_price" placeholder="Bridal Makeup Price"></ion-input>
+                    </ion-item>
+
+
+                    <ion-item>
+                      <ion-label>Guest Makeup Price</ion-label>
+                      <ion-checkbox [(ngModel)]="guest_makeup" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'guest_makeup', status: guest_makeup})"></ion-checkbox>
+                    </ion-item>
+                    <ion-item *ngIf="guest_makeup">
+                      <ion-input type="number" formControlName="guest_makeup_price" placeholder="Guest Makeup Price"></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                      <ion-label>At Venue Makeup Price</ion-label>
+                      <ion-checkbox [(ngModel)]="at_venue_makeup" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'at_venue_makeup', status: at_venue_makeup})"></ion-checkbox>
+                    </ion-item>
+                    <ion-item *ngIf="at_venue_makeup">
+                      <ion-input type="number" formControlName="at_venue_makeup_price" placeholder="At Venue Makeup Price"></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                      <ion-label>Party Makeup Price</ion-label>
+                      <ion-checkbox [(ngModel)]="party_makeup" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'party_makeup', status: party_makeup})"></ion-checkbox>
+                    </ion-item>
+                    <ion-item *ngIf="party_makeup">
+                      <ion-input type="number" formControlName="party_makeup_price" placeholder="Party Makeup Price"></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                      <ion-label>Bridal With One Guest Makeup Price</ion-label>
+                      <ion-checkbox [(ngModel)]="bridal_guest" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'bridal_guest', status: bridal_guest})"></ion-checkbox>
+                    </ion-item>
+                    <ion-item *ngIf="bridal_guest">
+                      <ion-input type="number" formControlName="bridal_guest_price" placeholder="Bridal With One Guest Makeup Price"></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                      <ion-label>Airbrush Bridal Makeup Price</ion-label>
+                      <ion-checkbox [(ngModel)]="airbrush_makeup" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'airbrush_makeup', status: airbrush_makeup})"></ion-checkbox>
+                    </ion-item>
+                    <ion-item *ngIf="airbrush_makeup">
+                      <ion-input type="number" formControlName="airbrush_makeup_price" placeholder="Airbrush Bridal Makeup Price"></ion-input>
+                    </ion-item>
+                  </ion-list>
+
+                  <button type="submit" ion-button block color="success" [disabled]="editMakeupForm.invalid">Update</button><br/>
+                  </form>
+
+          </ion-card-content>
+          </ion-card>
+</div>
+
+<div *ngIf="requestType == 'details'">
+  <ion-card>
+    <ion-card-header>
+      Plan Details
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngIf="!plans.length">
+        No plans added yet!
+      </div>
+      <div *ngIf="plans.length">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              Plan Name
+            </ion-col>
+            <ion-col>
+              Plan Offers
+            </ion-col>
+            <ion-col>
+              Plan Price
+            </ion-col>
+            <ion-col>
+              Action
+            </ion-col>
+          </ion-row>
+          <ion-row *ngFor="let plan of plans">
+            <ion-col>
+              {{plan.plan_name}}
+            </ion-col>
+            <ion-col>
+              {{plan.plan_offers}}
+            </ion-col>
+            <ion-col>
+              Rs {{plan.plan_price}}
+            </ion-col>
+            <ion-col>
+              {{plan.admin_approval=='Yes' ? 'Approved' : 'N/A'}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Images Gallery
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngIf="!images.length">
+        No images added yet!
+      </div>
+      <div *ngIf="images.length">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              Images
+            </ion-col>
+            <ion-col>
+              Action
+            </ion-col>
+          </ion-row>
+          <ion-row *ngFor="let image of images">
+            <ion-col>
+              <img src={{this.imageUrl+image.image}}>
+            </ion-col>
+            <ion-col>
+              {{image.admin_approval=='Yes' ? 'Approved' : 'N/A'}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Video Links
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngIf="!videos.length">
+        No videos added yet!
+      </div>
+      <div *ngIf="videos.length">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              Videos
+            </ion-col>
+            <ion-col>
+              Action
+            </ion-col>
+
+          </ion-row>
+          <ion-row *ngFor="let video of videos">
+            <ion-col>
+              {{video.video_link}}
+            </ion-col>
+            <ion-col>
+              {{video.admin_approval=='Yes' ? 'Approved' : 'N/A'}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Product Details
+    </ion-card-header>
+    <ion-card-content>
+
+      <p>Travel Policy: {{productDetails.travel_policy}}</p>
+      <p>Working Since: {{productDetails.working_since}}</p>
+      <p>Completed Project: {{productDetails.completed_project}}</p>
+      <p>Primary Market: {{productDetails.primary_market}}</p>
+      <p>Price From <span style="color: red">*</span>: Rs {{productDetails.price_from}}</p>
+      <p>Price To: Rs {{productDetails.price_to}}</p>
+      <p>Achievements: {{productDetails.achievements}}</p>
+      <p>Cancellation Policy: {{productDetails.cancellation_policy}}</p>
+      <p>Payment Mode <span style="color: red">*</span>: {{productDetails.payment_mode}}</p>
+      <p>Advance Booking Charge (in %): {{productDetails.advance_booking_charge}}%</p>
+      <p>Event Date Charge (in %): {{productDetails.event_date_charge}}%</p>
+      <p>At Delivery Charge (in %): {{productDetails.at_delivery_charge}}%</p>
+      <p>Bridal Makeup Price: {{productDetails.bridal_makeup_price ? 'Rs '+productDetails.bridal_makeup_price : 'N/A'}}</p>
+      <p>Guest Makeup Price: {{productDetails.guest_makeup_price ? 'Rs '+productDetails.guest_makeup_price : 'N/A'}}</p>
+      <p>At Venue Makeup Price: {{productDetails.at_venue_makeup_price ? 'Rs '+productDetails.at_venue_makeup_price : 'N/A'}}</p>
+      <p>Party Makeup Price: {{productDetails.party_makeup_price ? 'Rs '+productDetails.party_makeup_price : 'N/A'}}</p>
+      <p>Bridal With One Guest Makeup Price: {{productDetails.bridal_guest_price ? 'Rs '+productDetails.bridal_guest_price : 'N/A'}}</p>
+      <p>Airbrush Bridal Makeup Price: {{productDetails.airbrush_makeup_price ? 'Rs '+productDetails.airbrush_makeup_price : 'N/A'}}</p>
+
+    </ion-card-content>
+  </ion-card>
+</div>
+
+</ion-content>

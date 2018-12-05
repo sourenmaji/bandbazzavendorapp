@@ -235,7 +235,7 @@
               Rs {{plan.plan_price}}
             </ion-col>
             <ion-col>
-              N/A
+              {{plan.admin_approval=='Yes' ? 'Approved' : 'N/A'}}
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -255,7 +255,7 @@
         <ion-grid>
           <ion-row>
             <ion-col>
-              Image Link
+              Images
             </ion-col>
             <ion-col>
               Action
@@ -266,7 +266,7 @@
               <img src={{this.imageUrl+image.image}}>
             </ion-col>
             <ion-col>
-              N/A
+              {{image.admin_approval=='Yes' ? 'Approved' : 'N/A'}}
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -286,7 +286,7 @@
         <ion-grid>
           <ion-row>
             <ion-col>
-              Video Link
+              Videos
             </ion-col>
             <ion-col>
               Action
@@ -298,7 +298,7 @@
               {{video.video_link}}
             </ion-col>
             <ion-col>
-              N/A
+              {{video.admin_approval=='Yes' ? 'Approved' : 'N/A'}}
             </ion-col>
           </ion-row>
         </ion-grid>

@@ -7,11 +7,15 @@ import {Http, Headers} from '@angular/http';
 @Injectable()
 export class AuthServiceProvider {
   pageReset: boolean = false;
-  // imageUrl: string = 'http://localhost/bandbazza-new-ui/public/';
-  // apiUrl: string = 'http://localhost/bandbazza-new-ui/public/api/v1/';
+  // imageUrl: string = 'http://192.168.1.113/bandbazza_replace/public/';
+  // apiUrl: string = 'http://192.168.1.113/bandbazza_replace/public/api/v1/';
 
-  imageUrl: string = 'http://192.168.1.130/bandbazza-new-ui/public/';
-  apiUrl: string = 'http://192.168.1.130/bandbazza-new-ui/public/api/v1/';
+  // imageUrl: string = 'http://192.168.1.201:5300/';
+  // apiUrl: string = 'http://192.168.1.201:5300/api/v1/';
+
+  imageUrl: string = 'http://dev.bandbazza.com/';
+  apiUrl: string = 'http://dev.bandbazza.com/api/v1/';
+
   loading: Loading;
   constructor(public http: Http, public httpC: HttpClient, private transfer: FileTransfer, public loadingCtrl: LoadingController) {
     console.log('Hello AuthServiceProvider');

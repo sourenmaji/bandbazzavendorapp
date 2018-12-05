@@ -35,6 +35,7 @@ export class ViewProductBanquatePage implements OnInit{
   this.lat = this.productDetails.details.lat;
   this.log = this.productDetails.details.lng;
   this.productImages = [];
+
   this.productImages.push("data:image/jpeg;base64,"+this.productDetails.details.view);
 
 this.productDetails.details.images.forEach(element => {

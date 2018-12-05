@@ -75,10 +75,10 @@ export class ForgetPasswordPage implements OnInit{
      }
   }, (err) => {
     loader.dismiss();
-   this.responseData = err.json();
+   this.responseData = err;
    console.log(this.responseData)
    const alert = this.alertCtrl.create({
-     subTitle: this.responseData.message,
+     subTitle: "Oops! Something went wrong. Please try again.",
      buttons: ['OK']
    })
    alert.present();

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { AddBanquetPage } from './add-banquet';
-import { AgmCoreModule } from '../../../node_modules/@agm/core';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [

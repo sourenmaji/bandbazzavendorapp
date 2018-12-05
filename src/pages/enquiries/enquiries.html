@@ -21,7 +21,7 @@
 
   <ion-buttons end *ngIf="categories.length">
       <button small ion-button clear (click)="filterEnquiries()" icon-end>
-        {{enquiry_type}}
+        {{enquiry_type=='active'? 'Active Enquiries' : 'Past Enquiries'}}
         <ion-icon name="options"></ion-icon>
       </button>
     </ion-buttons>

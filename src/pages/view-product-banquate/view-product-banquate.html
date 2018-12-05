@@ -12,7 +12,6 @@
 <ion-content>
 <!-- for Details section -->
   <ion-card *ngIf="requestType == 'details'">
-
       <ion-slides autoplay="5000" loop="true" speed="3000" height="200" pager>
           <ion-slide *ngFor="let slide of productImages">
             <img src="{{slide}}">

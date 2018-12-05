@@ -131,7 +131,7 @@ export class RegisterPage implements OnInit{
       else{ console.log(this.responseData.message); }
     }, (err) => {
       loader.dismiss();
-     this.responseData = err.json();
+     this.responseData = err;
      console.log(this.responseData)
      const alert = this.alertCtrl.create({
        subTitle: "Oops! Something went wrong. Please try again.",

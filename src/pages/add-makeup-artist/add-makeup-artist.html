@@ -6,5 +6,168 @@
 
 
 <ion-content padding>
+  <ion-card>
+    <ion-card-content>
+          <form novalidate [formGroup]="addMakeupForm" (ngSubmit)="addMakeup()">
+              <ion-item>
+                  <ion-label floating>Travel Policy</ion-label>
+                  <ion-input type="text" formControlName="travel_policy">
+                  </ion-input>
+                </ion-item>
 
+                <ion-item>
+                  <ion-label floating>Working Since</ion-label>
+                  <ion-datetime displayFormat="YYYY" formControlName="working_since"></ion-datetime>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label floating>Completed Project</ion-label>
+                  <ion-input type="number"
+                  formControlName="completed_project"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label floating>Primary Market</ion-label>
+                  <ion-input type="text"
+                  formControlName="primary_market"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label floating>Price From <span style="color: red">*</span></ion-label>
+                  <ion-input type="number"
+                  formControlName="price_from"></ion-input>
+                  </ion-item>
+                  <div class="error" *ngIf="addMakeupForm.get('price_from').hasError('required') && addMakeupForm.get('price_from').touched">
+                    This field is required
+                  </div>
+
+                  <ion-item>
+                  <ion-label floating>Price To</ion-label>
+                  <ion-input type="number"
+                  formControlName="price_to"></ion-input>
+                </ion-item>
+                <p class="error" *ngIf="addMakeupForm.get('price_to').hasError('lte')">
+                  Price To must be greater than price from
+                </p>
+
+                <ion-item>
+                  <ion-label floating>Achievements</ion-label>
+                  <ion-input type="text"
+                  formControlName="achievements">
+                  </ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label floating>Cancellation Policy</ion-label>
+                  <ion-input type="text"
+                  formControlName="cancellation_policy">
+                  </ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label>Payment Mode <span style="color: red">*</span></ion-label>
+                  <ion-select formControlName="payment_mode" multiple="true">
+                    <ion-option value="bank transfer">Bank Transfer</ion-option>
+                    <ion-option value="cash">By Cash</ion-option>
+                    <ion-option value="paytm">PayTM</ion-option>
+                    <ion-option value="cheque">Cheque</ion-option>
+                  </ion-select>
+                </ion-item>
+                <p class="error" *ngIf="addMakeupForm.get('payment_mode').hasError('required') && addMakeupForm.get('payment_mode').touched">
+                  This field is required
+                </p>
+
+
+                <ion-item>
+                  <ion-label floating>Advance Booking Charge (in %)</ion-label>
+                  <ion-input type="number"
+                  formControlName="advance_booking_charge"></ion-input>
+                </ion-item>
+                <p class="error" *ngIf="addMakeupForm.get('advance_booking_charge').hasError('validpercent')">
+                  Percentage cannot be greater than 100
+                </p>
+
+                <ion-item>
+                  <ion-label floating>Event Date Charge (in %)</ion-label>
+                  <ion-input type="number"
+                  formControlName="event_date_charge"></ion-input>
+                </ion-item>
+                <p class="error" *ngIf="addMakeupForm.get('event_date_charge').hasError('validpercent')">
+                  Percentage cannot be greater than 100
+                </p>
+
+                <ion-item>
+                  <ion-label floating>At Delivery Charge (in %)</ion-label>
+                  <ion-input type="number"
+                  formControlName="at_delivery_charge"></ion-input>
+                </ion-item>
+                <p class="error" *ngIf="addMakeupForm.get('at_delivery_charge').hasError('validpercent')">
+                  Percentage cannot be greater than 100
+                </p>
+
+                <ion-list>
+
+                  <ion-item>
+                    <ion-label>Bridal Makeup Price</ion-label>
+                    <ion-checkbox [(ngModel)]="bridal_makeup" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'bridal_makeup', status: bridal_makeup})"></ion-checkbox>
+                  </ion-item>
+                  <ion-item *ngIf="bridal_makeup">
+                    <ion-input type="number" formControlName="bridal_makeup_price" placeholder="Bridal Makeup Price"></ion-input>
+                  </ion-item>
+
+
+                  <ion-item>
+                    <ion-label>Guest Makeup Price</ion-label>
+                    <ion-checkbox [(ngModel)]="guest_makeup" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'guest_makeup', status: guest_makeup})"></ion-checkbox>
+                  </ion-item>
+                  <ion-item *ngIf="guest_makeup">
+                    <ion-input type="number" formControlName="guest_makeup_price" placeholder="Guest Makeup Price"></ion-input>
+                  </ion-item>
+
+                  <ion-item>
+                    <ion-label>At Venue Makeup Price</ion-label>
+                    <ion-checkbox [(ngModel)]="at_venue_makeup" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'at_venue_makeup', status: at_venue_makeup})"></ion-checkbox>
+                  </ion-item>
+                  <ion-item *ngIf="at_venue_makeup">
+                    <ion-input type="number" formControlName="at_venue_makeup_price" placeholder="At Venue Makeup Price"></ion-input>
+                  </ion-item>
+
+                  <ion-item>
+                    <ion-label>Party Makeup Price</ion-label>
+                    <ion-checkbox [(ngModel)]="party_makeup" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'party_makeup', status: party_makeup})"></ion-checkbox>
+                  </ion-item>
+                  <ion-item *ngIf="party_makeup">
+                    <ion-input type="number" formControlName="party_makeup_price" placeholder="Party Makeup Price"></ion-input>
+                  </ion-item>
+
+                  <ion-item>
+                    <ion-label>Bridal With One Guest Makeup Price</ion-label>
+                    <ion-checkbox [(ngModel)]="bridal_guest" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'bridal_guest', status: bridal_guest})"></ion-checkbox>
+                  </ion-item>
+                  <ion-item *ngIf="bridal_guest">
+                    <ion-input type="number" formControlName="bridal_guest_price" placeholder="Bridal With One Guest Makeup Price"></ion-input>
+                  </ion-item>
+
+                  <ion-item>
+                    <ion-label>Airbrush Bridal Makeup Price</ion-label>
+                    <ion-checkbox [(ngModel)]="airbrush_makeup" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'airbrush_makeup', status: airbrush_makeup})"></ion-checkbox>
+                  </ion-item>
+                  <ion-item *ngIf="airbrush_makeup">
+                    <ion-input type="number" formControlName="airbrush_makeup_price" placeholder="Airbrush Bridal Makeup Price"></ion-input>
+                  </ion-item>
+                </ion-list>
+
+
+                <ion-item>
+                  <ion-label floating>Makeup Search Tags (comma-separated values)</ion-label>
+                  <ion-input type="text" formControlName="search_tags">
+                  </ion-input>
+                </ion-item>
+
+                <button type="submit" ion-button block color="success" [disabled]="addMakeupForm.invalid">Add Makeup Artist</button><br/>
+                </form>
+
+        </ion-card-content>
+        </ion-card>
 </ion-content>
+

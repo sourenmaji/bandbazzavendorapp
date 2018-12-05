@@ -33,12 +33,12 @@ export class AddBanquetPage{
   public longitude: number;
   public latmap:number;
   public lngmap: number;
-  public searchControl: FormControl;
+  // public searchControl: FormControl;
   public zoom: number;
   public business_id: number;
 
-  @ViewChild("search")
-  public searchElementRef;
+  // @ViewChild("search")
+  // public searchElementRef;
   public form2data:{full_address, lat, long, same_as_business:boolean, map_address:string};
 
   //form 3 data
@@ -79,7 +79,7 @@ export class AddBanquetPage{
     this.form2data = {full_address:"",lat:0,long:0,same_as_business:false,map_address:""} ;
 
     //create search FormControl
-    this.searchControl = new FormControl();
+    // this.searchControl = new FormControl();
 
     //set current position
     this.setCurrentPosition();

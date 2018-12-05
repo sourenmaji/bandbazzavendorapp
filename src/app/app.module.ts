@@ -19,6 +19,7 @@ import { ImagePicker } from '../../node_modules/@ionic-native/image-picker';
 import { FCM } from '@ionic-native/fcm';
 import { Base64 } from '@ionic-native/base64';
 
+
 import { AddBanquetPageModule } from '../pages/add-banquet/add-banquet.module';
 import { AddCarsPageModule } from '../pages/add-cars/add-cars.module';
 import { AddCatererPageModule } from '../pages/add-caterer/add-caterer.module';
@@ -45,6 +46,8 @@ import { AddPhotographyPageModule } from '../pages/add-photography/add-photograp
 import { AddMakeupArtistPageModule } from '../pages/add-makeup-artist/add-makeup-artist.module';
 import { ViewProductPhotographyPageModule } from '../pages/view-product-photography/view-product-photography.module';
 import { AddPhotoPlanPageModule } from '../pages/add-photo-plan/add-photo-plan.module';
+import { ViewProductMakeupPageModule } from '../pages/view-product-makeup/view-product-makeup.module';
+import { AddMakeupPlanPageModule } from '../pages/add-makeup-plan/add-makeup-plan.module';
 
 
 @NgModule({
@@ -84,6 +87,8 @@ import { AddPhotoPlanPageModule } from '../pages/add-photo-plan/add-photo-plan.m
     AddCatererPageModule,
     AddPhotographyPageModule,
     AddMakeupArtistPageModule,
+    ViewProductMakeupPageModule,
+    AddMakeupPlanPageModule,
     ErrorPageModule
   ],
   bootstrap: [IonicApp],

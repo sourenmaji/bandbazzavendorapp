@@ -11,6 +11,8 @@ import { AddPhotographyPage } from '../add-photography/add-photography';
 import { AddMakeupArtistPage } from '../add-makeup-artist/add-makeup-artist';
 import { ViewProductPhotographyPage } from '../view-product-photography/view-product-photography';
 import { AddPhotoPlanPage } from '../add-photo-plan/add-photo-plan';
+import { ViewProductMakeupPage } from '../view-product-makeup/view-product-makeup';
+import { AddMakeupPlanPage } from '../add-makeup-plan/add-makeup-plan';
 
 @IonicPage()
 @Component({
@@ -304,7 +306,11 @@ export class ProductsPage {
     this.navCtrl.push(ViewProductPhotographyPage,{action: action,product: this.alProducts[0]});
     else if(this.category=='Photography' && action=="details")
     this.navCtrl.push(ViewProductPhotographyPage,{action: action,product: this.alProducts[0], videos: this.responseData.all_photography_video, plans: this.responseData.all_photography_plan, images:this.responseData.all_photography_image});
-    else
+    if(this.category=='Makeup Artist' && !this.alProducts[0].edit_status && action=="edit")
+    this.navCtrl.push(ViewProductMakeupPage,{action: action,product: this.alProducts[0]});
+    else if(this.category=='Makeup Artist' && action=="details")
+    this.navCtrl.push(ViewProductMakeupPage,{action: action,product: this.alProducts[0], videos: this.responseData.all_makeup_video, plans: this.responseData.all_makeup_plan, images:this.responseData.all_makeup_image});
+    else if(this.alProducts[0].edit_status && action=="edit")
     {
       const alert = this.alertCtrl.create({
         subTitle: "You have already sent an edit request for this product. Please wait for admin approval.",
@@ -314,10 +320,13 @@ export class ProductsPage {
     }
   }
 
-  addModule(module: string)
+  addModule(module: string, category: string)
   {
-    console.log(module);
-    this.navCtrl.push(AddPhotoPlanPage,{module:module,id: this.alProducts[0].id})
+    console.log(module+' '+category);
+    if(category=='Photography')
+    this.navCtrl.push(AddPhotoPlanPage,{module:module,id: this.alProducts[0].id});
+    else
+    this.navCtrl.push(AddMakeupPlanPage,{module:module,id: this.alProducts[0].id});
   }
 
 }

@@ -37,7 +37,10 @@
                     <h1 ion-text color="danger">{{business.module_name}}</h1>
                 </ion-col>
                   <ion-col col-3>
-                    <ion-badge color="ac">{{business.request_type}}</ion-badge>
+                    <ion-badge color="ac" *ngIf="business.request_type=='Deactivate'">Deactivate Request Sent</ion-badge>
+                    <ion-badge color="ac" *ngIf="business.request_type=='Delete'">Delete Request Sent</ion-badge>
+                    <ion-badge color="ac" *ngIf="business.request_type!='Deactivate' && business.request_type!='Delete'">{{business.request_type}}</ion-badge>
+
                   </ion-col>
                 </ion-row>
 

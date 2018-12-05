@@ -10,7 +10,7 @@
     <ion-title style="float:right">Products</ion-title>
 
     <ion-buttons end *ngIf="categories.length">
-      <button ion-button small icon-only *ngIf="!(category=='Photography' && alProducts.length>=1)" (click)="addProduct()" tooltip="add">
+      <button ion-button small icon-only *ngIf="!((category=='Photography'|| category=='Makeup Artist') && alProducts.length>=1)" (click)="addProduct()" tooltip="add">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
@@ -36,7 +36,7 @@
     <p>This business is deactivated</p>
   </div>
 
-  <ion-card class="check" *ngIf="((category !='Photography') && (businessProducts.request_type!='Deactivated') && (alProducts.length))">
+  <ion-card class="check" *ngIf="((category !='Photography' && category !='Makeup Artist') && (businessProducts.request_type!='Deactivated') && (alProducts.length))">
   <div class="prd-wrp" *ngFor ="let products of alProducts">
 
     <img src="{{imageUrl+products.product_image}}">
@@ -184,39 +184,6 @@
             </div>
         </ion-card-content>
 
-        <ion-card-content *ngIf="category=='Photography'">
-          <ion-fab class="dl-p">
-              <button ion-fab mini [disabled]="products.request_type=='Delete'" (click)="deleteProduct(products.product_id,category)">
-                <ion-icon name="trash" color="light"></ion-icon>
-              </button>
-            </ion-fab>
-          <ion-card-title >
-            <ion-row>
-              <ion-col col-auto *ngIf="products.is_veg == 1">
-                  <h1 ion-text color="danger">{{products.product_name}}</h1>
-              </ion-col>
-              <ion-col col-3>
-                  <ion-badge color="ac">{{products.request_type}}</ion-badge>
-              </ion-col>
-            </ion-row>
-          </ion-card-title>
-          <div class="extra-p">
-          <ion-row>
-            <ion-col col-6>
-                <button ion-button icon-left round full color="dash2" [disabled]="products.request_type=='Delete'" (click)="detailsProduct(products.product_id,'edit')">
-                  <ion-icon color="white" name="create"></ion-icon>
-                  <div ion-text color="white"> Edit </div>
-                </button>
-              </ion-col>
-              <ion-col col-6>
-                <button ion-button icon-left round full color="success"  (click)="detailsProduct(products.product_id,'details')">
-                  <ion-icon name="eye"></ion-icon>
-                  <div> Details </div>
-                </button>
-              </ion-col>
-            </ion-row>
-            </div>
-        </ion-card-content>
       </div>
 </ion-card>
 
@@ -224,11 +191,11 @@
     <ion-card class="prd-wrp">
       <img src="{{imageUrl+businessProducts.business_image}}">
       <ion-card-content>
-          <ion-fab class="dl-p">
+          <!-- <ion-fab class="dl-p">
               <button ion-fab mini>
                 <ion-icon name="trash" color="light"></ion-icon>
               </button>
-            </ion-fab>
+            </ion-fab> -->
           <ion-card-title >
             <ion-row>
 
@@ -263,11 +230,61 @@
          Photography Actions
       </ion-card-header>
       <ion-list>
-          <button ion-item (click)="addModule('Plan')"><ion-icon name="camera" item-start></ion-icon>Add Photography Plan</button>
-          <button ion-item (click)="addModule('Images')"><ion-icon name="images" item-start></ion-icon>Add Images</button>
-          <button ion-item (click)="addModule('Videos')"><ion-icon name="logo-youtube" item-start></ion-icon>Add Videos</button>
+          <button ion-item (click)="addModule('Plan',category)"><ion-icon name="camera" item-start></ion-icon>Add Photography Plan</button>
+          <button ion-item (click)="addModule('Images',category)"><ion-icon name="images" item-start></ion-icon>Add Images</button>
+          <button ion-item (click)="addModule('Videos',category)"><ion-icon name="logo-youtube" item-start></ion-icon>Add Videos</button>
       </ion-list>
   </ion-card>
+</div>
+
+<div *ngIf="category ==='Makeup Artist' && alProducts.length && businessProducts.request_type!='Deactivated'">
+  <ion-card class="prd-wrp">
+    <img src="{{imageUrl+businessProducts.business_image}}">
+    <ion-card-content>
+        <!-- <ion-fab class="dl-p">
+            <button ion-fab mini>
+              <ion-icon name="trash" color="light"></ion-icon>
+            </button>
+          </ion-fab> -->
+        <ion-card-title >
+          <ion-row>
+
+            <ion-col col-auto>
+                <h1 ion-text color="danger">{{businessProducts.company_name}}</h1>
+            </ion-col>
+            <ion-col col-3>
+                <ion-badge color="ac">{{alProducts[0].status}}</ion-badge>
+              </ion-col>
+          </ion-row>
+        </ion-card-title>
+        <div class="extra-p">
+        <ion-row>
+          <ion-col col-6>
+              <button ion-button icon-left round full color="dash2" [disabled]="alProducts[0].status=='Delete'" (click)="detailsModule('edit')">
+                <ion-icon color="white" name="create"></ion-icon>
+                <div ion-text color="white"> Edit </div>
+              </button>
+            </ion-col>
+            <ion-col col-6>
+              <button ion-button icon-left round full color="success" (click)="detailsModule('details')">
+                <ion-icon name="eye"></ion-icon>
+                <div> Details </div>
+              </button>
+            </ion-col>
+          </ion-row>
+          </div>
+      </ion-card-content>
+</ion-card>
+<ion-card *ngIf="alProducts[0].status=='Live'">
+    <ion-card-header>
+       Makeup Artist Actions
+    </ion-card-header>
+    <ion-list>
+        <button ion-item (click)="addModule('Plan',category)"><ion-icon name="camera" item-start></ion-icon>Add Makeup Plan</button>
+        <button ion-item (click)="addModule('Images',category)"><ion-icon name="images" item-start></ion-icon>Add Images</button>
+        <button ion-item (click)="addModule('Videos',category)"><ion-icon name="logo-youtube" item-start></ion-icon>Add Videos</button>
+    </ion-list>
+</ion-card>
 </div>
 
 </ion-list>

@@ -81,7 +81,7 @@ export class WelcomePage implements OnInit{
         }
      }, (err) => {
       loader.dismiss();
-      this.responseData = err.json();
+      this.responseData = err;
       console.log(this.network.type);
       if(this.network.type === 'none')
         this.navCtrl.push(ErrorPage);

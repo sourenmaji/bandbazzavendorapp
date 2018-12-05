@@ -57,15 +57,6 @@ export class BookingsPage {
     this.getCategories();
    }
 
-  //  ionViewDidEnter()
-  //  {
-  //    if(this.authService.pageReset)
-  //    {
-  //      console.log(this.authService.pageReset)
-  //      this.getBookings(this.lastClicked,true);
-  //    }
-  //  }
-
   //get business categories of this vendor
    getCategories()
    {
