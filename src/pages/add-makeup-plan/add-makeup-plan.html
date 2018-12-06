@@ -38,6 +38,7 @@
   <button type="submit" ion-button block color="success" [disabled]="addPlanForm.invalid">Add</button>
   </form>
  </div>
+
  <div *ngIf="module=='Images'">
     {{file_uri.length}} photos
   <button ion-button (click)="presentActionSheet()">Select Image</button>

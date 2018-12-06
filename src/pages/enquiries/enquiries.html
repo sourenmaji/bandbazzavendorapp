@@ -19,7 +19,7 @@
       </ion-segment-button>
     </ion-segment>
 
-  <ion-buttons end *ngIf="categories.length">
+  <ion-buttons end *ngIf="categories.length && !(category=='Photography' || category=='Makeup Artist')">
       <button small ion-button clear (click)="filterEnquiries()" icon-end>
         {{enquiry_type=='active'? 'Active Enquiries' : 'Past Enquiries'}}
         <ion-icon name="options"></ion-icon>
@@ -53,6 +53,16 @@
             <h2>{{enquiry.package_name}}</h2>
             <p>Enquiry time: {{enquiry.created_at}}</p>
           </div>
+
+          <div item-end *ngIf="category.module_name=='Photography'">
+              <h2>{{enquiry.package_name}}</h2>
+              <p>Enquiry time: {{enquiry.created_at}}</p>
+            </div>
+
+            <div item-end *ngIf="category.module_name=='Makeup Artist'">
+                <h2>{{enquiry.package_name}}</h2>
+                <p>Enquiry time: {{enquiry.created_at}}</p>
+              </div>
 
         </button>
 

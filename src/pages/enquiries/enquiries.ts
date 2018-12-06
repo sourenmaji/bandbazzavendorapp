@@ -127,6 +127,14 @@ imageUrl:string = '';
     {
       this.type="get_caterer_enquiries";
     }
+    else if(this.category=='Photography')
+    {
+      this.type="get_photography_enquiries";
+    }
+    else if(this.category=='Makeup Artist')
+    {
+      this.type="get_makeup_enquiries";
+    }
 
     //if there's no next page or the page needs to be manually refreshed, reset values to default
     if(!this.next_page || reset)

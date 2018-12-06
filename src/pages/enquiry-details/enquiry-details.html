@@ -17,7 +17,7 @@
               <li>Enquiry status: {{enquiry.details.vendor_status}}</li>
           </p>
         </ion-card-content>
-        <button *ngIf="enquiry.details.enquiry_status==-1" ion-button block (click)="enquiryAction(enquiry.details.id,enquiry.module)" color="energy">Action</button>
+        <button *ngIf="enquiry.details.enquiry_status==-1 && !(enquiry.module=='Photography' || enquiry.module=='Makeup Artist')" ion-button block (click)="enquiryAction(enquiry.details.id,enquiry.module)" color="energy">Action</button>
       </ion-card>
       <ion-card>
           <img src="{{this.imageUrl+enquiry.details.cover_image}}" alt="image"/>
@@ -43,6 +43,18 @@
                 <li>{{enquiry.details.package_name}}</li>
                 <li> Booking Date: {{enquiry.details.date | date: 'MMM d, yyyy'}}</li>
                 <li> Rate: Rs {{enquiry.details.enquiry_rate}}/plate</li>
+
+            </p>
+            <p *ngIf="enquiry.module=='Photography'">
+                <li>{{enquiry.details.package_name}}</li>
+                <li> Booking Date: {{enquiry.details.date | date: 'MMM d, yyyy'}}</li>
+                <li> Rate: Rs {{enquiry.details.rate}}</li>
+
+            </p>
+            <p *ngIf="enquiry.module=='Makeup Artist'">
+                <li>{{enquiry.details.package_name}}</li>
+                <li> Booking Date: {{enquiry.details.date | date: 'MMM d, yyyy'}}</li>
+                <li> Rate: Rs {{enquiry.details.rate}}</li>
 
             </p>
           </ion-card-content>
