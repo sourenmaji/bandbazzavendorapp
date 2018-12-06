@@ -220,7 +220,7 @@
         No images added yet!
       </div>
       <div *ngIf="images.length">
-        <ion-grid>
+        <!-- <ion-grid>
           <ion-row>
             <ion-col>
               Images
@@ -229,15 +229,15 @@
               Action
             </ion-col>
           </ion-row>
-          <ion-row *ngFor="let image of images">
-            <ion-col>
+          <ion-row> -->
+            <ion-slides>
+              <ion-slide *ngFor="let image of images">
               <img src={{this.imageUrl+image.image}}>
-            </ion-col>
-            <ion-col>
-              {{image.admin_approval=='Yes' ? 'Approved' : 'N/A'}}
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+              <p>{{image.admin_approval=='Yes' ? 'Approved' : 'N/A'}}</p>
+            </ion-slide>
+          </ion-slides>
+          <!-- </ion-row>
+        </ion-grid> -->
       </div>
     </ion-card-content>
   </ion-card>
@@ -251,8 +251,8 @@
         No videos added yet!
       </div>
       <div *ngIf="videos.length">
-        <ion-grid>
-          <ion-row>
+        <!--<ion-grid>
+           <ion-row>
             <ion-col>
               Videos
             </ion-col>
@@ -260,16 +260,17 @@
               Action
             </ion-col>
 
-          </ion-row>
-          <ion-row *ngFor="let video of videos">
-            <ion-col>
-              {{video.video_link}}
-            </ion-col>
-            <ion-col>
-              {{video.admin_approval=='Yes' ? 'Approved' : 'N/A'}}
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+          </ion-row> -->
+          <ion-slides>
+            <ion-slide *ngFor="let video of videos">
+                <div class="video-container">
+                    <iframe [src]="updateVideoUrl(video.video_link)" frameborder="0" allowfullscreen></iframe>
+                </div>
+              <p>{{video.admin_approval=='Yes' ? 'Approved' : 'N/A'}}</p>
+            </ion-slide>
+            </ion-slides>
+          <!-- </ion-row>
+        </ion-grid> -->
       </div>
     </ion-card-content>
   </ion-card>

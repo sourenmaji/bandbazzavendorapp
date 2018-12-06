@@ -252,7 +252,7 @@
         No images added yet!
       </div>
       <div *ngIf="images.length">
-        <ion-grid>
+        <!-- <ion-grid>
           <ion-row>
             <ion-col>
               Images
@@ -269,7 +269,13 @@
               {{image.admin_approval=='Yes' ? 'Approved' : 'N/A'}}
             </ion-col>
           </ion-row>
-        </ion-grid>
+        </ion-grid> -->
+        <ion-slides>
+            <ion-slide *ngFor="let image of images">
+            <img src={{this.imageUrl+image.image}}>
+            <p>{{image.admin_approval=='Yes' ? 'Approved' : 'N/A'}}</p>
+          </ion-slide>
+        </ion-slides>
       </div>
     </ion-card-content>
   </ion-card>
@@ -283,7 +289,7 @@
         No videos added yet!
       </div>
       <div *ngIf="videos.length">
-        <ion-grid>
+        <!-- <ion-grid>
           <ion-row>
             <ion-col>
               Videos
@@ -295,13 +301,23 @@
           </ion-row>
           <ion-row *ngFor="let video of videos">
             <ion-col>
-              {{video.video_link}}
+                <div class="video-container">
+                    <iframe [src]="updateVideoUrl(video.video_link)" frameborder="0" allowfullscreen></iframe>
+                </div>
             </ion-col>
             <ion-col>
               {{video.admin_approval=='Yes' ? 'Approved' : 'N/A'}}
             </ion-col>
           </ion-row>
-        </ion-grid>
+        </ion-grid> -->
+        <ion-slides>
+            <ion-slide *ngFor="let video of videos">
+                <div class="video-container">
+                    <iframe [src]="updateVideoUrl(video.video_link)" frameborder="0" allowfullscreen></iframe>
+                </div>
+              <p>{{video.admin_approval=='Yes' ? 'Approved' : 'N/A'}}</p>
+            </ion-slide>
+            </ion-slides>
       </div>
     </ion-card-content>
   </ion-card>

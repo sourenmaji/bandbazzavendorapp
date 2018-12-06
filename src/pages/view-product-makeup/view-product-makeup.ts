@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { CustomValidator } from '../../validators/custom-validators';
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 @IonicPage()
 @Component({
@@ -31,13 +32,15 @@ export class ViewProductMakeupPage {
   images:any=[];
   plans:any=[];
   imageUrl:string;
+  videoUrl: SafeResourceUrl;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     public restServ: AuthServiceProvider,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,
+    private domSanitizer: DomSanitizer) {
 
     console.log(this.navParams.data);
     this.requestType=this.navParams.get('action');
@@ -153,6 +156,15 @@ export class ViewProductMakeupPage {
     if(type.name=='airbrush_makeup' && !type.airbrush_makeup)
     this.editMakeupForm.get('airbrush_makeup_price').setValue('');
   }
+
+  updateVideoUrl(video_link: string) {
+    // Appending an ID to a YouTube URL is safe.
+    // Always make sure to construct SafeValue objects as
+    // close as possible to the input data, so
+    // that it's easier to check if the value is safe.
+    let videoUrl = video_link;
+    return this.domSanitizer.bypassSecurityTrustResourceUrl(videoUrl);
+}
 
 }
 
