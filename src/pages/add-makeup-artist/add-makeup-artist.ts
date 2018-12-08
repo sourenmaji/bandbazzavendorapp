@@ -100,18 +100,74 @@ export class AddMakeupArtistPage {
   resetCheckboxes(type: any)
   {
     console.log(type);
-    if(type.name=='bridal_makeup' && !type.bridal_makeup)
+    if(type.name=='bridal_makeup' && type.status)
+    {
     this.addMakeupForm.get('bridal_makeup_price').setValue('');
-    if(type.name=='guest_makeup' && !type.guest_makeup)
+    this.addMakeupForm.get('bridal_makeup_price').setValidators(Validators.required);
+    this.addMakeupForm.get('bridal_makeup_price').updateValueAndValidity();
+    }
+    if(type.name=='bridal_makeup' && !type.status)
+    {
+    this.addMakeupForm.get('bridal_makeup_price').clearValidators();
+    this.addMakeupForm.get('bridal_makeup_price').updateValueAndValidity();
+    }
+    if(type.name=='guest_makeup' && type.status)
+    {
     this.addMakeupForm.get('guest_makeup_price').setValue('');
-    if(type.name=='at_venue_makeup' && !type.at_venue_makeup)
+    this.addMakeupForm.get('guest_makeup_price').setValidators(Validators.required);
+    this.addMakeupForm.get('guest_makeup_price').updateValueAndValidity();
+    }
+    if(type.name=='guest_makeup' && !type.status)
+    {
+    this.addMakeupForm.get('guest_makeup_price').clearValidators();
+    this.addMakeupForm.get('guest_makeup_price').updateValueAndValidity();
+    }
+    if(type.name=='at_venue_makeup' && type.status)
+    {
     this.addMakeupForm.get('at_venue_makeup_price').setValue('');
-    if(type.name=='party_makeup' && !type.party_makeup)
+    this.addMakeupForm.get('at_venue_makeup_price').setValidators(Validators.required);
+    this.addMakeupForm.get('at_venue_makeup_price').updateValueAndValidity();
+    }
+    if(type.name=='at_venue_makeup' && !type.status)
+    {
+    this.addMakeupForm.get('at_venue_makeup_price').clearValidators();
+    this.addMakeupForm.get('at_venue_makeup_price').updateValueAndValidity();
+    }
+    if(type.name=='party_makeup' && type.status)
+    {
     this.addMakeupForm.get('party_makeup_price').setValue('');
-    if(type.name=='bridal_guest' && !type.bridal_guest)
+    this.addMakeupForm.get('party_makeup_price').setValidators(Validators.required);
+    this.addMakeupForm.get('party_makeup_price').updateValueAndValidity();
+    }
+    if(type.name=='party_makeup' && !type.status)
+    {
+    this.addMakeupForm.get('party_makeup_price').clearValidators();
+    this.addMakeupForm.get('party_makeup_price').updateValueAndValidity();
+    }
+    if(type.name=='bridal_guest' && type.status)
+    {
     this.addMakeupForm.get('bridal_guest_price').setValue('');
-    if(type.name=='airbrush_makeup' && !type.airbrush_makeup)
+    this.addMakeupForm.get('bridal_guest_price').setValidators(Validators.required);
+    this.addMakeupForm.get('bridal_guest_price').updateValueAndValidity();
+    }
+    if(type.name=='bridal_guest' && !type.status)
+    {
+    this.addMakeupForm.get('bridal_guest_price').clearValidators();
+    this.addMakeupForm.get('bridal_guest_price').updateValueAndValidity();
+    }
+    if(type.name=='airbrush_makeup' && type.status)
+    {
     this.addMakeupForm.get('airbrush_makeup_price').setValue('');
+    this.addMakeupForm.get('airbrush_makeup_price').setValidators(Validators.required);
+    this.addMakeupForm.get('airbrush_makeup_price').updateValueAndValidity();
+    }
+    if(type.name=='airbrush_makeup' && !type.status)
+    {
+    this.addMakeupForm.get('airbrush_makeup_price').clearValidators();
+    this.addMakeupForm.get('airbrush_makeup_price').updateValueAndValidity();
+    }
+
+    console.log(this.addMakeupForm);
   }
 
 }

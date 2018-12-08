@@ -101,16 +101,64 @@ export class AddPhotographyPage {
   resetCheckboxes(type: any)
   {
     console.log(type);
-    if(type.name=='candid' && !type.candid)
+    if(type.name=='candid' && type.status)
+    {
     this.addPhotographyForm.get('candid_price').setValue('');
-    if(type.name=='studio' && !type.studio)
+    this.addPhotographyForm.get('candid_price').setValidators(Validators.required);
+    this.addPhotographyForm.get('candid_price').updateValueAndValidity();
+    }
+    if(type.name=='candid' && !type.status)
+    {
+    this.addPhotographyForm.get('candid_price').clearValidators();
+    this.addPhotographyForm.get('candid_price').updateValueAndValidity();
+    }
+    if(type.name=='studio' && type.status)
+    {
     this.addPhotographyForm.get('studio_price').setValue('');
-    if(type.name=='wedding' && !type.wedding)
+    this.addPhotographyForm.get('studio_price').setValidators(Validators.required);
+    this.addPhotographyForm.get('studio_price').updateValueAndValidity();
+    }
+    if(type.name=='studio' && !type.status)
+    {
+    this.addPhotographyForm.get('studio_price').clearValidators();
+    this.addPhotographyForm.get('studio_price').updateValueAndValidity();
+    }
+    if(type.name=='wedding' && type.status)
+    {
     this.addPhotographyForm.get('wedding_price').setValue('');
-    if(type.name=='pre_wedding' && !type.pre_wedding)
+    this.addPhotographyForm.get('wedding_price').setValidators(Validators.required);
+    this.addPhotographyForm.get('wedding_price').updateValueAndValidity();
+    }
+    if(type.name=='wedding' && !type.status)
+    {
+    this.addPhotographyForm.get('wedding_price').clearValidators();
+    this.addPhotographyForm.get('wedding_price').updateValueAndValidity();
+    }
+    if(type.name=='pre_wedding' && type.status)
+    {
     this.addPhotographyForm.get('pre_wedding_price').setValue('');
-    if(type.name=='cinematic' && !type.cinematic)
+    this.addPhotographyForm.get('pre_wedding_price').setValidators(Validators.required);
+    this.addPhotographyForm.get('pre_wedding_price').updateValueAndValidity();
+    }
+    if(type.name=='pre_wedding' && !type.status)
+    {
+    this.addPhotographyForm.get('pre_wedding_price').clearValidators();
+    this.addPhotographyForm.get('pre_wedding_price').updateValueAndValidity();
+    }
+    if(type.name=='cinematic' && type.status)
+    {
     this.addPhotographyForm.get('cinematic_price').setValue('');
+    this.addPhotographyForm.get('cinematic_price').setValidators(Validators.required);
+    this.addPhotographyForm.get('cinematic_price').updateValueAndValidity();
+    }
+    if(type.name=='cinematic' && !type.status)
+    {
+    this.addPhotographyForm.get('cinematic_price').clearValidators();
+    this.addPhotographyForm.get('cinematic_price').updateValueAndValidity();
+    }
+
+    console.log(this.addPhotographyForm);
   }
+
 
 }

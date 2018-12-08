@@ -111,12 +111,15 @@
       <ion-list>
 
         <ion-item>
-          <ion-label>Pre-Wedding Price (per day)</ion-label>
+          <ion-label>Pre-Wedding Price (per day) </ion-label>
           <ion-checkbox [(ngModel)]="pre_wedding" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'pre_wedding', status: pre_wedding})"></ion-checkbox>
         </ion-item>
         <ion-item *ngIf="pre_wedding">
           <ion-input type="number" formControlName="pre_wedding_price" placeholder="Pre-Wedding Price (per day)"></ion-input>
         </ion-item>
+        <p class="error" *ngIf="editPhotographyForm.get('pre_wedding_price').hasError('required') && editPhotographyForm.get('pre_wedding_price').touched">
+          This field is required
+        </p>
 
 
         <ion-item>
@@ -126,6 +129,9 @@
         <ion-item *ngIf="wedding">
           <ion-input type="number" formControlName="wedding_price" placeholder="Wedding Price (per day)"></ion-input>
         </ion-item>
+        <p class="error" *ngIf="editPhotographyForm.get('wedding_price').hasError('required') && editPhotographyForm.get('wedding_price').touched">
+          This field is required
+        </p>
 
         <ion-item>
           <ion-label>Candid Price (per day)</ion-label>
@@ -134,6 +140,9 @@
         <ion-item *ngIf="candid">
           <ion-input type="number" formControlName="candid_price" placeholder="Candid Price (per day)"></ion-input>
         </ion-item>
+        <p class="error" *ngIf="editPhotographyForm.get('candid_price').hasError('required') && editPhotographyForm.get('candid_price').touched">
+          This field is required
+        </p>
 
         <ion-item>
           <ion-label>Studio Price (per day)</ion-label>
@@ -142,6 +151,9 @@
         <ion-item *ngIf="studio">
           <ion-input type="number" formControlName="studio_price" placeholder="Studio Price (per day)"></ion-input>
         </ion-item>
+        <p class="error" *ngIf="editPhotographyForm.get('studio_price').hasError('required') && editPhotographyForm.get('studio_price').touched">
+          This field is required
+        </p>
 
         <ion-item>
           <ion-label>Cinematography Price (per day)</ion-label>
@@ -150,6 +162,9 @@
         <ion-item *ngIf="cinematic">
           <ion-input type="number" formControlName="cinematic_price" placeholder="Cinematic Price (per day)"></ion-input>
         </ion-item>
+        <p class="error" *ngIf="editPhotographyForm.get('cinematic_price').hasError('required') && editPhotographyForm.get('cinematic_price').touched">
+          This field is required
+        </p>
       </ion-list>
 
       <ion-item>
