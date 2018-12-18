@@ -10,7 +10,8 @@ let scroll = null;
 })
 export class EnquiriesPage {
 categories: any;
-category: string;
+category_id: number;
+category_name: string;
 responseData: any;
 token: any;
 type: string;
@@ -45,7 +46,8 @@ imageUrl:string = '';
   ionViewDidLoad(){
         //initialize all variables with default values and call the service
         // this.categories= [];
-        this.category = "";
+        this.category_id = 0;
+        this.category_name = '';
         this.enquiries = [];
         this.enquiries_history = [];
         this.message="";
@@ -80,7 +82,7 @@ imageUrl:string = '';
             console.log(this.responseData)
             this.categories=this.responseData.categories;
             if(this.categories.length){
-            this.category=this.categories[0].module_name;
+
             console.log(this.categories)
             loader.dismiss();
             this.getEnquiries(this.categories[0],true);
@@ -103,6 +105,7 @@ imageUrl:string = '';
   //get enquiries of a particular module
   getEnquiries(c: any, reset:boolean)
   {
+    console.log(c);
     //create loader
     let loader = this.loadingCtrl.create({
       content: 'Please wait...'
@@ -110,28 +113,29 @@ imageUrl:string = '';
 
     this.lastClicked=c;
     loader.present();
-    this.category=c.module_name;
+    this.category_name=c.module_name;
+    this.category_id=c.module_id;
     this.enquiries = [];
 
     this.message="";
 
-    if(this.category=='Banquet Hall')
+    if(this.category_id==2)
     {
       this.type="get_hall_enquiries";
     }
-    else if(this.category=='Car Rental')
+    else if(this.category_id==3)
     {
       this.type="get_car_enquiries";
     }
-    else if(this.category=='Caterer')
+    else if(this.category_id==4)
     {
       this.type="get_caterer_enquiries";
     }
-    else if(this.category=='Photography')
+    else if(this.category_id==5)
     {
       this.type="get_photography_enquiries";
     }
-    else if(this.category=='Makeup Artist')
+    else if(this.category_id==6)
     {
       this.type="get_makeup_enquiries";
     }
@@ -223,7 +227,7 @@ imageUrl:string = '';
     this.menuCtrl.open();
   }
 
-  goToEnquiryDetails(details: any, module: string){
+  goToEnquiryDetails(details: any, module: number){
     console.log(details);
     this.navCtrl.push(EnquiryDetailsPage,{details, module});
   }

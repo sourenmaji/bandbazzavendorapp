@@ -13,53 +13,53 @@
 
 <ion-content padding>
     <!-- dynamically generating the categories -->
-    <ion-segment [(ngModel)]="category" color="energy" *ngIf="categories.length">
+    <ion-segment [(ngModel)]="category_name" color="energy" *ngIf="categories.length">
       <ion-segment-button *ngFor="let category of categories" value={{category.module_name}} (click)="getEnquiries(category)">
         {{category.module_name}}
       </ion-segment-button>
     </ion-segment>
 
-  <ion-buttons end *ngIf="categories.length && !(category=='Photography' || category=='Makeup Artist')">
+  <ion-buttons end *ngIf="categories.length && !(category_id==5 || category_id==6)">
       <button small ion-button clear (click)="filterEnquiries()" icon-end>
         {{enquiry_type=='active'? 'Active Enquiries' : 'Past Enquiries'}}
         <ion-icon name="options"></ion-icon>
       </button>
     </ion-buttons>
 
-  <div [ngSwitch]="category">
+  <div [ngSwitch]="category_id">
     <div *ngFor="let category of categories">
-      <ion-list *ngSwitchCase=category.module_name>
+      <ion-list *ngSwitchCase=category.module_id>
 
         <ion-list-header *ngIf="enquiries.length">
           {{category.module_name}} Enquiries
         </ion-list-header>
 
-        <button ion-item *ngFor="let enquiry of enquiries" (click)="goToEnquiryDetails(enquiry,category.module_name)">
+        <button ion-item *ngFor="let enquiry of enquiries" (click)="goToEnquiryDetails(enquiry,category.module_id)">
           <ion-thumbnail item-start>
             <img src={{this.imageUrl+enquiry.cover_image}} alt="image">
           </ion-thumbnail>
 
-          <div item-end *ngIf="category.module_name=='Banquet Hall'">
+          <div item-end *ngIf="category.module_id==2">
             <h2>{{enquiry.hall_name}}</h2>
             <p>Enquiry time: {{enquiry.created_at}}</p>
           </div>
 
-          <div item-end *ngIf="category.module_name=='Car Rental'">
+          <div item-end *ngIf="category.module_id==3">
             <h2>{{enquiry.car_company_name}} - {{enquiry.car_model}}</h2>
             <p>Enquiry time: {{enquiry.created_at}}</p>
           </div>
 
-          <div item-end *ngIf="category.module_name=='Caterer'">
+          <div item-end *ngIf="category.module_id==4">
             <h2>{{enquiry.package_name}}</h2>
             <p>Enquiry time: {{enquiry.created_at}}</p>
           </div>
 
-          <div item-end *ngIf="category.module_name=='Photography'">
+          <div item-end *ngIf="category.module_id==5">
               <h2>{{enquiry.package_name}}</h2>
               <p>Enquiry time: {{enquiry.created_at}}</p>
             </div>
 
-            <div item-end *ngIf="category.module_name=='Makeup Artist'">
+            <div item-end *ngIf="category.module_id==6">
                 <h2>{{enquiry.package_name}}</h2>
                 <p>Enquiry time: {{enquiry.created_at}}</p>
               </div>

@@ -25,7 +25,7 @@
         <ion-card-title>
          Booking Information
           </ion-card-title>
-        <p *ngIf="booking.module=='Banquet Hall'">
+        <p *ngIf="booking.module==2">
           <li>{{booking.details.banquet_name}}</li>
           <li> Duration: {{booking.details.book_from | date: 'MMM d, yyyy'}} - {{booking.details.book_to | date: 'MMM d, yyyy'}} ({{booking.details.no_of_days}} hours)</li>
           <li *ngIf="booking.type == 'Online'"> Rate: Rs {{booking.details.book_rate}}/day</li>
@@ -33,7 +33,7 @@
           <li> Book Advance: Rs {{booking.details.book_advance}}</li>
 
         </p>
-        <p *ngIf="booking.module=='Car Rental'">
+        <p *ngIf="booking.module==3">
           <li>{{booking.details.car_company_name}} - {{booking.details.car_model_name}}</li>
           <li *ngIf="booking.details.is_ac">AC: Yes</li>
           <li *ngIf="!booking.details.is_ac">AC: No</li>
@@ -43,7 +43,7 @@
           <li> Book Advance: Rs {{booking.details.book_advance}}</li>
 
         </p>
-        <p *ngIf="booking.module=='Caterer'">
+        <p *ngIf="booking.module==4">
             <li>{{booking.details.package_name}}</li>
             <li> Booking Date: {{booking.details.booking_date | date: 'MMM d, yyyy'}}</li>
             <li> Rate: Rs {{booking.details.package_rate}}/plate</li>

@@ -16,7 +16,7 @@
 <!-- dynamically generating the categories -->
 
 <ion-segment [(ngModel)]="category" color="energy" *ngIf="categories.length">
-    <ion-segment-button *ngFor="let category of categories" value={{category.module_name}} (click)="getBookings(category,true)">
+    <ion-segment-button *ngFor="let category of categories" value={{category.module_id}} (click)="getBookings(category,true)">
     {{category.module_name}}
     </ion-segment-button>
 </ion-segment>
@@ -31,31 +31,31 @@
 
 <div [ngSwitch]="category">
 <div *ngFor="let category of categories">
-<ion-list *ngSwitchCase=category.module_name>
+<ion-list *ngSwitchCase=category.module_id>
 
 <ion-list-header *ngIf="bookings.length">
 {{category.module_name}} Bookings
 </ion-list-header>
 
 
-<button ion-item *ngFor="let booking of bookings" (click)="goToBookingDetails(booking,category.module_name, booking.mode)">
+<button ion-item *ngFor="let booking of bookings" (click)="goToBookingDetails(booking,category.module_id, booking.mode)">
 <ion-thumbnail item-start>
 <img src={{this.imageUrl+booking.cover_image}} alt="image">
 </ion-thumbnail>
 
-<div item-end *ngIf="category.module_name=='Banquet Hall'">
+<div item-end *ngIf="category.module_id==2">
 <h2>{{booking.banquet_name}}</h2>
 <p>{{booking.mode}}</p>
   Booking Date: {{booking.book_from | date: 'MMM d yyyy'}}
 </div>
 
-<div item-end *ngIf="category.module_name=='Car Rental'">
+<div item-end *ngIf="category.module_id==3">
 <h2>{{booking.car_company_name}} - {{booking.car_model_name}}</h2>
 <p>{{booking.mode}}</p>
   Booking Time:  {{booking.time_from | date: 'MMM d yyyy'}}
 </div>
 
-<div item-end *ngIf="category.module_name=='Caterer'">
+<div item-end *ngIf="category.module_id==4">
 <h2>{{booking.package_name}}</h2>
 <p>{{booking.mode}}</p>
 Booking Time:  {{booking.booking_date | date: 'MMM d yyyy'}}

@@ -25,13 +25,13 @@
             <ion-card-title>
              Product Information
               </ion-card-title>
-            <p *ngIf="enquiry.module=='Banquet Hall'">
+            <p *ngIf="enquiry.module==2">
               <li>{{enquiry.details.hall_name}}</li>
               <li> Duration: {{enquiry.details.book_from | date: 'MMM d, yyyy'}} - {{enquiry.details.book_to | date: 'MMM d, yyyy'}}</li>
               <li> Rate: Rs {{enquiry.details.book_rate}}/day</li>
 
             </p>
-            <p *ngIf="enquiry.module=='Car Rental'">
+            <p *ngIf="enquiry.module==3">
               <li>{{enquiry.details.car_company_name}} - {{enquiry.details.car_model}}</li>
               <li *ngIf="enquiry.details.is_ac">AC: Yes</li>
               <li *ngIf="!enquiry.details.is_ac">AC: No</li>
@@ -39,19 +39,19 @@
               <li> Rate: Rs {{enquiry.details.enq_rate_hour}}/hr or Rs {{enquiry.details.enq_rate_km}}/km</li>
 
             </p>
-            <p *ngIf="enquiry.module=='Caterer'">
+            <p *ngIf="enquiry.module==4">
                 <li>{{enquiry.details.package_name}}</li>
                 <li> Booking Date: {{enquiry.details.date | date: 'MMM d, yyyy'}}</li>
                 <li> Rate: Rs {{enquiry.details.enquiry_rate}}/plate</li>
 
             </p>
-            <p *ngIf="enquiry.module=='Photography'">
+            <p *ngIf="enquiry.module==5">
                 <li>{{enquiry.details.package_name}}</li>
                 <li> Booking Date: {{enquiry.details.date | date: 'MMM d, yyyy'}}</li>
                 <li> Rate: Rs {{enquiry.details.rate}}</li>
 
             </p>
-            <p *ngIf="enquiry.module=='Makeup Artist'">
+            <p *ngIf="enquiry.module==6">
                 <li>{{enquiry.details.package_name}}</li>
                 <li> Booking Date: {{enquiry.details.date | date: 'MMM d, yyyy'}}</li>
                 <li> Rate: Rs {{enquiry.details.rate}}</li>

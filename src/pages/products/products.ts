@@ -25,7 +25,8 @@ export class ProductsPage {
   userDetails : any;
   responseData: any;
   categories: any;
-  category: string;
+  category_name: string;
+  category_id: number;
   token: any;
   type: string;
   alProducts: any;
@@ -50,7 +51,8 @@ export class ProductsPage {
       this.navCtrl.pop();
       backAction();
     },2);
-    this.category = "";
+    this.category_name='';
+    this.category_id = 0;
     this.alProducts = [];
     this.businessProducts = "";
     this.message="";
@@ -93,8 +95,6 @@ export class ProductsPage {
             this.categories=this.responseData.categories;
             if(this.categories.length)
             {
-            console.log(this.categories);
-             this.category=this.categories[0].module_name;
              this.getProducts(this.categories[0]);
             }
             else
@@ -116,34 +116,37 @@ export class ProductsPage {
 
   getProducts(c: any)
   {
+    console.log(c);
     //create loader
     let loader = this.loadingCtrl.create({
       content: 'Please wait...'
     });
     loader.present();
     this.lastClicked = c;
-    this.category=c.module_name;
+    this.category_id=c.module_id;
+    this.category_name=c.module_name;
+
     this.alProducts = [];
     this.businessProducts = "";
     this.message="";
-    console.log(this.category);
-    if(this.category=='Banquet Hall')
+    console.log(this.category_id);
+    if(this.category_id==2)
     {
       this.type="get_hall_products";
     }
-    else if(this.category=='Car Rental')
+    else if(this.category_id==3)
     {
       this.type="get_car_products";
     }
-    else if(this.category=='Caterer')
+    else if(this.category_id==4)
     {
       this.type="get_caterer_products";
     }
-    else if(this.category=='Photography')
+    else if(this.category_id==5)
     {
       this.type="get_photography_products";
     }
-    else if(this.category=='Makeup Artist')
+    else if(this.category_id==6)
     {
       this.type="get_makeup_artist_products";
     }
@@ -173,22 +176,22 @@ export class ProductsPage {
     });
   }
 
-  detailsProduct(productId,type){
+  detailsProduct(productId: number,type: string){
     var requestType = type;
-    var cate = this.category;
-    this.authService.getData('get_product_details?product_id='+productId+'&module_name='+cate,this.userPostData.token).then((result) => {
+    var cate = this.category_id;
+    this.authService.getData('get_product_details?product_id='+productId+'&module_id='+cate,this.userPostData.token).then((result) => {
       this.responseData = result;
       console.log(this.responseData);
       this.productDetails = this.responseData;
-      if(cate=='Banquet Hall')
+      if(cate==2)
     {
       this.navCtrl.push(ViewProductBanquatePage,{productDetails: this.productDetails, requestType: requestType});
     }
-    else if(cate=='Car Rental')
+    else if(cate==3)
     {
       this.navCtrl.push(ViewProductCarPage,{productDetails: this.productDetails, requestType: requestType});
     }
-    else if(cate=='Caterer')
+    else if(cate==4)
     {
       this.navCtrl.push(ViewProductCatererPage,{productDetails: this.productDetails, requestType: requestType});
     }
@@ -207,16 +210,16 @@ export class ProductsPage {
 
   addProduct()
   {
-    console.log(this.category);
-    if(this.category == 'Car Rental')
+    console.log(this.category_id);
+    if(this.category_id == 3)
     this.navCtrl.push(AddCarsPage,this.businessProducts.id);
-    else if(this.category == 'Caterer')
+    else if(this.category_id == 4)
     this.navCtrl.push(AddCatererPage,this.businessProducts.id);
-    else if(this.category == 'Banquet Hall')
+    else if(this.category_id == 2)
     this.navCtrl.push(AddBanquetPage,this.businessProducts.id);
-    else if(this.category == 'Photography')
+    else if(this.category_id == 5)
     this.navCtrl.push(AddPhotographyPage,this.businessProducts.id);
-    else if(this.category == 'Makeup Artist')
+    else if(this.category_id == 6)
     this.navCtrl.push(AddMakeupArtistPage,this.businessProducts.id);
   }
 
@@ -232,7 +235,7 @@ export class ProductsPage {
     }
   }
 
-  deleteProduct(productId,type){
+  deleteProduct(productId: number,type: number){
 
     let alert = this.alertCtrl.create({
       title: 'Confirm',
@@ -302,13 +305,13 @@ export class ProductsPage {
 
   detailsModule(action: string)
   {
-    if(this.category=='Photography' && !this.alProducts[0].edit_status && action=="edit")
+    if(this.category_id==5 && !this.alProducts[0].edit_status && action=="edit")
     this.navCtrl.push(ViewProductPhotographyPage,{action: action,product: this.alProducts[0]});
-    else if(this.category=='Photography' && action=="details")
+    else if(this.category_id==5 && action=="details")
     this.navCtrl.push(ViewProductPhotographyPage,{action: action,product: this.alProducts[0], videos: this.responseData.all_photography_video, plans: this.responseData.all_photography_plan, images:this.responseData.all_photography_image});
-    if(this.category=='Makeup Artist' && !this.alProducts[0].edit_status && action=="edit")
+    if(this.category_id==6 && !this.alProducts[0].edit_status && action=="edit")
     this.navCtrl.push(ViewProductMakeupPage,{action: action,product: this.alProducts[0]});
-    else if(this.category=='Makeup Artist' && action=="details")
+    else if(this.category_id==6 && action=="details")
     this.navCtrl.push(ViewProductMakeupPage,{action: action,product: this.alProducts[0], videos: this.responseData.all_makeup_video, plans: this.responseData.all_makeup_plan, images:this.responseData.all_makeup_image});
     else if(this.alProducts[0].edit_status && action=="edit")
     {
@@ -320,10 +323,10 @@ export class ProductsPage {
     }
   }
 
-  addModule(module: string, category: string)
+  addModule(module: string, category: number)
   {
     console.log(module+' '+category);
-    if(category=='Photography')
+    if(category==5)
     this.navCtrl.push(AddPhotoPlanPage,{module:module,id: this.alProducts[0].id});
     else
     this.navCtrl.push(AddMakeupPlanPage,{module:module,id: this.alProducts[0].id});
