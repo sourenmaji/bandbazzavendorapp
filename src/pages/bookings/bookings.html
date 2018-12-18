@@ -15,8 +15,8 @@
 
 <!-- dynamically generating the categories -->
 
-<ion-segment [(ngModel)]="category" color="energy" *ngIf="categories.length">
-    <ion-segment-button *ngFor="let category of categories" value={{category.module_id}} (click)="getBookings(category,true)">
+<ion-segment [(ngModel)]="category_name" color="energy" *ngIf="categories.length">
+    <ion-segment-button *ngFor="let category of categories" value={{category.module_name}} (click)="getBookings(category,true)">
     {{category.module_name}}
     </ion-segment-button>
 </ion-segment>
@@ -29,7 +29,7 @@
   </button>
 </ion-buttons>
 
-<div [ngSwitch]="category">
+<div [ngSwitch]="category_id">
 <div *ngFor="let category of categories">
 <ion-list *ngSwitchCase=category.module_id>
 

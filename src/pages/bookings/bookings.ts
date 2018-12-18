@@ -10,7 +10,8 @@ let scroll = null;
 })
 export class BookingsPage {
   categories: any;
-  category: any;
+  category_id: number;
+  category_name: string;
   responseData: any;
   token: any;
   type: string;
@@ -47,7 +48,8 @@ export class BookingsPage {
    {
     //initialize all variables with default values and call the service
     // this.categories= [];
-    this.category = null;
+    this.category_id = 0;
+    this.category_name='';
     this.bookings = [];
     this.message = "";
     this.filter_type = 'online future';
@@ -71,7 +73,6 @@ export class BookingsPage {
              console.log(this.responseData)
              this.categories=this.responseData.categories;
              if(this.categories.length){
-             this.category=this.categories[0].module_id;
              console.log(this.categories)
 
             if(this.navParams.get('category')){
@@ -103,24 +104,26 @@ export class BookingsPage {
     console.log(c);
     //save the last clicked category to directly trigger it
     this.lastClicked=c;
-    this.category=c.module_id;
+    this.category_id=c.module_id;
+    this.category_name=c.module_name;
+
     this.message="Fetching your bookings...";
 
-    console.log(this.category);
+    console.log(this.category_id);
     console.log(this.bookings);
     console.log(this.next_page);
     console.log(this.message);
     console.log(this.page);
 
-    if(this.category==2)
+    if(this.category_id==2)
     {
       this.type="get_hall_bookings";
     }
-    else if(this.category==3)
+    else if(this.category_id==3)
     {
       this.type="get_car_bookings";
     }
-    else if(this.category==4)
+    else if(this.category_id==4)
     {
       this.type="get_caterer_bookings";
     }
