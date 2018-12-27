@@ -40,6 +40,7 @@
     "@reactivex/rxjs": "^6.3.3",
     "com-badrit-base64": "0.2.0",
     "cordova-android": "7.1.4",
+    "cordova-browser": "5.0.4",
     "cordova-plugin-badge": "^0.8.8",
     "cordova-plugin-camera": "^4.0.3",
     "cordova-plugin-device": "^2.0.2",
