@@ -179,32 +179,27 @@
       <div *ngIf="plans.length">
         <ion-grid>
           <ion-row>
-            <ion-col>
+            <ion-col text-center>
               Plan Name
             </ion-col>
-            <ion-col>
-              Plan Offers
-            </ion-col>
-            <ion-col>
+            <ion-col text-center>
               Plan Price
             </ion-col>
-            <ion-col>
+            <ion-col text-center>
               Action
             </ion-col>
           </ion-row>
-          <ion-row *ngFor="let plan of plans">
-            <ion-col>
+
+          <ion-row *ngFor="let plan of plans" [style.background-color]="getStyle(plan)">
+            <ion-col text-center>
               {{plan.plan_name}}
             </ion-col>
-            <ion-col>
-              {{plan.plan_offers}}
-            </ion-col>
-            <ion-col>
+            <ion-col text-center>
               Rs {{plan.plan_price}}
             </ion-col>
-            <ion-col>
-              {{plan.admin_approval=='Yes' ? 'Approved' : 'N/A'}}
-            </ion-col>
+            <ion-col text-center>
+                <ion-icon name="trash" (click)="planDelete(plan.id,'plan')"></ion-icon>
+              </ion-col>
           </ion-row>
         </ion-grid>
       </div>
@@ -220,24 +215,18 @@
         No images added yet!
       </div>
       <div *ngIf="images.length">
-        <!-- <ion-grid>
-          <ion-row>
-            <ion-col>
-              Images
-            </ion-col>
-            <ion-col>
-              Action
-            </ion-col>
-          </ion-row>
-          <ion-row> -->
-            <ion-slides>
+            <ion-slides [pager]="true" #imageSlides>
+
               <ion-slide *ngFor="let image of images">
+                  <div class="image-container">
               <img src={{this.imageUrl+image.image}}>
-              <p>{{image.admin_approval=='Yes' ? 'Approved' : 'N/A'}}</p>
+              <p text-center class="trash-div">
+                <ion-icon name="trash" (click)="planDelete(image.id,'image')"></ion-icon>
+              </p>
+            </div>
             </ion-slide>
+
           </ion-slides>
-          <!-- </ion-row>
-        </ion-grid> -->
       </div>
     </ion-card-content>
   </ion-card>
@@ -251,26 +240,20 @@
         No videos added yet!
       </div>
       <div *ngIf="videos.length">
-        <!--<ion-grid>
-           <ion-row>
-            <ion-col>
-              Videos
-            </ion-col>
-            <ion-col>
-              Action
-            </ion-col>
 
-          </ion-row> -->
-          <ion-slides>
+          <ion-slides [pager]="true" #videoSlides>
             <ion-slide *ngFor="let video of videos">
                 <div class="video-container">
                     <iframe [src]="updateVideoUrl(video.video_link)" frameborder="0" allowfullscreen></iframe>
-                </div>
-              <p>{{video.admin_approval=='Yes' ? 'Approved' : 'N/A'}}</p>
+
+                <p text-center class="trash-div">
+                  <ion-icon name="trash" (click)="planDelete(video.id,'video')"></ion-icon>
+                </p>
+
+              </div>
             </ion-slide>
             </ion-slides>
-          <!-- </ion-row>
-        </ion-grid> -->
+
       </div>
     </ion-card-content>
   </ion-card>

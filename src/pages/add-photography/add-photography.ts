@@ -53,8 +53,10 @@ export class AddPhotographyPage {
     }, {validator: CustomValidator.lte('price_to', 'price_from')}); //custom validator lte takes to arguments to check lte condition, first argument is the value that needs to be checked against second argument
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
-    this.token = data.success.token;
+    this.token = data.token;
     this.addPhotographyForm.get('business_id').setValue(this.navParams.data);
+
+    this.restServ.pageReset=false;
   }
 
   ionViewDidLoad() {

@@ -17,10 +17,10 @@ export class ProfilePage {
 
   constructor(public platform: Platform,public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController, private alertCtrl: AlertController) {
     const data = JSON.parse(localStorage.getItem('userData'));
-    this.userDetails = data.success.user;
+    this.userDetails = data.user;
 
     this.userPostData.user = this.userDetails;
-    this.userPostData.token = data.success.token;
+    this.userPostData.token = data.token;
     console.log(this.userPostData.token);
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
@@ -29,10 +29,10 @@ export class ProfilePage {
   }
   ionViewDidEnter(){
     const data = JSON.parse(localStorage.getItem('userData'));
-    this.userDetails = data.success.user;
+    this.userDetails = data.user;
 
     this.userPostData.user = this.userDetails;
-    this.userPostData.token = data.success.token;
+    this.userPostData.token = data.token;
     console.log(this.userPostData.token);
     
   }

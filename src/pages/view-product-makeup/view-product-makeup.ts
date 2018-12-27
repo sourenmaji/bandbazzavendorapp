@@ -1,6 +1,6 @@
 
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, AlertController, ToastController, Slides } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { CustomValidator } from '../../validators/custom-validators';
@@ -13,6 +13,9 @@ import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 })
 
 export class ViewProductMakeupPage {
+  @ViewChild(Slides) imageSlides: Slides;
+  @ViewChild(Slides) videoSlides: Slides;
+
   editMakeupForm: FormGroup;
   bridal_makeup: boolean = false;
   guest_makeup: boolean = false;
@@ -27,6 +30,8 @@ export class ViewProductMakeupPage {
   requestType:string;
   productDetails:any;
   payment_mode: any=[];
+  type: string;
+  message: string;
 
   videos:any=[];
   images:any=[];
@@ -38,8 +43,9 @@ export class ViewProductMakeupPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public formBuilder: FormBuilder,
-    public restServ: AuthServiceProvider,
+    public authService: AuthServiceProvider,
     private alertCtrl: AlertController,
+    private toastCtrl: ToastController,
     private domSanitizer: DomSanitizer) {
 
     console.log(this.navParams.data);
@@ -48,8 +54,8 @@ export class ViewProductMakeupPage {
     this.videos=this.navParams.get('videos');
     this.images=this.navParams.get('images');
     this.plans=this.navParams.get('plans');
-    this.imageUrl=this.restServ.imageUrl;
-    this.restServ.pageReset=false;
+    this.imageUrl=this.authService.imageUrl;
+    this.authService.pageReset=false;
 
     if(this.productDetails.payment_mode)
     {
@@ -95,7 +101,7 @@ export class ViewProductMakeupPage {
 
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
-    this.token = data.success.token;
+    this.token = data.token;
     console.log(this.editMakeupForm);
   }
 
@@ -106,37 +112,34 @@ export class ViewProductMakeupPage {
   updateMakeup()
   {
     console.log(this.editMakeupForm.value);
-    this.restServ.authData(this.editMakeupForm.value,'edit_product_makeup_artist',this.token).then((data) => {
+    this.authService.authData(this.editMakeupForm.value,'edit_product_makeup_artist',this.token).then((data) => {
       this.responseData = data;
       console.log(this.responseData);
-      if(this.responseData.status==true)
-      {
-        this.restServ.pageReset=true;
-        this.navCtrl.pop();
-        const alert = this.alertCtrl.create({
-        subTitle: this.responseData.message,
-        buttons: ['OK']
+      let toast = this.toastCtrl.create({
+        message: this.responseData.message,
+        duration: 2000,
+        position: 'top'
+      });
 
-      })
-      alert.present();
-      }
-      else
-      {
-      const alert = this.alertCtrl.create({
-        subTitle: this.responseData.message,
-        buttons: ['OK']
-      })
-      alert.present();
-      }
+      toast.onDidDismiss(() => {
+        console.log('Dismissed toast');
+        if(this.responseData.status==true)
+        {
+          this.authService.pageReset=true;
+          this.navCtrl.pop();
+        }
+      });
 
+      toast.present();
     }, (err) => {
-     this.responseData = err;
-     console.log(this.responseData)
-     const alert = this.alertCtrl.create({
-      subTitle: "Something went wrong! Please try again.",
-      buttons: ['OK']
-    })
-    alert.present();
+
+     console.log(err);
+     let toast = this.toastCtrl.create({
+      message: 'Something went wrong! Please try again.',
+      duration: 2000,
+      position: 'top'
+    });
+    toast.present();
     });
   }
 
@@ -211,6 +214,73 @@ export class ViewProductMakeupPage {
     }
 
     console.log(this.editMakeupForm);
+  }
+
+  getStyle(plan: any) {
+    if(plan.admin_approval=='Yes')
+    return '#33FF80';
+    else if(plan.admin_approval=='No' && plan.admin_comment)
+    return '#FF4C33';
+    else
+    return '#E0FF33';
+  }
+
+  planDelete(id: any, module: string)
+  {
+    let alert = this.alertCtrl.create({
+      title: 'Delete',
+      message: 'Do you want to delete this '+module+'?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            console.log('Yes clicked');
+            console.log(id);
+            if(module=='plan')
+            this.type='delete_makeup_plan?plan_id='+id;
+            else if(module=='video')
+            this.type='delete_makeup_video?video_id='+id;
+            else
+            this.type='delete_makeup_image?image_id='+id;
+            this.authService.getData(this.type,this.token).then((result) => {
+
+              this.responseData = result;
+                console.log(this.responseData);
+                let toast = this.toastCtrl.create({
+                  message: this.responseData.message,
+                  duration: 2000,
+                  position: 'top'
+                });
+
+                toast.onDidDismiss(() => {
+                  console.log('Dismissed toast');
+                  if(this.responseData.status==true)
+                  {
+                    this.authService.pageReset=true;
+                    this.navCtrl.pop();
+                  }
+                });
+
+                toast.present();
+            }, (err) => {
+
+              console.log(err)
+              this.message="Oops! Something went wrong.";
+
+            });
+
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   updateVideoUrl(video_link: string) {

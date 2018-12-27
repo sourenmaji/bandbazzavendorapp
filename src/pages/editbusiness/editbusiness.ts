@@ -29,9 +29,20 @@ export class EditbusinessPage {
   userData = { phone: "",email: "",companyName: "",address: "",city: "",details: "",businessType: "",filename: "", business_id: "",lat: "", lng: ""};
   userPostData = {"user":"","token":""};
 
-  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController,
-    public toastCtrl: ToastController,private camera: Camera, public platform: Platform ,private filePath: FilePath,
-    private file: File, private alertCtrl: AlertController, public loadingCtrl: LoadingController, private transfer: FileTransfer,private authService: AuthServiceProvider) {
+  constructor(private mapsAPILoader: MapsAPILoader,
+              private ngZone: NgZone,
+              public navCtrl: NavController,
+              public navParams: NavParams,
+              public actionSheetCtrl: ActionSheetController,
+              public toastCtrl: ToastController,
+              private camera: Camera,
+              public platform: Platform,
+              private filePath: FilePath,
+              private file: File,
+              private alertCtrl: AlertController,
+              public loadingCtrl: LoadingController,
+              private transfer: FileTransfer,
+              private authService: AuthServiceProvider) {
 
   this.business = this.navParams.get('business');
   this.businessImage = this.business.business_image;
@@ -42,13 +53,15 @@ export class EditbusinessPage {
   this.userData.lng = "";
 
   const data = JSON.parse(localStorage.getItem('userData'));
-    this.userDetails = data.success.user;
+    this.userDetails = data.user;
     this.userPostData.user = this.userDetails;
-    this.userPostData.token = data.success.token;
+    this.userPostData.token = data.token;
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
       backAction();
     },2);
+
+    this.authService.pageReset=false;
   }
 
   ionViewDidEnter()
@@ -246,6 +259,7 @@ export class EditbusinessPage {
           alert.present();
         }
         this.navCtrl.pop();
+        this.authService.pageReset=true;
       },
       (err) => {
         loader.dismiss();
@@ -285,6 +299,7 @@ export class EditbusinessPage {
 
         }
         this.navCtrl.pop();
+        this.authService.pageReset=true;
 
       }, (err) => {
         loader.dismiss();

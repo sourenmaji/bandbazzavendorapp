@@ -36,7 +36,7 @@
           formControlName="user" [class.error1]="!signupform.controls.user.valid && signupform.controls.user.dirty"
           (keyup)="showVal(this.value)">
           </ion-input>
-          <button *ngIf="!( signupform.get('user').hasError('minlength') || signupform.get('user').hasError('pattern') ||signupform.get('user').hasError('required') ) && !buttonClicked && otpButton" 
+          <button *ngIf="!( signupform.get('user').hasError('minlength') || signupform.get('user').hasError('pattern') ||signupform.get('user').hasError('required') ) && !buttonClicked && otpButton"
                       ion-button  clear item-right (click)="sendOtp()" ion-text color="light">Send OTP</button>
         </ion-item>
         <ion-item no-lines *ngIf="( signupform.get('user').hasError('minlength') || signupform.get('user').hasError('pattern') ||signupform.get('user').hasError('required') ) && signupform.get('user').touched">
@@ -95,9 +95,13 @@
           </div>
         </ion-item>
         <button  ion-button block color="success" [disabled]="signupform.invalid" (click)="register()">Register</button><br/>
-        <div class="alrdy-usr"><span>Already a user?</span> <a href="#" (click)="login()" ion-text color="buttons">Login Now.</a></div>
+        <div class="alrdy-usr"><span>Already a user? </span><a href="#" (click)="login()" ion-text color="buttons">Login Now.</a></div>
         </form>
       </ion-list>
+      <div class="btn_container">
+        <button class="button1" ion-button full (click)="loginWithFacebook()">Signup with Facebook</button>
+        <button class="button2" ion-button full (click)="loginWithGoogle()">Signup with Google</button>
+    </div>
     </ion-card-content>
   </ion-card>
 </ion-content>

@@ -66,7 +66,7 @@ export class WelcomePage implements OnInit{
        {
         loader.dismiss();
        console.log(this.responseData);
-       localStorage.setItem('userData', JSON.stringify(this.responseData));
+       localStorage.setItem('userData', JSON.stringify(this.responseData.success));
        console.log("Local storage "+JSON.parse(localStorage.getItem('userData')));
        this.navCtrl.push(DashboardPage);
        }
@@ -105,3 +105,4 @@ export class WelcomePage implements OnInit{
   }
 
 }
+

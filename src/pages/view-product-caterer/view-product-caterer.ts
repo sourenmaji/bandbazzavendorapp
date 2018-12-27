@@ -25,7 +25,7 @@ export class ViewProductCatererPage implements OnInit{
     public camera: Camera, public authService: AuthServiceProvider,
     public imagePicker: ImagePicker, public alertCtrl: AlertController, public platform: Platform) {
       const data = JSON.parse(localStorage.getItem('userData'));
-      this.userPostData.token = data.success.token;
+      this.userPostData.token = data.token;
     this.requestType = this.navParams.get('requestType');
   this.productDetails = this.navParams.get('productDetails');
   this.productValue = this.productDetails.details.package;

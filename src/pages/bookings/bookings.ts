@@ -35,7 +35,7 @@ export class BookingsPage {
   ) {
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
-    this.token = data.success.token;
+    this.token = data.token;
     this.categories= [];
 
     let backAction =  platform.registerBackButtonAction(() => {

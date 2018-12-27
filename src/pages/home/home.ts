@@ -47,10 +47,10 @@ export class HomePage {
                public alertCtrl: AlertController, private menuCtrl: MenuController, public platform: Platform)
   {
     const data = JSON.parse(localStorage.getItem('userData'));
-    this.userDetails = data.success.user;
+    this.userDetails = data.user;
 
     this.userPostData.user = this.userDetails;
-    this.userPostData.token = data.success.token;
+    this.userPostData.token = data.token;
     console.log(this.userPostData.token);
     console.log( this.userPostData.user);
     let backAction =  platform.registerBackButtonAction(() => {

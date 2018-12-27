@@ -55,7 +55,7 @@ export class AddCatererPage {
 
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
-    this.token = data.success.token;
+    this.token = data.token;
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
       backAction();

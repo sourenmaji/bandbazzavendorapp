@@ -7,11 +7,11 @@ import {Http, Headers} from '@angular/http';
 @Injectable()
 export class AuthServiceProvider {
   pageReset: boolean = false;
-  imageUrl: string = 'http://localhost:8000/';
-  apiUrl: string = 'http://localhost:8000/api/v1/';
+  // imageUrl: string = 'http://localhost:8000/';
+  // apiUrl: string = 'http://localhost:8000/api/v1/';
 
-  // imageUrl: string = 'http://192.168.1.201:5300/';
-  // apiUrl: string = 'http://192.168.1.201:5300/api/v1/';
+  imageUrl: string = 'http://192.168.1.119/bandbazza_new_ui/public/';
+  apiUrl: string = 'http://192.168.1.119/bandbazza_new_ui/public/api/v1/';
 
   // imageUrl: string = 'http://dev.bandbazza.com/';
   // apiUrl: string = 'http://dev.bandbazza.com/api/v1/';

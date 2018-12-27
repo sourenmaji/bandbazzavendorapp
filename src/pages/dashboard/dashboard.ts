@@ -20,12 +20,12 @@ export class DashboardPage {
               private authService: AuthServiceProvider)
   {
     const data = JSON.parse(localStorage.getItem('userData'));
-    this.userDetails = data.success.user;
+    this.userDetails = data.user;
 
     this.device_token = localStorage.getItem('device_token');
 
     this.userPostData.user = this.userDetails;
-    this.userPostData.token = data.success.token;
+    this.userPostData.token = data.token;
     console.log(this.userPostData.token);
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();

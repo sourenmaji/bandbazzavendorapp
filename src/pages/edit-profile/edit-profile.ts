@@ -27,7 +27,7 @@ export class EditProfilePage implements OnInit{
               public alertCtrl: AlertController, public platform: Platform, public loadingCtrl: LoadingController) {
 
                 const data = JSON.parse(localStorage.getItem('userData'));
-                this.userDetails = data.success.user;
+                this.userDetails = data.user;
                 if(this.userDetails.phone_no != null){
                   this.user_phone = this.userDetails.phone_no;
                 }
@@ -38,7 +38,7 @@ export class EditProfilePage implements OnInit{
                 console.log(this.userDetails);
 
                 this.userPostData.user = this.userDetails;
-                this.userPostData.token = data.success.token;
+                this.userPostData.token = data.token;
                 console.log(this.userPostData.token);
 
                 let backAction =  platform.registerBackButtonAction(() => {

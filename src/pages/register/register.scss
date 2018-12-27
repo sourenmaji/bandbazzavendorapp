@@ -4,7 +4,7 @@ page-register {
         color: rgb(223, 62, 62);
         font-size: 11px;
       }
-      
+
       .error1 {
         color: rgb(75, 75, 75);
         border-bottom: 1px solid #ff0000;
@@ -36,7 +36,7 @@ page-register {
     pointer-events: none;
 }
 .button-ios-success {
-  background-color: #ffb431;  
+  background-color: #ffb431;
 }
 .rg-wrp .toolbar-md-headers .toolbar-background-md {
 	background: #322a02;
@@ -67,4 +67,16 @@ page-register {
 .alrdy-usr a {
 	text-decoration: none;
 }
+.btn_container {
+  padding-top: 10px;
+}
+.button1{
+  background: #3b5998;
+
+}
+.button2
+{
+  background: #dd4b39;
+}
+
 }

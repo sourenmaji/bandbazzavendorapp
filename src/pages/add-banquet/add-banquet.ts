@@ -61,7 +61,7 @@ export class AddBanquetPage{
             ) {
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
-    this.token = data.success.token;
+    this.token = data.token;
     this.business_id=this.navParams.data;
     console.log(this.business_id);
 

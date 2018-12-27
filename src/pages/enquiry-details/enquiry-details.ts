@@ -19,7 +19,7 @@ export class EnquiryDetailsPage {
     this.responseData = {};
     this.authService.pageReset=false;
     const data = JSON.parse(localStorage.getItem('userData'));
-    this.token = data.success.token;
+    this.token = data.token;
     this.enquiry = this.navParams.data;
     this.message="";
     let backAction =  platform.registerBackButtonAction(() => {

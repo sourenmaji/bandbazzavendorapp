@@ -16,9 +16,10 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { HttpClientModule } from '../../node_modules/@angular/common/http';
 import { ImagePicker } from '../../node_modules/@ionic-native/image-picker';
-import { FCM } from '@ionic-native/fcm';
+// import { FCM } from '@ionic-native/fcm';
 import { Base64 } from '@ionic-native/base64';
-
+import { Facebook } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 import { AddBanquetPageModule } from '../pages/add-banquet/add-banquet.module';
 import { AddCarsPageModule } from '../pages/add-cars/add-cars.module';
@@ -40,7 +41,6 @@ import { ProfilePageModule } from '../pages/profile/profile.module';
 import { DashboardPageModule } from '../pages/dashboard/dashboard.module';
 import { ForgetPasswordPageModule } from '../pages/forget-password/forget-password.module';
 import { RegisterPageModule } from '../pages/register/register.module';
-import { LoginPageModule } from '../pages/login/login.module';
 import { WelcomePageModule } from '../pages/welcome/welcome.module';
 import { AddPhotographyPageModule } from '../pages/add-photography/add-photography.module';
 import { AddMakeupArtistPageModule } from '../pages/add-makeup-artist/add-makeup-artist.module';
@@ -48,6 +48,8 @@ import { ViewProductPhotographyPageModule } from '../pages/view-product-photogra
 import { AddPhotoPlanPageModule } from '../pages/add-photo-plan/add-photo-plan.module';
 import { ViewProductMakeupPageModule } from '../pages/view-product-makeup/view-product-makeup.module';
 import { AddMakeupPlanPageModule } from '../pages/add-makeup-plan/add-makeup-plan.module';
+import { LoginPageModule } from '../pages/login/login.module';
+
 
 
 @NgModule({
@@ -109,8 +111,10 @@ import { AddMakeupPlanPageModule } from '../pages/add-makeup-plan/add-makeup-pla
     FileTransfer,
     Camera,
     FilePath,
-    FCM,
-    Base64
+    // FCM,
+    Base64,
+    Facebook,
+    GooglePlus
   ]
 })
 export class AppModule {}

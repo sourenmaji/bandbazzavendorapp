@@ -24,31 +24,42 @@ export class BusinessPage {
 
      this.businessDetails = [];
      const data = JSON.parse(localStorage.getItem('userData'));
-     this.userDetails = data.success.user;
+     this.userDetails = data.user;
      this.imageUrl= this.authService.imageUrl;
 
      this.userPostData.user = this.userDetails;
-     this.userPostData.token = data.success.token;
+     this.userPostData.token = data.token;
 
      let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
       backAction();
     },2)
 
+    this.authService.pageReset=true;
+
   }
 
   ionViewWillEnter(){
-
+      console.log('here');
       const data = JSON.parse(localStorage.getItem('userData'));
-      this.userDetails = data.success.user;
+      this.userDetails = data.user;
 
       this.userPostData.user = this.userDetails;
-      this.userPostData.token = data.success.token;
+      this.userPostData.token = data.token;
 
       console.log(this.userPostData.token);
       console.log( this.userPostData.user);
 
-     this.openBusiness();
+
+  }
+
+  ionViewDidEnter()
+  {
+    console.log('here1');
+    if(this.authService.pageReset)
+    {
+      this.openBusiness();
+    }
   }
 
   openBusiness(){
@@ -91,10 +102,10 @@ export class BusinessPage {
 
   addBusiness(){
     const data = JSON.parse(localStorage.getItem('userData'));
-    this.userDetails = data.success.user;
+    this.userDetails = data.user;
 
     this.userPostData.user = this.userDetails;
-    this.userPostData.token = data.success.token;
+    this.userPostData.token = data.token;
 
     console.log(this.userPostData.token);
     console.log( this.userPostData.user);

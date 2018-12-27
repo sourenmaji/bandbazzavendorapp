@@ -16,7 +16,7 @@ import { EnquiriesPage } from '../pages/enquiries/enquiries';
 import { BookingsPage } from '../pages/bookings/bookings';
 import { CustomPackageEnquiriesPage } from '../pages/custom-package-enquiries/custom-package-enquiries';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
-import { FCM } from '@ionic-native/fcm';
+// import { FCM } from '@ionic-native/fcm';
 import { ErrorPage } from '../pages/error/error';
 //import { LocalNotifications } from '../../node_modules/@ionic-native/local-notifications';
 
@@ -46,7 +46,8 @@ export class MyApp {
     public network: Network,
     public networkProvider: NetworkProvider,
     public alertCtrl: AlertController,
-    public fcm: FCM) {
+    // public fcm: FCM
+    ) {
 
       platform.ready().then(() => {
         // Okay, so the platform is ready and our plugins are available.
@@ -54,29 +55,29 @@ export class MyApp {
 
         statusBar.styleDefault();
         splashScreen.hide();
-        fcm.getToken().then(device_token => {
-            localStorage.setItem('device_token', device_token)
-        }, (err) => {
-          console.log(err);
-        });
+        // fcm.getToken().then(device_token => {
+        //     localStorage.setItem('device_token', device_token)
+        // }, (err) => {
+        //   console.log(err);
+        // });
 
-        fcm.onNotification().subscribe(data => {
-          if(data.wasTapped){
-            //alert("Received in background");
-            this.goToPage(data);
-          }
-          else
-          {
-            this.scheduleNotification(data);
-            //alert("Received in foreground");
-          };
-        });
+        // fcm.onNotification().subscribe(data => {
+        //   if(data.wasTapped){
+        //     //alert("Received in background");
+        //     this.goToPage(data);
+        //   }
+        //   else
+        //   {
+        //     this.scheduleNotification(data);
+        //     //alert("Received in foreground");
+        //   };
+        // });
 
-        fcm.onTokenRefresh().subscribe(refresh_token => {
-          localStorage.setItem('device_token', refresh_token);
-        }, (err) => {
-          console.log(err);
-        });
+        // fcm.onTokenRefresh().subscribe(refresh_token => {
+        //   localStorage.setItem('device_token', refresh_token);
+        // }, (err) => {
+        //   console.log(err);
+        // });
 
         this.networkProvider.initializeNetworkEvents();
        this.networkProvider.getNetworkState();
@@ -96,8 +97,8 @@ export class MyApp {
       const data = JSON.parse(localStorage.getItem('userData'));
       if(data)
       {
-        this.userPostData.user = data.success.user;
-        this.userPostData.token = data.success.token;
+        this.userPostData.user = data.user;
+        this.userPostData.token = data.token;
       }
       if(this.userPostData.token)
       {

@@ -19,7 +19,7 @@ export class BookingDetailsPage {
     this.responseData = {};
     this.authService.pageReset=false;
     const data = JSON.parse(localStorage.getItem('userData'));
-    this.token = data.success.token;
+    this.token = data.token;
     this.booking = this.navParams.data;
     this.message="";
     console.log(this.booking)

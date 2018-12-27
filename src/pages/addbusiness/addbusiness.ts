@@ -29,16 +29,28 @@ export class AddbusinessPage {
   userPostData = {"user":"","token":""};
   autocomplete: any;
 
-  constructor(public navParams: NavParams,public navCtrl: NavController, private camera: Camera, private transfer: FileTransfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController,
-    private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, public platform: Platform, public loadingCtrl: LoadingController, public authService: AuthServiceProvider, public alertCtrl: AlertController) {
+  constructor(public navParams: NavParams,
+              public navCtrl: NavController,
+              private camera: Camera,
+              private transfer: FileTransfer,
+              private file: File,
+              private filePath: FilePath,
+              public actionSheetCtrl: ActionSheetController,
+              public toastCtrl: ToastController,
+              private mapsAPILoader: MapsAPILoader,
+              private ngZone: NgZone,
+              public platform: Platform,
+              public loadingCtrl: LoadingController,
+              public authService: AuthServiceProvider,
+              public alertCtrl: AlertController) {
 
     const dataBusiness  = this.navParams.data;
     console.log(dataBusiness);
     this.businessDetails = dataBusiness.options;
     const data = JSON.parse(localStorage.getItem('userData'));
-    this.userDetails = data.success.user;
+    this.userDetails = data.user;
     this.userPostData.user = this.userDetails;
-    this.userPostData.token = data.success.token;
+    this.userPostData.token = data.token;
     this.apiUrl=this.authService.apiUrl;
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
@@ -47,7 +59,7 @@ export class AddbusinessPage {
     this.userData.address = "";
     this.userData.lat = "";
     this.userData.lng = "";
-
+    this.authService.pageReset=false;
    }
 
    ionViewDidEnter(){
@@ -235,6 +247,7 @@ export class AddbusinessPage {
       })
       alert.present();
       this.navCtrl.pop();
+      this.authService.pageReset=true;
       }
 
     },

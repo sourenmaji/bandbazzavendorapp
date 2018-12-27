@@ -38,12 +38,17 @@ export class ProductsPage {
   no_data: boolean = false;
 
   pageReset: boolean = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController,
-              public loadingCtrl: LoadingController, public authService: AuthServiceProvider, public alertCtrl: AlertController, platform: Platform) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private menuCtrl: MenuController,
+              public loadingCtrl: LoadingController,
+              public authService: AuthServiceProvider,
+              public alertCtrl: AlertController,
+              platform: Platform) {
     const data = JSON.parse(localStorage.getItem('userData'));
-    this.userDetails = data.success.user;
+    this.userDetails = data.user;
     this.userPostData.user = this.userDetails;
-    this.userPostData.token = data.success.token;
+    this.userPostData.token = data.token;
     this.responseData = {};
     this.pageReset = this.authService.pageReset;
     this.categories= [];
@@ -62,16 +67,7 @@ export class ProductsPage {
     this.getBusinessCatagories();
   }
 
-  ionViewWillEnter(){
-    // this.category = "";
-    // this.alProducts = [];
-    // this.businessProducts = "";
-    // this.message="";
-    // this.productDetails = "";
-    // this.productImages = [];
-    // this.imageUrl= this.authService.imageUrl;
 
-  }
   ionViewDidEnter(){
     if(this.authService.pageReset)
     {

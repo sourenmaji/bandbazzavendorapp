@@ -3,9 +3,7 @@
     <ion-title *ngIf="requestType == 'details'">View Product</ion-title>
     <ion-title *ngIf="requestType == 'edit'">Edit Product</ion-title>
   </ion-navbar>
-
 </ion-header>
-
 
 <ion-content padding>
   <div *ngIf="requestType == 'edit'">
@@ -17,24 +15,20 @@
             <ion-input type="text" formControlName="travel_policy">
             </ion-input>
           </ion-item>
-
           <ion-item>
             <ion-label floating>Working Since</ion-label>
             <ion-datetime displayFormat="YYYY" formControlName="working_since"></ion-datetime>
           </ion-item>
-
           <ion-item>
             <ion-label floating>Completed Project</ion-label>
             <ion-input type="number"
             formControlName="completed_project"></ion-input>
           </ion-item>
-
           <ion-item>
             <ion-label floating>Primary Market</ion-label>
             <ion-input type="text"
             formControlName="primary_market"></ion-input>
           </ion-item>
-
           <ion-item>
             <ion-label floating>Price From <span style="color: red">*</span></ion-label>
             <ion-input type="number"
@@ -43,7 +37,6 @@
           <div class="error" *ngIf="editPhotographyForm.get('price_from').hasError('required') && editPhotographyForm.get('price_from').touched">
             This field is required
           </div>
-
           <ion-item>
             <ion-label floating>Price To</ion-label>
             <ion-input type="number"
@@ -52,21 +45,18 @@
           <p class="error" *ngIf="editPhotographyForm.get('price_to').hasError('lte')">
             Price To must be greater than price from
           </p>
-
           <ion-item>
             <ion-label floating>Achievements</ion-label>
             <ion-input type="text"
             formControlName="achievements">
           </ion-input>
         </ion-item>
-
         <ion-item>
           <ion-label floating>Cancellation Policy</ion-label>
           <ion-input type="text"
           formControlName="cancellation_policy">
         </ion-input>
       </ion-item>
-
       <ion-item>
         <ion-label>Payment Mode <span style="color: red">*</span></ion-label>
         <ion-select formControlName="payment_mode" multiple="true">
@@ -79,8 +69,6 @@
       <p class="error" *ngIf="editPhotographyForm.get('payment_mode').hasError('required') && editPhotographyForm.get('payment_mode').touched">
         This field is required
       </p>
-
-
       <ion-item>
         <ion-label floating>Advance Booking Charge (in %)</ion-label>
         <ion-input type="number"
@@ -89,7 +77,6 @@
       <p class="error" *ngIf="editPhotographyForm.get('advance_booking_charge').hasError('validpercent')">
         Percentage cannot be greater than 100
       </p>
-
       <ion-item>
         <ion-label floating>Event Date Charge (in %)</ion-label>
         <ion-input type="number"
@@ -98,7 +85,6 @@
       <p class="error" *ngIf="editPhotographyForm.get('event_date_charge').hasError('validpercent')">
         Percentage cannot be greater than 100
       </p>
-
       <ion-item>
         <ion-label floating>At Delivery Charge (in %)</ion-label>
         <ion-input type="number"
@@ -107,9 +93,7 @@
       <p class="error" *ngIf="editPhotographyForm.get('at_delivery_charge').hasError('validpercent')">
         Percentage cannot be greater than 100
       </p>
-
       <ion-list>
-
         <ion-item>
           <ion-label>Pre-Wedding Price (per day) </ion-label>
           <ion-checkbox [(ngModel)]="pre_wedding" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'pre_wedding', status: pre_wedding})"></ion-checkbox>
@@ -120,8 +104,6 @@
         <p class="error" *ngIf="editPhotographyForm.get('pre_wedding_price').hasError('required') && editPhotographyForm.get('pre_wedding_price').touched">
           This field is required
         </p>
-
-
         <ion-item>
           <ion-label>Wedding Price (per day)</ion-label>
           <ion-checkbox [(ngModel)]="wedding" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'wedding', status: wedding})"></ion-checkbox>
@@ -132,7 +114,6 @@
         <p class="error" *ngIf="editPhotographyForm.get('wedding_price').hasError('required') && editPhotographyForm.get('wedding_price').touched">
           This field is required
         </p>
-
         <ion-item>
           <ion-label>Candid Price (per day)</ion-label>
           <ion-checkbox [(ngModel)]="candid" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'candid', status: candid})"></ion-checkbox>
@@ -143,7 +124,6 @@
         <p class="error" *ngIf="editPhotographyForm.get('candid_price').hasError('required') && editPhotographyForm.get('candid_price').touched">
           This field is required
         </p>
-
         <ion-item>
           <ion-label>Studio Price (per day)</ion-label>
           <ion-checkbox [(ngModel)]="studio" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'studio', status: studio})"></ion-checkbox>
@@ -154,7 +134,6 @@
         <p class="error" *ngIf="editPhotographyForm.get('studio_price').hasError('required') && editPhotographyForm.get('studio_price').touched">
           This field is required
         </p>
-
         <ion-item>
           <ion-label>Cinematography Price (per day)</ion-label>
           <ion-checkbox [(ngModel)]="cinematic" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'cinematic', status: cinematic})"></ion-checkbox>
@@ -166,7 +145,6 @@
           This field is required
         </p>
       </ion-list>
-
       <ion-item>
         <ion-label floating>Photo Album Price <span style="color: red">*</span></ion-label>
         <ion-input type="number" formControlName="photo_album_price"></ion-input>
@@ -174,7 +152,6 @@
       <p class="error" *ngIf="editPhotographyForm.get('photo_album_price').hasError('required') && editPhotographyForm.get('photo_album_price').touched">
         This field is required
       </p>
-
       <ion-item>
         <ion-label>Storage Device <span style="color: red">*</span></ion-label>
         <ion-select multiple="true" formControlName="storage_device">
@@ -188,7 +165,6 @@
       <p class="error" *ngIf="editPhotographyForm.get('storage_device').hasError('required') && editPhotographyForm.get('storage_device').touched">
         This field is required
       </p>
-
       <ion-item>
         <ion-label>Raw Image Delivery <span style="color: red">*</span></ion-label>
         <ion-select formControlName="raw_image_delivery">
@@ -199,19 +175,15 @@
       <p class="error" *ngIf="editPhotographyForm.get('raw_image_delivery').hasError('required') && editPhotographyForm.get('raw_image_delivery').touched">
         This field is required
       </p>
-
       <ion-item>
         <ion-label floating>Delivery Duration</ion-label>
         <ion-input type="text" formControlName="delivery_duration">
         </ion-input>
       </ion-item>
-
       <button type="submit" ion-button block color="success" [disabled]="editPhotographyForm.invalid" style="margin-top: 20px;">Update</button><br/>
     </form>
-
   </ion-card-content>
 </ion-card>
-
 </div>
 
 <div *ngIf="requestType == 'details'">
@@ -230,27 +202,21 @@
               Plan Name
             </ion-col>
             <ion-col>
-              Plan Offers
-            </ion-col>
-            <ion-col>
               Plan Price
             </ion-col>
             <ion-col>
               Action
             </ion-col>
           </ion-row>
-          <ion-row *ngFor="let plan of plans">
-            <ion-col>
+          <ion-row *ngFor="let plan of plans" [style.background-color]="getStyle(plan)">
+            <ion-col text-center>
               {{plan.plan_name}}
             </ion-col>
-            <ion-col>
-              {{plan.plan_offers}}
-            </ion-col>
-            <ion-col>
+            <ion-col text-center>
               Rs {{plan.plan_price}}
             </ion-col>
-            <ion-col>
-              {{plan.admin_approval=='Yes' ? 'Approved' : 'N/A'}}
+            <ion-col text-center>
+              <ion-icon name="trash" (click)="planDelete(plan.id,'plan')"></ion-icon>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -267,28 +233,14 @@
         No images added yet!
       </div>
       <div *ngIf="images.length">
-        <!-- <ion-grid>
-          <ion-row>
-            <ion-col>
-              Images
-            </ion-col>
-            <ion-col>
-              Action
-            </ion-col>
-          </ion-row>
-          <ion-row *ngFor="let image of images">
-            <ion-col>
+        <ion-slides [pager]="true" #imageSlides>
+          <ion-slide *ngFor="let image of images">
+            <div class="image-container">
               <img src={{this.imageUrl+image.image}}>
-            </ion-col>
-            <ion-col>
-              {{image.admin_approval=='Yes' ? 'Approved' : 'N/A'}}
-            </ion-col>
-          </ion-row>
-        </ion-grid> -->
-        <ion-slides>
-            <ion-slide *ngFor="let image of images">
-            <img src={{this.imageUrl+image.image}}>
-            <p>{{image.admin_approval=='Yes' ? 'Approved' : 'N/A'}}</p>
+              <p text-center class="trash-div">
+                <ion-icon name="trash" (click)="planDelete(image.id,'image')"></ion-icon>
+              </p>
+            </div>
           </ion-slide>
         </ion-slides>
       </div>
@@ -304,35 +256,16 @@
         No videos added yet!
       </div>
       <div *ngIf="videos.length">
-        <!-- <ion-grid>
-          <ion-row>
-            <ion-col>
-              Videos
-            </ion-col>
-            <ion-col>
-              Action
-            </ion-col>
-
-          </ion-row>
-          <ion-row *ngFor="let video of videos">
-            <ion-col>
-                <div class="video-container">
-                    <iframe [src]="updateVideoUrl(video.video_link)" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </ion-col>
-            <ion-col>
-              {{video.admin_approval=='Yes' ? 'Approved' : 'N/A'}}
-            </ion-col>
-          </ion-row>
-        </ion-grid> -->
-        <ion-slides>
-            <ion-slide *ngFor="let video of videos">
-                <div class="video-container">
-                    <iframe [src]="updateVideoUrl(video.video_link)" frameborder="0" allowfullscreen></iframe>
-                </div>
-              <p>{{video.admin_approval=='Yes' ? 'Approved' : 'N/A'}}</p>
-            </ion-slide>
-            </ion-slides>
+        <ion-slides [pager]="true" #videoSlides>
+          <ion-slide *ngFor="let video of videos">
+            <div class="video-container">
+              <iframe [src]="updateVideoUrl(video.video_link)" frameborder="0" allowfullscreen></iframe>
+              <p text-center class="trash-div">
+                <ion-icon name="trash" (click)="planDelete(video.id,'video')"></ion-icon>
+              </p>
+            </div>
+          </ion-slide>
+        </ion-slides>
       </div>
     </ion-card-content>
   </ion-card>
@@ -342,7 +275,6 @@
       Product Details
     </ion-card-header>
     <ion-card-content>
-
       <p>Travel Policy: {{productDetails.travel_policy}}</p>
       <p>Working Since: {{productDetails.working_since}}</p>
       <p>Completed Project: {{productDetails.completed_project}}</p>
@@ -364,10 +296,7 @@
       <p>Storage Device <span style="color: red">*</span>: {{productDetails.storage_device}}</p>
       <p>Raw Image Delivery <span style="color: red">*</span>: {{productDetails.raw_image_delivery}}</p>
       <p>Delivery Duration: {{productDetails.delivery_duration}}</p>
-
-
     </ion-card-content>
   </ion-card>
 </div>
-
 </ion-content>

@@ -30,7 +30,7 @@ export class ViewProductCarPage implements OnInit{
     public camera: Camera, public authService: AuthServiceProvider,
     public imagePicker: ImagePicker , public alertCtrl: AlertController, public platform: Platform) {
     const data = JSON.parse(localStorage.getItem('userData'));
-    this.userPostData.token = data.success.token;
+    this.userPostData.token = data.token;
   this.productDetails = this.navParams.get('productDetails');
 
   this.requestType = this.navParams.get('requestType');

@@ -31,7 +31,7 @@ imageUrl:string = '';
   constructor(public platform: Platform, public navParams: NavParams, private menuCtrl: MenuController, private navCtrl: NavController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController, private actionCtrl: ActionSheetController, private alertCtrl: AlertController) {
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
-    this.token = data.success.token;
+    this.token = data.token;
     this.authService.pageReset=false;
     this.categories= [];
     if(this.navParams.get('category'))

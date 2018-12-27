@@ -1,5 +1,5 @@
 {
-  "name": "authapp",
+  "name": "bandbazzavendorapp",
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
@@ -11,25 +11,26 @@
   },
   "dependencies": {
     "@agm/core": "^1.0.0-beta.5",
-    "@angular/animations": "7.1.3",
-    "@angular/common": "7.1.3",
-    "@angular/compiler": "7.1.3",
-    "@angular/compiler-cli": "7.1.3",
-    "@angular/core": "7.1.3",
-    "@angular/forms": "7.1.3",
-    "@angular/http": "7.1.3",
-    "@angular/platform-browser": "7.1.3",
-    "@angular/platform-browser-dynamic": "7.1.3",
+    "@angular/animations": "7.1.4",
+    "@angular/common": "7.1.4",
+    "@angular/compiler": "7.1.4",
+    "@angular/compiler-cli": "7.1.4",
+    "@angular/core": "7.1.4",
+    "@angular/forms": "7.1.4",
+    "@angular/http": "7.1.4",
+    "@angular/platform-browser": "7.1.4",
+    "@angular/platform-browser-dynamic": "7.1.4",
     "@ionic-native/base64": "^4.18.0",
     "@ionic-native/camera": "4.18.0",
     "@ionic-native/core": "4.18.0",
     "@ionic-native/diagnostic": "4.18.0",
-    "@ionic-native/fcm": "^4.18.0",
+    "@ionic-native/facebook": "^4.18.0",
     "@ionic-native/file": "4.18.0",
     "@ionic-native/file-path": "4.18.0",
     "@ionic-native/file-transfer": "4.18.0",
     "@ionic-native/firebase": "^4.18.0",
     "@ionic-native/geolocation": "4.18.0",
+    "@ionic-native/google-plus": "^4.18.0",
     "@ionic-native/image-picker": "^4.18.0",
     "@ionic-native/local-notifications": "^4.18.0",
     "@ionic-native/network": "4.18.0",
@@ -42,11 +43,12 @@
     "cordova-plugin-badge": "^0.8.8",
     "cordova-plugin-camera": "^4.0.3",
     "cordova-plugin-device": "^2.0.2",
-    "cordova-plugin-fcm-with-dependecy-updated": "^2.4.0",
+    "cordova-plugin-facebook4": "4.0.0",
     "cordova-plugin-file": "^6.0.1",
     "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-filepath": "^1.4.2",
     "cordova-plugin-geolocation": "^4.0.1",
+    "cordova-plugin-googleplus": "6.0.0",
     "cordova-plugin-ionic-keyboard": "^2.1.3",
     "cordova-plugin-ionic-webview": "^2.3.1",
     "cordova-plugin-local-notification": "^0.9.0-beta.2",
@@ -65,7 +67,7 @@
   "devDependencies": {
     "@ionic/app-scripts": "^3.2.1",
     "@types/googlemaps": "^3.30.16",
-    "typescript": "~3.2.2"
+    "typescript": "^3.2.2"
   },
   "description": "An Ionic project",
   "cordova": {
@@ -87,9 +89,17 @@
       "cordova-plugin-telerik-imagepicker": {
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": "Please select image"
       },
-      "cordova-plugin-fcm-with-dependecy-updated": {},
       "cordova-plugin-local-notification": {},
-      "com-badrit-base64": {}
+      "com-badrit-base64": {},
+      "cordova-plugin-facebook4": {
+        "APP_ID": "1907823749547720",
+        "APP_NAME": "BandBazza Vendor App",
+        "FACEBOOK_ANDROID_SDK_VERSION": "4.38.1"
+      },
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.343465164111-tih06h8oo4lbs23fs0qo2ru0j5bs34mf",
+        "PLAY_SERVICES_VERSION": "11.8.0"
+      }
     },
     "platforms": [
       "android"

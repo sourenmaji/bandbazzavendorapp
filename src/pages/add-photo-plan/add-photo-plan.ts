@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ActionSheetController, ToastController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { CustomValidator } from '../../validators/custom-validators';
@@ -26,7 +26,7 @@ export class AddPhotoPlanPage {
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     public restServ: AuthServiceProvider,
-    private alertCtrl: AlertController,
+    private toastCtrl: ToastController,
     public imagePicker: ImagePicker,
     public actionSheetCtrl: ActionSheetController,
     public camera: Camera,
@@ -35,6 +35,9 @@ export class AddPhotoPlanPage {
     console.log(this.navParams.data)
     this.module=this.navParams.get('module');
     console.log(this.images);
+
+    this.restServ.pageReset=false;
+    console.log("cons");
 
     this.addPlanForm = this.formBuilder.group({
       photographer_id: [this.navParams.get('id')],
@@ -49,7 +52,7 @@ export class AddPhotoPlanPage {
     });
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
-    this.token = data.success.token;
+    this.token = data.token;
   }
 
   ionViewDidLoad() {
@@ -68,34 +71,31 @@ export class AddPhotoPlanPage {
     this.restServ.authData(this.addPlanForm.value,'add_photography_plan',this.token).then((data) => {
       this.responseData = data;
       console.log(this.responseData);
-      if(this.responseData.status==true)
-      {
-        this.restServ.pageReset=true;
-        this.navCtrl.pop();
-        const alert = this.alertCtrl.create({
-        subTitle: this.responseData.message,
-        buttons: ['OK']
+      let toast = this.toastCtrl.create({
+        message: this.responseData.message,
+        duration: 2000,
+        position: 'top'
+      });
 
-      })
-      alert.present();
-      }
-      else
-      {
-      const alert = this.alertCtrl.create({
-        subTitle: this.responseData.message,
-        buttons: ['OK']
-      })
-      alert.present();
-      }
+      toast.onDidDismiss(() => {
+        console.log('Dismissed toast');
+        if(this.responseData.status==true)
+        {
+          this.restServ.pageReset=true;
+          this.navCtrl.pop();
+        }
+      });
 
+      toast.present();
     }, (err) => {
-     this.responseData = err;
-     console.log(this.responseData)
-     const alert = this.alertCtrl.create({
-      subTitle: "Something went wrong! Please try again.",
-      buttons: ['OK']
-    })
-    alert.present();
+
+     console.log(err);
+     let toast = this.toastCtrl.create({
+      message: 'Something went wrong! Please try again.',
+      duration: 2000,
+      position: 'top'
+    });
+    toast.present();
     });
   }
 
@@ -115,34 +115,31 @@ export class AddPhotoPlanPage {
       this.restServ.authData(this.addVideoForm.value,'add_photography_video',this.token).then((data) => {
         this.responseData = data;
         console.log(this.responseData);
-        if(this.responseData.status==true)
-        {
-          this.restServ.pageReset=true;
-          this.navCtrl.pop();
-          const alert = this.alertCtrl.create({
-          subTitle: this.responseData.message,
-          buttons: ['OK']
+        let toast = this.toastCtrl.create({
+          message: this.responseData.message,
+          duration: 2000,
+          position: 'top'
+        });
 
-        })
-        alert.present();
-        }
-        else
-        {
-        const alert = this.alertCtrl.create({
-          subTitle: this.responseData.message,
-          buttons: ['OK']
-        })
-        alert.present();
-        }
+        toast.onDidDismiss(() => {
+          console.log('Dismissed toast');
+          if(this.responseData.status==true)
+          {
+            this.restServ.pageReset=true;
+            this.navCtrl.pop();
+          }
+        });
 
+        toast.present();
       }, (err) => {
-        this.responseData = err;
-        console.log(this.responseData)
-        const alert = this.alertCtrl.create({
-        subTitle: "Something went wrong! Please try again.",
-        buttons: ['OK']
-      })
-      alert.present();
+
+       console.log(err);
+       let toast = this.toastCtrl.create({
+        message: 'Something went wrong! Please try again.',
+        duration: 2000,
+        position: 'top'
+      });
+      toast.present();
       });
   }
 
@@ -230,34 +227,31 @@ UploadImages()
   this.restServ.authData({images: this.images, photographers_id: this.navParams.get('id')},'add_photography_image',this.token).then((data) => {
     this.responseData = data;
     console.log(this.responseData);
-    if(this.responseData.status==true)
-    {
-      this.restServ.pageReset=true;
-      this.navCtrl.pop();
-      const alert = this.alertCtrl.create({
-      subTitle: this.responseData.message,
-      buttons: ['OK']
+    let toast = this.toastCtrl.create({
+      message: this.responseData.message,
+      duration: 2000,
+      position: 'top'
+    });
 
-    })
-    alert.present();
-    }
-    else
-    {
-    const alert = this.alertCtrl.create({
-      subTitle: this.responseData.message,
-      buttons: ['OK']
-    })
-    alert.present();
-    }
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+      if(this.responseData.status==true)
+      {
+        this.restServ.pageReset=true;
+        this.navCtrl.pop();
+      }
+    });
 
+    toast.present();
   }, (err) => {
-    this.responseData = err;
-    console.log(this.responseData)
-    const alert = this.alertCtrl.create({
-    subTitle: "Something went wrong! Please try again.",
-    buttons: ['OK']
-  })
-  alert.present();
+
+   console.log(err);
+   let toast = this.toastCtrl.create({
+    message: 'Something went wrong! Please try again.',
+    duration: 2000,
+    position: 'top'
+  });
+  toast.present();
   });
 
 }
