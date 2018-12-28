@@ -1,11 +1,9 @@
-import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
-import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, ActionSheetController, AlertController, Platform } from 'ionic-angular';
-
-
+import { ActionSheetController, AlertController, IonicPage, NavController, NavParams, Platform, Slides } from 'ionic-angular';
+import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
 
 @IonicPage()
 @Component({

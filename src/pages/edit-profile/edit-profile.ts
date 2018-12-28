@@ -1,7 +1,7 @@
-import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, MenuController, AlertController, Platform, LoadingController } from 'ionic-angular';
-import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AlertController, IonicPage, LoadingController, MenuController, NavController, Platform } from 'ionic-angular';
+import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
 
 @IonicPage()
 @Component({
@@ -147,7 +147,7 @@ export class EditProfilePage implements OnInit{
       }
       else{ console.log(this.responseData.message); }
     }, (err) => {
-     this.responseData = err.json();
+     this.responseData = err;
      console.log(this.responseData)
      loader.dismiss();
      const alert = this.alertCtrl.create({
@@ -195,7 +195,7 @@ export class EditProfilePage implements OnInit{
         console.log(this.responseData.message); }
     }, (err) => {
       loader.dismiss();
-     this.responseData = err.json();
+     this.responseData = err;
      console.log(this.responseData)
      const alert = this.alertCtrl.create({
        subTitle: this.responseData.message,
@@ -229,7 +229,7 @@ export class EditProfilePage implements OnInit{
       }
       else{ console.log(this.responseData.error); }
     }, (err) => {
-     this.responseData = err.json();
+     this.responseData = err;
      console.log(this.responseData)
      const alert = this.alertCtrl.create({
        subTitle: this.responseData.success.error,

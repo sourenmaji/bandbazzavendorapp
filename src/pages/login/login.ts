@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, Navbar, Platform, LoadingController } from 'ionic-angular';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AlertController, IonicPage, LoadingController, Navbar, NavController, Platform } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { RegisterPage } from '../register/register';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ForgetPasswordPage } from '../forget-password/forget-password';
-import { HomePage } from '../home/home';
-import { WelcomePage } from '../welcome/welcome';
 import { DashboardPage } from '../dashboard/dashboard';
+import { ForgetPasswordPage } from '../forget-password/forget-password';
+import { RegisterPage } from '../register/register';
+import { WelcomePage } from '../welcome/welcome';
 
 @IonicPage()
 @Component({
@@ -71,7 +70,7 @@ export class LoginPage  implements OnInit{
       }
    }, (err) => {
     loader.dismiss();
-    this.responseData = err.json();
+    this.responseData = err;
     console.log(this.responseData)
     const alert = this.alertCtrl.create({
       subTitle: this.responseData,

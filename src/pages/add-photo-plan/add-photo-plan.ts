@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ActionSheetController, ToastController } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { CustomValidator } from '../../validators/custom-validators';
-import { ImagePicker } from '../../../node_modules/@ionic-native/image-picker';
-import { Camera, CameraOptions } from '../../../node_modules/@ionic-native/camera';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Base64 } from '@ionic-native/base64';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { ImagePicker } from '@ionic-native/image-picker';
+import { ActionSheetController, IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+
 
 @IonicPage()
 @Component({

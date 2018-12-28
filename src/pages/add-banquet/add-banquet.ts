@@ -1,9 +1,8 @@
-import { Component, ViewChild, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, ActionSheetController, AlertController, Platform } from 'ionic-angular';
-import { ImagePicker } from '../../../node_modules/@ionic-native/image-picker';
-import { Camera, CameraOptions } from '../../../node_modules/@ionic-native/camera';
-import { FormControl } from '../../../node_modules/@angular/forms';
 import { MapsAPILoader } from '@agm/core';
+import { Component, NgZone, ViewChild } from '@angular/core';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { ImagePicker } from '@ionic-native/image-picker';
+import { ActionSheetController, AlertController, IonicPage, NavController, NavParams, Platform, Slides } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 declare var google;

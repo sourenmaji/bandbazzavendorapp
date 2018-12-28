@@ -1,13 +1,11 @@
-
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, Navbar, Platform, LoadingController } from 'ionic-angular';
-import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { HomePage } from '../home/home';
-import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
-import { WelcomePage } from '../welcome/welcome';
+import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
-import { DashboardPage } from '../dashboard/dashboard';
 import { GooglePlus } from '@ionic-native/google-plus';
+import { AlertController, IonicPage, LoadingController, Navbar, NavController, Platform } from 'ionic-angular';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { DashboardPage } from '../dashboard/dashboard';
+import { WelcomePage } from '../welcome/welcome';
 
 @IonicPage()
 @Component({
@@ -45,15 +43,13 @@ export class RegisterPage implements OnInit{
     public otpButton: boolean = false;
     user_OTP: any =null;
     signupform: FormGroup;
-    userData = { name: "",user: "",password: "",password_confirmation: "",otp: ""};
+    userData = { provider_name: "", provider_id: null, name: "",user: "",password: "",password_confirmation: "",otp: ""};
 
 
     ngOnInit() {
       let EMAILPATTERN =/^([_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,5}))|[0-9]{10}$/;
       this.signupform = new FormGroup({
         numb: new FormControl(this.user_OTP),
-        provider_name: new FormControl(''),
-        provider_id: new FormControl(''),
         password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12)])),
         name: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(30)]),
         user: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)]),
@@ -142,6 +138,7 @@ export class RegisterPage implements OnInit{
     }
 
     register(){
+      console.log(this.userData);
       let loader = this.loadingCtrl.create({
         content: 'Please wait...'
       });
@@ -168,7 +165,7 @@ export class RegisterPage implements OnInit{
       },
       (err) => {
         loader.dismiss();
-        this.responseData = err.json();
+        this.responseData = err;
         console.log(this.responseData.error)
         const alert = this.alertCtrl.create({
           subTitle: this.responseData.error,
@@ -186,18 +183,60 @@ export class RegisterPage implements OnInit{
 
     loginWithGoogle()
     {
-      let webclientid='343465164111-qjso0tvbirkuo2bsm8obk3ah41mgr38i.apps.googleusercontent.com';
       alert('google');
-      // 'scopes': '','webClientId': webclientid,'offline': true
       this.googleplus.login({}).then(res => {
           alert('Logged into Google!');
           alert(JSON.stringify(res));
-        })
-      .catch(err => {
-        alert('Error logging into Google');
-          alert(err);
-      });
-      alert('done');
+          if(res.accessToken)
+          {
+          alert('connected');
+          let credentials=
+            {
+              'name': res.displayName,
+              'email': res.email,
+              'provider_id': res.userId,
+              'provider_name':'google'
+            }
+            this.authService.postData(credentials,'social_login').then((result) => {
+              this.responseData = result;
+
+              if(this.responseData.status)
+              {
+                console.log(this.responseData);
+                localStorage.setItem('userData', JSON.stringify(this.responseData.success));
+                console.log("Local storage ",JSON.parse(localStorage.getItem('userData')));
+                this.navCtrl.push(DashboardPage);
+              }
+              else
+              {
+                console.log("new user ");
+                // => Open user session and redirect to the next page
+                this.signupform.get('user').setValue(res.email);
+                this.signupform.get('name').setValue(res.displayName);
+                this.userData.provider_name='google';
+                this.userData.provider_id=res.userId;
+              }
+            },
+            (err) => {
+              this.responseData = err;
+              console.log(this.responseData)
+              const alert = this.alertCtrl.create({
+                subTitle: this.responseData.message,
+                buttons: ['OK']
+              })
+              alert.present();
+            });
+        }// An error occurred while loging-in
+        else
+        {
+          alert("Could not connect to Google!");
+        }
+      })
+      .catch(e =>
+        {
+          console.log('Error logging into Google', e);
+          alert(e);
+        });
     }
 
     loginWithFacebook()
@@ -239,8 +278,8 @@ export class RegisterPage implements OnInit{
                 // => Open user session and redirect to the next page
                 this.signupform.get('user').setValue(user.email);
                 this.signupform.get('name').setValue(user.name);
-                this.signupform.get('provider_name').setValue('facebook');
-                this.signupform.get('provider_id').setValue(fb_id);
+                this.userData.provider_name='facebook';
+                this.userData.provider_id=fb_id;
               }
             },
             (err) => {

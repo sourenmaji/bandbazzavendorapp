@@ -1,9 +1,9 @@
-import { ImagePicker } from '@ionic-native/image-picker';
-import { Camera, CameraOptions } from '@ionic-native/camera';
-import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController, AlertController, Platform } from 'ionic-angular';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { ImagePicker } from '@ionic-native/image-picker';
+import { ActionSheetController, AlertController, IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
 
 @IonicPage()
 @Component({

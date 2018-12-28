@@ -1,18 +1,18 @@
-import { ViewProductCatererPage } from './../view-product-caterer/view-product-caterer';
-import { ViewProductCarPage } from './../view-product-car/view-product-car';
-import { ViewProductBanquatePage } from './../view-product-banquate/view-product-banquate';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, LoadingController, AlertController, Platform } from 'ionic-angular';
-import { AddCatererPage } from '../add-caterer/add-caterer';
+import { AlertController, IonicPage, LoadingController, MenuController, NavController, NavParams, Platform } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { AddCarsPage } from '../add-cars/add-cars';
 import { AddBanquetPage } from '../add-banquet/add-banquet';
-import { AddPhotographyPage } from '../add-photography/add-photography';
+import { AddCarsPage } from '../add-cars/add-cars';
+import { AddCatererPage } from '../add-caterer/add-caterer';
 import { AddMakeupArtistPage } from '../add-makeup-artist/add-makeup-artist';
-import { ViewProductPhotographyPage } from '../view-product-photography/view-product-photography';
-import { AddPhotoPlanPage } from '../add-photo-plan/add-photo-plan';
-import { ViewProductMakeupPage } from '../view-product-makeup/view-product-makeup';
 import { AddMakeupPlanPage } from '../add-makeup-plan/add-makeup-plan';
+import { AddPhotoPlanPage } from '../add-photo-plan/add-photo-plan';
+import { AddPhotographyPage } from '../add-photography/add-photography';
+import { ViewProductMakeupPage } from '../view-product-makeup/view-product-makeup';
+import { ViewProductPhotographyPage } from '../view-product-photography/view-product-photography';
+import { ViewProductBanquatePage } from './../view-product-banquate/view-product-banquate';
+import { ViewProductCarPage } from './../view-product-car/view-product-car';
+import { ViewProductCatererPage } from './../view-product-caterer/view-product-caterer';
 
 @IonicPage()
 @Component({
@@ -194,7 +194,7 @@ export class ProductsPage {
 
     },
     (err) => {
-     this.responseData = err.json();
+     this.responseData = err;
      const alert = this.alertCtrl.create({
       subTitle: this.responseData.message,
       buttons: ['OK']
@@ -281,7 +281,7 @@ export class ProductsPage {
         },
         (err) => {
           loader.dismiss();
-         this.responseData = err.json();
+         this.responseData = err;
          const alert = this.alertCtrl.create({
           subTitle: this.responseData.message,
           buttons: ['OK']

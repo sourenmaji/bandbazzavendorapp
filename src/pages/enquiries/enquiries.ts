@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, MenuController, LoadingController, ActionSheetController, AlertController, NavController, Platform, NavParams } from 'ionic-angular';
+import { ActionSheetController, AlertController, IonicPage, LoadingController, MenuController, NavController, NavParams, Platform } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { EnquiryDetailsPage } from '../enquiry-details/enquiry-details';
 let scroll = null;

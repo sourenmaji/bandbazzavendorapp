@@ -32,7 +32,6 @@
     "@ionic-native/geolocation": "4.18.0",
     "@ionic-native/google-plus": "^4.18.0",
     "@ionic-native/image-picker": "^4.18.0",
-    "@ionic-native/local-notifications": "^4.18.0",
     "@ionic-native/network": "4.18.0",
     "@ionic-native/splash-screen": "4.18.0",
     "@ionic-native/status-bar": "4.18.0",
@@ -41,7 +40,6 @@
     "com-badrit-base64": "0.2.0",
     "cordova-android": "7.1.4",
     "cordova-browser": "5.0.4",
-    "cordova-plugin-badge": "^0.8.8",
     "cordova-plugin-camera": "^4.0.3",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-facebook4": "4.0.0",
@@ -52,7 +50,6 @@
     "cordova-plugin-googleplus": "6.0.0",
     "cordova-plugin-ionic-keyboard": "^2.1.3",
     "cordova-plugin-ionic-webview": "^2.3.1",
-    "cordova-plugin-local-notification": "^0.9.0-beta.2",
     "cordova-plugin-network-information": "^2.0.1",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-telerik-imagepicker": "git+https://github.com/Telerik-Verified-Plugins/ImagePicker.git",
@@ -68,7 +65,7 @@
   "devDependencies": {
     "@ionic/app-scripts": "^3.2.1",
     "@types/googlemaps": "^3.30.16",
-    "typescript": "^3.2.2"
+    "typescript": "^3.1.6"
   },
   "description": "An Ionic project",
   "cordova": {
@@ -90,7 +87,6 @@
       "cordova-plugin-telerik-imagepicker": {
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": "Please select image"
       },
-      "cordova-plugin-local-notification": {},
       "com-badrit-base64": {},
       "cordova-plugin-facebook4": {
         "APP_ID": "1907823749547720",
@@ -99,7 +95,8 @@
       },
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.343465164111-tih06h8oo4lbs23fs0qo2ru0j5bs34mf",
-        "PLAY_SERVICES_VERSION": "11.8.0"
+        "PLAY_SERVICES_VERSION": "11.8.0",
+        "WEB_APPLICATION_CLIENT_ID": "343465164111-818pjtaa1eth7pib9ebkd77lef6orf5p.apps.googleusercontent.com"
       }
     },
     "platforms": [

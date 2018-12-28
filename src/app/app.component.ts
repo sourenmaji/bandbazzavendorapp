@@ -1,24 +1,22 @@
 
-import { NetworkProvider } from './../providers/network-provider/network_provider';
-import { Network } from '@ionic-native/network';
 import { Component, ViewChild } from '@angular/core';
-import { Platform, NavController, MenuController, App, AlertController, Events } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
+import { Network } from '@ionic-native/network';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
-import { WelcomePage } from '../pages/welcome/welcome';
-import { DashboardPage } from '../pages/dashboard/dashboard';
-import { ProfilePage } from '../pages/profile/profile';
-import { HomePage } from '../pages/home/home';
-import { BusinessPage } from '../pages/business/business';
-import { ProductsPage } from '../pages/products/products';
-import { EnquiriesPage } from '../pages/enquiries/enquiries';
+import { StatusBar } from '@ionic-native/status-bar';
+import { AlertController, Events, MenuController, NavController, Platform } from 'ionic-angular';
 import { BookingsPage } from '../pages/bookings/bookings';
+import { BusinessPage } from '../pages/business/business';
 import { CustomPackageEnquiriesPage } from '../pages/custom-package-enquiries/custom-package-enquiries';
-import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+import { DashboardPage } from '../pages/dashboard/dashboard';
+import { EnquiriesPage } from '../pages/enquiries/enquiries';
 // import { FCM } from '@ionic-native/fcm';
 import { ErrorPage } from '../pages/error/error';
-//import { LocalNotifications } from '../../node_modules/@ionic-native/local-notifications';
+import { HomePage } from '../pages/home/home';
+import { ProductsPage } from '../pages/products/products';
+import { ProfilePage } from '../pages/profile/profile';
+import { WelcomePage } from '../pages/welcome/welcome';
+import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+import { NetworkProvider } from './../providers/network-provider/network_provider';
 
 
 @Component({

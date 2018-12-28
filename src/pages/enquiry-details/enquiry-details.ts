@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, MenuController, LoadingController, ActionSheetController, AlertController, NavController, NavParams, ToastController, Platform } from 'ionic-angular';
+import { ActionSheetController, IonicPage, LoadingController, NavController, NavParams, Platform, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 @IonicPage()
@@ -15,7 +15,7 @@ export class EnquiryDetailsPage {
   message: string;
   enquiry: any;
   imageUrl: string = '';
-  constructor(public platform: Platform,private navParams: NavParams, private menuCtrl: MenuController, private navCtrl: NavController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController, private actionCtrl: ActionSheetController, private toastCtrl: ToastController) {
+  constructor(public platform: Platform,private navParams: NavParams, private navCtrl: NavController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController, private actionCtrl: ActionSheetController, private toastCtrl: ToastController) {
     this.responseData = {};
     this.authService.pageReset=false;
     const data = JSON.parse(localStorage.getItem('userData'));

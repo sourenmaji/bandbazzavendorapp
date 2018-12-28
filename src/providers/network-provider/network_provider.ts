@@ -1,7 +1,6 @@
-import { ErrorPage } from './../../pages/error/error';
-import { Network } from '@ionic-native/network';
-import { AlertController, Events, NavController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
+import { Network } from '@ionic-native/network';
+import { AlertController, Events } from 'ionic-angular';
 
 export enum ConnectionStatusEnum {
     Online,
@@ -13,23 +12,22 @@ export class NetworkProvider {
   previousStatus;
 networkState : boolean = true;
 
-  constructor(public alertCtrl: AlertController, 
+  constructor(public alertCtrl: AlertController,
               public network: Network,
               public eventCtrl: Events) {
 
     console.log('Hello NetworkProvider Provider');
 
     this.previousStatus = ConnectionStatusEnum.Online;
-    
+
   }
 
     public initializeNetworkEvents() {
-        var networkType = this.network.type;
-        //alert("oninsialize"+networkType);
+
         if(this.network.type === 'none'){
             // alert("You are Ofline");
             this.networkState = false;
-            
+
         }
         this.network.onDisconnect().subscribe(() => {
             if (this.previousStatus === ConnectionStatusEnum.Online) {
@@ -49,9 +47,9 @@ networkState : boolean = true;
 
     public getNetworkState(): string{
         return this.network.type;
-        
+
     }
 
 
-    
+
 }

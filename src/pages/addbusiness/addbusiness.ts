@@ -1,14 +1,14 @@
 import { MapsAPILoader } from '@agm/core';
-import { BusinessPage } from './../business/business';
 import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading, ActionSheetController, ToastController, Platform, LoadingController, AlertController } from 'ionic-angular';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Headers } from '@angular/http';
 import { Camera } from '@ionic-native/camera';
-import { FileTransfer, FileTransferObject, FileUploadOptions, FileUploadResult } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FileTransfer, FileTransferObject, FileUploadOptions, FileUploadResult } from '@ionic-native/file-transfer';
+import { ActionSheetController, AlertController, IonicPage, Loading, LoadingController, NavController, NavParams, Platform, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { Headers} from '@angular/http';
+import { BusinessPage } from './../business/business';
 declare var cordova: any;
 declare var google;
 

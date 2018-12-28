@@ -1,9 +1,5 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, Platform } from 'ionic-angular';
-
-declare var google;
-let lat;
-let lng;
+import { Component } from '@angular/core';
+import { IonicPage, MenuController, NavController, Platform } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -26,7 +22,7 @@ export class CustomPackageEnquiriesPage {
   }
 
   ionViewDidLoad(){
-   
+
   }
 
 }

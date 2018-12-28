@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, ActionSheetController, AlertController, Platform } from 'ionic-angular';
-import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
-import { Camera, CameraOptions } from '../../../node_modules/@ionic-native/camera';
+import { ActionSheetController, AlertController, IonicPage, NavController, NavParams, Platform, Slides } from 'ionic-angular';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 @IonicPage()
 @Component({
@@ -247,7 +247,7 @@ export class AddCarsPage {
       });
     },
     (err) => {
-      this.responseData = err.json();
+      this.responseData = err;
       console.log(this.responseData);
      });
 
@@ -270,7 +270,7 @@ export class AddCarsPage {
       });
     },
     (err)=>{
-      this.responseData = err.json();
+      this.responseData = err;
       console.log(this.responseData);
       this.carmodels = [];
     }

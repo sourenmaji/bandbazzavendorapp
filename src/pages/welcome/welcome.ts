@@ -1,17 +1,14 @@
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, Navbar, Platform, ToastController, ModalController, LoadingController } from 'ionic-angular';
-import { LoginPage } from '../login/login';
-import { RegisterPage } from '../register/register';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Network } from '@ionic-native/network';
+import { AlertController, IonicPage, LoadingController, Navbar, NavController, Platform, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ForgetPasswordPage } from '../forget-password/forget-password';
-import { HomePage } from '../home/home';
-import { DashboardPage } from '../dashboard/dashboard';
-import { ModuleLoader } from 'ionic-angular/util/module-loader';
 import { NetworkProvider } from '../../providers/network-provider/network_provider';
+import { DashboardPage } from '../dashboard/dashboard';
 import { ErrorPage } from '../error/error';
+import { ForgetPasswordPage } from '../forget-password/forget-password';
+import { RegisterPage } from '../register/register';
 
 export enum ConnectionStatusEnum {
   Online,

@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, AlertController, Platform } from 'ionic-angular';
+import { MenuController, NavController, NavParams, Platform } from 'ionic-angular';
 import { EditProfilePage } from '../edit-profile/edit-profile';
-
-
 
 @Component({
   selector: 'page-profile',
@@ -15,7 +13,7 @@ export class ProfilePage {
   userPostData = {"user":"","token":""};
   userPassword = {"password":"","password_confirmation":""};
 
-  constructor(public platform: Platform,public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController, private alertCtrl: AlertController) {
+  constructor(public platform: Platform,public navCtrl: NavController, public navParams: NavParams, private menuCtrl: MenuController) {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.user;
 
@@ -34,7 +32,7 @@ export class ProfilePage {
     this.userPostData.user = this.userDetails;
     this.userPostData.token = data.token;
     console.log(this.userPostData.token);
-    
+
   }
   editProfile(){
     this.navCtrl.push(EditProfilePage);
@@ -56,7 +54,7 @@ export class ProfilePage {
   //    }
   //    else{ console.log(this.responseData.error); }
   //  }, (err) => {
-  //   this.responseData = err.json();
+  //   this.responseData = err;
   //   console.log(this.responseData)
   //   const alert = this.alertCtrl.create({
   //     subTitle: this.responseData.error,
@@ -65,7 +63,7 @@ export class ProfilePage {
   //   alert.present();
   //  });
   // }
-  
+
   onOpenMenu(){
 this.menuCtrl.open();
   }

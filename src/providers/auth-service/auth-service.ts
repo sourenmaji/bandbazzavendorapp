@@ -1,8 +1,7 @@
-import { LoadingController , Loading} from 'ionic-angular';
-import { FileTransfer, FileUploadResult} from '@ionic-native/file-transfer';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Http, Headers} from '@angular/http';
+import { FileUploadResult } from '@ionic-native/file-transfer';
+import { Loading, LoadingController } from 'ionic-angular';
 
 @Injectable()
 export class AuthServiceProvider {
@@ -10,28 +9,30 @@ export class AuthServiceProvider {
   // imageUrl: string = 'http://localhost:8000/';
   // apiUrl: string = 'http://localhost:8000/api/v1/';
 
-  imageUrl: string = 'http://192.168.1.119/bandbazza_new_ui/public/';
-  apiUrl: string = 'http://192.168.1.119/bandbazza_new_ui/public/api/v1/';
+  imageUrl: string = 'http://192.168.1.119/bandbazza/public/';
+  apiUrl: string = 'http://192.168.1.119/bandbazza/public/api/v1/';
 
   // imageUrl: string = 'http://dev.bandbazza.com/';
   // apiUrl: string = 'http://dev.bandbazza.com/api/v1/';
 
   loading: Loading;
-  constructor(public http: Http, public httpC: HttpClient, private transfer: FileTransfer, public loadingCtrl: LoadingController) {
+
+  constructor(public httpC: HttpClient, public loadingCtrl: LoadingController) {
     console.log('Hello AuthServiceProvider');
     console.log(this.imageUrl);
   }
   responseData : FileUploadResult = null;
+
   getDataWithoutToken(type) {
     return new Promise((resolve, reject) => {
-      let headers = new Headers();
+      let headers = new HttpHeaders();
       console.log(headers);
       console.log(this.apiUrl+type);
 
-      this.http.get(this.apiUrl+type, {headers: headers})
+      this.httpC.get(this.apiUrl+type, {headers})
         .subscribe(res => {
-          console.log(res.json());
-          resolve(res.json());
+          console.log(res);
+          resolve(res);
         },
         (err) => {
           console.log(err);
@@ -43,14 +44,14 @@ export class AuthServiceProvider {
   postData(credentials, type) {
     console.log(credentials)
     return new Promise((resolve, reject) => {
-      let headers = new Headers();
+      let headers = new HttpHeaders();
       console.log(headers);
       console.log(this.apiUrl+type);
 
-      this.http.post(this.apiUrl+type, credentials, {headers: headers})
+      this.httpC.post(this.apiUrl+type, credentials, {headers})
         .subscribe(res => {
-          console.log(res.json());
-          resolve(res.json());
+          console.log(res);
+          resolve(res);
         },
         (err) => {
           console.log(err);
@@ -66,17 +67,17 @@ export class AuthServiceProvider {
         content: 'Please wait...',
       });
       this.loading.present();
-      let headers = new Headers();
-      console.log(token);
-      headers.append('Accept','application/json');
-      headers.append('Authorization','Bearer '+ token);
+      let headers = new HttpHeaders({
+        'Accept': 'application/json',
+        'Authorization':'Bearer '+ token
+      });
       console.log(headers);
 
-      this.http.post(this.apiUrl+type, credentials, {headers: headers})
+      this.httpC.post(this.apiUrl+type, credentials, {headers})
         .subscribe(res => {
           this.loading.dismissAll();
-          console.log(res.json());
-          resolve(res.json());
+          console.log(res);
+          resolve(res);
         },
         (err) => {
           this.loading.dismissAll();
@@ -88,17 +89,17 @@ export class AuthServiceProvider {
 
   getData(type, token) {
     return new Promise((resolve, reject) => {
-      let headers = new Headers();
-      console.log(token);
-      headers.append('Accept','application/json');
-      headers.append('Authorization','Bearer '+ token);
+      let headers = new HttpHeaders({
+        'Accept': 'application/json',
+        'Authorization':'Bearer '+ token
+      });
       console.log(headers);
       console.log(this.apiUrl+type);
 
-      this.http.get(this.apiUrl+type,{headers: headers})
+      this.httpC.get(this.apiUrl+type,{headers})
         .subscribe(res => {
-          console.log(res.json());
-          resolve(res.json());
+          console.log(res);
+          resolve(res);
         },
         (err) => {
           console.log(err);
@@ -126,30 +127,4 @@ export class AuthServiceProvider {
         });
     });
   }
-
-  testCall()
-  {
-    return new Promise((resolve, reject) => {
-      let headers = new Headers();
-      //console.log(token);
-      headers.append('Accept','application/json');
-      //headers.append('Authorization','Bearer '+ token);
-      console.log(headers);
-      //console.log(this.apiUrl+type);
-
-      this.http.get(this.apiUrl+"test",{headers: headers})
-        .subscribe(res => {
-          console.log(res.json());
-          resolve(res.json());
-        },
-        (err) => {
-          console.log(err.json());
-          reject(err);
-        });
-    });
-  }
-
-  //added by krishnabose02
-
-
 }

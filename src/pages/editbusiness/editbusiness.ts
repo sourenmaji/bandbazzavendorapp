@@ -1,12 +1,12 @@
 import { MapsAPILoader } from '@agm/core';
-import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
-import { FileUploadOptions, FileTransferObject, FileTransfer, FileUploadResult } from '@ionic-native/file-transfer';
-import { FilePath } from '@ionic-native/file-path';
-import { Camera } from '@ionic-native/camera';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, NgZone } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
-import { IonicPage, NavController, NavParams, ActionSheetController, ToastController, Platform, AlertController, LoadingController } from 'ionic-angular';
+import { FilePath } from '@ionic-native/file-path';
+import { FileTransfer, FileTransferObject, FileUploadOptions, FileUploadResult } from '@ionic-native/file-transfer';
+import { ActionSheetController, AlertController, IonicPage, LoadingController, NavController, NavParams, Platform, ToastController } from 'ionic-angular';
+import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
 declare var cordova: any;
 declare var google;
 @IonicPage()
@@ -303,7 +303,7 @@ export class EditbusinessPage {
 
       }, (err) => {
         loader.dismiss();
-       this.responseData = err.json();
+       this.responseData = err;
        console.log(this.responseData)
        const alert = this.alertCtrl.create({
          subTitle: this.responseData.message,

@@ -1,9 +1,9 @@
-import { DashboardPage } from './../dashboard/dashboard';
 import { Component } from '@angular/core';
-import { NavController, AlertController, MenuController, Platform } from 'ionic-angular';
+import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AlertController, MenuController, NavController, Platform } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { WelcomePage } from '../welcome/welcome';
-import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { DashboardPage } from './../dashboard/dashboard';
 
 @Component({
   selector: 'page-home',
@@ -85,7 +85,7 @@ change_password(){
     alert.present();
   }
  }, (err) => {
-  this.responseData = err.json();
+  this.responseData = err;
   console.log(this.responseData)
   const alert = this.alertCtrl.create({
     subTitle: this.responseData.error,

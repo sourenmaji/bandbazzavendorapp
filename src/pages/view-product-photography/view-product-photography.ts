@@ -1,9 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ToastController, Slides } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { AlertController, IonicPage, NavController, NavParams, Slides, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { CustomValidator } from '../../validators/custom-validators';
-import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 @IonicPage()
 

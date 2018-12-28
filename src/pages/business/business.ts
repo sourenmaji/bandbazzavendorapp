@@ -1,8 +1,8 @@
-import { EditbusinessPage } from './../editbusiness/editbusiness';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, AlertController, Platform, LoadingController } from 'ionic-angular';
-import { AddbusinessPage } from '../addbusiness/addbusiness';
+import { AlertController, IonicPage, LoadingController, MenuController, NavController, NavParams, Platform } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { AddbusinessPage } from '../addbusiness/addbusiness';
+import { EditbusinessPage } from './../editbusiness/editbusiness';
 
 
 @IonicPage()
@@ -93,7 +93,7 @@ export class BusinessPage {
     },
     (err) => {
       loader.dismiss();
-     this.responseData = err.json();
+     this.responseData = err;
      console.log(this.responseData)
     });
     this.menuCtrl.close();
@@ -128,7 +128,7 @@ export class BusinessPage {
     }
    },
    (err) => {
-    this.responseData = err.json();
+    this.responseData = err;
     console.log(this.responseData)
    });
   }
@@ -176,7 +176,7 @@ export class BusinessPage {
         },
         (err) => {
           loader.dismiss();
-         this.responseData = err.json();
+         this.responseData = err;
          const alert = this.alertCtrl.create({
           subTitle: this.responseData.message,
           buttons: ['OK']
@@ -230,7 +230,7 @@ export class BusinessPage {
          },
          (err) => {
            loader.dismiss();
-          this.responseData = err.json();
+          this.responseData = err;
           const alert = this.alertCtrl.create({
            subTitle: this.responseData.message,
            buttons: ['OK']
@@ -298,7 +298,7 @@ export class BusinessPage {
         },
         (err) => {
           loader.dismiss();
-         this.responseData = err.json();
+         this.responseData = err;
          const alert = this.alertCtrl.create({
           subTitle: this.responseData.message,
           buttons: ['OK']
