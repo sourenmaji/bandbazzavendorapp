@@ -9,7 +9,7 @@ import { BusinessPage } from '../pages/business/business';
 import { CustomPackageEnquiriesPage } from '../pages/custom-package-enquiries/custom-package-enquiries';
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { EnquiriesPage } from '../pages/enquiries/enquiries';
-// import { FCM } from '@ionic-native/fcm';
+import { FCM } from '@ionic-native/fcm';
 import { ErrorPage } from '../pages/error/error';
 import { HomePage } from '../pages/home/home';
 import { ProductsPage } from '../pages/products/products';
@@ -44,7 +44,7 @@ export class MyApp {
     public network: Network,
     public networkProvider: NetworkProvider,
     public alertCtrl: AlertController,
-    // public fcm: FCM
+    public fcm: FCM
     ) {
 
       platform.ready().then(() => {
@@ -53,29 +53,29 @@ export class MyApp {
 
         statusBar.styleDefault();
         splashScreen.hide();
-        // fcm.getToken().then(device_token => {
-        //     localStorage.setItem('device_token', device_token)
-        // }, (err) => {
-        //   console.log(err);
-        // });
+        fcm.getToken().then(device_token => {
+            localStorage.setItem('device_token', device_token)
+        }, (err) => {
+          console.log(err);
+        });
 
-        // fcm.onNotification().subscribe(data => {
-        //   if(data.wasTapped){
-        //     //alert("Received in background");
-        //     this.goToPage(data);
-        //   }
-        //   else
-        //   {
-        //     this.scheduleNotification(data);
-        //     //alert("Received in foreground");
-        //   };
-        // });
+        fcm.onNotification().subscribe(data => {
+          if(data.wasTapped){
+            alert("Received in background");
+            this.goToPage(data);
+          }
+          else
+          {
+            this.scheduleNotification(data);
+            alert("Received in foreground");
+          };
+        });
 
-        // fcm.onTokenRefresh().subscribe(refresh_token => {
-        //   localStorage.setItem('device_token', refresh_token);
-        // }, (err) => {
-        //   console.log(err);
-        // });
+        fcm.onTokenRefresh().subscribe(refresh_token => {
+          localStorage.setItem('device_token', refresh_token);
+        }, (err) => {
+          console.log(err);
+        });
 
         this.networkProvider.initializeNetworkEvents();
        this.networkProvider.getNetworkState();
@@ -134,13 +134,6 @@ export class MyApp {
     }
     scheduleNotification(data)
     {
-      // this.local.schedule({
-      //   title: data.title,
-      //   text: data.push,
-      //   sound: data.sound,
-      //   trigger: {at: new Date(new Date().getTime() + 100)},
-      //   icon:data.icon
-      // });
       let alert = this.alertCtrl.create({
         title: data.title,
         message: data.push,

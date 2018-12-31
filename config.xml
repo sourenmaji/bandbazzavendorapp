@@ -90,9 +90,6 @@
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
     </plugin>
     <allow-navigation href="http://192.168.1.130:8000/" />
-    <plugin name="cordova-plugin-telerik-imagepicker" spec="https://github.com/Telerik-Verified-Plugins/ImagePicker.git">
-        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="Please select image" />
-    </plugin>
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
     <plugin name="com-badrit-base64" spec="0.2.0" />
     <plugin name="cordova-plugin-facebook4" spec="4.0.0">
@@ -105,6 +102,10 @@
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.343465164111-tih06h8oo4lbs23fs0qo2ru0j5bs34mf" />
         <variable name="WEB_APPLICATION_CLIENT_ID" value="343465164111-818pjtaa1eth7pib9ebkd77lef6orf5p.apps.googleusercontent.com" />
         <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
+    </plugin>
+    <plugin name="cordova-plugin-fcm-with-dependecy-updated" spec="2.4.0" />
+    <plugin name="cordova-plugin-telerik-imagepicker" spec="https://github.com/Telerik-Verified-Plugins/ImagePicker.git">
+        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="Please select image" />
     </plugin>
     <engine name="android" spec="7.1.4" />
 </widget>
