@@ -222,13 +222,12 @@ export class EditbusinessPage {
   }
 
   saveEditProfile(){
-    let loader = this.loadingCtrl.create({
-      content: 'Please wait...'
-    });
-    loader.present();
+
     this.targetPath = this.pathForImage(this.lastImage);
     var data = this.userData;
-    if(this.targetPath != ""){
+    if(this.targetPath != "")
+    {
+      console.log("file");
       data.filename = this.lastImage;
       let headers = new Headers();
       headers.append('Authorization','Bearer '+ this.userPostData.token);
@@ -242,10 +241,12 @@ export class EditbusinessPage {
         headers: {'Authorization': 'Bearer '+ this.userPostData.token}
       };
 
+
       const fileTransfer: FileTransferObject = this.transfer.create();
       fileTransfer.upload(this.targetPath, this.apiUrl+'edit_business', options).then((data) => {
-        loader.dismiss();
+
         this.result = data;
+        console.log(this.result);
         var success = JSON.parse(this.result.response);
 
           const toast = this.toastCtrl.create({
@@ -255,11 +256,14 @@ export class EditbusinessPage {
           })
           toast.present();
 
+          if(this.responseData.status)
+          {
           this.navCtrl.pop();
           this.authService.pageReset=true;
+          }
       },
       (err) => {
-        loader.dismiss();
+
         // Error
         var error = JSON.parse(err.body);
         const toast = this.toastCtrl.create({
@@ -268,24 +272,30 @@ export class EditbusinessPage {
           position: 'top'
         })
         toast.present();
-
       });
     }
     else
     {
+      console.log("no file");
+
       this.authService.authData(this.userData,'edit_business',this.userPostData.token).then((data) => {
-        loader.dismiss();
+
         this.responseData = data;
+        console.log(this.responseData);
         const toast = this.toastCtrl.create({
           message: this.responseData.message,
           duration: 3000,
           position: 'top'
         })
         toast.present();
+        if(this.responseData.status)
+        {
         this.navCtrl.pop();
         this.authService.pageReset=true;
-      }, (err) => {
-        loader.dismiss();
+        }
+      },
+      (err) => {
+
        this.responseData = err;
        console.log(this.responseData);
        const toast = this.toastCtrl.create({
@@ -295,6 +305,7 @@ export class EditbusinessPage {
       })
       toast.present();
       });
+
     }
   }
 }

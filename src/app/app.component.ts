@@ -53,7 +53,7 @@ export class MyApp {
 
         statusBar.styleDefault();
         splashScreen.hide();
-        alert("platform ready");
+
     //     fcm.getToken().then(device_token => {
     //         localStorage.setItem('device_token', device_token)
     //     }, (err) => {

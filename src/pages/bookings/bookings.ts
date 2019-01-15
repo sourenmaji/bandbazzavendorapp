@@ -139,6 +139,14 @@ export class BookingsPage {
     {
       this.type="get_caterer_bookings";
     }
+    else if(this.category_id==5)
+    {
+      this.type="get_photography_bookings";
+    }
+    else if(this.category_id==6)
+    {
+      this.type="get_makeup_bookings";
+    }
 
 
     //if there's no next page or the page needs to be manually refreshed, reset values to default
@@ -192,7 +200,7 @@ export class BookingsPage {
     (err) => {
       loader.dismiss();
       console.log(err);
-      this.message="Oops! Something went wrong.";
+      this.message="Under Progress";
       const toast = this.toastCtrl.create({
         message: 'Oops! Something went wrong.',
         duration: 3000,
