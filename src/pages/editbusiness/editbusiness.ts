@@ -5,7 +5,7 @@ import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { FileTransfer, FileTransferObject, FileUploadOptions, FileUploadResult } from '@ionic-native/file-transfer';
-import { ActionSheetController, AlertController, IonicPage, LoadingController, NavController, NavParams, Platform, ToastController } from 'ionic-angular';
+import { ActionSheetController, IonicPage, LoadingController, NavController, NavParams, Platform, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
 declare var cordova: any;
 declare var google;
@@ -39,7 +39,6 @@ export class EditbusinessPage {
               public platform: Platform,
               private filePath: FilePath,
               private file: File,
-              private alertCtrl: AlertController,
               public loadingCtrl: LoadingController,
               private transfer: FileTransfer,
               private authService: AuthServiceProvider) {

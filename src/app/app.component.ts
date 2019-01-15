@@ -3,7 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Network } from '@ionic-native/network';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { AlertController, Events, MenuController, NavController, Platform } from 'ionic-angular';
+import { AlertController, Events, MenuController, Platform, NavController } from 'ionic-angular';
 import { BookingsPage } from '../pages/bookings/bookings';
 import { BusinessPage } from '../pages/business/business';
 import { DashboardPage } from '../pages/dashboard/dashboard';
@@ -21,7 +21,7 @@ import { NetworkProvider } from './../providers/network-provider/network_provide
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any;
+  rootPage: any = WelcomePage;
   dashboardPage = DashboardPage;
   profilePage = ProfilePage;
   homePage = HomePage;
@@ -91,9 +91,7 @@ export class MyApp {
     //      this.nav.pop();
     //  });
 
-  });
-
-      const data = JSON.parse(localStorage.getItem('userData'));
+    const data = JSON.parse(localStorage.getItem('userData'));
       if(data)
       {
         this.userPostData.user = data.user;
@@ -101,13 +99,11 @@ export class MyApp {
       }
       if(this.userPostData.token)
       {
-        this.rootPage = DashboardPage;
+        this.nav.setRoot(DashboardPage);
       }
-      else
-      {
-        this.rootPage = WelcomePage;
-      }
-    }
+
+  });
+}
 
 
     goToPage(data)
