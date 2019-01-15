@@ -108,4 +108,5 @@
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="Please select image" />
     </plugin>
     <engine name="android" spec="7.1.4" />
+    <engine name="browser" spec="5.0.4" />
 </widget>

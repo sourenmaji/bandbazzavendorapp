@@ -94,7 +94,7 @@
                           </div>
                         </ion-item>
                     <ion-item>
-                      <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === null">
+                      <img [src]="pathForImage(lastImage)" style="width: 100%" [hidden]="lastImage === null">
                       <h3 [hidden]="lastImage !== null" class="error">Please Select Image!</h3>
                     </ion-item>
                     <ion-row>

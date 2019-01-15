@@ -4,6 +4,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { ActionSheetController, AlertController, IonicPage, NavController, NavParams, Platform, Slides } from 'ionic-angular';
 import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @IonicPage()
 @Component({
@@ -18,6 +19,7 @@ export class ViewProductBanquatePage implements OnInit{
   productImages: any[]=[];
   lat: any;
   log: any;
+  url: SafeResourceUrl;
  editProductform: FormGroup;
  userData = {banquetId: "", hallPrice: "",advanceAmount: "",capacity: "",acCharges: "",availableAc: 0,foodType: 0, images: []};
  userPostData = {"user":"","token":""};
@@ -25,7 +27,7 @@ export class ViewProductBanquatePage implements OnInit{
   constructor(public navCtrl: NavController, public navParams: NavParams,public imagePicker: ImagePicker,
     public actionSheetCtrl: ActionSheetController,
     public camera: Camera, public authService: AuthServiceProvider, public alertCtrl: AlertController,
-  public platform: Platform) {
+  public platform: Platform, public domSanitizer: DomSanitizer) {
       const data = JSON.parse(localStorage.getItem('userData'));
       this.userPostData.token = data.token;
   this.productDetails = this.navParams.get('productDetails');
@@ -215,5 +217,15 @@ removeImage(src: any)
     });
     this.productImages = newimage;
   }
+
+
+  updateImageUrl(video_link: string) {
+    // Appending an ID to a YouTube URL is safe.
+    // Always make sure to construct SafeValue objects as
+    // close as possible to the input data, so
+    // that it's easier to check if the value is safe.
+    let url = video_link;
+    return this.domSanitizer.bypassSecurityTrustResourceUrl(url);
+}
 
 }

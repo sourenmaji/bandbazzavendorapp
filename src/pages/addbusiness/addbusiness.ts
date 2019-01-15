@@ -6,7 +6,7 @@ import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { FileTransfer, FileTransferObject, FileUploadOptions, FileUploadResult } from '@ionic-native/file-transfer';
-import { ActionSheetController, AlertController, IonicPage, Loading, LoadingController, NavController, NavParams, Platform, ToastController } from 'ionic-angular';
+import { ActionSheetController, AlertController, IonicPage, Loading, LoadingController, NavController, NavParams, Platform, ToastController, normalizeURL } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { BusinessPage } from './../business/business';
 declare var cordova: any;
@@ -163,11 +163,13 @@ export class AddbusinessPage {
       if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
         this.filePath.resolveNativePath(imagePath)
           .then(filePath => {
+            console.log('filepath '+filePath)
             let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
             let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
             this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
           });
       } else {
+        console.log('imagepath '+imagePath)
         var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
         var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
         this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
@@ -189,6 +191,7 @@ export class AddbusinessPage {
   private copyFileToLocalDir(namePath, currentName, newFileName) {
     this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
       this.lastImage = newFileName;
+      console.log('lastImage '+this.lastImage);
     }, error => {
       this.presentToast('Error while storing file.');
     });
@@ -205,10 +208,15 @@ export class AddbusinessPage {
 
   // Always get the accurate path to your apps folder
   public pathForImage(img) {
+    console.log('img1 '+img);
     if (img === null) {
       return '';
     } else {
-      return cordova.file.dataDirectory + img;
+      let path=cordova.file.dataDirectory;
+      console.log('path '+path);
+      path=path.split("://", 2)[1];
+      console.log(path+img)
+      return path+img;
     }
   }
 

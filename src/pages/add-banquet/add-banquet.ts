@@ -447,4 +447,5 @@ export class AddBanquetPage{
     alert.present();
     });
   }
+
 }
