@@ -2,7 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { FCM } from '@ionic-native/fcm';
+// import { FCM } from '@ionic-native/fcm';
 import { Base64 } from '@ionic-native/base64';
 import { Camera } from '@ionic-native/camera';
 import { Facebook } from '@ionic-native/facebook';
@@ -106,9 +106,8 @@ import { MyApp } from './app.component';
     Network,
     File,
     FileTransfer,
-    Camera,
     FilePath,
-    FCM,
+    // FCM,
     Base64,
     Facebook,
     GooglePlus

@@ -14,6 +14,9 @@
 <ion-content padding>
 
 <!-- dynamically generating the categories -->
+<ion-card *ngIf="!categories.length">
+  <img src="assets/imgs/no-data-found.gif">
+</ion-card>
 
 <ion-segment [(ngModel)]="category_name" color="energy" *ngIf="categories.length">
     <ion-segment-button *ngFor="let category of categories" value={{category.module_name}} (click)="getBookings(category,true)">

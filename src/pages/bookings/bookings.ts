@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActionSheetController, AlertController, IonicPage, LoadingController, MenuController, NavController, NavParams, Platform } from 'ionic-angular';
+import { ActionSheetController, ToastController, IonicPage, LoadingController, MenuController, NavController, NavParams, Platform } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { BookingDetailsPage } from '../booking-details/booking-details';
 let scroll = null;
@@ -29,7 +29,7 @@ export class BookingsPage {
     private actionCtrl: ActionSheetController,
     private authService: AuthServiceProvider,
     private loadingCtrl: LoadingController,
-    public alertCtrl: AlertController,
+    public toastCtrl: ToastController,
     public platform: Platform,
     public navParams: NavParams
   ) {
@@ -82,32 +82,44 @@ export class BookingsPage {
              {
               this.getBookings(this.categories[0],true);
              }
-
              }
-             else{
-              const alert = this.alertCtrl.create({
-                subTitle: 'No Business Added Yet',
-                buttons: ['OK']
+             else
+             {
+              const toast = this.toastCtrl.create({
+                message: 'No Business Added Yet',
+                duration: 3000,
+                position: 'top'
               })
-              alert.present();
-              loader.dismiss();
+              toast.present();
             }
          }, (err) => {
           loader.dismiss();
-          console.log(err)
+          console.log(err);
+          const toast = this.toastCtrl.create({
+            message: 'Oops! Something went wrong.',
+            duration: 3000,
+            position: 'top'
+          })
+          toast.present();
          });
    }
 
 //get bookings of a particular module
   getBookings(c: any, reset: boolean)
   {
+    //create loader
+    let loader = this.loadingCtrl.create({
+    content: 'Please wait...'
+    });
+    loader.present();
+
     console.log(c);
     //save the last clicked category to directly trigger it
     this.lastClicked=c;
     this.category_id=c.module_id;
     this.category_name=c.module_name;
 
-    this.message="Fetching your bookings...";
+    // this.message="Fetching your bookings...";
 
     console.log(this.category_id);
     console.log(this.bookings);
@@ -140,6 +152,7 @@ export class BookingsPage {
     this.params= {id: c.id, type: this.filter_type, page: this.page };
 
     this.authService.getDataParams(this.type, this.params, this.token).then((result) => {
+      loader.dismiss();
       this.responseData = result;
         console.log(this.responseData)
         //if there's existing booking
@@ -177,8 +190,15 @@ export class BookingsPage {
         }
     },
     (err) => {
-      console.log(err)
+      loader.dismiss();
+      console.log(err);
       this.message="Oops! Something went wrong.";
+      const toast = this.toastCtrl.create({
+        message: 'Oops! Something went wrong.',
+        duration: 3000,
+        position: 'top'
+      })
+      toast.present();
     });
   }
 

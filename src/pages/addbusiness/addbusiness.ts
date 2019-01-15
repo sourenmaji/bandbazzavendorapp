@@ -6,7 +6,7 @@ import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { FileTransfer, FileTransferObject, FileUploadOptions, FileUploadResult } from '@ionic-native/file-transfer';
-import { ActionSheetController, AlertController, IonicPage, Loading, LoadingController, NavController, NavParams, Platform, ToastController, normalizeURL } from 'ionic-angular';
+import { ActionSheetController, AlertController, IonicPage, Loading, LoadingController, NavController, NavParams, Platform, ToastController} from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { BusinessPage } from './../business/business';
 declare var cordova: any;
@@ -168,7 +168,8 @@ export class AddbusinessPage {
             let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
             this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
           });
-      } else {
+      }
+      else {
         console.log('imagepath '+imagePath)
         var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
         var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
@@ -180,7 +181,8 @@ export class AddbusinessPage {
   }
 
 
-  private createFileName() {
+  private createFileName()
+  {
     var d = new Date(),
     n = d.getTime(),
     newFileName =  n + ".jpg";
@@ -248,21 +250,26 @@ export class AddbusinessPage {
       var success = JSON.parse(this.result.response);
       if(success.status===true){
       localStorage.setItem('businessData', success.businesses);
-      const alert = this.alertCtrl.create({
-        subTitle: 'Business added successfully',
-        buttons: ['OK']
-
+      const toast = this.toastCtrl.create({
+        message: 'Business added successfully!',
+        duration: 3000,
+        position: 'top'
       })
-      alert.present();
-      this.navCtrl.pop();
-      this.authService.pageReset=true;
+      toast.present();
+        this.navCtrl.pop();
+        this.authService.pageReset=true;
       }
-
     },
     (err) => {
       loader.dismiss();
       var error = JSON.parse(err.body);
       if(error.status==false){
+        const toast = this.toastCtrl.create({
+          message: 'Oops! Something went wrong.',
+          duration: 3000,
+          position: 'top'
+        })
+        toast.present();
       this.navCtrl.push(BusinessPage);
       this.navCtrl.remove(this.navCtrl.length()-1);
       }

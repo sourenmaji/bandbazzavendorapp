@@ -209,10 +209,15 @@ export class EditbusinessPage {
 
   // Always get the accurate path to your apps folder
   public pathForImage(img) {
+    console.log('img1 '+img);
     if (img === null) {
       return '';
     } else {
-      return cordova.file.dataDirectory + img;
+      let path=cordova.file.dataDirectory;
+      console.log('path '+path);
+      path=path.split("://", 2)[1];
+      console.log(path+img)
+      return path+img;
     }
   }
 
@@ -242,35 +247,27 @@ export class EditbusinessPage {
         loader.dismiss();
         this.result = data;
         var success = JSON.parse(this.result.response);
-        if(success.status===true){
-        const alert = this.alertCtrl.create({
-          subTitle: success.message,
-          buttons: ['OK']
-        })
-        alert.present();
-        }
-        else
-        {
-          const alert = this.alertCtrl.create({
-            subTitle: success.message,
-            buttons: ['OK']
 
+          const toast = this.toastCtrl.create({
+            message: success.message,
+            duration: 3000,
+            position: 'top'
           })
-          alert.present();
-        }
-        this.navCtrl.pop();
-        this.authService.pageReset=true;
+          toast.present();
+
+          this.navCtrl.pop();
+          this.authService.pageReset=true;
       },
       (err) => {
         loader.dismiss();
         // Error
         var error = JSON.parse(err.body);
-        const alert = this.alertCtrl.create({
-          subTitle: error.message,
-          buttons: ['OK']
-
+        const toast = this.toastCtrl.create({
+          message: error.message,
+          duration: 3000,
+          position: 'top'
         })
-        alert.present();
+        toast.present();
 
       });
     }
@@ -279,37 +276,24 @@ export class EditbusinessPage {
       this.authService.authData(this.userData,'edit_business',this.userPostData.token).then((data) => {
         loader.dismiss();
         this.responseData = data;
-        if(this.responseData.status===true)
-        {
-
-          const alert = this.alertCtrl.create({
-            subTitle: this.responseData.message,
-            buttons: ['OK']
-
-          })
-          alert.present();
-        }
-        else{
-          const alert = this.alertCtrl.create({
-            subTitle: this.responseData.message,
-            buttons: ['OK']
-
-          })
-          alert.present();
-
-        }
+        const toast = this.toastCtrl.create({
+          message: this.responseData.message,
+          duration: 3000,
+          position: 'top'
+        })
+        toast.present();
         this.navCtrl.pop();
         this.authService.pageReset=true;
-
       }, (err) => {
         loader.dismiss();
        this.responseData = err;
-       console.log(this.responseData)
-       const alert = this.alertCtrl.create({
-         subTitle: this.responseData.message,
-         buttons: ['OK']
-       })
-       alert.present();
+       console.log(this.responseData);
+       const toast = this.toastCtrl.create({
+        message: 'Oops! Something went wrong.',
+        duration: 3000,
+        position: 'top'
+      })
+      toast.present();
       });
     }
   }

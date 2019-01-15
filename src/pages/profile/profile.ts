@@ -25,47 +25,23 @@ export class ProfilePage {
       backAction();
     },2)
   }
-  ionViewDidEnter(){
+  ionViewDidEnter()
+  {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.user;
 
     this.userPostData.user = this.userDetails;
     this.userPostData.token = data.token;
     console.log(this.userPostData.token);
-
   }
-  editProfile(){
+  editProfile()
+  {
     this.navCtrl.push(EditProfilePage);
   }
 
-  // editProfile(){
-  //   this.authService.authData('get_all_business',this.userPostData.token).then((result) => {
-  //    this.responseData = result;
-  //    if(this.responseData.success)
-  //    {
-  //    console.log(this.responseData);
-  //    localStorage.setItem('userData', JSON.stringify(this.responseData));
-  //    console.log("Local storage "+JSON.parse(localStorage.getItem('userData')));
-  //    const alert = this.alertCtrl.create({
-  //     subTitle: this.responseData.success.message,
-  //     buttons: ['OK']
-  //   })
-  //   alert.present();
-  //    }
-  //    else{ console.log(this.responseData.error); }
-  //  }, (err) => {
-  //   this.responseData = err;
-  //   console.log(this.responseData)
-  //   const alert = this.alertCtrl.create({
-  //     subTitle: this.responseData.error,
-  //     buttons: ['OK']
-  //   })
-  //   alert.present();
-  //  });
-  // }
-
-  onOpenMenu(){
-this.menuCtrl.open();
+  onOpenMenu()
+  {
+  this.menuCtrl.open();
   }
 
 }

@@ -6,11 +6,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { AlertController, Events, MenuController, NavController, Platform } from 'ionic-angular';
 import { BookingsPage } from '../pages/bookings/bookings';
 import { BusinessPage } from '../pages/business/business';
-import { CustomPackageEnquiriesPage } from '../pages/custom-package-enquiries/custom-package-enquiries';
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { EnquiriesPage } from '../pages/enquiries/enquiries';
-import { FCM } from '@ionic-native/fcm';
-import { ErrorPage } from '../pages/error/error';
+// import { FCM } from '@ionic-native/fcm';
 import { HomePage } from '../pages/home/home';
 import { ProductsPage } from '../pages/products/products';
 import { ProfilePage } from '../pages/profile/profile';
@@ -31,20 +29,22 @@ export class MyApp {
   productsPage = ProductsPage;
   enquiriesPage = EnquiriesPage;
   bookingsPage = BookingsPage;
-  customPackageEnquiriesPage = CustomPackageEnquiriesPage;
   userDetails : any;
   responseData: any;
   userPostData = {"user":"","token":""};
 
   @ViewChild('nav') nav: NavController;
 
-  constructor(public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-    private menuCtrl: MenuController,public authService:AuthServiceProvider,
+  constructor(public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    private menuCtrl: MenuController,
+    public authService:AuthServiceProvider,
     public events: Events,
     public network: Network,
     public networkProvider: NetworkProvider,
     public alertCtrl: AlertController,
-    public fcm: FCM
+    // public fcm: FCM
     ) {
 
       platform.ready().then(() => {
@@ -53,42 +53,43 @@ export class MyApp {
 
         statusBar.styleDefault();
         splashScreen.hide();
-        fcm.getToken().then(device_token => {
-            localStorage.setItem('device_token', device_token)
-        }, (err) => {
-          console.log(err);
-        });
+        alert("platform ready");
+    //     fcm.getToken().then(device_token => {
+    //         localStorage.setItem('device_token', device_token)
+    //     }, (err) => {
+    //       console.log(err);
+    //     });
 
-        fcm.onNotification().subscribe(data => {
-          if(data.wasTapped){
-            alert("Received in background");
-            this.goToPage(data);
-          }
-          else
-          {
-            this.scheduleNotification(data);
-            alert("Received in foreground");
-          };
-        });
+    //     fcm.onNotification().subscribe(data => {
+    //       if(data.wasTapped){
+    //         alert("Received in background");
+    //         this.goToPage(data);
+    //       }
+    //       else
+    //       {
+    //         this.scheduleNotification(data);
+    //         alert("Received in foreground");
+    //       };
+    //     });
 
-        fcm.onTokenRefresh().subscribe(refresh_token => {
-          localStorage.setItem('device_token', refresh_token);
-        }, (err) => {
-          console.log(err);
-        });
+    //     fcm.onTokenRefresh().subscribe(refresh_token => {
+    //       localStorage.setItem('device_token', refresh_token);
+    //     }, (err) => {
+    //       console.log(err);
+    //     });
 
-        this.networkProvider.initializeNetworkEvents();
-       this.networkProvider.getNetworkState();
+    //     this.networkProvider.initializeNetworkEvents();
+    //    this.networkProvider.getNetworkState();
 
-        // Offline event
-     this.events.subscribe('network:offline', () => {
-         this.nav.push(ErrorPage);
-     });
+    //     // Offline event
+    //  this.events.subscribe('network:offline', () => {
+    //      this.nav.push(ErrorPage);
+    //  });
 
-     // Online event
-     this.events.subscribe('network:online', () => {
-         this.nav.pop();
-     });
+    //  // Online event
+    //  this.events.subscribe('network:online', () => {
+    //      this.nav.pop();
+    //  });
 
   });
 

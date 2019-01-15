@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicPage, LoadingController, MenuController, NavController, NavParams, Platform } from 'ionic-angular';
+import { AlertController, IonicPage, LoadingController, MenuController, NavController, NavParams, Platform, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { AddBanquetPage } from '../add-banquet/add-banquet';
 import { AddCarsPage } from '../add-cars/add-cars';
@@ -44,6 +44,7 @@ export class ProductsPage {
               public loadingCtrl: LoadingController,
               public authService: AuthServiceProvider,
               public alertCtrl: AlertController,
+              public toastCtrl: ToastController,
               platform: Platform) {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.user;
@@ -95,16 +96,22 @@ export class ProductsPage {
             }
             else
             {
-              const alert = this.alertCtrl.create({
-                subTitle: 'No Business Added Yet',
-                buttons: ['OK']
+              const toast = this.toastCtrl.create({
+                message: 'No Business Added Yet',
+                duration: 3000,
+                position: 'top'
               })
-              alert.present();
+              toast.present();
               this.no_data=true;
             }
-
         }, (err) => {
           loader.dismiss();
+          const toast = this.toastCtrl.create({
+            message: 'Oops! Something went wrong.',
+            duration: 3000,
+            position: 'top'
+          })
+          toast.present();
           console.log(err)
         });
   }
@@ -157,18 +164,24 @@ export class ProductsPage {
            this.businessProducts=this.responseData.business_details;
 
            if(!this.alProducts.length){
-            const alert = this.alertCtrl.create({
-              subTitle: 'No Product Added Yet',
-              buttons: ['OK']
+            const toast = this.toastCtrl.create({
+              message: 'No Product Added Yet',
+              duration: 3000,
+              position: 'top'
             })
-            alert.present();
+            toast.present();
             this.no_data=true;
            }
     }, (err) => {
       loader.dismiss();
-      console.log(err)
+      console.log(err);
       this.message="Oops! Something went wrong.";
-
+      const toast = this.toastCtrl.create({
+        message: 'Oops! Something went wrong.',
+        duration: 3000,
+        position: 'top'
+      })
+      toast.present();
     });
   }
 
@@ -195,11 +208,12 @@ export class ProductsPage {
     },
     (err) => {
      this.responseData = err;
-     const alert = this.alertCtrl.create({
-      subTitle: this.responseData.message,
-      buttons: ['OK']
+     const toast = this.toastCtrl.create({
+      message: this.responseData.message,
+      duration: 3000,
+      position: 'top'
     })
-    alert.present();
+    toast.present();
     });
 
   }
@@ -231,8 +245,8 @@ export class ProductsPage {
     }
   }
 
-  deleteProduct(productId: number,type: number){
-
+  deleteProduct(productId: number,type: number)
+  {
     let alert = this.alertCtrl.create({
       title: 'Confirm',
       message: 'Do you want to delete?',
@@ -271,7 +285,8 @@ export class ProductsPage {
             alert.present();
 
           }
-          else{
+          else
+          {
            const alert = this.alertCtrl.create({
              subTitle: this.responseData.message,
              buttons: ['OK']
@@ -280,13 +295,14 @@ export class ProductsPage {
          }
         },
         (err) => {
-          loader.dismiss();
+        loader.dismiss();
          this.responseData = err;
-         const alert = this.alertCtrl.create({
-          subTitle: this.responseData.message,
-          buttons: ['OK']
+         const toast = this.toastCtrl.create({
+          message: this.responseData.message,
+          duration: 3000,
+          position: 'top'
         })
-        alert.present();
+        toast.present();
         });
       }
       }, {
@@ -295,8 +311,6 @@ export class ProductsPage {
       }]
     })
     alert.present();
-
-
   }
 
   detailsModule(action: string)

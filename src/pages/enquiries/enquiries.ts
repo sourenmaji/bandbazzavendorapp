@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActionSheetController, AlertController, IonicPage, LoadingController, MenuController, NavController, NavParams, Platform } from 'ionic-angular';
+import { ActionSheetController, ToastController, IonicPage, LoadingController, MenuController, NavController, NavParams, Platform } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { EnquiryDetailsPage } from '../enquiry-details/enquiry-details';
 let scroll = null;
@@ -28,7 +28,7 @@ notify_category: string="";
 imageUrl:string = '';
 
 
-  constructor(public platform: Platform, public navParams: NavParams, private menuCtrl: MenuController, private navCtrl: NavController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController, private actionCtrl: ActionSheetController, private alertCtrl: AlertController) {
+  constructor(public platform: Platform, public navParams: NavParams, private menuCtrl: MenuController, private navCtrl: NavController, private authService: AuthServiceProvider, private loadingCtrl: LoadingController, private actionCtrl: ActionSheetController, private toastCtrl: ToastController) {
     this.responseData = {}
     const data = JSON.parse(localStorage.getItem('userData'));
     this.token = data.token;
@@ -78,27 +78,32 @@ imageUrl:string = '';
     });
     loader.present();
     this.authService.getData('get_added_business',this.token).then((result) => {
+          loader.dismiss();
           this.responseData = result;
             console.log(this.responseData)
             this.categories=this.responseData.categories;
             if(this.categories.length){
-
             console.log(this.categories)
-            loader.dismiss();
             this.getEnquiries(this.categories[0],true);
             }
             else
             {
-              const alert = this.alertCtrl.create({
-                subTitle: 'No Business Added Yet',
-                buttons: ['OK']
+              const toast = this.toastCtrl.create({
+                message: 'No Business Added Yet',
+                duration: 3000,
+                position: 'top'
               })
-              loader.dismiss();
-              alert.present();
+              toast.present();
             }
         }, (err) => {
           loader.dismiss();
-          console.log(err)
+          console.log(err);
+          const toast = this.toastCtrl.create({
+            message: 'Oops! Something went wrong.',
+            duration: 3000,
+            position: 'top'
+          })
+          toast.present();
         });
   }
 
@@ -152,6 +157,7 @@ imageUrl:string = '';
 
     console.log(this.type)
     this.authService.getDataParams(this.type, this.params, this.token).then((result) => {
+      loader.dismiss();
       this.responseData = result;
         console.log(this.responseData)
         //if there's existing enquiries
@@ -187,13 +193,16 @@ imageUrl:string = '';
           this.next_page=0;
           this.message=this.responseData.message;
         }
-        loader.dismiss();
-
     }, (err) => {
       loader.dismiss();
       console.log(err)
       this.message="Oops! something went wrong.";
-
+      const toast = this.toastCtrl.create({
+        message: 'Oops! Something went wrong.',
+        duration: 3000,
+        position: 'top'
+      })
+      toast.present();
     });
   }
 
