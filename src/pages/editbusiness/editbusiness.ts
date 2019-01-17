@@ -250,8 +250,8 @@ export class EditbusinessPage {
 
           const toast = this.toastCtrl.create({
             message: success.message,
-            duration: 3000,
-            position: 'top'
+            duration: 5000,
+            position: 'bottom'
           })
           toast.present();
 
@@ -267,8 +267,8 @@ export class EditbusinessPage {
         var error = JSON.parse(err.body);
         const toast = this.toastCtrl.create({
           message: error.message,
-          duration: 3000,
-          position: 'top'
+          duration: 5000,
+          position: 'bottom'
         })
         toast.present();
       });
@@ -283,8 +283,8 @@ export class EditbusinessPage {
         console.log(this.responseData);
         const toast = this.toastCtrl.create({
           message: this.responseData.message,
-          duration: 3000,
-          position: 'top'
+          duration: 5000,
+          position: 'bottom'
         })
         toast.present();
         if(this.responseData.status)
@@ -299,8 +299,9 @@ export class EditbusinessPage {
        console.log(this.responseData);
        const toast = this.toastCtrl.create({
         message: 'Oops! Something went wrong.',
-        duration: 3000,
-        position: 'top'
+        duration: 5000,
+        cssClass: "toast-danger",
+        position: 'bottom'
       })
       toast.present();
       });

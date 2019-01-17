@@ -98,8 +98,8 @@ export class ProductsPage {
             {
               const toast = this.toastCtrl.create({
                 message: 'No Business Added Yet',
-                duration: 3000,
-                position: 'top'
+                duration: 5000,
+                position: 'bottom'
               })
               toast.present();
               this.no_data=true;
@@ -108,8 +108,9 @@ export class ProductsPage {
           loader.dismiss();
           const toast = this.toastCtrl.create({
             message: 'Oops! Something went wrong.',
-            duration: 3000,
-            position: 'top'
+            duration: 5000,
+            cssClass: "toast-danger",
+            position: 'bottom'
           })
           toast.present();
           console.log(err)
@@ -166,8 +167,8 @@ export class ProductsPage {
            if(!this.alProducts.length){
             const toast = this.toastCtrl.create({
               message: 'No Product Added Yet',
-              duration: 3000,
-              position: 'top'
+              duration: 5000,
+              position: 'bottom'
             })
             toast.present();
             this.no_data=true;
@@ -178,8 +179,9 @@ export class ProductsPage {
       this.message="Oops! Something went wrong.";
       const toast = this.toastCtrl.create({
         message: 'Oops! Something went wrong.',
-        duration: 3000,
-        position: 'top'
+        duration: 5000,
+        cssClass: "toast-danger",
+        position: 'bottom'
       })
       toast.present();
     });
@@ -210,8 +212,9 @@ export class ProductsPage {
      this.responseData = err;
      const toast = this.toastCtrl.create({
       message: this.responseData.message,
-      duration: 3000,
-      position: 'top'
+      duration: 5000,
+      cssClass: "toast-danger",
+      position: 'bottom'
     })
     toast.present();
     });
@@ -299,8 +302,9 @@ export class ProductsPage {
          this.responseData = err;
          const toast = this.toastCtrl.create({
           message: this.responseData.message,
-          duration: 3000,
-          position: 'top'
+          duration: 5000,
+          cssClass: "toast-danger",
+          position: 'bottom'
         })
         toast.present();
         });

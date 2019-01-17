@@ -297,6 +297,7 @@ export class RegisterPage implements OnInit{
           (err) =>
           {
             this.responseData = err;
+            alert(err);
             console.log(this.responseData)
             const toast = this.toastCtrl.create({
               message: 'Oops! Something went wrong.',

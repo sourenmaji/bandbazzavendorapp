@@ -234,8 +234,8 @@ export class AddCarsPage {
       console.log(this.responseData);
       const toast = this.toastCtrl.create({
         message: 'Oops! Something went wrong.',
-        duration: 3000,
-        position: 'top'
+        duration: 5000,
+        position: 'bottom'
       })
       toast.present();
      });
@@ -264,8 +264,8 @@ export class AddCarsPage {
       this.carmodels = [];
       const toast = this.toastCtrl.create({
         message: 'Oops! Something went wrong.',
-        duration: 3000,
-        position: 'top'
+        duration: 5000,
+        position: 'bottom'
       })
       toast.present();
     }
@@ -366,8 +366,8 @@ export class AddCarsPage {
     // Handle error
     const toast = this.toastCtrl.create({
       message: err,
-      duration: 3000,
-      position: 'top'
+      duration: 5000,
+      position: 'bottom'
     })
     toast.present();
    });
@@ -393,8 +393,8 @@ export class AddCarsPage {
       // Handle error
       const toast = this.toastCtrl.create({
         message: err,
-        duration: 3000,
-        position: 'top'
+        duration: 5000,
+        position: 'bottom'
       })
       toast.present();
      });
@@ -482,8 +482,9 @@ export class AddCarsPage {
      console.log(this.responseData)
      const toast = this.toastCtrl.create({
       message: 'Oops! Something went wrong.',
-      duration: 3000,
-      position: 'top'
+      duration: 5000,
+      cssClass: "toast-danger",
+      position: 'bottom'
     })
     toast.present();
     });

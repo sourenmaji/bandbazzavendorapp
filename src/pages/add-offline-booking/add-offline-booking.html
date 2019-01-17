@@ -28,7 +28,7 @@
         
         <ion-item>
           <ion-label floating>Booking From <span style="color: red">*</span></ion-label>
-          <ion-datetime displayFormat="YYYY-MM-DD" formControlName="book_from">
+          <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD-MM-YYYY" formControlName="book_from">
           </ion-datetime>
         </ion-item>
         <p class="error" *ngIf="addHallOfflineForm.get('book_from').hasError('required') && addHallOfflineForm.get('book_from').touched">
@@ -37,7 +37,7 @@
         
         <ion-item>
           <ion-label floating>Booking To <span style="color: red">*</span></ion-label>
-          <ion-datetime displayFormat="YYYY-MM-DD" formControlName="book_to"></ion-datetime>
+          <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD-MM-YYYY" formControlName="book_to"></ion-datetime>
         </ion-item>
         <p class="error" *ngIf="addHallOfflineForm.get('book_to').hasError('required') && addHallOfflineForm.get('book_to').touched">
           This field is required
@@ -102,7 +102,7 @@
         
         <ion-item>
           <ion-label floating>Booking From <span style="color: red">*</span></ion-label>
-          <ion-datetime displayFormat="YYYY-MM-DD HH:mm:ss" pickerFormat="YYYY-MM-DD h:mm A" formControlName="book_from">
+          <ion-datetime displayFormat="DD/MM/YYYY hh:mm A" pickerFormat="DD-MM-YYYY h:mm A" formControlName="book_from">
           </ion-datetime>
         </ion-item>
         <p class="error" *ngIf="addCarOfflineForm.get('book_from').hasError('required') && addCarOfflineForm.get('book_from').touched">
@@ -111,7 +111,7 @@
         
         <ion-item>
           <ion-label floating>Booking To <span style="color: red">*</span></ion-label>
-          <ion-datetime displayFormat="YYYY-MM-DD HH:mm:ss" pickerFormat="YYYY-MM-DD h:mm A" formControlName="book_to"></ion-datetime>
+          <ion-datetime displayFormat="DD/MM/YYYY hh:mm A" pickerFormat="DD-MM-YYYY h:mm A" formControlName="book_to"></ion-datetime>
         </ion-item>
         <p class="error" *ngIf="addCarOfflineForm.get('book_to').hasError('required') && addCarOfflineForm.get('book_to').touched">
           This field is required
@@ -177,7 +177,7 @@
         
         <ion-item>
           <ion-label floating>Booking Date <span style="color: red">*</span></ion-label>
-          <ion-datetime displayFormat="YYYY-MM-DD" formControlName="book_date">
+          <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD-MM-YYYY" formControlName="book_date">
           </ion-datetime>
         </ion-item>
         <p class="error" *ngIf="addCatererOfflineForm.get('book_date').hasError('required') && addCatererOfflineForm.get('book_date').touched">
@@ -187,7 +187,7 @@
         <ion-item>
           <ion-label floating>No. of Plates <span style="color: red">*</span></ion-label>
           <ion-input type="text"
-          formControlName="cust_name"></ion-input>
+          formControlName="no_of_plates"></ion-input>
         </ion-item>
         <p class="error" *ngIf="addCatererOfflineForm.get('no_of_plates').hasError('required') && addCatererOfflineForm.get('no_of_plates').touched">
           This field is required

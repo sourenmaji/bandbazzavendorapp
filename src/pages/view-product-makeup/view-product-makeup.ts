@@ -136,8 +136,9 @@ export class ViewProductMakeupPage {
      console.log(err);
      let toast = this.toastCtrl.create({
       message: 'Something went wrong! Please try again.',
-      duration: 2000,
-      position: 'top'
+      duration: 5000,
+      cssClass: "toast-danger",
+      position: 'bottom'
     });
     toast.present();
     });
@@ -255,8 +256,8 @@ export class ViewProductMakeupPage {
                 console.log(this.responseData);
                 let toast = this.toastCtrl.create({
                   message: this.responseData.message,
-                  duration: 2000,
-                  position: 'top'
+                  duration: 5000,
+                  position: 'bottom'
                 });
 
                 toast.onDidDismiss(() => {

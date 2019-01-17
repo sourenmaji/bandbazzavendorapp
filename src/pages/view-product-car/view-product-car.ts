@@ -148,8 +148,9 @@ this.camera.getPicture(options).then((imageData) => {
   // Handle error
    const toast = this.toastCtrl.create({
     message: err,
-    duration: 3000,
-    position: 'top'
+    duration: 5000,
+    cssClass: "toast-danger",
+    position: 'bottom'
   })
   toast.present();
  });
@@ -174,8 +175,8 @@ pickImage()
     // Handle error
      const toast = this.toastCtrl.create({
       message: err,
-      duration: 3000,
-      position: 'top'
+      duration: 5000,
+      position: 'bottom'
     })
     toast.present();
    });
@@ -215,8 +216,9 @@ uploadData()
  // Handle error
  const toast = this.toastCtrl.create({
   message: err,
-  duration: 3000,
-  position: 'top'
+  duration: 5000,
+  cssClass: "toast-danger",
+  position: 'bottom'
 })
 toast.present();
 });

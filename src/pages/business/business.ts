@@ -78,8 +78,8 @@ export class BusinessPage {
         {
           const toast = this.toastCtrl.create({
             message: this.responseData.message,
-            duration: 3000,
-            position: 'top'
+            duration: 5000,
+            position: 'bottom'
           })
           toast.present();
           this.businessDetails = [];
@@ -92,8 +92,9 @@ export class BusinessPage {
         console.log(this.responseData);
         const toast = this.toastCtrl.create({
           message: 'Oops! Something went wrong.',
-          duration: 3000,
-          position: 'top'
+          duration: 5000,
+          cssClass: 'toast-danger',
+          position: 'bottom'
         })
         toast.present();
       });
@@ -133,8 +134,8 @@ export class BusinessPage {
         console.log(this.responseData);
         const toast = this.toastCtrl.create({
           message: 'Oops! Something went wrong.',
-          duration: 3000,
-          position: 'top'
+          duration: 5000,
+          position: 'bottom'
         })
         toast.present();
       });
@@ -185,8 +186,8 @@ export class BusinessPage {
               this.responseData = err;
               const toast = this.toastCtrl.create({
                 message: 'Oops! Something went wrong.',
-                duration: 3000,
-                position: 'top'
+                duration: 5000,
+                position: 'bottom'
               })
               toast.present();
             });
@@ -239,8 +240,9 @@ export class BusinessPage {
               this.responseData=err;
               const toast = this.toastCtrl.create({
                 message: this.responseData.message,
-                duration: 3000,
-                position: 'top'
+                duration: 5000,
+                cssClass: "toast-danger",
+                position: 'bottom'
               })
               toast.present();
             });
@@ -301,8 +303,8 @@ export class BusinessPage {
               this.responseData = err;
               const toast = this.toastCtrl.create({
                 message: this.responseData.message,
-                duration: 3000,
-                position: 'top'
+                duration: 5000,
+                position: 'bottom'
               })
               toast.present();
             });

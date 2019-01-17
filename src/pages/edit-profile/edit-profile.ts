@@ -222,12 +222,12 @@ this.buttonClicked = !this.buttonClicked;
 this.disableButton = !this.disableButton;
 console.log(this.responseData);
 this.editUserDetails = this.responseData;
-this.userDetails = this.responseData.success.user;
+this.userDetails = this.responseData.user;
 this.newU.user = this.userDetails;
 this.newU.token = this.userPostData.token;
 localStorage.setItem('userData', JSON.stringify(this.newU));
 const alert = this.alertCtrl.create({
-subTitle: this.responseData.success.message,
+subTitle: this.responseData.message,
 buttons: ['OK']
 })
 alert.present();
@@ -237,9 +237,9 @@ else
 {
   console.log(this.responseData.error);
   const toast = this.toastCtrl.create({
-    message: this.responseData.error,
-    duration: 3000,
-    position: 'top'
+    message: this.responseData.message,
+    duration: 5000,
+    position: 'bottom'
   })
   toast.present();
 }
@@ -249,8 +249,9 @@ this.responseData = err;
 console.log(this.responseData);
 const toast = this.toastCtrl.create({
   message: 'Oops! Something went wrong.',
-  duration: 3000,
-  position: 'top'
+  duration: 5000,
+  cssClass: 'toast-danger',
+  position: 'bottom'
 })
 toast.present();
 });

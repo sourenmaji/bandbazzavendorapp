@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from
 import { AlertController, MenuController, NavController, Platform, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { WelcomePage } from '../welcome/welcome';
+import { DashboardPage } from '../dashboard/dashboard';
 
 @Component({
   selector: 'page-home',
@@ -67,21 +68,22 @@ change_password(){
    if(this.responseData.status)
    {
     console.log(this.responseData);
-   this.userDetails = this.responseData.success.user;
+   this.userDetails = this.responseData.user;
    this.newU.user = this.userDetails;
    this.newU.token = this.userPostData.token;
    localStorage.setItem('userData', JSON.stringify(this.newU));
+  //  this.userPassword = {"password":"","new_password_confirmation":"","new_password":""};
    const alert = this.alertCtrl.create({
-    subTitle: this.responseData.success.message,
+    subTitle: this.responseData.message,
     buttons: ['OK']
   })
   alert.present();
-  // this.navCtrl.push(DashboardPage);
+  this.navCtrl.setRoot(DashboardPage);
    }
    else
    {
     const alert = this.alertCtrl.create({
-      subTitle: this.responseData.success.message,
+      subTitle: this.responseData.message,
       buttons: ['OK']
     })
     alert.present();
@@ -91,8 +93,8 @@ change_password(){
   console.log(this.responseData)
   const toast = this.toastCtrl.create({
     message: 'Oops! Something went wrong.',
-    duration: 3000,
-    position: 'top'
+    cssClass: 'toast-danger',
+    position: 'bottom'
   })
   toast.present();
  });

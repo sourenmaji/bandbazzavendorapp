@@ -88,8 +88,8 @@ export class BookingsPage {
              {
               const toast = this.toastCtrl.create({
                 message: 'No Business Added Yet',
-                duration: 3000,
-                position: 'top'
+                duration: 5000,
+                position: 'bottom'
               })
               toast.present();
             }
@@ -98,8 +98,9 @@ export class BookingsPage {
           console.log(err);
           const toast = this.toastCtrl.create({
             message: 'Oops! Something went wrong.',
-            duration: 3000,
-            position: 'top'
+            duration: 5000,
+            cssClass: "toast-danger",
+            position: 'bottom'
           })
           toast.present();
          });
@@ -204,8 +205,9 @@ export class BookingsPage {
       this.message="Under Progress";
       const toast = this.toastCtrl.create({
         message: 'Oops! Something went wrong.',
-        duration: 3000,
-        position: 'top'
+        duration: 5000,
+        cssClass: "toast-danger",
+        position: 'bottom'
       })
       toast.present();
     });

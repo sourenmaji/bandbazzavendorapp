@@ -90,8 +90,8 @@ export class EnquiryDetailsPage {
     //create toast notification
     let toast = this.toastCtrl.create({
       message: "",
-      duration: 2000,
-      position: 'top'
+      duration: 5000,
+      position: 'bottom'
     });
 
 

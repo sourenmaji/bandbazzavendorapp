@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, LoadingController, AlertController, ToastController } from 'ionic-angular';
 import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
@@ -13,7 +13,13 @@ export class ForgetPasswordPage implements OnInit{
   public otpButton: boolean = false;
   public buttonClicked: boolean = false;
   user_OTP: any =null;
-  constructor(public alertCtrl: AlertController , public authService : AuthServiceProvider,public platform: Platform,public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController) {
+  constructor(public alertCtrl: AlertController ,
+    public authService : AuthServiceProvider,
+    public platform: Platform,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public loadingCtrl: LoadingController,
+    public toastCtrl: ToastController) {
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
       backAction();
@@ -69,7 +75,7 @@ export class ForgetPasswordPage implements OnInit{
       const alert = this.alertCtrl.create({
         subTitle: this.responseData.message,
         buttons: ['OK']
-
+   
       })
       alert.present();
      }
@@ -77,11 +83,13 @@ export class ForgetPasswordPage implements OnInit{
     loader.dismiss();
    this.responseData = err;
    console.log(this.responseData)
-   const alert = this.alertCtrl.create({
-     subTitle: "Oops! Something went wrong. Please try again.",
-     buttons: ['OK']
-   })
-   alert.present();
+   const toast = this.toastCtrl.create({
+    message: 'Oops! Something went wrong.',
+    duration: 5000,
+    cssClass: 'toast-danger',
+    position: 'bottom'
+  })
+  toast.present();
   });
 }
 

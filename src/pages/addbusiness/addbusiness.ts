@@ -202,8 +202,8 @@ export class AddbusinessPage {
   private presentToast(text) {
     let toast = this.toastCtrl.create({
       message: text,
-      duration: 3000,
-      position: 'top'
+      duration: 5000,
+      position: 'bottom'
     });
     toast.present();
   }
@@ -252,8 +252,8 @@ export class AddbusinessPage {
       localStorage.setItem('businessData', success.businesses);
       const toast = this.toastCtrl.create({
         message: 'Business added successfully!',
-        duration: 3000,
-        position: 'top'
+        duration: 5000,
+        position: 'bottom'
       })
       toast.present();
         this.navCtrl.pop();
@@ -266,8 +266,9 @@ export class AddbusinessPage {
       if(error.status==false){
         const toast = this.toastCtrl.create({
           message: 'Oops! Something went wrong.',
-          duration: 3000,
-          position: 'top'
+          duration: 5000,
+          cssClass: "toast-danger",
+          position: 'bottom'
         })
         toast.present();
       this.navCtrl.push(BusinessPage);
