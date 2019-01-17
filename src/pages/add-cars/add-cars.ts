@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
-import { ActionSheetController, AlertController, IonicPage, NavController, NavParams, Platform, Slides } from 'ionic-angular';
+import { ActionSheetController, AlertController, IonicPage, NavController, NavParams, Platform, Slides, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 @IonicPage()
@@ -12,7 +12,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 export class AddCarsPage {
 
 
-  public token: string = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjA1MWNkNzUyZjhjZWUzY2Q0MmQzNzAzY2ExOGZkZmU4NDc0NmJlMzBiNzI3ZmM2ZWNkZTYyN2ExNWNmMzI5ODRjYjA2NzY2YjI2ZTk2YzE0In0.eyJhdWQiOiIxIiwianRpIjoiMDUxY2Q3NTJmOGNlZTNjZDQyZDM3MDNjYTE4ZmRmZTg0NzQ2YmUzMGI3MjdmYzZlY2RlNjI3YTE1Y2YzMjk4NGNiMDY3NjZiMjZlOTZjMTQiLCJpYXQiOjE1MzE5ODY1OTEsIm5iZiI6MTUzMTk4NjU5MSwiZXhwIjoxNTYzNTIyNTkxLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.AqYVcs-YCspA2pyteHvB9jsh18aX8qaJzmlq9oUuXb0PJ_zUwj272itEKscJ4LhMlApt9GhrCtdTEK-90MVMbDVXp1z7kj_Mg9wzULyXVpdj9xQUwkRZsLcINLqpHgrsleZcUuNcuwKiibVLMjRcJ5Jz_eOnbr4E62UxQVUkOjVzEciAjucdI73FepK5HjOaEmW4qjxuxtbO8zeVotQn42yWDsTtRqL8-GNBn4MT2lQuMMS9m89SioVD4WHbSeAURMd1gQbiju1xSqmzUc7rDnNUniIhVQYkmmm39zbCJ2hQlfvTC1CCWz6i-h18AXbKvdSqauRlBIodHklV3mvgqyhkKHFn7EOCf8FUEpTJrwMJVGKuEa8iuCMJnYe7dBvAdqXp-CjgcoD2jiCU6GhilmzTmP2Ec2g-K18Wu4t2aPZlTOoFUpQd6P_P3m7kFn7Dv8Z_UKrJk-mLZA1KV5EfX-QYn95pM0sB3Pqjg-6xllFa8qk9ZdSeDRY8ZN7-23ye1J5-v2GQ3b0m5Mm8cqN0WGzVyma5PkIah7ioBgFN9co6QOdDh_SfHdN_Y74bQdzp2LI97h02O0YQQRYu7z_eBD1FEgzxMzj2CSOs3Z9zl3noLjd1T8mF6A-3qx89dPBZ84WE5SpTaLrSXh7V4hVeLyXZbuBnZ3C7g2ogvt0-W3I";
+  public token: string = "";
   @ViewChild('formslides') formSlide: Slides;
   @ViewChild('sliderbubbles') sliderbubbles: Slides;
   public len: number;
@@ -34,7 +34,7 @@ export class AddCarsPage {
 
   //form 2 data
   public ac_available: boolean = false;
-  public form2data: {no_of_seats:number, min_hire_period: number, max_hire_period: number, min_hire_distance: number, max_hire_distance: number, car_price_hour: number, car_price_kil: number, ac_car_price_hour: number, ac_car_price_kil: number, book_advance: number, car_tags: string};
+  public form2data: {no_of_seats:number, min_hire_period: number, min_hire_distance: number, car_price_hour: number, car_price_kil: number, ac_car_price_hour: number, ac_car_price_kil: number, book_advance: number, car_tags: string};
 
   //form 3 data
   public imagesleft: string[];
@@ -47,7 +47,8 @@ export class AddCarsPage {
               public actionSheetCtrl: ActionSheetController,
               public camera: Camera,
               private alertCtrl: AlertController,
-              public platform: Platform
+              public platform: Platform,
+              public toastCtrl: ToastController
 
   ) {
     //for card slide design
@@ -69,7 +70,7 @@ export class AddCarsPage {
     this.initCarData();
 
     //for form 2
-    this.form2data ={no_of_seats: null, ac_car_price_hour:null, ac_car_price_kil:null, book_advance:null,car_price_hour:null,car_price_kil:null,car_tags:"",max_hire_period:null,min_hire_period:null, min_hire_distance: null, max_hire_distance: null};
+    this.form2data ={no_of_seats: null, ac_car_price_hour:null, ac_car_price_kil:null, book_advance:null,car_price_hour:null,car_price_kil:null,car_tags:"",min_hire_period:null, min_hire_distance: null};
 
     //for form 3
     //for dummies
@@ -173,44 +174,26 @@ export class AddCarsPage {
       if(this.isInvalid(this.form2data.min_hire_period, "Enter valid minimum hire period"))
       return false;
 
-      if(this.isInvalid(this.form2data.max_hire_period, "Enter valid maximum hire period"))
-      return false;
-      if((+this.form2data.min_hire_period) > (+this.form2data.max_hire_period))
-      {
-        this.errormessage = "Minimum hire period cannot be greater than maximum";
-        return false;
-      }
       if(this.isInvalid(this.form2data.min_hire_distance, "Enter valid minimum hire distance"))
       return false;
 
-      if(this.isInvalid(this.form2data.max_hire_distance, "Enter valid maximum hire distance"))
-      return false;
+      // else if(this.isInvalid(this.form2data.car_price_hour, "Enter valid rate per hour (Non-AC)"))
+      // return false;
 
+      // else if(this.isInvalid(this.form2data.car_price_kil, "Enter valid rate per km (Non-AC)"))
+      // return false;
 
+      // else if(this.ac_available)
+      // {
+      //   if(this.isInvalid(this.form2data.ac_car_price_hour, "Enter valid rate per hour (AC)"))
+      //   return false;
 
-      if((+this.form2data.min_hire_distance) > (+this.form2data.max_hire_distance))
-      {
-        this.errormessage = "Minimum hire distance cannot be greater than maximum";
-        return false;
-      }
+      //   if(this.isInvalid(this.form2data.ac_car_price_kil, "Enter valid rate per km (AC)"))
+      //   return false;
+      // }
 
-      else if(this.isInvalid(this.form2data.car_price_hour, "Enter valid rate per hour (Non-AC)"))
-      return false;
-
-      else if(this.isInvalid(this.form2data.car_price_kil, "Enter valid rate per km (Non-AC)"))
-      return false;
-
-      else if(this.ac_available)
-      {
-        if(this.isInvalid(this.form2data.ac_car_price_hour, "Enter valid rate per hour (AC)"))
-        return false;
-
-        if(this.isInvalid(this.form2data.ac_car_price_kil, "Enter valid rate per km (AC)"))
-        return false;
-      }
-
-      else if(this.isInvalid(this.form2data.book_advance, "Enter a valid advance booking fee"))
-      return false;
+      // else if(this.isInvalid(this.form2data.book_advance, "Enter a valid advance booking fee"))
+      // return false;
 
       return true;
 
@@ -249,6 +232,12 @@ export class AddCarsPage {
     (err) => {
       this.responseData = err;
       console.log(this.responseData);
+      const toast = this.toastCtrl.create({
+        message: 'Oops! Something went wrong.',
+        duration: 3000,
+        position: 'top'
+      })
+      toast.present();
      });
 
   }
@@ -273,6 +262,12 @@ export class AddCarsPage {
       this.responseData = err;
       console.log(this.responseData);
       this.carmodels = [];
+      const toast = this.toastCtrl.create({
+        message: 'Oops! Something went wrong.',
+        duration: 3000,
+        position: 'top'
+      })
+      toast.present();
     }
   );
   }
@@ -369,6 +364,12 @@ export class AddCarsPage {
     //console.log(imageData);
    }, (err) => {
     // Handle error
+    const toast = this.toastCtrl.create({
+      message: err,
+      duration: 3000,
+      position: 'top'
+    })
+    toast.present();
    });
 }
 
@@ -388,7 +389,15 @@ export class AddCarsPage {
         else
           this.imagesleft.push(results[i]);
       };
-    });
+    }, (err) => {
+      // Handle error
+      const toast = this.toastCtrl.create({
+        message: err,
+        duration: 3000,
+        position: 'top'
+      })
+      toast.present();
+     });
   }
 
   removeImage(src: string)
@@ -426,9 +435,8 @@ export class AddCarsPage {
     carData.car_price_hour = this.form2data.car_price_hour;
     carData.car_price_kil = this.form2data.car_price_kil;
     carData.min_hire_period = this.form2data.min_hire_period;
-    carData.max_hire_period = this.form2data.max_hire_period;
     carData.min_hire_distance = this.form2data.min_hire_distance;
-    carData.max_hire_distance = this.form2data.max_hire_distance;
+
     carData.no_of_seats = this.form2data.no_of_seats;
     if(this.ac_available)
     {
@@ -472,11 +480,12 @@ export class AddCarsPage {
     }, (err) => {
      this.responseData = err;
      console.log(this.responseData)
-     const alert = this.alertCtrl.create({
-      subTitle: "Something went wrong! Please try again.",
-      buttons: ['OK']
+     const toast = this.toastCtrl.create({
+      message: 'Oops! Something went wrong.',
+      duration: 3000,
+      position: 'top'
     })
-    alert.present();
+    toast.present();
     });
   }
 }

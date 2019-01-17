@@ -7,12 +7,52 @@
           </button>
         </ion-buttons>
     <ion-title style="float:right">
-      Welcome, {{userDetails.name}}
+      Dashboard
     </ion-title>
     
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-<img src='assets/imgs/marge.png' style="width: 100%;">
+<ion-content class="card-background-page">
+<!-- <img src='assets/imgs/marge.png' style="width: 100%;"> -->
+    
+    <ion-card>
+        <img src="assets/imgs/banner.jpg" style="width: 100%;"/>
+        <div class="card-title">Welcome {{userDetails.user.name}}</div>
+        <p><strong>Enquiry & Booking Details</strong></p>
+        <ion-grid>
+            <ion-row>
+              <ion-col *ngIf="car_enquiry"> {{car_enquiry}} Car Enquiries</ion-col>
+              <ion-col *ngIf="caterer_enquiry"> {{caterer_enquiry}} Caterer Enquiries</ion-col>
+              <ion-col *ngIf="hall_enquiry">{{hall_enquiry}} Banquet Hall Enquiries</ion-col>
+
+              <ion-col *ngIf="!car_enquiry && !caterer_enquiry && !hall_enquiry">You have no enquiries yet!</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col *ngIf="car_booking">{{car_booking}} Car Bookings</ion-col>
+              <ion-col *ngIf="caterer_booking">{{caterer_booking}} Caterer Bookings</ion-col>
+              <ion-col *ngIf="hall_booking">{{hall_booking}} Banquet Hall Bookings</ion-col>
+             
+              <ion-col *ngIf="!car_booking && !caterer_booking && !hall_booking">You have no bookings yet!</ion-col>
+            </ion-row>
+          </ion-grid>
+      </ion-card>
+    <!-- <ion-card-header>
+        Welcome, {{userDetails.user.name}}
+    </ion-card-header>
+    <ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col>Car Enquiries</ion-col>
+        <ion-col>Caterer Enquiries</ion-col>
+        <ion-col>Banquet Hall Enquiries</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Car Bookings</ion-col>
+        <ion-col>Caterer Bookings</ion-col>
+        <ion-col>Banquet Hall Bookings</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content> -->
+
 </ion-content>

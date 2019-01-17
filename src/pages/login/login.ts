@@ -42,43 +42,46 @@ export class LoginPage  implements OnInit{
     });
 
   }
-  login(){
+  login()
+  {
     let loader = this.loadingCtrl.create({
       content: 'Please wait...'
     });
     loader.present();
     console.log(JSON.stringify(this.userData))
     this.authService.postData(this.userData,'login').then((result) => {
+      loader.dismiss();
      this.responseData = result;
 
-     if(this.responseData.success)
+     if(this.responseData.status)
      {
-       loader.dismiss();
      console.log(this.responseData);
      localStorage.setItem('userData', JSON.stringify(this.responseData));
      console.log("Local storage "+JSON.parse(localStorage.getItem('userData')));
      this.navCtrl.push(DashboardPage);
      }
-     else{
-      loader.dismiss();
-        console.log(this.responseData.error);
+     else
+     {
+
+        console.log(this.responseData.message);
         const alert = this.alertCtrl.create({
-          subTitle: this.responseData.error,
+          subTitle: this.responseData.message,
           buttons: ['OK']
         })
         alert.present();
       }
-   }, (err) => {
+   },
+   (err) =>
+   {
     loader.dismiss();
     this.responseData = err;
     console.log(this.responseData)
     const alert = this.alertCtrl.create({
-      subTitle: this.responseData,
+      subTitle: this.responseData.message,
       buttons: ['OK']
     })
     alert.present();
    });
-
  }
 
  register(){
@@ -88,8 +91,5 @@ export class LoginPage  implements OnInit{
 
 forgetPassword(){
   this.navCtrl.push(ForgetPasswordPage);
-}
-signin(){
-  this.navCtrl.push(DashboardPage);
 }
 }

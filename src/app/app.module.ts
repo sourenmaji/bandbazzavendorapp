@@ -48,6 +48,7 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { ErrorPageModule } from './../pages/error/error.module';
 import { NetworkProvider } from './../providers/network-provider/network_provider';
 import { MyApp } from './app.component';
+import { AddOfflineBookingPageModule } from '../pages/add-offline-booking/add-offline-booking.module';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { MyApp } from './app.component';
     AddMakeupArtistPageModule,
     ViewProductMakeupPageModule,
     AddMakeupPlanPageModule,
-    ErrorPageModule
+    ErrorPageModule,
+    AddOfflineBookingPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

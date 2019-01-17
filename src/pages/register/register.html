@@ -18,30 +18,31 @@
         </ion-item>
         <ion-item no-lines *ngIf="( signupform.get('name').hasError('minlength') || signupform.get('name').hasError('maxlength') ||signupform.get('name').hasError('pattern') ||signupform.get('name').hasError('required') ) && signupform.get('name').touched">
           <div class="error" *ngIf="signupform.get('name').hasError('required') && signupform.get('name').touched">
-            Please enter your name
+            Please enter your name.
           </div>
           <div class="error" *ngIf="signupform.get('name').hasError('minlength') && signupform.get('name').touched">
-            Minimum 4 characters
+            Minimum 4 characters.
           </div>
           <div class="error" *ngIf="signupform.get('name').hasError('maxlength') && signupform.get('name').touched">
-            Maximum 30 characters
+            Maximum 30 characters.
           </div>
           <div class="error" *ngIf="signupform.get('name').hasError('pattern') && signupform.get('name').touched">
-            pattern Your name must contain alphabets and spaces only
+            Your name must contain alphabets and spaces only.
           </div>
         </ion-item>
         <ion-item>
-          <ion-label floating>Email id or Phone<span style="color: red">*</span></ion-label>
-          <ion-input type="email" [(ngModel)]="userData.user"
+          <ion-label floating>Email or Phone<span style="color: red">*</span></ion-label>
+          <ion-input disabled="{{isDisabled}}" type="text" [(ngModel)]="userData.user"
           formControlName="user" [class.error1]="!signupform.controls.user.valid && signupform.controls.user.dirty"
           (keyup)="showVal(this.value)">
           </ion-input>
-          <button *ngIf="!( signupform.get('user').hasError('minlength') || signupform.get('user').hasError('pattern') ||signupform.get('user').hasError('required') ) && !buttonClicked && otpButton"
-                      ion-button  clear item-right (click)="sendOtp()" ion-text color="light">Send OTP</button>
+          <button *ngIf="!( signupform.get('user').hasError('minlength') || signupform.get('user').hasError('pattern') ||signupform.get('user').hasError('required') ) && !buttonClicked && otpButton" ion-button  clear item-right (click)="sendOtp()" ion-text color="light">Send OTP</button>
+          <button *ngIf="isDisabled"
+          ion-button  clear item-right (click)="reSendOtp()" ion-text color="light">Resend OTP</button>
         </ion-item>
         <ion-item no-lines *ngIf="( signupform.get('user').hasError('minlength') || signupform.get('user').hasError('pattern') ||signupform.get('user').hasError('required') ) && signupform.get('user').touched">
           <div class="error" *ngIf="signupform.get('user').hasError('required') && signupform.get('user').touched">
-            Please enter your email or phone
+            Please enter your email or phone no.
           </div>
           <div class="error" *ngIf="signupform.get('user').hasError('pattern') && signupform.get('user').touched">
             This value should be a valid email or valid phone no.
@@ -94,7 +95,8 @@
             Your passwords does not match
           </div>
         </ion-item>
-        <button  ion-button block color="success" [disabled]="signupform.invalid" (click)="register()">Register</button><br/>
+
+        <button  ion-button block color="success" [disabled]="signupform.invalid|| !disableButton" (click)="register()">Register</button><br/>
         <div class="alrdy-usr"><span>Already a user? </span><a href="#" (click)="login()" ion-text color="buttons">Login Now.</a></div>
         </form>
       </ion-list>

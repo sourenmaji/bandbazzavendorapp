@@ -1,9 +1,7 @@
 <ion-header>
-
   <ion-navbar color="headers">
     <ion-title>Login</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content padding>
@@ -18,10 +16,10 @@
           </ion-item>
           <ion-item no-lines *ngIf="( signinform.get('email').hasError('minlength') || signinform.get('email').hasError('pattern') ||signinform.get('email').hasError('required') ) && signinform.get('email').touched">
             <div class="error" *ngIf="signinform.get('email').hasError('required') && signinform.get('email').touched">
-              Please enter your email or phone
+              Please enter your email or phone no.
             </div>
             <div class="error" *ngIf="signinform.get('email').hasError('pattern') && signinform.get('email').touched">
-              This value should be a valid email or valid phone No.
+              This value should be a valid email or valid phone no.
             </div>
           </ion-item>
           <ion-item>
@@ -31,7 +29,7 @@
           </ion-item>
           <ion-item no-lines *ngIf="( signinform.get('password').hasError('minlength') || signinform.get('password').hasError('maxlength') ||signinform.get('password').hasError('required') ) && signinform.get('password').touched">
             <div class="error" *ngIf="signinform.get('password').hasError('required') && signinform.get('password').touched">
-             Please enter your password
+             Please enter your password.
             </div>
             <div class="error" *ngIf="signinform.get('password').hasError('minlength') && signinform.get('password').touched">
               This value is too short. It should have 6 characters or more.
@@ -42,12 +40,10 @@
           </ion-item>
 
          <button ion-button block color="success" [disabled]="signinform.invalid" (click)="login()" style="margin-top: 20px;">Login</button><br>
-          <!-- <button ion-button block color= "success" (click)="signin()">Login</button> -->
           <a href="#" (click)="forgetPassword()" ion-text color="energy">Forget Password</a><br>
         New to Bandbazza? <a href="#" (click)="register()" ion-text color="buttons">Register Now.</a>
         </form>
       </ion-list>
     </ion-card-content>
   </ion-card>
-
 </ion-content>

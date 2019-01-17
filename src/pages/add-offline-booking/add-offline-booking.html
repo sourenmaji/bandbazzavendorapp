@@ -1,0 +1,237 @@
+<ion-header>
+  <ion-navbar color="headers">
+    <ion-title>Add Offline Booking</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card *ngIf="category==2">
+    <ion-card-content>
+      <form novalidate [formGroup]="addHallOfflineForm" (ngSubmit)="addOfflineBooking()">
+        <ion-item>
+          <ion-label>Hall Name <span style="color: red">*</span></ion-label>
+          <ion-select formControlName="hall_id">
+            <ion-option value="3">Hall 1</ion-option>
+            <ion-option value="4">Hall 2</ion-option>
+            <ion-option value="5">Hall 3</ion-option>
+            <ion-option value="10">Hall 4</ion-option>
+            <ion-option value="12">Hall 5</ion-option>
+            <ion-option value="13">Hall 6</ion-option>
+            <ion-option value="14">Hall 7</ion-option>
+            <ion-option value="21">Hall 8</ion-option>
+          </ion-select>
+        </ion-item>
+        <p class="error" *ngIf="addHallOfflineForm.get('hall_id').hasError('required') && addHallOfflineForm.get('hall_id').touched">
+          This field is required
+        </p>
+        
+        <ion-item>
+          <ion-label floating>Booking From <span style="color: red">*</span></ion-label>
+          <ion-datetime displayFormat="YYYY-MM-DD" formControlName="book_from">
+          </ion-datetime>
+        </ion-item>
+        <p class="error" *ngIf="addHallOfflineForm.get('book_from').hasError('required') && addHallOfflineForm.get('book_from').touched">
+          This field is required
+        </p>
+        
+        <ion-item>
+          <ion-label floating>Booking To <span style="color: red">*</span></ion-label>
+          <ion-datetime displayFormat="YYYY-MM-DD" formControlName="book_to"></ion-datetime>
+        </ion-item>
+        <p class="error" *ngIf="addHallOfflineForm.get('book_to').hasError('required') && addHallOfflineForm.get('book_to').touched">
+          This field is required
+        </p>
+        
+        <ion-item>
+          <ion-label floating>Booking Amount <span style="color: red">*</span></ion-label>
+          <ion-input type="text" formControlName="booking_amount">
+          </ion-input>
+        </ion-item>
+        <p class="error" *ngIf="addHallOfflineForm.get('booking_amount').hasError('required') && addHallOfflineForm.get('booking_amount').touched">
+          This field is required
+        </p>
+        
+        <ion-item>
+          <ion-label floating>Booking Advance <span style="color: red">*</span></ion-label>
+          <ion-input type="number"
+          formControlName="booking_advance"></ion-input>
+        </ion-item>
+        <p class="error" *ngIf="addHallOfflineForm.get('booking_advance').hasError('required') && addHallOfflineForm.get('booking_advance').touched">
+          This field is required
+        </p>
+        
+        <ion-item>
+          <ion-label floating>Customer Name <span style="color: red">*</span></ion-label>
+          <ion-input type="text"
+          formControlName="cust_name"></ion-input>
+        </ion-item>
+        <p class="error" *ngIf="addHallOfflineForm.get('cust_name').hasError('required') && addHallOfflineForm.get('cust_name').touched">
+          This field is required
+        </p>
+        
+        <ion-item>
+          <ion-label floating>Customer Phone No. <span style="color: red">*</span></ion-label>
+          <ion-input type="number"
+          formControlName="cust_phone"></ion-input>
+        </ion-item>
+        <p class="error" *ngIf="addHallOfflineForm.get('cust_phone').hasError('required') && addHallOfflineForm.get('cust_phone').touched">
+          This field is required
+        </p>
+        
+        <button type="submit" ion-button block color="success" [disabled]="addHallOfflineForm.invalid">Add Hall Booking</button><br/>
+      </form>
+      
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="category==3">
+    <ion-card-content>
+      <form novalidate [formGroup]="addCarOfflineForm" (ngSubmit)="addOfflineBooking()">
+        <ion-item>
+          <ion-label>Car Name <span style="color: red">*</span></ion-label>
+          <ion-select formControlName="car_id">
+              <ion-option value="2">Chevrolet-Sail</ion-option>
+              <ion-option value="11">BMW-i8</ion-option>
+              <ion-option value="12">Mitsubishi-Pajero</ion-option>
+          </ion-select>
+        </ion-item>
+        <p class="error" *ngIf="addCarOfflineForm.get('car_id').hasError('required') && addCarOfflineForm.get('car_id').touched">
+          This field is required
+        </p>
+        
+        <ion-item>
+          <ion-label floating>Booking From <span style="color: red">*</span></ion-label>
+          <ion-datetime displayFormat="YYYY-MM-DD HH:mm:ss" pickerFormat="YYYY-MM-DD h:mm A" formControlName="book_from">
+          </ion-datetime>
+        </ion-item>
+        <p class="error" *ngIf="addCarOfflineForm.get('book_from').hasError('required') && addCarOfflineForm.get('book_from').touched">
+          This field is required
+        </p>
+        
+        <ion-item>
+          <ion-label floating>Booking To <span style="color: red">*</span></ion-label>
+          <ion-datetime displayFormat="YYYY-MM-DD HH:mm:ss" pickerFormat="YYYY-MM-DD h:mm A" formControlName="book_to"></ion-datetime>
+        </ion-item>
+        <p class="error" *ngIf="addCarOfflineForm.get('book_to').hasError('required') && addCarOfflineForm.get('book_to').touched">
+          This field is required
+        </p>
+        
+        <ion-item>
+          <ion-label floating>Booking Amount <span style="color: red">*</span></ion-label>
+          <ion-input type="text" formControlName="booking_amount">
+          </ion-input>
+        </ion-item>
+        <p class="error" *ngIf="addCarOfflineForm.get('booking_amount').hasError('required') && addCarOfflineForm.get('booking_amount').touched">
+          This field is required
+        </p>
+        
+        <ion-item>
+          <ion-label floating>Booking Advance <span style="color: red">*</span></ion-label>
+          <ion-input type="number"
+          formControlName="booking_advance"></ion-input>
+        </ion-item>
+        <p class="error" *ngIf="addCarOfflineForm.get('booking_advance').hasError('required') && addCarOfflineForm.get('booking_advance').touched">
+          This field is required
+        </p>
+        
+        <ion-item>
+          <ion-label floating>Customer Name <span style="color: red">*</span></ion-label>
+          <ion-input type="text"
+          formControlName="cust_name"></ion-input>
+        </ion-item>
+        <p class="error" *ngIf="addCarOfflineForm.get('cust_name').hasError('required') && addCarOfflineForm.get('cust_name').touched">
+          This field is required
+        </p>
+        
+        <ion-item>
+          <ion-label floating>Customer Phone No. <span style="color: red">*</span></ion-label>
+          <ion-input type="number"
+          formControlName="cust_phone"></ion-input>
+        </ion-item>
+        <p class="error" *ngIf="addCarOfflineForm.get('cust_phone').hasError('required') && addCarOfflineForm.get('cust_phone').touched">
+          This field is required
+        </p>
+        
+        <button type="submit" ion-button block color="success" [disabled]="addCarOfflineForm.invalid">Add Car Booking</button><br/>
+      </form>
+      
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="category==4">
+    <ion-card-content>
+      <form novalidate [formGroup]="addCatererOfflineForm" (ngSubmit)="addOfflineBooking()">
+        <ion-item>
+          <ion-label>Package Name <span style="color: red">*</span></ion-label>
+          <ion-select formControlName="package_id">
+              <ion-option value="1">Package 1</ion-option>
+              <ion-option value="2">Package 2</ion-option>
+              <ion-option value="10">Package 3</ion-option>
+              <ion-option value="11">Package 1</ion-option>
+          </ion-select>
+        </ion-item>
+        <p class="error" *ngIf="addCatererOfflineForm.get('package_id').hasError('required') && addCatererOfflineForm.get('package_id').touched">
+          This field is required
+        </p>
+        
+        <ion-item>
+          <ion-label floating>Booking Date <span style="color: red">*</span></ion-label>
+          <ion-datetime displayFormat="YYYY-MM-DD" formControlName="book_date">
+          </ion-datetime>
+        </ion-item>
+        <p class="error" *ngIf="addCatererOfflineForm.get('book_date').hasError('required') && addCatererOfflineForm.get('book_date').touched">
+          This field is required
+        </p>
+        
+        <ion-item>
+          <ion-label floating>No. of Plates <span style="color: red">*</span></ion-label>
+          <ion-input type="text"
+          formControlName="cust_name"></ion-input>
+        </ion-item>
+        <p class="error" *ngIf="addCatererOfflineForm.get('no_of_plates').hasError('required') && addCatererOfflineForm.get('no_of_plates').touched">
+          This field is required
+        </p>
+        
+        <ion-item>
+          <ion-label floating>Booking Amount <span style="color: red">*</span></ion-label>
+          <ion-input type="text" formControlName="booking_amount">
+          </ion-input>
+        </ion-item>
+        <p class="error" *ngIf="addCatererOfflineForm.get('booking_amount').hasError('required') && addCatererOfflineForm.get('booking_amount').touched">
+          This field is required
+        </p>
+        
+        <ion-item>
+          <ion-label floating>Booking Advance <span style="color: red">*</span></ion-label>
+          <ion-input type="number"
+          formControlName="booking_advance"></ion-input>
+        </ion-item>
+        <p class="error" *ngIf="addCatererOfflineForm.get('booking_advance').hasError('required') && addCatererOfflineForm.get('booking_advance').touched">
+          This field is required
+        </p>
+        
+        <ion-item>
+          <ion-label floating>Customer Name <span style="color: red">*</span></ion-label>
+          <ion-input type="text"
+          formControlName="cust_name"></ion-input>
+        </ion-item>
+        <p class="error" *ngIf="addCatererOfflineForm.get('cust_name').hasError('required') && addCatererOfflineForm.get('cust_name').touched">
+          This field is required
+        </p>
+        
+        <ion-item>
+          <ion-label floating>Customer Phone No. <span style="color: red">*</span></ion-label>
+          <ion-input type="number"
+          formControlName="cust_phone"></ion-input>
+        </ion-item>
+        <p class="error" *ngIf="addCatererOfflineForm.get('cust_phone').hasError('required') && addCatererOfflineForm.get('cust_phone').touched">
+          This field is required
+        </p>
+        
+        <button type="submit" ion-button block color="success" [disabled]="addCatererOfflineForm.invalid">Add Caterer Booking</button><br/>
+      </form>
+      
+    </ion-card-content>
+  </ion-card>
+</ion-content>

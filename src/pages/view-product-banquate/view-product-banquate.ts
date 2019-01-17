@@ -36,10 +36,10 @@ export class ViewProductBanquatePage implements OnInit{
   this.log = this.productDetails.details.lng;
   this.productImages = [];
 
-  this.productImages.push("data:image/jpeg;base64,"+this.productDetails.details.view);
+  this.productImages.push(this.productDetails.details.view);
 
 this.productDetails.details.images.forEach(element => {
-    this.productImages.push("data:image/jpeg;base64,"+element.url);
+    this.productImages.push(element.url);
   });
 
   console.log(this.productDetails);

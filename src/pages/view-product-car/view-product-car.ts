@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
-import { ActionSheetController, AlertController, IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { ActionSheetController, AlertController, IonicPage, NavController, NavParams, Platform, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
 
 
@@ -26,27 +26,38 @@ export class ViewProductCarPage implements OnInit{
   userPostData = {"user":"","token":""};
   userData = {carId: "", miniHirePeriod: "",seatNo: "",minHireDistance: "",advanceAmount: "",nonAcPriceHourly: "",nonAcpriceKm: "",acPriceHourly: "",acpriceKm:"", availableAc: 0, images: []};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController,
-    public camera: Camera, public authService: AuthServiceProvider,
-    public imagePicker: ImagePicker , public alertCtrl: AlertController, public platform: Platform) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public actionSheetCtrl: ActionSheetController,
+    public camera: Camera, 
+    public authService: AuthServiceProvider,
+    public imagePicker: ImagePicker , 
+    public alertCtrl: AlertController, 
+    public platform: Platform, 
+    public toastCtrl: ToastController)
+    {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userPostData.token = data.token;
   this.productDetails = this.navParams.get('productDetails');
+  console.log(this.productDetails)
 
   this.requestType = this.navParams.get('requestType');
   this.productValue = this.productDetails.details.car;
+  console.log(this.productValue);
   if(this.productValue.ac_car_price_hour != null){
     this.acAvailable = true;
     this.userData.availableAc = 1;
-  }else{
+  }
+  else{
     this.acAvailable = false;
     this.userData.availableAc = 0;
   }
   this.productImages = [];
-  this.productImages.push("data:image/jpeg;base64,"+this.productValue.cover_image);
+  this.productImages.push(this.productValue.cover_image);
   console.log(this.productImages);
   this.productDetails.details.images.forEach(element => {
-    this.productImages.push("data:image/jpeg;base64,"+element.url);
+    this.productImages.push(element.url);
   });
   console.log(this.productImages);
 
@@ -68,11 +79,11 @@ ngOnInit() {
   let AMOUNTPATTERN = /^[0-9]/;
   this.editProductform = new FormGroup({
     miniHirePeriod: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
-    seatNo: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
+    // seatNo: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
     minHireDistance: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
-    advanceAmount: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
-    nonAcPriceHourly: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
-    nonAcpriceKm: new FormControl('', [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
+    advanceAmount: new FormControl('', [Validators.pattern(AMOUNTPATTERN)]),
+    nonAcPriceHourly: new FormControl('', [Validators.pattern(AMOUNTPATTERN)]),
+    nonAcpriceKm: new FormControl('', [Validators.pattern(AMOUNTPATTERN)]),
     acPriceHourly: new FormControl('', [ Validators.pattern(AMOUNTPATTERN)]),
     availableAc: new FormControl('',  Validators.compose([])),
     carId: new FormControl('',  Validators.compose([])),
@@ -135,6 +146,12 @@ this.camera.getPicture(options).then((imageData) => {
   //console.log(imageData);
  }, (err) => {
   // Handle error
+   const toast = this.toastCtrl.create({
+    message: err,
+    duration: 3000,
+    position: 'top'
+  })
+  toast.present();
  });
 
 }
@@ -153,7 +170,15 @@ pickImage()
     for(let i=0; i < results.length;i++){
         this.productImages.push("data:image/jpeg;base64,"+results[i]);
     };
-  });
+  }, (err) => {
+    // Handle error
+     const toast = this.toastCtrl.create({
+      message: err,
+      duration: 3000,
+      position: 'top'
+    })
+    toast.present();
+   });
 }
 
 uploadData()
@@ -180,7 +205,6 @@ uploadData()
       const alert = this.alertCtrl.create({
         subTitle: this.responseData.message,
         buttons: ['OK']
-
       })
       alert.present();
     }
@@ -188,8 +212,14 @@ uploadData()
   }, (err) => {
    this.responseData = err;
    console.log(this.responseData)
-
-  });
+ // Handle error
+ const toast = this.toastCtrl.create({
+  message: err,
+  duration: 3000,
+  position: 'top'
+})
+toast.present();
+});
 }
 
 

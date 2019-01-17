@@ -122,13 +122,7 @@
                   <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.min_hire_period" placeholder="Min. Hire Period">
                   </ion-input>
                 </ion-item>
-                <ion-item>
-                  <ion-label stacked>
-                    <p>Maximum Hire Period (in hrs)<span style="color: red" > *</span></p>
-                  </ion-label>
-                  <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.max_hire_period" placeholder="Max. Hire Period">
-                  </ion-input>
-                </ion-item>
+
               <ion-item>
                   <ion-label stacked>
                     <p>Minimum Hire Distance (in km)<span style="color: red" > *</span></p>
@@ -136,21 +130,14 @@
                   <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.min_hire_distance" placeholder="Min. Hire Distance">
                   </ion-input>
                 </ion-item>
-              <ion-item>
-                  <ion-label stacked>
-                    <p>Maximum Hire Distance (in km)<span style="color: red" > *</span></p>
-                  </ion-label>
-                  <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.max_hire_distance" placeholder="Max. Hire Distance">
-                  </ion-input>
-                  </ion-item>
 
                   <ion-item>
-                  <ion-label stacked><p>Price Per Hour (Non-AC)<span style="color: red" > *</span></p></ion-label>
+                  <ion-label stacked><p>Price Per Hour (Non-AC)</p></ion-label>
                   <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.car_price_hour" placeholder="Non-AC Price">
                   </ion-input>
                </ion-item>
                <ion-item>
-                  <ion-label stacked><p>Price Per Km (Non-AC)<span style="color: red" > *</span></p></ion-label>
+                  <ion-label stacked><p>Price Per Km (Non-AC)</p></ion-label>
                   <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.car_price_kil" placeholder="Non-AC Price">
                   </ion-input>
                 </ion-item>
@@ -161,13 +148,13 @@
               <div *ngIf="ac_available" >
                   <ion-item>
 
-                    <ion-label stacked><p>Price Per Hour (AC)<span style="color: red" > *</span></p></ion-label>
+                    <ion-label stacked><p>Price Per Hour (AC)</p></ion-label>
                     <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.ac_car_price_hour" placeholder="AC Price">
 
                     </ion-input>
                   </ion-item>
                 <ion-item>
-                    <ion-label stacked><p>Price Per Km (AC)<span style="color: red" > *</span></p></ion-label>
+                    <ion-label stacked><p>Price Per Km (AC)</p></ion-label>
                     <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.ac_car_price_kil" placeholder="AC Price">
 
                     </ion-input>
@@ -175,7 +162,7 @@
               </div>
               <ion-item>
                 <ion-label stacked>
-                  <p>Advance Amount<span style="color: red" > *</span></p>
+                  <p>Advance Amount</p>
                 </ion-label>
                 <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.book_advance" placeholder="Advance Amount"></ion-input>
               </ion-item>

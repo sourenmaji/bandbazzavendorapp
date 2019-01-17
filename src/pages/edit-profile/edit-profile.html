@@ -51,8 +51,7 @@
                       (keyup)="showVal(this.value)"></ion-input>
                       <button *ngIf="!( editform.get('phone_no').hasError('minlength') || editform.get('phone_no').hasError('pattern') || editform.get('phone_no').hasError('required') ) && !buttonClicked && otpButton"
                       ion-button  clear item-right (click)="sendOtp()">Send OTP</button>
-                      <button *ngIf="isDisabled"
-                      ion-button  clear item-right (click)="reSendOtp()">Resend OTP</button>
+                      <button *ngIf="isDisabled" ion-button  clear item-right (click)="reSendOtp()">Resend OTP</button>
                     </ion-item>
 
                     <ion-item no-lines *ngIf="( editform.get('phone_no').hasError('minlength') || editform.get('phone_no').hasError('pattern') ||editform.get('phone_no').hasError('required')) && editform.get('phone_no').touched">

@@ -120,42 +120,24 @@
                       Please enter only digit
                     </div>
                   </ion-item>
+
                   <ion-item>
-                      <ion-label floating>No. Of Seats <span style="color: red">*</span></ion-label>
-                      <ion-input type="number" [(ngModel)]="userData.seatNo" value="{{productValue.no_of_seats}}"
-                      formControlName="seatNo" [class.error1]="!editProductform.controls.seatNo.valid && editProductform.controls.seatNo.dirty"></ion-input>
-                    </ion-item>
-                    <ion-item no-lines *ngIf="( editProductform.get('seatNo').hasError('required') ||editProductform.get('seatNo').hasError('pattern')) && editProductform.get('seatNo').touched">
-                      <div class="error" *ngIf="editProductform.get('seatNo').hasError('required') && editProductform.get('seatNo').touched">
-                        Please enter no. of seats
-                      </div>
-                      <div class="error" *ngIf="editProductform.get('seatNo').hasError('pattern') && editProductform.get('seatNo').touched">
-                        Please enter only digit
-                      </div>
-                    </ion-item>
-                  <ion-item>
-                      <ion-label floating>Advance Amount <span style="color: red">*</span></ion-label>
+                      <ion-label floating>Advance Amount </ion-label>
                       <ion-input type="number" [(ngModel)]="userData.advanceAmount" value="{{productValue.book_advance}}"
                       formControlName="advanceAmount" [class.error1]="!editProductform.controls.advanceAmount.valid && editProductform.controls.advanceAmount.dirty"></ion-input>
                     </ion-item>
-                    <ion-item no-lines *ngIf="( editProductform.get('advanceAmount').hasError('required') ||editProductform.get('advanceAmount').hasError('pattern')) && editProductform.get('advanceAmount').touched">
-                      <div class="error" *ngIf="editProductform.get('advanceAmount').hasError('required') && editProductform.get('advanceAmount').touched">
-                        Please enter advance amount
-                      </div>
+                    <ion-item no-lines *ngIf="(editProductform.get('advanceAmount').hasError('pattern')) && editProductform.get('advanceAmount').touched">
                       <div class="error" *ngIf="editProductform.get('advanceAmount').hasError('pattern') && editProductform.get('advanceAmount').touched">
                         Please enter only digit
                       </div>
                     </ion-item>
                   <ion-item>
-                    <ion-label floating>Price(Non Ac)<small> (per hour) </small> <span style="color: red">*</span></ion-label>
+                    <ion-label floating>Price(Non Ac)<small> (per hour) </small></ion-label>
                     <ion-input type="number" [(ngModel)]="userData.nonAcPriceHourly" value="{{productValue.car_price_hour}}"
                     formControlName="nonAcPriceHourly" [class.error1]="!editProductform.controls.nonAcPriceHourly.valid && editProductform.controls.nonAcPriceHourly.dirty">
                   </ion-input>
                   </ion-item>
-                  <ion-item no-lines *ngIf="( editProductform.get('nonAcPriceHourly').hasError('required') ||editProductform.get('nonAcPriceHourly').hasError('pattern')) && editProductform.get('nonAcPriceHourly').touched">
-                    <div class="error" *ngIf="editProductform.get('nonAcPriceHourly').hasError('required') && editProductform.get('nonAcPriceHourly').touched">
-                      Please enter Price
-                    </div>
+                  <ion-item no-lines *ngIf="( editProductform.get('nonAcPriceHourly').hasError('pattern')) && editProductform.get('nonAcPriceHourly').touched">
                     <div class="error" *ngIf="editProductform.get('nonAcPriceHourly').hasError('pattern') && editProductform.get('nonAcPriceHourly').touched">
                       Please enter only digit
                     </div>
@@ -166,10 +148,8 @@
                     formControlName="nonAcpriceKm" [class.error1]="!editProductform.controls.nonAcpriceKm.valid && editProductform.controls.nonAcpriceKm.dirty">
                   </ion-input>
                   </ion-item>
-                  <ion-item no-lines *ngIf="(editProductform.get('nonAcpriceKm').hasError('required') ||editProductform.get('nonAcpriceKm').hasError('pattern') ) && editProductform.get('nonAcpriceKm').touched">
-                      <div class="error" *ngIf="editProductform.get('nonAcpriceKm').hasError('required') && editProductform.get('nonAcpriceKm').touched">
-                          Please enter price
-                        </div>
+                  <ion-item no-lines *ngIf="(editProductform.get('nonAcpriceKm').hasError('pattern') ) && editProductform.get('nonAcpriceKm').touched">
+
                     <div class="error" *ngIf="editProductform.get('nonAcpriceKm').hasError('pattern') && editProductform.get('nonAcpriceKm').touched">
                       Please enter only digit
                     </div>
@@ -185,7 +165,7 @@
                     </ion-item>
                     <div *ngIf="acAvailable">
                     <ion-item>
-                        <ion-label floating>Price(Ac)<small> (per hour) </small> <span style="color: red">*</span></ion-label>
+                        <ion-label floating>Price(Ac)<small> (per hour) </small> </ion-label>
                         <ion-input type="number" [(ngModel)]="userData.acPriceHourly" value="{{productValue.ac_car_price_hour}}"
                         formControlName="acPriceHourly" [class.error1]="!editProductform.controls.acPriceHourly.valid && editProductform.controls.acPriceHourly.dirty">
                       </ion-input>

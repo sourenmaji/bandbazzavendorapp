@@ -30,10 +30,10 @@ export class ViewProductCatererPage implements OnInit{
   this.productDetails = this.navParams.get('productDetails');
   this.productValue = this.productDetails.details.package;
   this.productImages = [];
-  this.productImages.push("data:image/jpeg;base64,"+this.productValue.cover_image);
+  this.productImages.push(this.productValue.cover_image);
 
   this.productDetails.details.images.forEach(element => {
-    this.productImages.push("data:image/jpeg;base64,"+element.url);
+    this.productImages.push(element.url);
   });
   let backAction =  platform.registerBackButtonAction(() => {
     this.navCtrl.pop();
