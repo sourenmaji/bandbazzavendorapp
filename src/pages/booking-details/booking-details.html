@@ -27,7 +27,7 @@
           </ion-card-title>
         <p *ngIf="booking.module==2">
           <li>{{booking.details.banquet_name}}</li>
-          <li> Duration: {{booking.details.book_from | date: 'MMM d, yyyy'}} - {{booking.details.book_to | date: 'MMM d, yyyy'}} ({{booking.details.no_of_days}} hours)</li>
+          <li> Duration: {{booking.details.book_from | date: 'MMM d, yyyy'}} - {{booking.details.book_to | date: 'MMM d, yyyy'}} ({{booking.details.no_of_days}} day(s))</li>
           <li *ngIf="booking.type == 'Online'"> Rate: Rs {{booking.details.book_rate}}/day</li>
           <li *ngIf="booking.type == 'Offline'"> Rate: Rs {{booking.details.book_amount}}/day</li>
           <li> Book Advance: Rs {{booking.details.book_advance}}</li>

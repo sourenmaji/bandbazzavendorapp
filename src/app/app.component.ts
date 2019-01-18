@@ -20,8 +20,10 @@ import { NetworkProvider } from './../providers/network-provider/network_provide
 @Component({
   templateUrl: 'app.html'
 })
+
 export class MyApp {
-  rootPage: any = WelcomePage;
+  @ViewChild('nav') navCtrl: NavController;
+  rootPage: any;
   dashboardPage = DashboardPage;
   profilePage = ProfilePage;
   homePage = HomePage;
@@ -31,10 +33,8 @@ export class MyApp {
   bookingsPage = BookingsPage;
   userDetails : any;
   responseData: any;
-  userPostData = {"user":"","token":""};
-
-  @ViewChild('nav') nav: NavController;
-
+  loggedIn: any;
+  
   constructor(public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
@@ -45,87 +45,84 @@ export class MyApp {
     public networkProvider: NetworkProvider,
     public alertCtrl: AlertController,
     // public fcm: FCM
-    ) {
-
+    )
+    {
       platform.ready().then(() => {
         // Okay, so the platform is ready and our plugins are available.
         // Here you can do any higher level native things you might need.
-
-        statusBar.styleDefault();
         splashScreen.hide();
+        statusBar.styleBlackTranslucent()
+        
+        //     fcm.getToken().then(device_token => {
+        //         localStorage.setItem('device_token', device_token)
+        //     }, (err) => {
+        //       console.log(err);
+        //     });
+        
+        //     fcm.onNotification().subscribe(data => {
+        //       if(data.wasTapped){
+        //         alert("Received in background");
+        //         this.goToPage(data);
+        //       }
+        //       else
+        //       {
+        //         this.scheduleNotification(data);
+        //         alert("Received in foreground");
+        //       };
+        //     });
+        
+        //     fcm.onTokenRefresh().subscribe(refresh_token => {
+        //       localStorage.setItem('device_token', refresh_token);
+        //     }, (err) => {
+        //       console.log(err);
+        //     });
+        
+        //     this.networkProvider.initializeNetworkEvents();
+        //    this.networkProvider.getNetworkState();
+        
+        //     // Offline event
+        //  this.events.subscribe('network:offline', () => {
+        //      this.nav.push(ErrorPage);
+        //  });
 
-    //     fcm.getToken().then(device_token => {
-    //         localStorage.setItem('device_token', device_token)
-    //     }, (err) => {
-    //       console.log(err);
-    //     });
-
-    //     fcm.onNotification().subscribe(data => {
-    //       if(data.wasTapped){
-    //         alert("Received in background");
-    //         this.goToPage(data);
-    //       }
-    //       else
-    //       {
-    //         this.scheduleNotification(data);
-    //         alert("Received in foreground");
-    //       };
-    //     });
-
-    //     fcm.onTokenRefresh().subscribe(refresh_token => {
-    //       localStorage.setItem('device_token', refresh_token);
-    //     }, (err) => {
-    //       console.log(err);
-    //     });
-
-    //     this.networkProvider.initializeNetworkEvents();
-    //    this.networkProvider.getNetworkState();
-
-    //     // Offline event
-    //  this.events.subscribe('network:offline', () => {
-    //      this.nav.push(ErrorPage);
-    //  });
-
-    //  // Online event
-    //  this.events.subscribe('network:online', () => {
-    //      this.nav.pop();
-    //  });
-
-    const data = JSON.parse(localStorage.getItem('userData'));
-      if(data)
+        //  // Online event
+        //  this.events.subscribe('network:online', () => {
+        //      this.nav.pop();
+        //  });
+        
+      this.loggedIn = JSON.parse(localStorage.getItem('userData'));
+      console.log("User logged in", this.loggedIn);
+      if(this.loggedIn)
       {
-        this.userPostData.user = data.user;
-        this.userPostData.token = data.token;
+        this.navCtrl.setRoot(DashboardPage);
       }
-      if(this.userPostData.token)
+      else
       {
-        this.nav.setRoot(DashboardPage);
+        this.navCtrl.setRoot(WelcomePage);
       }
-
-  });
-}
-
-
+      });
+    }
+    
     goToPage(data)
     {
       if(data.category == 'Enquiry')
       {
-        this.nav.setRoot(EnquiriesPage,{category: data.subcategory, filter: data.type});
+        this.navCtrl.setRoot(EnquiriesPage,{category: data.subcategory, filter: data.type});
         //alert("trying to open approval");
       }
       else if(data.category == 'Product')
       {
-        this.nav.setRoot(ProductsPage,{category: data.subcategory});
+        this.navCtrl.setRoot(ProductsPage,{category: data.subcategory});
         //alert("trying to open products");
       }
       else if(data.category == 'Booking')
       {
-        this.nav.setRoot(BookingsPage,{category: data.subcategory, filter: data.type});
+        this.navCtrl.setRoot(BookingsPage,{category: data.subcategory, filter: data.type});
         //alert("trying to open bookings");
       }
       else if(data.category == 'Business')
       {
-        this.nav.setRoot(BusinessPage);
+        this.navCtrl.setRoot(BusinessPage);
         //alert("trying to open business");
       }
     }
@@ -153,15 +150,16 @@ export class MyApp {
       });
       alert.present();
     }
-
+    
     onload(page: any){
-      this.nav.setRoot(page);
+      this.navCtrl.setRoot(page);
       this.menuCtrl.close();
     }
-
+    
     backToWelcome(){
-      this.nav.push(WelcomePage);
+      this.navCtrl.push(WelcomePage);
       this.menuCtrl.close();
     }
   }
-
+  
+  

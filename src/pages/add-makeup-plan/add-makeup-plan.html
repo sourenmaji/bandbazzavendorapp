@@ -40,10 +40,10 @@
  </div>
 
  <div *ngIf="module=='Images'">
-    {{file_uri.length}} photos
+    {{images.length}} photos
   <button ion-button (click)="presentActionSheet()">Select Image</button>
 
-  <ion-card style="position: relative" *ngFor="let image of file_uri">
+  <ion-card style="position: relative" *ngFor="let image of images">
       <ion-thumbnail>
       <img src={{image}}>
       </ion-thumbnail>
@@ -51,7 +51,7 @@
         <ion-icon (click)="removeImage(image)" style="color: red;font-size: 50px" name="close-circle" ></ion-icon>
       </div>
     </ion-card>
-    <button ion-button block color="success" [disabled]="!file_uri.length" (click)="UploadImages()">Add Images</button>
+    <button ion-button block color="success" [disabled]="!images.length" (click)="UploadImages()">Add Images</button>
  </div>
  <div *ngIf="module=='Videos'">
     <form novalidate [formGroup]="addVideoForm" (ngSubmit)="addVideo()">

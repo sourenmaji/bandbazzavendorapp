@@ -31,12 +31,10 @@
                       <ion-input type="text" [(ngModel)]="userData.companyName" value="{{business.company_name}}"
                       formControlName="companyName" [class.error1]="!editBusinessform.controls.companyName.valid && editBusinessform.controls.companyName.dirty"></ion-input>
                     </ion-item>
-                    <ion-item no-lines *ngIf="( editBusinessform.get('companyName').hasError('required') ) && editBusinessform.get('companyName').touched">
                       <div class="error" *ngIf="editBusinessform.get('companyName').hasError('required') && editBusinessform.get('companyName').touched">
                         Please enter company name
                       </div>
 
-                    </ion-item>
                     <ion-item>
                       <ion-label floating>City <span style="color: red">*</span> <small> (please select a city from dropdown first)</small></ion-label>
                       <ion-input type="text" id="city" [(ngModel)]="userData.city" value="{{business.city}}" (keyup)="autolocation()"
@@ -44,34 +42,28 @@
                     </ion-item>
                     <ion-input type="hidden" [(ngModel)]="userData.lat" formControlName="lat" value="{{business.lat}}"></ion-input>
                     <ion-input type="hidden" [(ngModel)]="userData.lng" formControlName="lng" value="{{business.lng}}"></ion-input>
-                    <ion-item no-lines *ngIf="( editBusinessform.get('city').hasError('required') && editBusinessform.get('city').touched) || editBusinessform.get('lat').hasError('required') ">
                       <div class="error" *ngIf="(editBusinessform.get('city').hasError('required') && editBusinessform.get('city').touched) && editBusinessform.get('lat').hasError('required')">
                         Please enter valid city
                       </div>
 
-                    </ion-item>
                     <ion-item>
                       <ion-label floating>Address <span style="color: red">*</span></ion-label>
                       <ion-textarea type="text" [(ngModel)]="userData.address" value="{{business.address}}"
                       formControlName="address" [class.error1]="!editBusinessform.controls.address.valid && editBusinessform.controls.address.dirty"></ion-textarea>
                     </ion-item>
-                    <ion-item no-lines *ngIf="( editBusinessform.get('address').hasError('required') ) && editBusinessform.get('address').touched">
                       <div class="error" *ngIf="editBusinessform.get('address').hasError('required') && editBusinessform.get('address').touched">
                         Please enter address
                       </div>
 
-                    </ion-item>
                     <ion-item>
                       <ion-label floating>Details <span style="color: red">*</span></ion-label>
                       <ion-textarea type="text" [(ngModel)]="userData.details" value="{{business.details}}"
                       formControlName="details" [class.error1]="!editBusinessform.controls.details.valid && editBusinessform.controls.details.dirty"></ion-textarea>
                     </ion-item>
-                    <ion-item no-lines *ngIf="( editBusinessform.get('details').hasError('required') ) && editBusinessform.get('details').touched">
                       <div class="error" *ngIf="editBusinessform.get('details').hasError('required') && editBusinessform.get('details').touched">
                         Please enter details
                       </div>
 
-                    </ion-item>
                     <ion-item>
                       <ion-label floating>Email <span style="color: red">*</span></ion-label>
                       <ion-input type="email" [(ngModel)]="userData.email" value="{{business.email}}"
@@ -99,7 +91,7 @@
                           </div>
                         </ion-item>
                     <ion-item>
-                      <img  src={{businessImageSrc}} style="width: 100%">
+                      <img  [src]="businessImageSrc" style="width: 100%">
                     </ion-item>
                     <ion-row>
                       <ion-col color="primary">

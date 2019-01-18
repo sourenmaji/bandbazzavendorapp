@@ -19,7 +19,6 @@ export class AddMakeupPlanPage {
   responseData: any;
   token: string;
   images: any[]=[];
-  file_uri: any[]=[];
 
   constructor(
     public navCtrl: NavController,
@@ -60,7 +59,6 @@ export class AddMakeupPlanPage {
 
   ionViewDidEnter() {
     this.images=[];
-    this.file_uri=[];
     console.log('ionViewDidEnter AddMakeupPlanPage');
   }
 
@@ -179,8 +177,6 @@ export class AddMakeupPlanPage {
     correctOrientation: true
   };
   this.camera.getPicture(options).then((imageData) => {
-    this.file_uri.push(imageData);
-    alert('file '+this.file_uri);
       this.base64.encodeFile(imageData).then((base64File: string) => {
         this.images.push(base64File);
       }, (err) => {
@@ -195,9 +191,8 @@ export class AddMakeupPlanPage {
 SelectFromGallery()
 {
   this.imagePicker.getPictures({maximumImagesCount:5, quality:70, outputType:0}).then(results =>{
-    alert('file '+this.file_uri);
+
     for(let i=0; i < results.length; i++){
-      this.file_uri.push(results[i]);
       this.base64.encodeFile(results[i]).then((base64File: string) => {
         this.images.push(base64File);
       }, (err) => {
@@ -213,11 +208,11 @@ SelectFromGallery()
 removeImage(src: string)
 {
   let newimages: string[] = [];
-  this.file_uri.forEach(element => {
+  this.images.forEach(element => {
     if(element != src)
     newimages.push(element);
   });
-  this.file_uri = newimages;
+  this.images = newimages;
 }
 
 UploadImages()

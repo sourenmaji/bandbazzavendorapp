@@ -7,6 +7,8 @@ import { FilePath } from '@ionic-native/file-path';
 import { FileTransfer, FileTransferObject, FileUploadOptions, FileUploadResult } from '@ionic-native/file-transfer';
 import { ActionSheetController, IonicPage, LoadingController, NavController, NavParams, Platform, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Base64 } from '@ionic-native/base64';
 declare var cordova: any;
 declare var google;
 @IonicPage()
@@ -41,7 +43,9 @@ export class EditbusinessPage {
               private file: File,
               public loadingCtrl: LoadingController,
               private transfer: FileTransfer,
-              private authService: AuthServiceProvider) {
+              private authService: AuthServiceProvider,
+              private base64: Base64,
+              private sanitizer: DomSanitizer) {
 
   this.business = this.navParams.get('business');
   this.businessImage = this.business.business_image;
@@ -191,7 +195,14 @@ export class EditbusinessPage {
   private copyFileToLocalDir(namePath, currentName, newFileName) {
     this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
       this.lastImage = newFileName;
-      this.businessImageSrc = this.pathForImage(this.lastImage);
+      let image = this.pathForImage(this.lastImage);
+      this.base64.encodeFile(image).then((base64File: string) => {
+        console.log('base64', base64File);
+        this.businessImageSrc = this.sanitizer.bypassSecurityTrustUrl(base64File);
+        console.log('imagePath', this.businessImageSrc);
+      }, (err) => {
+        console.log('error ',err);
+      });
     }, error => {
       this.presentToast('Error while storing file.');
     });
@@ -247,7 +258,7 @@ export class EditbusinessPage {
         this.result = data;
         console.log(this.result);
         var success = JSON.parse(this.result.response);
-
+        console.log(success);
           const toast = this.toastCtrl.create({
             message: success.message,
             duration: 5000,
@@ -255,11 +266,8 @@ export class EditbusinessPage {
           })
           toast.present();
 
-          if(this.responseData.status)
-          {
           this.navCtrl.pop();
           this.authService.pageReset=true;
-          }
       },
       (err) => {
 

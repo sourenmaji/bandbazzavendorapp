@@ -26,7 +26,6 @@ import { AddbusinessPageModule } from '../pages/addbusiness/addbusiness.module';
 import { BookingDetailsPageModule } from '../pages/booking-details/booking-details.module';
 import { BookingsPageModule } from '../pages/bookings/bookings.module';
 import { BusinessPageModule } from '../pages/business/business.module';
-import { CustomPackageEnquiriesPageModule } from '../pages/custom-package-enquiries/custom-package-enquiries.module';
 import { DashboardPageModule } from '../pages/dashboard/dashboard.module';
 import { EditProfilePageModule } from '../pages/edit-profile/edit-profile.module';
 import { EditbusinessPageModule } from '../pages/editbusiness/editbusiness.module';
@@ -73,7 +72,6 @@ import { AddOfflineBookingPageModule } from '../pages/add-offline-booking/add-of
     EnquiryDetailsPageModule,
     BookingsPageModule,
     BookingDetailsPageModule,
-    CustomPackageEnquiriesPageModule,
     EditProfilePageModule,
     AddbusinessPageModule,
     EditbusinessPageModule,

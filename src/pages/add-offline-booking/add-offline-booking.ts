@@ -17,8 +17,10 @@ export class AddOfflineBookingPage {
   responseData: any;
   token: string;
   category: number;
+  business_id: number;
   type: string;
   value: any;
+  product: any=[];
 
   constructor(
     public navCtrl: NavController,
@@ -63,11 +65,27 @@ export class AddOfflineBookingPage {
     this.token = data.token;
     console.log(this.token);
     this.category=this.navParams.get('category');
+    this.business_id=this.navParams.get('business_id');
     this.restServ.pageReset=false;
   }
 
-  ionViewDidLoad() {
+  ionViewDidLoad(){
     console.log('ionViewDidLoad AddOfflineBookingPage');
+  }
+
+  ionViewWillEnter(){
+    if(this.category==2)
+    {
+      this.getProductList('get_hall_products?id='+this.business_id);
+    }
+    else if(this.category==3)
+    {
+      this.getProductList('get_car_products?id='+this.business_id);
+    }
+    else if(this.category==4)
+    {
+      this.getProductList('get_caterer_products?id='+this.business_id);
+    }
   }
 
   addOfflineBooking()
@@ -118,6 +136,34 @@ export class AddOfflineBookingPage {
     toast.present();
     });
 
+  }
+
+  getProductList(type)
+  {
+    this.restServ.getData(type,this.token).then((data) => {
+      this.responseData = data;
+      console.log(this.responseData);
+      this.responseData.all_products.forEach(element => {
+        this.product.push({product_id: element.product_id, product_name: element.product_name})
+      });
+      console.log(this.product);
+      let toast = this.toastCtrl.create({
+        message: this.responseData.message,
+        duration: 5000,
+        position: 'bottom'
+      });
+      toast.present();
+     
+    }, (err) => {
+     console.log(err);
+     let toast = this.toastCtrl.create({
+      message: 'Oops! Something went wrong.',
+      duration: 5000,
+      position: 'bottom',
+      cssClass: 'toast-danger'
+    });
+    toast.present();
+    });
   }
 
 }

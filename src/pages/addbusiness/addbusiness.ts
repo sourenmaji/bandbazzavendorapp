@@ -9,6 +9,9 @@ import { FileTransfer, FileTransferObject, FileUploadOptions, FileUploadResult }
 import { ActionSheetController, AlertController, IonicPage, Loading, LoadingController, NavController, NavParams, Platform, ToastController} from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { BusinessPage } from './../business/business';
+import { Base64 } from '@ionic-native/base64';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { sanitizeResourceUrl } from '@angular/core/src/sanitization/sanitization';
 declare var cordova: any;
 declare var google;
 
@@ -19,6 +22,7 @@ declare var google;
 })
 export class AddbusinessPage {
   lastImage: string = null;
+  imagePath: SafeResourceUrl;
   loading: Loading;
   businessDetails : any;
   userDetails : any;
@@ -35,6 +39,7 @@ export class AddbusinessPage {
               private transfer: FileTransfer,
               private file: File,
               private filePath: FilePath,
+              private base64: Base64,
               public actionSheetCtrl: ActionSheetController,
               public toastCtrl: ToastController,
               private mapsAPILoader: MapsAPILoader,
@@ -42,7 +47,8 @@ export class AddbusinessPage {
               public platform: Platform,
               public loadingCtrl: LoadingController,
               public authService: AuthServiceProvider,
-              public alertCtrl: AlertController) {
+              public alertCtrl: AlertController,
+              private sanitizer: DomSanitizer) {
 
     const dataBusiness  = this.navParams.data;
     console.log(dataBusiness);
@@ -163,14 +169,29 @@ export class AddbusinessPage {
       if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
         this.filePath.resolveNativePath(imagePath)
           .then(filePath => {
-            console.log('filepath '+filePath)
+            console.log('filepath ',filePath);
+            this.base64.encodeFile(filePath).then((base64File: string) => {
+              console.log('base64', base64File);
+              this.imagePath = this.sanitizer.bypassSecurityTrustUrl(base64File);
+              console.log('imagePath', this.imagePath);
+            }, (err) => {
+              console.log('error ',err);
+            });
             let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
             let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
             this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
           });
       }
-      else {
-        console.log('imagepath '+imagePath)
+      else
+      {
+        console.log('imagepath '+imagePath);
+        this.base64.encodeFile(imagePath).then((base64File: string) => {
+          console.log('base64', base64File);
+          this.imagePath = this.sanitizer.bypassSecurityTrustUrl(base64File);
+          console.log('imagePath', this.imagePath);
+        }, (err) => {
+          console.log('error ',err);
+        });
         var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
         var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
         this.copyFileToLocalDir(correctPath, currentName, this.createFileName());

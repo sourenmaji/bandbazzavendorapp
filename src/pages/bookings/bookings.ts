@@ -285,7 +285,7 @@ export class BookingsPage {
     console.log(this.category_id);
 
    
-    this.navCtrl.push(AddOfflineBookingPage,{category: this.category_id});
+    this.navCtrl.push(AddOfflineBookingPage,{category: this.category_id, business_id: this.lastClicked.id});
     // else if(this.category_id == 5)
     // this.navCtrl.push(AddPhotographyPage,this.businessProducts.id);
     // else if(this.category_id == 6)

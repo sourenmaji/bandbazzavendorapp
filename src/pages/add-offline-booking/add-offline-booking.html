@@ -12,14 +12,7 @@
         <ion-item>
           <ion-label>Hall Name <span style="color: red">*</span></ion-label>
           <ion-select formControlName="hall_id">
-            <ion-option value="3">Hall 1</ion-option>
-            <ion-option value="4">Hall 2</ion-option>
-            <ion-option value="5">Hall 3</ion-option>
-            <ion-option value="10">Hall 4</ion-option>
-            <ion-option value="12">Hall 5</ion-option>
-            <ion-option value="13">Hall 6</ion-option>
-            <ion-option value="14">Hall 7</ion-option>
-            <ion-option value="21">Hall 8</ion-option>
+            <ion-option value="{{prod.product_id}}" *ngFor="let prod of product">{{prod.product_name}}</ion-option>
           </ion-select>
         </ion-item>
         <p class="error" *ngIf="addHallOfflineForm.get('hall_id').hasError('required') && addHallOfflineForm.get('hall_id').touched">
@@ -91,9 +84,7 @@
         <ion-item>
           <ion-label>Car Name <span style="color: red">*</span></ion-label>
           <ion-select formControlName="car_id">
-              <ion-option value="2">Chevrolet-Sail</ion-option>
-              <ion-option value="11">BMW-i8</ion-option>
-              <ion-option value="12">Mitsubishi-Pajero</ion-option>
+            <ion-option value="{{prod.product_id}}" *ngFor="let prod of product">{{prod.product_name}}</ion-option>
           </ion-select>
         </ion-item>
         <p class="error" *ngIf="addCarOfflineForm.get('car_id').hasError('required') && addCarOfflineForm.get('car_id').touched">
@@ -165,10 +156,7 @@
         <ion-item>
           <ion-label>Package Name <span style="color: red">*</span></ion-label>
           <ion-select formControlName="package_id">
-              <ion-option value="1">Package 1</ion-option>
-              <ion-option value="2">Package 2</ion-option>
-              <ion-option value="10">Package 3</ion-option>
-              <ion-option value="11">Package 1</ion-option>
+            <ion-option value="{{prod.product_id}}" *ngFor="let prod of product">{{prod.product_name}}</ion-option>
           </ion-select>
         </ion-item>
         <p class="error" *ngIf="addCatererOfflineForm.get('package_id').hasError('required') && addCatererOfflineForm.get('package_id').touched">
