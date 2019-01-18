@@ -3,7 +3,7 @@
     <name>BandBazza Vendor</name>
     <description>Welcome to BandBazza Vendor App</description>
     <author email="bandbazza2018@gmail.com" href="http://localhost:8100">BandBazza Team</author>
-    <content original-src="index.html" src="http://192.168.0.103:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
