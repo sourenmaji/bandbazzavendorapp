@@ -1,9 +1,15 @@
+Node version: v10.15.0
+
+Cordova version: 8.1.1
+
+Config.xml file: 
+
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.bandbazza.vendor" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>BandBazza Vendor</name>
     <description>Welcome to BandBazza Vendor App</description>
     <author email="bandbazza2018@gmail.com" href="http://localhost:8100">BandBazza Team</author>
-    <content original-src="index.html" src="http://192.168.1.109:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -109,7 +115,19 @@
     </plugin>
     <allow-navigation href="http://192.168.0.103:8100" sessionid="148e0d0d" />
     <plugin name="cordova-plugin-statusbar" spec="2.4.2" />
-    <allow-navigation href="http://192.168.1.109:8100" sessionid="6ba270e8" />
     <engine name="browser" spec="5.0.4" />
     <engine name="android" spec="7.1.4" />
 </widget>
+
+
+Plugins: 
+
+com-badrit-base64,cordova-plugin-camera,cordova-plugin-device,cordova-plugin-facebook4,cordova-plugin-file,cordova-plugin-file-transfer,cordova-plugin-filepath,cordova-plugin-geolocation,cordova-plugin-googleplus,cordova-plugin-ionic-keyboard,cordova-plugin-ionic-webview,cordova-plugin-network-information,cordova-plugin-splashscreen,cordova-plugin-statusbar,cordova-plugin-telerik-imagepicker,cordova-plugin-whitelist,cordova.plugins.diagnostic
+
+Error retrieving Android platform information: 
+Android SDK is not set up properly. Make sure that the Android SDK 'tools' and 'platform-tools' directories are in the PATH variable. 
+
+Error: cmd: Command failed with exit code 1 Error output:
+'android' is not recognized as an internal or external command,
+operable program or batch file.
+
