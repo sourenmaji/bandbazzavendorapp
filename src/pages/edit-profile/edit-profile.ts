@@ -141,13 +141,13 @@ alert.present();
 }
 else
 {
+  loader.dismiss();
   console.log(this.responseData.message);
-  const toast = this.toastCtrl.create({
-    message: this.responseData.message,
-    duration: 3000,
-    position: 'top'
-  })
-  toast.present();
+  const alert = this.alertCtrl.create({
+    subTitle: this.responseData.message,
+    buttons: ['OK']
+    })
+    alert.present();
 }
 }, (err) => {
 this.responseData = err;
@@ -191,12 +191,13 @@ alert.present();
 }
 else
 {
-  const toast = this.toastCtrl.create({
-    message: this.responseData.message,
-    duration: 3000,
-    position: 'top'
-  })
-  toast.present();
+  loader.dismiss();
+  console.log(this.responseData.message);
+  const alert = this.alertCtrl.create({
+    subTitle: this.responseData.message,
+    buttons: ['OK']
+    })
+    alert.present();
 }
 },
 (err) => {

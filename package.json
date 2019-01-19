@@ -52,7 +52,7 @@
     "cordova-plugin-ionic-webview": "^3.1.1",
     "cordova-plugin-network-information": "^2.0.1",
     "cordova-plugin-splashscreen": "^5.0.2",
-    "cordova-plugin-statusbar": "2.4.2",
+    "cordova-plugin-statusbar": "^2.4.2",
     "cordova-plugin-telerik-imagepicker": "git+https://github.com/Telerik-Verified-Plugins/ImagePicker.git",
     "cordova-plugin-whitelist": "^1.3.3",
     "cordova.plugins.diagnostic": "^4.0.10",
@@ -94,7 +94,8 @@
       "cordova-plugin-facebook4": {
         "APP_ID": "1907823749547720",
         "APP_NAME": "BandBazza Vendor App",
-        "FACEBOOK_ANDROID_SDK_VERSION": "4.38.1"
+        "FACEBOOK_ANDROID_SDK_VERSION": "4.38.1",
+        "FACEBOOK_HYBRID_APP_EVENTS": "false"
       },
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.343465164111-tih06h8oo4lbs23fs0qo2ru0j5bs34mf",

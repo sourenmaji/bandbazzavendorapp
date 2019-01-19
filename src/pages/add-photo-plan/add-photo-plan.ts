@@ -19,7 +19,6 @@ export class AddPhotoPlanPage {
   responseData: any;
   token: string;
   images: any[]=[];
-  file_uri: any[]=[];
 
   constructor(
     public navCtrl: NavController,
@@ -61,7 +60,6 @@ export class AddPhotoPlanPage {
 
   ionViewDidEnter() {
     this.images=[];
-    this.file_uri=[];
     console.log('ionViewDidEnter AddPhotoPlanPage');
   }
 
@@ -77,16 +75,16 @@ export class AddPhotoPlanPage {
         position: 'bottom'
       });
 
-      toast.onDidDismiss(() => {
+      toast.present();
         console.log('Dismissed toast');
         if(this.responseData.status==true)
         {
           this.restServ.pageReset=true;
           this.navCtrl.pop();
         }
-      });
+    
 
-      toast.present();
+     
     }, (err) => {
 
      console.log(err);
@@ -121,16 +119,16 @@ export class AddPhotoPlanPage {
           position: 'bottom'
         });
 
-        toast.onDidDismiss(() => {
+        toast.present();
           console.log('Dismissed toast');
           if(this.responseData.status==true)
           {
             this.restServ.pageReset=true;
             this.navCtrl.pop();
           }
-        });
+      
 
-        toast.present();
+        
       }, (err) => {
 
        console.log(err);
@@ -173,20 +171,15 @@ export class AddPhotoPlanPage {
 
   chooseFromCam(){
     const options: CameraOptions = {
-    quality: 70,
-    destinationType: this.camera.DestinationType.FILE_URI,
+    quality: 60,
+    destinationType: this.camera.DestinationType.DATA_URL,
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE,
     correctOrientation: true
   };
   this.camera.getPicture(options).then((imageData) => {
-    this.file_uri.push(imageData);
-    alert('file '+this.file_uri);
-      this.base64.encodeFile(imageData).then((base64File: string) => {
-        this.images.push(base64File);
-      }, (err) => {
-        alert('base64 '+err);
-      });
+    this.images.push(imageData);
+    console.log('file ',this.images);
     }, (err) => {
       alert('error '+err);
     });
@@ -195,30 +188,30 @@ export class AddPhotoPlanPage {
 
 SelectFromGallery()
 {
-  this.imagePicker.getPictures({maximumImagesCount:5, quality:70, outputType:0}).then(results =>{
-    alert('file '+this.file_uri);
+  this.imagePicker.getPictures({maximumImagesCount:5, quality:60, outputType:1}).then(results =>{
+    console.log(results);
     for(let i=0; i < results.length; i++){
-      this.file_uri.push(results[i]);
-      this.base64.encodeFile(results[i]).then((base64File: string) => {
-        this.images.push(base64File);
-      }, (err) => {
-        alert('base64 '+err);
-      });
+      this.images.push(results[i]);
     }
   },
   (err) => {
-    alert('error '+err);
+    const toast = this.toastCtrl.create({
+      message: err,
+      duration: 5000,
+      position: 'bottom'
+    })
+    toast.present();
   });
 }
 
 removeImage(src: string)
 {
   let newimages: string[] = [];
-  this.file_uri.forEach(element => {
+  this.images.forEach(element => {
     if(element != src)
     newimages.push(element);
   });
-  this.file_uri = newimages;
+  this.images = newimages;
 }
 
 UploadImages()
@@ -233,16 +226,12 @@ UploadImages()
       position: 'bottom'
     });
 
-    toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
+    toast.present();
       if(this.responseData.status==true)
       {
         this.restServ.pageReset=true;
         this.navCtrl.pop();
       }
-    });
-
-    toast.present();
   }, (err) => {
 
    console.log(err);

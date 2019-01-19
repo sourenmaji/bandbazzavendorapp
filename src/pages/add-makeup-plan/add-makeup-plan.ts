@@ -74,16 +74,16 @@ export class AddMakeupPlanPage {
         position: 'bottom'
       });
 
-      toast.onDidDismiss(() => {
+      toast.present();
         console.log('Dismissed toast');
         if(this.responseData.status==true)
         {
           this.restServ.pageReset=true;
           this.navCtrl.pop();
         }
-      });
+     
 
-      toast.present();
+   
     }, (err) => {
 
      console.log(err);
@@ -117,17 +117,17 @@ export class AddMakeupPlanPage {
           duration: 5000,
           position: 'bottom'
         });
-
-        toast.onDidDismiss(() => {
+        toast.present();
+       
           console.log('Dismissed toast');
           if(this.responseData.status==true)
           {
             this.restServ.pageReset=true;
             this.navCtrl.pop();
           }
-        });
+       
 
-        toast.present();
+      
       }, (err) => {
 
        console.log(err);
@@ -170,18 +170,20 @@ export class AddMakeupPlanPage {
 
   chooseFromCam(){
     const options: CameraOptions = {
-    quality: 70,
-    destinationType: this.camera.DestinationType.FILE_URI,
+    quality: 60,
+    destinationType: this.camera.DestinationType.DATA_URL,
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE,
     correctOrientation: true
   };
   this.camera.getPicture(options).then((imageData) => {
-      this.base64.encodeFile(imageData).then((base64File: string) => {
-        this.images.push(base64File);
-      }, (err) => {
-        alert('base64 '+err);
-      });
+    this.images.push(imageData);
+    console.log('file ',this.images);
+      // this.base64.encodeFile(imageData).then((base64File: string) => {
+      //   this.images.push(base64File);
+      // }, (err) => {
+      //   alert('base64 '+err);
+      // });
     }, (err) => {
       alert('error '+err);
     });
@@ -190,18 +192,26 @@ export class AddMakeupPlanPage {
 
 SelectFromGallery()
 {
-  this.imagePicker.getPictures({maximumImagesCount:5, quality:70, outputType:0}).then(results =>{
-
+  this.imagePicker.getPictures({maximumImagesCount:5, quality:60, outputType:1}).then(results =>{
+    console.log(results);
+    // alert('file '+this.file_uri);
     for(let i=0; i < results.length; i++){
-      this.base64.encodeFile(results[i]).then((base64File: string) => {
-        this.images.push(base64File);
-      }, (err) => {
-        alert('base64 '+err);
-      });
+      this.images.push(results[i]);
+      // this.base64.encodeFile(results[i]).then((base64File: string) => {
+      //   this.images.push(base64File);
+      // }, (err) => {
+      //   alert('base64 '+err);
+      // });
     }
   },
   (err) => {
     alert('error '+err);
+    const toast = this.toastCtrl.create({
+      message: err,
+      duration: 5000,
+      position: 'bottom'
+    })
+    toast.present();
   });
 }
 
@@ -227,16 +237,16 @@ UploadImages()
       position: 'bottom'
     });
 
-    toast.onDidDismiss(() => {
+    toast.present();
       console.log('Dismissed toast');
       if(this.responseData.status==true)
       {
         this.restServ.pageReset=true;
         this.navCtrl.pop();
       }
-    });
+  
 
-    toast.present();
+  
   }, (err) => {
 
    console.log(err);

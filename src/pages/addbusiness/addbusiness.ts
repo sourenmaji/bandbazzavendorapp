@@ -11,7 +11,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { BusinessPage } from './../business/business';
 import { Base64 } from '@ionic-native/base64';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { sanitizeResourceUrl } from '@angular/core/src/sanitization/sanitization';
+
 declare var cordova: any;
 declare var google;
 

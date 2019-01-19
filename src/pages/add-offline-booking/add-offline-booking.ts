@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { CustomValidator } from '../../validators/custom-validators';
 
 @IonicPage()
 @Component({
