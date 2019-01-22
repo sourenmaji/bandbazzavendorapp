@@ -28,17 +28,17 @@
           <ion-label color="dash6">No. Of Seats :</ion-label>
           <h3>{{productValue.no_of_seats}}</h3>
         </ion-col>
-        <ion-col  align-self-start>
+        <ion-col *ngIf="productValue.book_advance!=null" align-self-start>
           <ion-label color="dash6">Advance Amount :</ion-label>
           <h3>Rs.{{productValue.book_advance | number:'1.0-0'}}</h3>
         </ion-col>
       </ion-row>
       <ion-row>
-    <ion-col  align-self-start>
+    <ion-col *ngIf="productValue.car_price_hour!=null" align-self-start>
       <ion-label color="dash6">Non AC<small>(per hour)</small> :</ion-label>
       <h3>Rs.{{productValue.car_price_hour | number:'1.0-0'}}</h3>
     </ion-col>
-    <ion-col  align-self-start>
+    <ion-col *ngIf="productValue.car_price_kil!=null" align-self-start>
       <ion-label color="dash6">Non AC<small>(per km)</small> :</ion-label>
       <h3>Rs.{{productValue.car_price_kil | number:'1.0-0'}}</h3>
     </ion-col>

@@ -31,7 +31,7 @@
           </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col>
+        <ion-col *ngIf="productDetails.details.price!=null">
             <h1 ion-text color="dark"><b>Rs.{{productDetails.details.price | number:'1.0-0'}}</b></h1>
         </ion-col>
         <ion-col *ngIf="productDetails.details.is_nonveg == 1" text-center>
@@ -58,10 +58,7 @@
         <ion-label color="dash6">Advance Amount :</ion-label>
         <h3>Rs.{{productDetails.details.book_advance | number:'1.0-0'}}</h3>
       </ion-col>
-      <ion-col *ngIf="productDetails.details.book_advance == null" align-self-start>
-        <ion-label color="dash6">Advance Amount :</ion-label>
-        <h3>N/A</h3>
-      </ion-col>
+
     </ion-row>
     <ion-row>
       <ion-col align-self-start>
@@ -168,6 +165,14 @@
                         Please enter only digit
                       </div>
                     </ion-item>
+                    <ion-item>
+                        <ion-label>AC Available
+                        </ion-label>
+                        <ion-select [(ngModel)]="userData.availableAc" formControlName="availableAc" >
+                        <ion-option value="1" >Yes</ion-option>
+                        <ion-option value="0" >No</ion-option>
+                        </ion-select>
+                    </ion-item>
                     <ion-item *ngIf="userData.availableAc==1">
                       <ion-label floating>AC Charges<small> (per hour) </small> </ion-label>
                       <ion-input type="number" [(ngModel)]="userData.acCharges" value="{{productDetails.details.ac_charge}}"
@@ -179,15 +184,7 @@
                         Please enter only digit
                       </div>
                     </ion-item>
-                    <ion-item>
-                      <ion-label>AC Available
-                      </ion-label>
 
-                      <ion-select [(ngModel)]="userData.availableAc" formControlName="availableAc" >
-                      <ion-option value="1" >Yes</ion-option>
-                      <ion-option value="0" >No</ion-option>
-                      </ion-select>
-                    </ion-item>
                     <ion-item>
 
                       <ion-label>Permitted Food Type

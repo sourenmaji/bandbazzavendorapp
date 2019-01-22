@@ -260,10 +260,8 @@ export class RegisterPage implements OnInit{
     
     loginWithGoogle()
     {
-      alert('google');
       this.googleplus.login({}).then(res => {
-        alert('Logged into Google!');
-        alert(JSON.stringify(res));
+        // alert('Logged into Google!');
         if(res.accessToken)
         {
           console.log('connected');
@@ -297,10 +295,9 @@ export class RegisterPage implements OnInit{
           (err) =>
           {
             this.responseData = err;
-            alert(err);
             console.log(this.responseData)
             const toast = this.toastCtrl.create({
-              message: 'Oops! Something went wrong.',
+              message: 'Oops! Something went wrong. Code:'+err,
               duration: 5000,
               cssClass: "toast-danger",
               position: 'bottom'
@@ -322,7 +319,7 @@ export class RegisterPage implements OnInit{
       .catch(e =>
         {
           const toast = this.toastCtrl.create({
-            message: 'Error logging into Google',
+            message: 'Error logging into Google. Code:'+e,
             duration: 5000,
             cssClass: "toast-danger",
             position: 'bottom'

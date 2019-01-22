@@ -41,7 +41,7 @@ export class AddBanquetPage{
   public form2data:{full_address, lat, long, same_as_business:boolean, map_address:string};
 
   //form 3 data
-  public form3data: {capacity:number, ac_charge:number, all_food_type:boolean, ac:boolean, parking:boolean};
+  public form3data: {capacity:number, ac_charge:number, all_food_type:boolean, ac:boolean, parking:boolean, food_not_allowed: boolean, min_no_of_plates: number};
   //form 4 data
   public images: any[];
 
@@ -84,7 +84,7 @@ export class AddBanquetPage{
     this.setCurrentPosition();
 
     //for step 3
-    this.form3data = {ac:null,all_food_type:null,capacity:null,parking:null, ac_charge:null};
+    this.form3data = {ac:null,all_food_type:null,capacity:null,parking:null, ac_charge:null,food_not_allowed: null, min_no_of_plates: null};
 
     //for step 4
     this.images = [];
@@ -158,16 +158,16 @@ export class AddBanquetPage{
         this.errormessage = "Enter a banquet hall name!";
         return false;
       }
-      else if(this.form1data.price<=0 || this.form1data.price==null)
-      {
-        this.errormessage = "Enter a valid price";
-        return false;
-      }
-      else if(this.form1data.booking_advance<=0 || this.form1data.booking_advance==null)
-      {
-        this.errormessage = "Enter a valid advance booking amount";
-        return false;
-      }
+      // else if(+this.form1data.price<=0)
+      // {
+      //   this.errormessage = "Enter a valid price";
+      //   return false;
+      // }
+      // else if(+this.form1data.booking_advance<=0)
+      // {
+      //   this.errormessage = "Enter a valid advance booking amount";
+      //   return false;
+      // }
       else if((+this.form1data.booking_advance) > (+this.form1data.price))
       {
         this.errormessage = "Booking advance amount cannot be greater than booking price";
@@ -390,8 +390,8 @@ export class AddBanquetPage{
 
   uploadData()
   {
-    let uploadData: {business_id: number,hall_name:string, ac_charge:number, search_tags:string, details:string, price:number, book_advance:number, address_same_as_business:boolean, address:string, location: string, lat:number, lng:number, capacity:number, is_veg:boolean, is_ac:boolean, is_parking:boolean, images:string[]};
-    uploadData = {business_id: null,search_tags:"", ac_charge:0, hall_name:"", details:"", price:null, book_advance:null, address_same_as_business:null, address:"", location: "", lat:null, lng:null, capacity:null, is_veg:null, is_ac:null, is_parking:null, images:[]};
+    let uploadData: {business_id: number,hall_name:string, ac_charge:number, search_tags:string, details:string, price:number, book_advance:number, address_same_as_business:boolean, address:string, location: string, lat:number, lng:number, capacity:number, is_veg:boolean, is_ac:boolean, is_parking:boolean, food_not_allowed:number, min_no_of_plates: number,images:string[]};
+    uploadData = {business_id: null,search_tags:"", ac_charge:0, hall_name:"", details:"", price:null, book_advance:null, address_same_as_business:null, address:"", location: "", lat:null, lng:null, capacity:null, is_veg:null, is_ac:null, food_not_allowed:0, min_no_of_plates: 0,is_parking:null, images:[]};
     uploadData.business_id = this.business_id;
     uploadData.hall_name = this.form1data.hallname;
     uploadData.details = this.form1data.details;
@@ -409,6 +409,9 @@ export class AddBanquetPage{
     uploadData.is_veg = !this.form3data.all_food_type;
     uploadData.is_ac = this.form3data.ac;
     uploadData.is_parking = this.form3data.parking;
+    uploadData.food_not_allowed = this.form3data.food_not_allowed ? 1 : 0;
+    uploadData.min_no_of_plates = this.form3data.min_no_of_plates;
+
     uploadData.images = this.images;
     //call and upload the uploadData object here
     // alert(uploadData.images);

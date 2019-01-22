@@ -18,3 +18,5 @@ zipalign and apksigner tools can be found in android sdk folder.
 keytool and jarsigner can be found in java jdk and jre folders, make sure to add them in path variable to use these 
 commands from anywhere.
 Refer to IOnic deployment documentation for more details.
+
+keytool -exportcert -list -v -alias vendor-app-key -keystore bb-vendor-app-release-key.jks (for production sha1 google login)

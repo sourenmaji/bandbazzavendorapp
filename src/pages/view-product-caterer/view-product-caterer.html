@@ -25,9 +25,9 @@
 
    </ion-card-title>
   <ion-row>
-      <ion-col align-self-start>
+      <ion-col *ngIf="productValue.price_per_plate != null" align-self-start>
           <ion-label color="dash6">Starting Price :</ion-label>
-          <h3>Rs.{{productValue.price_per_plate | number:'1.0-0'}}</h3>
+          <h3>Rs. {{productValue.price_per_plate | number:'1.0-0'}}</h3>
         </ion-col>
         <ion-col  align-self-start>
           <ion-label color="dash6">Minimum No. of Plate :</ion-label>

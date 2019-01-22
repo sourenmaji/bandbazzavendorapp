@@ -37,7 +37,7 @@
                       <ion-item>
                           <ion-label stacked>
                             <div>
-                              <p>Hall Booking Price (in Rs)<span style="color: red" > *</span></p>
+                              <p>Hall Booking Price (in Rs)</p>
                             </div>
                           </ion-label>
                           <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form1data.price" placeholder="Enter Hall Booking Price">
@@ -47,7 +47,7 @@
                         <ion-item>
                             <ion-label stacked>
                               <div>
-                                <p>Booking Advance (in Rs)<span style="color: red" > *</span></p>
+                                <p>Booking Advance (in Rs)</p>
                               </div>
                             </ion-label>
                             <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form1data.booking_advance" placeholder="Enter Booking Advance">
@@ -206,6 +206,41 @@
                             </ion-item>
                           </ion-col>
                         </ion-row>
+                        <!-- new addition -->
+
+                        <ion-item>
+                            <ion-label stacked>
+                                <div>
+                                    <p>Outside Food Allowed<span style="color: red"> *</span></p>
+                                </div>
+                              </ion-label>
+                          </ion-item>
+                            <ion-row radio-group>
+                              <ion-col>
+                                <ion-item>
+                                  <ion-label>No</ion-label>
+                                  <ion-radio value="true" (ionSelect)="form3data.food_not_allowed = true;errormessage=''"></ion-radio>
+                                </ion-item>
+                              </ion-col>
+                              <ion-col>
+                                <ion-item>
+                                  <ion-label>Yes</ion-label>
+                                  <ion-radio value="false" (ionSelect)="form3data.food_not_allowed = false;errormessage=''"></ion-radio>
+                                </ion-item>
+                              </ion-col>
+                            </ion-row>
+                            <div *ngIf="form3data.food_not_allowed==true">
+                            <ion-item>
+                                  <ion-label stacked>
+                                      <div>
+                                        <p>No. of Plates<span style="color: red" > *</span></p>
+                                      </div>
+                                    </ion-label>
+                                    <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form3data.min_no_of_plates" placeholder="No. of Plates">
+                                    </ion-input>
+                            </ion-item>
+                          </div>
+
               </ion-list>
             </ion-card-content>
                 <div  style="margin-bottom: 50px" ></div>

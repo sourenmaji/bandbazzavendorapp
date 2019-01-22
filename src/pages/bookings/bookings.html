@@ -24,9 +24,11 @@
 </ion-card>
 
 <ion-segment [(ngModel)]="category_name" color="energy" *ngIf="categories.length">
+   
     <ion-segment-button *ngFor="let category of categories" value={{category.module_name}} (click)="getBookings(category,true)">
     {{category.module_name}}
     </ion-segment-button>
+
 </ion-segment>
 
 

@@ -73,17 +73,17 @@ export class BookingsPage {
            this.responseData = result;
              console.log(this.responseData)
              this.categories=this.responseData.categories;
-             if(this.categories.length){
-             console.log(this.categories)
-
-            if(this.navParams.get('category')){
-              this.getBookings(this.navParams.get('category'), true);
-             }
-             else
+             if(this.categories.length)
              {
-              this.getBookings(this.categories[0],true);
-             }
-             }
+              if(this.navParams.get('category'))
+              {  
+                this.getBookings(this.navParams.get('category'), true);
+              }
+              else
+              {
+                this.getBookings(this.categories[0],true);
+              }
+              }
              else
              {
               const toast = this.toastCtrl.create({

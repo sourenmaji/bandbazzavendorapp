@@ -8,13 +8,14 @@ import { BookingsPage } from '../pages/bookings/bookings';
 import { BusinessPage } from '../pages/business/business';
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { EnquiriesPage } from '../pages/enquiries/enquiries';
-// import { FCM } from '@ionic-native/fcm';
+import { FCM } from '@ionic-native/fcm';
 import { HomePage } from '../pages/home/home';
 import { ProductsPage } from '../pages/products/products';
 import { ProfilePage } from '../pages/profile/profile';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { NetworkProvider } from './../providers/network-provider/network_provider';
+import { ErrorPage } from '../pages/error/error';
 
 
 @Component({
@@ -44,51 +45,50 @@ export class MyApp {
     public network: Network,
     public networkProvider: NetworkProvider,
     public alertCtrl: AlertController,
-    // public fcm: FCM
+    public fcm: FCM
     )
     {
       platform.ready().then(() => {
         // Okay, so the platform is ready and our plugins are available.
         // Here you can do any higher level native things you might need.
         splashScreen.hide();
-        statusBar.styleBlackTranslucent()
-        
-        //     fcm.getToken().then(device_token => {
-        //         localStorage.setItem('device_token', device_token)
-        //     }, (err) => {
-        //       console.log(err);
-        //     });
-        
-        //     fcm.onNotification().subscribe(data => {
-        //       if(data.wasTapped){
-        //         alert("Received in background");
-        //         this.goToPage(data);
-        //       }
-        //       else
-        //       {
-        //         this.scheduleNotification(data);
-        //         alert("Received in foreground");
-        //       };
-        //     });
-        
-        //     fcm.onTokenRefresh().subscribe(refresh_token => {
-        //       localStorage.setItem('device_token', refresh_token);
-        //     }, (err) => {
-        //       console.log(err);
-        //     });
-        
-        //     this.networkProvider.initializeNetworkEvents();
-        //    this.networkProvider.getNetworkState();
-        
-        //     // Offline event
-        //  this.events.subscribe('network:offline', () => {
-        //      this.nav.push(ErrorPage);
-        //  });
+        statusBar.styleBlackTranslucent();
 
-        //  // Online event
-        //  this.events.subscribe('network:online', () => {
-        //      this.nav.pop();
-        //  });
+            this.fcm.getToken().then(device_token => {
+              localStorage.setItem('device_token',JSON.stringify(device_token));
+                console.log(device_token);
+            }, (err) => {
+              console.log(err);
+            });
+
+            this.fcm.onNotification().subscribe(data => {
+              if(data.wasTapped){
+                console.log("Received in background");
+                this.goToPage(data);
+              } else {
+                console.log("Received in foreground");
+                this.scheduleNotification(data);
+              };
+            });
+
+            this.fcm.onTokenRefresh().subscribe(refresh_token => {
+              localStorage.setItem('device_token', refresh_token);
+            }, (err) => {
+              console.log(err);
+            });
+        
+            this.networkProvider.initializeNetworkEvents();
+           this.networkProvider.getNetworkState();
+        
+            // Offline event
+         this.events.subscribe('network:offline', () => {
+             this.navCtrl.push(ErrorPage);
+         });
+
+         // Online event
+         this.events.subscribe('network:online', () => {
+             this.navCtrl.pop();
+         });
         
       this.loggedIn = JSON.parse(localStorage.getItem('userData'));
       console.log("User logged in", this.loggedIn);

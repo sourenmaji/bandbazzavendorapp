@@ -115,6 +115,7 @@ Config.xml file:
     </plugin>
     <allow-navigation href="http://192.168.0.103:8100" sessionid="148e0d0d" />
     <plugin name="cordova-plugin-statusbar" spec="2.4.2" />
+    <allow-navigation href="http://192.168.1.109:8100" sessionid="6ba270e8" />
     <engine name="browser" spec="5.0.4" />
     <engine name="android" spec="7.1.4" />
 </widget>

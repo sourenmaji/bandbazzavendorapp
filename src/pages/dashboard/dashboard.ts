@@ -29,7 +29,9 @@ export class DashboardPage {
     {
       this.userDetails = JSON.parse(localStorage.getItem('userData'));
       console.log(this.userDetails);
-      this.device_token = this.userDetails.token;
+      
+      this.device_token = JSON.parse(localStorage.getItem('device_token'));
+      console.log('token_from_storage',this.device_token);
       this.userPostData.user = this.userDetails.user;
       this.userPostData.token = this.userDetails.token;
       console.log(this.userPostData.token);
@@ -43,8 +45,8 @@ export class DashboardPage {
     {
       console.log('ionViewDidLoad AfterLoginPage');
 
-      // if(this.userDetails.token)
-      // this.sendToken();
+      if(this.device_token)
+      this.sendToken();
       this.getDashboardData();
     }
     onOpenMenu(){
