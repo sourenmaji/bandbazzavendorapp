@@ -15,6 +15,10 @@ export class AuthServiceProvider {
   imageUrl: string = 'http://dev.bandbazza.com/';
   apiUrl: string = 'http://dev.bandbazza.com/api/v1/';
 
+  // imageUrl: string = 'http://www.bandbazza.com/';
+  // apiUrl: string = 'http://www.bandbazza.com/api/v1/';
+
+
   loading: Loading;
 
   constructor(public httpC: HttpClient, public loadingCtrl: LoadingController) {
