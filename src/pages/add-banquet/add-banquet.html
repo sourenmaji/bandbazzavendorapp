@@ -27,7 +27,7 @@
                   <ion-item>
                       <ion-label stacked>
                         <div>
-                          <p>Hall Name<span style="color: red" > *</span></p>
+                          <p>Name<span style="color: red" > *</span></p>
                         </div>
                       </ion-label>
                       <ion-input (ionChange)="errormessage = ''"  [(ngModel)]="form1data.hallname" placeholder="Enter Hall Name">
@@ -37,7 +37,7 @@
                       <ion-item>
                           <ion-label stacked>
                             <div>
-                              <p>Hall Booking Price (in Rs)</p>
+                              <p>Booking Price (in Rs)</p>
                             </div>
                           </ion-label>
                           <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form1data.price" placeholder="Enter Hall Booking Price">
@@ -47,10 +47,10 @@
                         <ion-item>
                             <ion-label stacked>
                               <div>
-                                <p>Booking Advance (in Rs)</p>
+                                <p>Booking Advance (in %)</p>
                               </div>
                             </ion-label>
-                            <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form1data.booking_advance" placeholder="Enter Booking Advance">
+                            <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form1data.booking_advance" placeholder="Enter Booking Advance Percent">
                             </ion-input>
                           </ion-item>
 
@@ -126,10 +126,10 @@
                 <ion-item>
                     <ion-label stacked>
                         <div>
-                          <p>Hall Capacity<span style="color: red" > *</span></p>
+                          <p>Capacity<span style="color: red" > *</span></p>
                         </div>
                       </ion-label>
-                      <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form3data.capacity" placeholder="Hall Capacity">
+                      <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form3data.capacity" placeholder="Enter Hall Capacity">
                       </ion-input>
                 </ion-item>
                 <ion-item>
@@ -181,8 +181,12 @@
                                 <p>AC Charge<span style="color: red" > *</span></p>
                               </div>
                             </ion-label>
-                            <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form3data.ac_charge" placeholder="AC Charge">
+                            <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form3data.ac_charge" placeholder="Hall AC Charge">
                             </ion-input>
+                            <ion-select [(ngModel)]="form3data.ac_time">
+                              <ion-option value="1">Hourly</ion-option>
+                              <ion-option value="2">Daily</ion-option>
+                            </ion-select>
                     </ion-item>
                   </div>
                     <ion-item>
@@ -283,7 +287,7 @@
               <ion-list>
                 <p>You have successfully added all details, now you add this product!</p>
                 <ion-item>
-                  <p>Hall Name: {{form1data.hallname}}</p>
+                  <p>Name: {{form1data.hallname}}</p>
                   <p>Booking Price: Rs {{form1data.price}}</p>
                   <p>Booking Advance: Rs {{form1data.booking_advance}}</p>
                   <p>Details: {{form1data.details}}</p>

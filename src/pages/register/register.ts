@@ -287,7 +287,9 @@ export class RegisterPage implements OnInit{
               console.log("new user ");
               // => Open user session and redirect to the next page
               this.signupform.get('user').setValue(res.email);
+              this.signupform.get('user').updateValueAndValidity();
               this.signupform.get('name').setValue(res.displayName);
+              this.signupform.get('name').updateValueAndValidity();
               this.userData.provider_name='google';
               this.userData.provider_id=res.userId;
             }
@@ -368,6 +370,8 @@ export class RegisterPage implements OnInit{
                   // => Open user session and redirect to the next page
                   this.signupform.get('user').setValue(user.email);
                   this.signupform.get('name').setValue(user.name);
+                  this.signupform.get('user').updateValueAndValidity();
+                  this.signupform.get('name').updateValueAndValidity();
                   this.userData.provider_name='facebook';
                   this.userData.provider_id=fb_id;
                 }
