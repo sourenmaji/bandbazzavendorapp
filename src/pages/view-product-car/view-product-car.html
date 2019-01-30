@@ -29,7 +29,7 @@
           <h3>{{productValue.no_of_seats}}</h3>
         </ion-col>
         <ion-col *ngIf="productValue.book_advance!=null" align-self-start>
-          <ion-label color="dash6">Advance Amount :</ion-label>
+          <ion-label color="dash6">Booking Advance :</ion-label>
           <h3>Rs.{{productValue.book_advance | number:'1.0-0'}}</h3>
         </ion-col>
       </ion-row>
@@ -122,7 +122,7 @@
                   </ion-item>
 
                   <ion-item>
-                      <ion-label floating>Advance Amount </ion-label>
+                      <ion-label floating>Booking Advance </ion-label>
                       <ion-input type="number" [(ngModel)]="userData.advanceAmount" value="{{productValue.book_advance}}"
                       formControlName="advanceAmount" [class.error1]="!editProductform.controls.advanceAmount.valid && editProductform.controls.advanceAmount.dirty"></ion-input>
                     </ion-item>

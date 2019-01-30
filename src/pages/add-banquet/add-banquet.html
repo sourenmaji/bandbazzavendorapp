@@ -50,7 +50,7 @@
                                 <p>Booking Advance (in %)</p>
                               </div>
                             </ion-label>
-                            <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form1data.booking_advance" placeholder="Enter Booking Advance Percent">
+                            <ion-input type="number" (ionChange)="errormessage = ''"  [(ngModel)]="form1data.advance_percent" placeholder="Enter Booking Advance Percent">
                             </ion-input>
                           </ion-item>
 
@@ -289,7 +289,7 @@
                 <ion-item>
                   <p>Name: {{form1data.hallname}}</p>
                   <p>Booking Price: Rs {{form1data.price}}</p>
-                  <p>Booking Advance: Rs {{form1data.booking_advance}}</p>
+                  <p>Booking Advance: {{form1data.advance_percent}} %</p>
                   <p>Details: {{form1data.details}}</p>
                   <p>Search Tags: {{form1data.tags}}</p>
                 </ion-item>

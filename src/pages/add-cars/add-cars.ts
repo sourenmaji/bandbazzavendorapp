@@ -192,8 +192,8 @@ export class AddCarsPage {
       //   return false;
       // }
 
-      // else if(this.isInvalid(this.form2data.book_advance, "Enter a valid advance booking fee"))
-      // return false;
+      else if(this.isInvalid(this.form2data.book_advance, "Enter a valid booking advance"))
+      return false;
 
       return true;
 

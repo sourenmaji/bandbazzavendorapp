@@ -50,8 +50,8 @@ export class ViewProductBanquatePage{
   });
   this.lat = this.productDetails.details.lat;
   this.log = this.productDetails.details.lng;
-  this.is_ac = this.productDetails.details.is_ac;
-  this.food_not_allowed= this.productDetails.details.food_not_allowed
+  this.is_ac = this.productDetails.details.is_ac ? this.productDetails.details.is_ac : 0;
+  this.food_not_allowed= this.productDetails.details.food_not_allowed ?this.productDetails.details.food_not_allowed : 0;
 
   console.log(this.productDetails);
   let backAction =  platform.registerBackButtonAction(() => {
@@ -63,7 +63,7 @@ export class ViewProductBanquatePage{
   let AMOUNTPATTERN = /^[0-9]/;
   this.editProductform = new FormGroup({
     hallPrice: new FormControl(this.productDetails.details.price, [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
-    advanceAmount: new FormControl(this.productDetails.details.book_advance, [Validators.required]),
+    advanceAmount: new FormControl(this.productDetails.details.advance_percent, [Validators.required]),
     capacity: new FormControl(this.productDetails.details.capacity, [Validators.required, Validators.pattern(AMOUNTPATTERN)]),
     acCharges: new FormControl(this.productDetails.details.ac_charge),
     availableAc: new FormControl(this.productDetails.details.is_ac),
@@ -71,8 +71,8 @@ export class ViewProductBanquatePage{
     banquetId: new FormControl(this.productDetails.details.id),
     parking: new FormControl(this.productDetails.details.is_parking),
     foodNotAllowed: new FormControl(this.productDetails.details.food_not_allowed),
-    noOfPlates: new FormControl(this.productDetails.details.min_no_of_plate),
-    acTime:new FormControl(1), //this.productDetails.details.ac_time
+    noOfPlates: new FormControl(this.productDetails.details.min_no_of_plate ? this.productDetails.details.min_no_of_plate : null),
+    acTime:new FormControl(this.productDetails.details.ac_time ? this.productDetails.details.ac_time : null), //this.productDetails.details.ac_time
   });
 
 }
@@ -216,30 +216,30 @@ uploadData()
 
   console.log(data);
 
-  // this.authService.authData(data,'edit_product_banquet',this.userPostData.token).then((data) => {
-  //   this.responseData = data;
-  //   if(this.responseData.status == true){
-  //     this.navCtrl.pop();
-  //     this.authService.pageReset=true;
-  //     const alert = this.alertCtrl.create({
-  //       subTitle: this.responseData.message,
-  //       buttons: ['OK']
+  this.authService.authData(data,'edit_product_banquet',this.userPostData.token).then((data) => {
+    this.responseData = data;
+    if(this.responseData.status == true){
+      this.navCtrl.pop();
+      this.authService.pageReset=true;
+      const alert = this.alertCtrl.create({
+        subTitle: this.responseData.message,
+        buttons: ['OK']
 
-  //     })
-  //     alert.present();
-  //   }else{
-  //     const alert = this.alertCtrl.create({
-  //       subTitle: this.responseData.message,
-  //       buttons: ['OK']
+      })
+      alert.present();
+    }else{
+      const alert = this.alertCtrl.create({
+        subTitle: this.responseData.message,
+        buttons: ['OK']
 
-  //     })
-  //     alert.present();
-  //   }
-  // }, (err) => {
-  //  this.responseData = err;
-  //  console.log(this.responseData)
+      })
+      alert.present();
+    }
+  }, (err) => {
+   this.responseData = err;
+   console.log(this.responseData)
 
-  // });
+  });
 }
 
 

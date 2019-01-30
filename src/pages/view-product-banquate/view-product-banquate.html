@@ -55,8 +55,8 @@
             <h3>Not Available</h3>
           </ion-col>
       <ion-col *ngIf="productDetails.details.book_advance != null" align-self-start>
-        <ion-label color="dash6">Advance Amount :</ion-label>
-        <h3>Rs.{{productDetails.details.book_advance | number:'1.0-0'}}</h3>
+        <ion-label color="dash6">Booking Advance :</ion-label>
+        <h3>{{productDetails.details.book_advance | number:'1.0-0'}} %</h3>
       </ion-col>
 
     </ion-row>

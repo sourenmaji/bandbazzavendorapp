@@ -25,7 +25,7 @@ export class AddBanquetPage{
   public token: string;
 
   //form 1 data
-  public form1data: {hallname:string, details:string, price:number, booking_advance: number, tags:string};
+  public form1data: {hallname:string, details:string, price:number, advance_percent: number, tags:string};
 
   //form 2 data
   public latitude: number;
@@ -69,7 +69,7 @@ export class AddBanquetPage{
     this.len = 1;
 
     //for step 1
-    this.form1data = {hallname:"", details:"", booking_advance:null, price:null,tags:""};
+    this.form1data = {hallname:"", details:"", advance_percent:null, price:null,tags:""};
 
     //for step 2
     this.zoom = 12;
@@ -163,13 +163,13 @@ export class AddBanquetPage{
         this.errormessage = "Enter a valid price";
         return false;
       }
-      else if(+this.form1data.booking_advance>100)
+      else if(+this.form1data.advance_percent>100)
       {
-        console.log(+this.form1data.booking_advance>99);
+        console.log(+this.form1data.advance_percent>99);
         this.errormessage = "Enter a valid advance booking percent";
         return false;
       }
-      // else if((+this.form1data.booking_advance) > (+this.form1data.price))
+      // else if((+this.form1data.advance_percent) > (+this.form1data.price))
       // {
       //   this.errormessage = "Booking advance amount cannot be greater than booking price";
       //   return false;
@@ -240,12 +240,12 @@ export class AddBanquetPage{
     }
     else if(stepNo == 4)
     {
-      if(this.images.length == 0)
-      {
-        this.errormessage = "Enter images of your banquet hall";
-        return false;
-      }
-      else
+      // if(this.images.length == 0)
+      // {
+      //   this.errormessage = "Enter images of your banquet hall";
+      //   return false;
+      // }
+      // else
 
         return true;
     }
@@ -392,15 +392,15 @@ export class AddBanquetPage{
   uploadData()
   {
     let uploadData: 
-    {business_id: number,hall_name:string, ac_charge:number, ac_time: number, search_tags:string, details:string, price:number, book_advance:number, address_same_as_business:boolean, address:string, location: string, lat:number, lng:number, capacity:number, is_veg:boolean, is_ac:boolean, is_parking:boolean, food_not_allowed:number, min_no_of_plates: number,images:string[]};
+    {business_id: number,hall_name:string, ac_charge:number, ac_time: number, search_tags:string, details:string, price:number, advance_percent:number, address:string, location: string, lat:number, lng:number, capacity:number, is_veg:boolean, is_ac:boolean, is_parking:boolean, food_not_allowed:number, min_no_of_plates: number,images:string[]};
 
-    uploadData = {business_id: null,search_tags:"", ac_charge:0, ac_time: null, hall_name:"", details:"", price:null, book_advance:null, address_same_as_business:null, address:"", location: "", lat:null, lng:null, capacity:null, is_veg:null, is_ac:null, food_not_allowed:0, min_no_of_plates: 0,is_parking:null, images:[]};
+    uploadData = {business_id: null,search_tags:"", ac_charge:0, ac_time: null, hall_name:"", details:"", price:null, advance_percent:null, address:"", location: "", lat:null, lng:null, capacity:null, is_veg:null, is_ac:null, food_not_allowed:0, min_no_of_plates: 0,is_parking:null, images:[]};
     uploadData.business_id = this.business_id;
     uploadData.hall_name = this.form1data.hallname;
     uploadData.details = this.form1data.details;
     uploadData.price = this.form1data.price;
     uploadData.search_tags = this.form1data.tags;
-    uploadData.book_advance = this.form1data.booking_advance;
+    uploadData. advance_percent = this.form1data.advance_percent;
 
     uploadData.location=this.form2data.map_address;
     uploadData.address = this.form2data.full_address;
