@@ -14,9 +14,9 @@
         <ion-item>
           <ion-label floating>Name <span style="color: red">*</span></ion-label>
           <ion-input type="text" [(ngModel)]="userData.name"
-          formControlName="name" [class.error1]="!signupform.controls.name.valid && signupform.controls.name.dirty"></ion-input>
+          formControlName="name"></ion-input>
         </ion-item>
-        <ion-item no-lines *ngIf="( signupform.get('name').hasError('minlength') || signupform.get('name').hasError('maxlength') ||signupform.get('name').hasError('pattern') ||signupform.get('name').hasError('required') ) && signupform.get('name').touched">
+        <ion-item no-lines *ngIf="( signupform.get('name').hasError('minlength') || signupform.get('name').hasError('maxlength') || signupform.get('name').hasError('pattern') || signupform.get('name').hasError('required') ) && signupform.get('name').touched">
           <div class="error" *ngIf="signupform.get('name').hasError('required') && signupform.get('name').touched">
             Please enter your name.
           </div>
@@ -33,8 +33,7 @@
         <ion-item>
           <ion-label floating>Email or Phone<span style="color: red">*</span></ion-label>
           <ion-input disabled="{{isDisabled}}" type="text" [(ngModel)]="userData.user"
-          formControlName="user" [class.error1]="!signupform.controls.user.valid && signupform.controls.user.dirty"
-          (keyup)="showVal(this.value)">
+          formControlName="user" (keyup)="showVal(this.value)">
           </ion-input>
           <button *ngIf="!( signupform.get('user').hasError('minlength') || signupform.get('user').hasError('pattern') ||signupform.get('user').hasError('required') ) && !buttonClicked && otpButton" ion-button  clear item-right (click)="sendOtp()" ion-text color="light">Send OTP</button>
           <button *ngIf="isDisabled"

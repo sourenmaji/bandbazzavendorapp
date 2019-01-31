@@ -15,15 +15,23 @@
       },
       "oauth_client": [
         {
-          "client_id": "343465164111-tih06h8oo4lbs23fs0qo2ru0j5bs34mf.apps.googleusercontent.com",
+          "client_id": "343465164111-sc7pj93q54eeqjpk17stpujgct3dfjpa.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.bandbazza.vendor",
-            "certificate_hash": "f76bc1101b1d20144b5aa254c5dcb48786dc08cc"
+            "certificate_hash": "7b6adc6c491e4f5a271e1442d852d7bae3bd6107"
           }
         },
         {
-          "client_id": "343465164111-818pjtaa1eth7pib9ebkd77lef6orf5p.apps.googleusercontent.com",
+          "client_id": "343465164111-78c9hqfh76i5b21g4hco65anjui7vk29.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bandbazza.vendor",
+            "certificate_hash": "4c948f604788c2ce339cb0d2f0e8f75ce18029a1"
+          }
+        },
+        {
+          "client_id": "343465164111-u4jptao7chq4kk5v8l7lt7uq9t4ilv7b.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -40,7 +48,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "343465164111-mpimt8el3badj8h6s1o7dmreugkuq6bh.apps.googleusercontent.com",
+              "client_id": "343465164111-u4jptao7chq4kk5v8l7lt7uq9t4ilv7b.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
