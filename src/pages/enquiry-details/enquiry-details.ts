@@ -69,15 +69,15 @@ export class EnquiryDetailsPage {
   enquiryApproval(id, name, status)
   {
     //status is 1 for approve, 0 for decline
-    if(name=='Banquet Hall')
+    if(name==2)
     {
       this.type='finalize_hall_enquiry';
     }
-    else if(name=='Car Rental')
+    else if(name==3)
     {
       this.type='finalize_car_enquiry';
     }
-    else if(name=='Caterer')
+    else if(name==4)
     {
       this.type='finalize_caterer_enquiry';
     }
@@ -90,7 +90,7 @@ export class EnquiryDetailsPage {
     //create toast notification
     let toast = this.toastCtrl.create({
       message: "",
-      duration: 5000,
+      duration: 3000,
       position: 'bottom'
     });
 

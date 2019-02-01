@@ -51,7 +51,6 @@ export class MyApp {
       platform.ready().then(() => {
         // Okay, so the platform is ready and our plugins are available.
         // Here you can do any higher level native things you might need.
-        splashScreen.hide();
         statusBar.styleBlackTranslucent();
 
             this.fcm.getToken().then(device_token => {
@@ -89,7 +88,8 @@ export class MyApp {
          this.events.subscribe('network:online', () => {
              this.navCtrl.pop();
          });
-        
+      
+      splashScreen.hide();  
       this.loggedIn = JSON.parse(localStorage.getItem('userData'));
       console.log("User logged in", this.loggedIn);
       if(this.loggedIn)

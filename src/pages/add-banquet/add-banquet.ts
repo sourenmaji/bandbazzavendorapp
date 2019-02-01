@@ -240,12 +240,12 @@ export class AddBanquetPage{
     }
     else if(stepNo == 4)
     {
-      // if(this.images.length == 0)
-      // {
-      //   this.errormessage = "Enter images of your banquet hall";
-      //   return false;
-      // }
-      // else
+      if(this.images.length == 0)
+      {
+        this.errormessage = "Enter images of your banquet hall";
+        return false;
+      }
+      else
 
         return true;
     }
