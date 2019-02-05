@@ -21,6 +21,7 @@ export class EnquiryDetailsPage {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.token = data.token;
     this.enquiry = this.navParams.data;
+    console.log('enquiry', this.enquiry);
     this.message="";
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
@@ -90,7 +91,7 @@ export class EnquiryDetailsPage {
     //create toast notification
     let toast = this.toastCtrl.create({
       message: "",
-      duration: 3000,
+      duration: 5000,
       position: 'bottom'
     });
 

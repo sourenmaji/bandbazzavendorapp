@@ -319,22 +319,22 @@ export class ProductsPage {
 
   detailsModule(action: string)
   {
-    if(this.category_id==5 && !this.alProducts[0].edit_status && action=="edit")
+    if(this.category_id==5 && action=="edit")
     this.navCtrl.push(ViewProductPhotographyPage,{action: action,product: this.alProducts[0]});
     else if(this.category_id==5 && action=="details")
     this.navCtrl.push(ViewProductPhotographyPage,{action: action,product: this.alProducts[0], videos: this.responseData.all_photography_video, plans: this.responseData.all_photography_plan, images:this.responseData.all_photography_image});
-    if(this.category_id==6 && !this.alProducts[0].edit_status && action=="edit")
+    if(this.category_id==6 && action=="edit")
     this.navCtrl.push(ViewProductMakeupPage,{action: action,product: this.alProducts[0]});
     else if(this.category_id==6 && action=="details")
     this.navCtrl.push(ViewProductMakeupPage,{action: action,product: this.alProducts[0], videos: this.responseData.all_makeup_video, plans: this.responseData.all_makeup_plan, images:this.responseData.all_makeup_image});
-    else if(this.alProducts[0].edit_status && action=="edit")
-    {
-      const alert = this.alertCtrl.create({
-        subTitle: "You have already sent an edit request for this product. Please wait for admin approval.",
-        buttons: ['OK']
-      })
-      alert.present();
-    }
+    // else if(this.alProducts[0].edit_status && action=="edit")
+    // {
+    //   const alert = this.alertCtrl.create({
+    //     subTitle: "You have already sent an edit request for this product. Please wait for admin approval.",
+    //     buttons: ['OK']
+    //   })
+    //   alert.present();
+    // }
   }
 
   addModule(module: string, category: number)

@@ -89,7 +89,7 @@ imageUrl:string = '';
             else
             {
               const toast = this.toastCtrl.create({
-                message: 'No Business Added Yet',
+                message: 'No business added yet!',
                 duration: 5000,
                 position: 'bottom'
               })

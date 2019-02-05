@@ -155,8 +155,8 @@ console.log(this.responseData)
 loader.dismiss();
 const toast = this.toastCtrl.create({
   message: this.responseData.message,
-  duration: 3000,
-  position: 'top'
+  duration: 5000,
+  position: 'bottom'
 })
 toast.present();
 });
@@ -206,8 +206,8 @@ this.responseData = err;
 console.log(this.responseData)
 const toast = this.toastCtrl.create({
   message: this.responseData.message,
-  duration: 3000,
-  position: 'top'
+  duration: 5000,
+  position: 'bottom'
 })
 toast.present();
 });

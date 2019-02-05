@@ -6,10 +6,10 @@
     </ion-header>
     <ion-content>
         <ion-list>
-            <button ion-item icon-left (click)="onload(dashboardPage)">
-                <ion-icon color="dash1" name="easel"></ion-icon>Dashboard
+            <button *ngFor="let page of pages" [class.activeMenu]="checkActive(page)" ion-item icon-left (click)="onload(page)">
+                <ion-icon [color]="page.color" [name]="page.icon" style="position: relative; top: 2px;"></ion-icon>{{page.title}}
             </button>
-            <button ion-item icon-left (click)="onload(profilePage)">
+            <!-- <button ion-item icon-left (click)="onload(profilePage)">
                 <ion-icon color="dash2" name="person" style="position: relative; top: 2px;"></ion-icon>Profile
             </button>
             <button ion-item icon-left (click)="onload(homePage)">
@@ -26,7 +26,7 @@
             </button>
             <button ion-item icon-left (click)="onload(bookingsPage)">
                 <ion-icon color="dark" name="albums"></ion-icon>Bookings
-            </button>
+            </button> -->
 
         </ion-list>
     </ion-content>

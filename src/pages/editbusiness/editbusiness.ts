@@ -211,8 +211,8 @@ export class EditbusinessPage {
   private presentToast(text) {
     let toast = this.toastCtrl.create({
       message: text,
-      duration: 3000,
-      position: 'top'
+      duration: 5000,
+      position: 'bottom'
     });
     toast.present();
   }

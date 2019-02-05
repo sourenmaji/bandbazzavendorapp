@@ -118,7 +118,7 @@ export class ViewProductMakeupPage {
       let toast = this.toastCtrl.create({
         message: this.responseData.message,
         duration: 2000,
-        position: 'top'
+        position: 'bottom'
       });
 
       toast.onDidDismiss(() => {

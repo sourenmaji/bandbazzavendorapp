@@ -27,16 +27,18 @@
             <ion-badge color="ac">AC</ion-badge>
           </ion-col>
           <ion-col *ngIf="productDetails.details.is_ac == 0" text-center>
-              <ion-badge color="dash2">Non AC</ion-badge>
+              <ion-badge color="dash2">Non-AC</ion-badge>
           </ion-col>
       </ion-row>
       <ion-row>
         <ion-col *ngIf="productDetails.details.price!=null">
             <h1 ion-text color="dark"><b>Rs.{{productDetails.details.price | number:'1.0-0'}}</b></h1>
         </ion-col>
+        <ion-col *ngIf="productDetails.details.price==null">
+          <h1 ion-text color="dark"><b>Price N/A</b></h1>
+      </ion-col>
         <ion-col *ngIf="productDetails.details.is_nonveg == 1" text-center>
-            <ion-badge color="ac">Veg</ion-badge>
-            <ion-badge color="danger">NonVeg</ion-badge>
+            <ion-badge color="ac">All</ion-badge>
           </ion-col>
           <ion-col *ngIf="productDetails.details.is_nonveg == 0" text-center>
               <ion-badge color="ac">Veg</ion-badge>

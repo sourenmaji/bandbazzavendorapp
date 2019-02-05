@@ -100,8 +100,14 @@
         </form>
       </ion-list>
       <div class="btn_container">
-        <button class="button1" ion-button full (click)="loginWithFacebook()">Signup with Facebook</button>
-        <button class="button2" ion-button full (click)="loginWithGoogle()">Signup with Google</button>
+        <!-- <button class="button1" ion-button full (click)="loginWithFacebook()">Signup with Facebook</button>
+        <button class="button2" ion-button full (click)="loginWithGoogle()">Signup with Google</button> -->
+        <button ion-button icon-only (click)="loginWithFacebook()" class="button1">
+          <ion-icon slot="start" name="logo-facebook"></ion-icon>
+        </button>
+        <button ion-button icon-only (click)="loginWithGoogle()" class="button2">
+           <ion-icon slot="start" name="logo-google"></ion-icon>
+         </button>
     </div>
     </ion-card-content>
   </ion-card>

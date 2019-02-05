@@ -121,7 +121,7 @@ export class ViewProductPhotographyPage {
 
       let toast = this.toastCtrl.create({
         message: this.responseData.message,
-        duration: 5000,
+        duration: 2000,
         position: 'bottom'
       });
 

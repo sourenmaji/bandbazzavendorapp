@@ -30,7 +30,7 @@
           <h3>Rs. {{productValue.price_per_plate | number:'1.0-0'}}</h3>
         </ion-col>
         <ion-col  align-self-start>
-          <ion-label color="dash6">Minimum No. of Plate :</ion-label>
+          <ion-label color="dash6">Minimum No. of Plates :</ion-label>
           <h3>{{productValue.package_min_plates}}</h3>
         </ion-col>
       </ion-row>
@@ -82,7 +82,7 @@
 
 
               <ion-item>
-                <ion-label floating>Minimum no. of plates <span style="color: red">*</span></ion-label>
+                <ion-label floating>Minimum No. of Plates <span style="color: red">*</span></ion-label>
                 <ion-input type="number" [(ngModel)]="userData.minimumPlate" value="{{productValue.package_min_plates}}"
                 formControlName="minimumPlate" [class.error1]="!editProductform.controls.minimumPlate.valid && editProductform.controls.minimumPlate.dirty">
               </ion-input>

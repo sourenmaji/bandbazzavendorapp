@@ -25,13 +25,15 @@ import { ErrorPage } from '../pages/error/error';
 export class MyApp {
   @ViewChild('nav') navCtrl: NavController;
   rootPage: any;
-  dashboardPage = DashboardPage;
-  profilePage = ProfilePage;
-  homePage = HomePage;
-  businessPage = BusinessPage;
-  productsPage = ProductsPage;
-  enquiriesPage = EnquiriesPage;
-  bookingsPage = BookingsPage;
+  pages: any;
+  isActive: any;
+  // dashboardPage = DashboardPage;
+  // profilePage = ProfilePage;
+  // homePage = HomePage;
+  // businessPage = BusinessPage;
+  // productsPage = ProductsPage;
+  // enquiriesPage = EnquiriesPage;
+  // bookingsPage = BookingsPage;
   userDetails : any;
   responseData: any;
   loggedIn: any;
@@ -101,6 +103,18 @@ export class MyApp {
         this.navCtrl.setRoot(WelcomePage);
       }
       });
+
+      this.pages=[
+        {title: 'Dashboard', component: DashboardPage, icon: 'easel', color: 'dash1'},
+        {title: 'Profile', component: ProfilePage, icon: 'person', color: 'dash2'},
+        {title: 'Settings', component: HomePage, icon: 'settings', color: 'lightprimary'},
+        {title: 'Business', component: BusinessPage, icon: 'stats', color: 'dash8'},
+        {title: 'Products', component: ProductsPage, icon: 'basket', color: 'energy'},
+        {title: 'Enquiries', component: EnquiriesPage, icon: 'mic', color: 'dash6'},
+        {title: 'Bookings', component: BookingsPage, icon: 'albums', color: 'dark'},
+      ]
+
+      this.isActive=this.pages[0];
     }
     
     goToPage(data)
@@ -152,13 +166,19 @@ export class MyApp {
     }
     
     onload(page: any){
-      this.navCtrl.setRoot(page);
+      this.navCtrl.setRoot(page.component);
+      this.isActive=page;
       this.menuCtrl.close();
     }
     
     backToWelcome(){
       this.navCtrl.push(WelcomePage);
       this.menuCtrl.close();
+    }
+
+    checkActive(page)
+    {
+      return page==this.isActive;
     }
   }
   

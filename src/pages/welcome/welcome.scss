@@ -117,14 +117,23 @@ page-welcome {
       }
       .btn_container {
         padding-top: 10px;
+        text-align: center;
       }
       .button1{
         background: #3b5998;
-
+      
+        :hover
+        {
+          background-color: #173168;
+        }
+      
       }
       .button2
       {
         background: #dd4b39;
+        :hover
+        {
+          background-color: #722117;
+        }
       }
-
     }

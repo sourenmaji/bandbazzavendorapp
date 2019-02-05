@@ -5,13 +5,11 @@
     <ion-row>
       <ion-col>
         <img src="assets/imgs/logo.png" class="logo"/>
-        <!-- <small>Vendor</small> -->
       </ion-col>
     </ion-row>
   </ion-grid>
 
   <ion-grid>
-    <!-- <img src="assets/imgs/bg-ban-seller.png"/> -->
     <ion-row>
         <ion-card class="wlcm-crd">
             <ion-card-content>
@@ -55,7 +53,14 @@
                   </div>
                 </form>
               </ion-list>
-
+              <div class="btn_container">
+                <button round ion-button icon-only (click)="loginWithFacebook()" class="button1">
+                  <ion-icon slot="start" name="logo-facebook"></ion-icon>
+                </button>
+                <button round ion-button icon-only (click)="loginWithGoogle()" class="button2">
+                   <ion-icon slot="start" name="logo-google"></ion-icon>
+                 </button>
+              </div>
             </ion-card-content>
           </ion-card>
     </ion-row>
