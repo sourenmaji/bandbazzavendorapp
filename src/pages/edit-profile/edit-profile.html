@@ -14,8 +14,7 @@
           <form novalidate [formGroup]="editform">
             <ion-item>
               <ion-label floating>Name <span style="color: red">*</span></ion-label>
-              <ion-input type="text" [(ngModel)]="userData.name" value="{{userDetails.name}}"
-              formControlName="name" [class.error1]="!editform.controls.name.valid && editform.controls.name.dirty"></ion-input>
+              <ion-input type="text" formControlName="name" [class.error1]="!editform.controls.name.valid && editform.controls.name.dirty"></ion-input>
             </ion-item>
             <ion-item no-lines *ngIf="( editform.get('name').hasError('minlength') || editform.get('name').hasError('maxlength') ||editform.get('name').hasError('pattern') ||editform.get('name').hasError('required') ) && editform.get('name').touched">
               <div class="error" *ngIf="editform.get('name').hasError('required') && editform.get('name').touched">
@@ -33,7 +32,7 @@
             </ion-item>
                 <ion-item>
                   <ion-label floating>Email <span style="color: red">*</span></ion-label>
-                  <ion-input type="email" [(ngModel)]="userData.email" value="{{userDetails.email}}"
+                  <ion-input type="email" 
                   formControlName="email" [class.error1]="!editform.controls.email.valid && editform.controls.email.dirty"></ion-input>
                 </ion-item>
                 <ion-item no-lines *ngIf="( editform.get('email').hasError('minlength') || editform.get('email').hasError('pattern') ||editform.get('email').hasError('required') ) && editform.get('email').touched">
@@ -46,8 +45,7 @@
                 </ion-item>
                   <ion-item>
                       <ion-label floating>Phone <span style="color: red">*</span></ion-label>
-                      <ion-input  disabled="{{isDisabled}}" id="phone_no" type="text" [(ngModel)]="userData.phone_no" value="{{userDetails.phone_no}}"
-                      formControlName="phone_no" [class.error1]="!editform.controls.phone_no.valid && editform.controls.phone_no.dirty"
+                      <ion-input  [disabled]="isDisabled" id="phone_no" type="text"  formControlName="phone_no" [class.error1]="!editform.controls.phone_no.valid && editform.controls.phone_no.dirty"
                       (keyup)="showVal(this.value)"></ion-input>
                       <button *ngIf="!( editform.get('phone_no').hasError('minlength') || editform.get('phone_no').hasError('pattern') || editform.get('phone_no').hasError('required') ) && !buttonClicked && otpButton"
                       ion-button  clear item-right (click)="sendOtp()">Send OTP</button>
@@ -64,8 +62,8 @@
 
                     </ion-item>
                     <ion-item *ngIf="buttonClicked">
-                      <ion-input type="text" placeholder="Enter Six Digit OTP"
-                      [(ngModel)]="userData.otp" formControlName="otp"  ></ion-input>
+                      <ion-input type="text" placeholder="Enter six digit OTP"
+                      [(ngModel)]="userData.otp" formControlName="otp"></ion-input>
                     </ion-item>
                     <ion-item *ngIf="buttonClicked">
                       <div class="error" *ngIf="editform.get('otp').hasError('equalTo') && editform.get('otp').touched">
@@ -75,14 +73,9 @@
                         Your OTP match successfully
                       </div>
                     </ion-item>
-                    <!-- <ion-item>
-                      <div>
-                        {{optmessage}}
-                      </div>
-                    </ion-item> -->
                     <ion-item>
                         <ion-label floating>Address</ion-label>
-                        <ion-textarea myInput type="text" value="{{userDetails.address}}" [(ngModel)]="userData.address" formControlName="address"></ion-textarea>
+                        <ion-textarea myInput type="text" formControlName="address"></ion-textarea>
                       </ion-item>
                       <button  ion-button block color="success" [disabled]="editform.invalid || !disableButton" (click)="editProfile()">Save</button><br/>
             </form>

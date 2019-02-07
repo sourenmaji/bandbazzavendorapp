@@ -2,7 +2,7 @@ import { MapsAPILoader } from '@agm/core';
 import { Component, NgZone, ViewChild } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
-import { ActionSheetController, AlertController, IonicPage, NavController, NavParams, Platform, Slides } from 'ionic-angular';
+import { ActionSheetController, AlertController, IonicPage, NavController, NavParams, Platform, Slides, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 declare var google;
@@ -42,8 +42,11 @@ export class AddBanquetPage{
 
   //form 3 data
   public form3data: {capacity:number, ac_charge:number, ac_time: number, all_food_type:boolean, ac:boolean, parking:boolean, food_not_allowed: boolean, min_no_of_plates: number};
+  
   //form 4 data
-  public images: any[];
+  // public images: any[];
+  public imagesleft: string[];
+  public imagesright: string[];
 
   public temp;
 
@@ -51,6 +54,7 @@ export class AddBanquetPage{
               public navParams: NavParams,
               public imagePicker: ImagePicker,
               public actionSheetCtrl: ActionSheetController,
+              public toastCtrl: ToastController,
               public camera: Camera,
               public restServ: AuthServiceProvider,
               private mapsAPILoader: MapsAPILoader,
@@ -87,7 +91,9 @@ export class AddBanquetPage{
     this.form3data = {ac:null,all_food_type:null,capacity:null,parking:null, ac_charge:null,ac_time: 1, food_not_allowed: null, min_no_of_plates: null};
 
     //for step 4
-    this.images = [];
+    // this.images = [];
+    this.imagesleft = [];
+    this.imagesright = [];
     let backAction =  platform.registerBackButtonAction(() => {
       this.navCtrl.pop();
       backAction();
@@ -218,7 +224,7 @@ export class AddBanquetPage{
       }
       else if(this.form3data.all_food_type == null)
       {
-        this.errormessage = "Enter permitted food type";
+        this.errormessage = "Choose permitted food type";
         return false;
       }
       else if(this.form3data.ac == null)
@@ -233,21 +239,33 @@ export class AddBanquetPage{
       }
       else if(this.form3data.parking == null)
       {
-        this.errormessage = "Enter if parking is available";
+        this.errormessage = "Choose if parking is available";
+        return false;
+      }
+      else if(this.form3data.food_not_allowed == null)
+      {
+        this.errormessage = "Choose if outside food allowed";
+        return false;
+      }
+      else if(this.form3data.food_not_allowed == true && this.form3data.min_no_of_plates==null)
+      {
+        this.errormessage = "Enter minimum no of plates";
         return false;
       }
       return true;
     }
     else if(stepNo == 4)
     {
-      if(this.images.length == 0)
+      if((+this.imagesleft.length)+(+this.imagesright.length)>=1)
       {
-        this.errormessage = "Enter images of your banquet hall";
+        return true;
+      }
+      
+      else
+      {
+        this.errormessage = "Please select a hall image";
         return false;
       }
-      else
-
-        return true;
     }
     else
     {
@@ -340,7 +358,7 @@ export class AddBanquetPage{
 
 
   chooseFromCam(){
-      let remaining = 5 - this.images.length;
+      let remaining = 5 - this.imagesleft.length - this.imagesright.length;
       if(remaining <= 0)
       {
         return;
@@ -354,16 +372,24 @@ export class AddBanquetPage{
 
     this.camera.getPicture(options).then((imageData) => {
 
-      this.images.push(imageData);
-
+      if(this.imagesright.length< this.imagesleft.length)
+        this.imagesright.push(imageData);
+      else
+        this.imagesleft.push(imageData);
      }, (err) => {
       // Handle error
+      const toast = this.toastCtrl.create({
+        message: err,
+        duration: 5000,
+        position: 'bottom'
+      })
+      toast.present();
      });
   }
 
   pickImage()
   {
-    let remaining = 5 - this.images.length;
+    let remaining = 5 - this.imagesleft.length - this.imagesright.length;
     if(remaining <= 0)
     {
       return;
@@ -372,19 +398,36 @@ export class AddBanquetPage{
     (results =>{
       // alert(results);
       for(let i=0; i < results.length;i++){
-        this.images.push(results[i]);
+        if(this.imagesright.length< this.imagesleft.length)
+          this.imagesright.push(results[i]);
+        else
+          this.imagesleft.push(results[i]);
       };
-    });
+    }, (err) => {
+      // Handle error
+      const toast = this.toastCtrl.create({
+        message: err,
+        duration: 5000,
+        position: 'bottom'
+      })
+      toast.present();
+     });
   }
 
   removeImage(src: string)
   {
     let newimageright: string[] = [];
-    this.images.forEach(element => {
+    let newimageleft: string[] = [];
+    this.imagesright.forEach(element => {
       if(element != src)
         newimageright.push(element);
     });
-    this.images = newimageright;
+    this.imagesleft.forEach(element => {
+      if(element != src)
+        newimageleft.push(element);
+    });
+    this.imagesright = newimageright;
+    this.imagesleft = newimageleft;
   }
 
 
@@ -420,38 +463,51 @@ export class AddBanquetPage{
     uploadData.food_not_allowed = this.form3data.food_not_allowed ? 1 : 0;
     uploadData.min_no_of_plates = this.form3data.min_no_of_plates;
 
-    uploadData.images = this.images;
+    // uploadData.images = this.images;
+    uploadData.images = [];
+    this.imagesright.forEach(element => {
+      uploadData.images.push(element);
+    });
+    this.imagesleft.forEach(element => {
+      uploadData.images.push(element);
+    });
+
     //call and upload the uploadData object here
     this.restServ.authData(uploadData,'add_product_hall',this.token).then((data) => {
       this.responseData = data;
       console.log(this.responseData);
       if(this.responseData.status==true)
       {
+        let toast = this.toastCtrl.create({
+          message: this.responseData.message,
+          duration: 5000,
+          position: 'bottom'
+        });
+        toast.present();
+
         this.restServ.pageReset=true;
         this.navCtrl.pop();
-        const alert = this.alertCtrl.create({
-        subTitle: this.responseData.message,
-        buttons: ['OK']
-      })
-      alert.present();
       }
       else
       {
-      const alert = this.alertCtrl.create({
-        subTitle: this.responseData.message,
-        buttons: ['OK']
-      })
-      alert.present();
+        let toast = this.toastCtrl.create({
+          message: this.responseData.message,
+          duration: 5000,
+          position: 'bottom'
+        });
+        toast.present();
       }
 
     }, (err) => {
      this.responseData = err;
-     console.log(this.responseData)
-     const alert = this.alertCtrl.create({
-      subTitle: "Something went wrong! Please try again.",
-      buttons: ['OK']
+     console.log(this.responseData);
+     const toast = this.toastCtrl.create({
+      message: 'Oops! Something went wrong.',
+      duration: 5000,
+      cssClass: "toast-danger",
+      position: 'bottom'
     })
-    alert.present();
+    toast.present();
     });
   }
 

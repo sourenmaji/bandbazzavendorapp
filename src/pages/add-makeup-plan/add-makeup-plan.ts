@@ -185,7 +185,7 @@ export class AddMakeupPlanPage {
       //   alert('base64 '+err);
       // });
     }, (err) => {
-      alert('error '+err);
+      // alert('error '+err);
     });
 
 }
@@ -205,7 +205,7 @@ SelectFromGallery()
     }
   },
   (err) => {
-    alert('error '+err);
+    // alert('error '+err);
     const toast = this.toastCtrl.create({
       message: err,
       duration: 5000,
@@ -227,7 +227,7 @@ removeImage(src: string)
 
 UploadImages()
 {
-  alert(this.images);
+  // alert(this.images);
   this.restServ.authData({images: this.images, makeup_artists_id: this.navParams.get('id')},'add_makeup_image',this.token).then((data) => {
     this.responseData = data;
     console.log(this.responseData);

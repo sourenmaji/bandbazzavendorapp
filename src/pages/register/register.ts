@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
-import { AlertController, IonicPage, LoadingController, Navbar, NavController, Platform, ToastController } from 'ionic-angular';
+import { AlertController, IonicPage, LoadingController, Navbar, NavController, Platform, ToastController, NavParams } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { DashboardPage } from '../dashboard/dashboard';
 import { WelcomePage } from '../welcome/welcome';
@@ -12,13 +12,24 @@ import { WelcomePage } from '../welcome/welcome';
   selector: 'page-register',
   templateUrl: 'register.html',
 })
-export class RegisterPage implements OnInit{
+export class RegisterPage{
   
   @ViewChild(Navbar) navBar: Navbar;
+
+  responseData : any;
+  public buttonClicked: boolean = false;
+  public otpButton: boolean = false;
+  public disableButton: boolean = false;
+  private isDisabled: boolean=false;
+  user_OTP: any =null;
+  signupform: FormGroup;
+  userData: any;
+
   constructor(
     public loadingCtrl: LoadingController,
     public platform: Platform,
     public navCtrl: NavController,
+    public navParams: NavParams,
     public authService:AuthServiceProvider,
     public alertCtrl: AlertController,
     public facebook: Facebook,
@@ -29,7 +40,42 @@ export class RegisterPage implements OnInit{
       let backAction =  platform.registerBackButtonAction(() => {
         this.navCtrl.pop();
         backAction();
-      },2)
+      },2);
+
+      let provider_name=this.navParams.get('provider_name');
+      let provider_id=this.navParams.get('provider_id');
+      let name=this.navParams.get('name');
+      let user=this.navParams.get('user');
+      console.log(this.navParams.data);
+      if(this.navParams.data)
+      {
+        this.otpButton = false;
+        this.disableButton = true;
+      }
+      else
+      {
+        this.isDisabled =false;
+        this.otpButton = false;
+      }
+      this.userData = {
+                      provider_name: provider_name ? provider_name:"", 
+                      provider_id: provider_id ? provider_id : null, 
+                      name: name ? name : "",
+                      user: user ? user : "",
+                      password: "",
+                      password_confirmation: "",
+                      otp: ""
+                    };
+
+      let EMAILPATTERN =/^([_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,5}))|[0-9]{10}$/;
+      this.signupform = new FormGroup({
+        numb: new FormControl(this.user_OTP),
+        password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12)])),
+        name: new FormControl(this.userData.name, [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(30)]),
+        user: new FormControl(this.userData.email, [Validators.required, Validators.pattern(EMAILPATTERN)]),
+        otp: new FormControl('', Validators.compose([])),
+        password_confirmation: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12), this.equalto('password')]))
+      });
     }
     
     ionViewDidLoad(){
@@ -38,30 +84,7 @@ export class RegisterPage implements OnInit{
         this.navCtrl.setRoot(WelcomePage);
       }
     }
-    
-    responseData : any;
-    public buttonClicked: boolean = false;
-    public otpButton: boolean = false;
-    public disableButton: boolean = false;
-    private isDisabled: boolean=false;
-    user_OTP: any =null;
-    signupform: FormGroup;
-    userData = { provider_name: "", provider_id: null, name: "",user: "",password: "",password_confirmation: "",otp: ""};
-    
-    
-    ngOnInit()
-    {
-      let EMAILPATTERN =/^([_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,5}))|[0-9]{10}$/;
-      this.signupform = new FormGroup({
-        numb: new FormControl(this.user_OTP),
-        password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12)])),
-        name: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(30)]),
-        user: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)]),
-        otp: new FormControl('', Validators.compose([])),
-        password_confirmation: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12), this.equalto('password')]))
-      });
-    }
-    
+       
     equalto(field_name): ValidatorFn {
       return (control: AbstractControl): {[key: string]: any} => {
         let input = control.value;
@@ -272,8 +295,13 @@ export class RegisterPage implements OnInit{
             'provider_id': res.userId,
             'provider_name':'google'
           }
+          let loader = this.loadingCtrl.create({
+            content: 'Please wait...'
+          });
+          loader.present();
           this.authService.postData(credentials,'social_login').then((result) => {
             this.responseData = result;
+            loader.dismiss();
             
             if(this.responseData.status)
             {
@@ -296,6 +324,7 @@ export class RegisterPage implements OnInit{
           },
           (err) =>
           {
+            loader.dismiss();
             this.responseData = err;
             console.log(this.responseData)
             const toast = this.toastCtrl.create({
@@ -354,9 +383,15 @@ export class RegisterPage implements OnInit{
                 'provider_id':fb_id,
                 'provider_name':'facebook'
               }
+
+              let loader = this.loadingCtrl.create({
+                content: 'Please wait...'
+              });
+              loader.present();
+
               this.authService.postData(credentials,'social_login').then((result) => {
                 this.responseData = result;
-                
+                loader.dismiss();
                 if(this.responseData.status)
                 {
                   console.log(this.responseData);
@@ -377,6 +412,7 @@ export class RegisterPage implements OnInit{
                 }
               },
               (err) => {
+                loader.dismiss();
                 this.responseData = err;
                 console.log(this.responseData)
                 const toast = this.toastCtrl.create({

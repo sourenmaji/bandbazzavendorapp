@@ -4,6 +4,8 @@ import { AlertController, MenuController, NavController, Platform, ToastControll
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { WelcomePage } from '../welcome/welcome';
 import { DashboardPage } from '../dashboard/dashboard';
+import { Facebook } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 @Component({
   selector: 'page-home',
@@ -47,7 +49,9 @@ export class HomePage {
               public alertCtrl: AlertController,
               private menuCtrl: MenuController,
               public platform: Platform,
-              public toastCtrl: ToastController)
+              public toastCtrl: ToastController,
+              public facebook: Facebook,
+              public googlePlus: GooglePlus)
   {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.user;
@@ -105,6 +109,26 @@ this.menuCtrl.open();
 
 onLogout()
 {
+  this.facebook.logout()
+		.then(res =>{
+      //user logged out so we will remove him from the NativeStorage
+      // alert('logout from facebook');
+      // localStorage.clear();
+      // setTimeout(() => this.navCtrl.setRoot(WelcomePage), 1000);
+		}, error =>{
+			console.log(error);
+    });
+
+    this.googlePlus.logout()
+	  .then(res =>{
+      // alert('logout from google');
+		//user logged out so we will remove him from the NativeStorage
+		// this.nativeStorage.remove('google_user');
+		// this.router.navigate(["/login"]);
+	}, err =>{
+		console.log(err);
+	})
+    
   localStorage.clear();
   setTimeout(() => this.navCtrl.setRoot(WelcomePage), 1000);
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { CustomValidator } from '../../validators/custom-validators';
 
@@ -25,7 +25,7 @@ export class AddPhotographyPage {
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     public restServ: AuthServiceProvider,
-    private alertCtrl: AlertController) {
+    private toastCtrl: ToastController) {
     this.addPhotographyForm = this.formBuilder.group({
       business_id: [''],
       travel_policy: [''],
@@ -71,32 +71,36 @@ export class AddPhotographyPage {
       console.log(this.responseData);
       if(this.responseData.status==true)
       {
+        let toast = this.toastCtrl.create({
+          message: this.responseData.message,
+          duration: 5000,
+          position: 'bottom'
+        });
+        toast.present();
+
         this.restServ.pageReset=true;
         this.navCtrl.pop();
-        const alert = this.alertCtrl.create({
-        subTitle: this.responseData.message,
-        buttons: ['OK']
-
-      })
-      alert.present();
       }
       else
       {
-      const alert = this.alertCtrl.create({
-        subTitle: this.responseData.message,
-        buttons: ['OK']
-      })
-      alert.present();
+        let toast = this.toastCtrl.create({
+          message: this.responseData.message,
+          duration: 5000,
+          position: 'bottom'
+        });
+        toast.present();
       }
 
     }, (err) => {
      this.responseData = err;
-     console.log(this.responseData)
-     const alert = this.alertCtrl.create({
-      subTitle: "Something went wrong! Please try again.",
-      buttons: ['OK']
-    })
-    alert.present();
+     console.log(this.responseData);
+     let toast = this.toastCtrl.create({
+      message: "Something went wrong! Please try again.",
+      duration: 5000,
+      cssClass: "toast-danger",
+      position: 'bottom'
+    });
+    toast.present();
     });
   }
 

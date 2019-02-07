@@ -17,7 +17,7 @@
               <li><strong>Enquiry Status: {{enquiry.details.vendor_status}}</strong></li>
           </p>
         </ion-card-content>
-        <button *ngIf="enquiry.details.enquiry_status==-1 && !(enquiry.module==5 || enquiry.module==6)" ion-button block (click)="enquiryAction(enquiry.details.id,enquiry.module)" color="energy">Action</button>
+        <button *ngIf="enquiry.details.enquiry_status==-1 && !(enquiry.module==5 || enquiry.module==6) && (enquiry.details.book_rate || enquiry.details.enq_rate_hour || enquiry.details.enquiry_rate)" ion-button block (click)="enquiryAction(enquiry.details.id,enquiry.module)" color="energy">Action</button>
       </ion-card>
       <ion-card>
           <img src="{{this.imageUrl+enquiry.details.cover_image}}" alt="image"/>
@@ -26,34 +26,34 @@
              Product Information
               </ion-card-title>
             <p *ngIf="enquiry.module==2">
-              <li>Venue Name: {{enquiry.details.hall_name}}</li>
-              <li> Booking Date: {{enquiry.details.book_from | date: 'MMM d, yyyy'}} - {{enquiry.details.book_to | date: 'MMM d, yyyy'}}</li>
-              <li> Rate: Rs {{enquiry.details.book_rate}}/day</li>
+              <li> Venue Name: {{enquiry.details.hall_name}}</li>
+              <li> Enquired Booking Date: {{enquiry.details.book_from | date: 'MMM d, yyyy'}} - {{enquiry.details.book_to | date: 'MMM d, yyyy'}}</li>
+              <li *ngIf="enquiry.details.book_rate"> Rate: Rs {{enquiry.details.book_rate}}/day</li>
 
             </p>
             <p *ngIf="enquiry.module==3">
-              <li>Car Name: {{enquiry.details.car_company_name}} - {{enquiry.details.car_model}}</li>
+              <li> Car Name: {{enquiry.details.car_company_name}} - {{enquiry.details.car_model}}</li>
               <li *ngIf="enquiry.details.is_ac">AC: Yes</li>
               <li *ngIf="!enquiry.details.is_ac">AC: No</li>
-              <li> Booking Date: {{enquiry.details.time_from | date: 'MMM d yyyy, h:mm a'}} - {{enquiry.details.time_to | date: 'MMM d yyyy, h:mm a'}} ({{enquiry.details.duration}} hours)</li>
-              <li> Rate: Rs {{enquiry.details.enq_rate_hour}}/hr or Rs {{enquiry.details.enq_rate_km}}/km</li>
+              <li> Enquired Booking Date: {{enquiry.details.time_from | date: 'MMM d yyyy, h:mm a'}} - {{enquiry.details.time_to | date: 'MMM d yyyy, h:mm a'}} ({{enquiry.details.duration}} hours)</li>
+              <li *ngIf="enquiry.details.enq_rate_hour"> Rate: Rs {{enquiry.details.enq_rate_hour}}/hr or Rs {{enquiry.details.enq_rate_km}}/km</li>
 
             </p>
             <p *ngIf="enquiry.module==4">
-                <li>Package Name: {{enquiry.details.package_name}}</li>
-                <li> Booking Date: {{enquiry.details.date | date: 'MMM d, yyyy'}}</li>
-                <li> Rate: Rs {{enquiry.details.enquiry_rate}}/plate</li>
+                <li> Package Name: {{enquiry.details.package_name}}</li>
+                <li> Enquired Booking Date: {{enquiry.details.date | date: 'MMM d, yyyy'}}</li>
+                <li *ngIf="enquiry.details.enquiry_rate"> Rate: Rs {{enquiry.details.enquiry_rate}}/plate</li>
 
             </p>
             <p *ngIf="enquiry.module==5">
                 <li> Plan/Package Name: {{enquiry.details.package_name}}</li>
-                <li> Booking Date: {{enquiry.details.date | date: 'MMM d, yyyy'}}</li>
+                <li> Enquired Booking Date: {{enquiry.details.date | date: 'MMM d, yyyy'}}</li>
                 <li> Rate: Rs {{enquiry.details.rate}}</li>
 
             </p>
             <p *ngIf="enquiry.module==6">
                 <li> Plan/Package Name: {{enquiry.details.package_name}}</li>
-                <li> Booking Date: {{enquiry.details.date | date: 'MMM d, yyyy'}}</li>
+                <li> Enquired Booking Date: {{enquiry.details.date | date: 'MMM d, yyyy'}}</li>
                 <li> Rate: Rs {{enquiry.details.rate}}</li>
 
             </p>

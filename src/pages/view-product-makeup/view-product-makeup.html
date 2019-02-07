@@ -115,7 +115,7 @@
                       <ion-checkbox [(ngModel)]="bridal_makeup" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'bridal_makeup', status: bridal_makeup})"></ion-checkbox>
                     </ion-item>
                     <ion-item *ngIf="bridal_makeup">
-                      <ion-input type="number" formControlName="bridal_makeup_price" placeholder="Bridal Makeup Price"></ion-input>
+                      <ion-input type="number" formControlName="bridal_makeup_price" placeholder="Bridal makeup price"></ion-input>
                     </ion-item>
 
 
@@ -124,7 +124,7 @@
                       <ion-checkbox [(ngModel)]="guest_makeup" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'guest_makeup', status: guest_makeup})"></ion-checkbox>
                     </ion-item>
                     <ion-item *ngIf="guest_makeup">
-                      <ion-input type="number" formControlName="guest_makeup_price" placeholder="Guest Makeup Price"></ion-input>
+                      <ion-input type="number" formControlName="guest_makeup_price" placeholder="Guest makeup price"></ion-input>
                     </ion-item>
 
                     <ion-item>
@@ -132,7 +132,7 @@
                       <ion-checkbox [(ngModel)]="at_venue_makeup" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'at_venue_makeup', status: at_venue_makeup})"></ion-checkbox>
                     </ion-item>
                     <ion-item *ngIf="at_venue_makeup">
-                      <ion-input type="number" formControlName="at_venue_makeup_price" placeholder="At Venue Makeup Price"></ion-input>
+                      <ion-input type="number" formControlName="at_venue_makeup_price" placeholder="At venue makeup price"></ion-input>
                     </ion-item>
 
                     <ion-item>
@@ -140,7 +140,7 @@
                       <ion-checkbox [(ngModel)]="party_makeup" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'party_makeup', status: party_makeup})"></ion-checkbox>
                     </ion-item>
                     <ion-item *ngIf="party_makeup">
-                      <ion-input type="number" formControlName="party_makeup_price" placeholder="Party Makeup Price"></ion-input>
+                      <ion-input type="number" formControlName="party_makeup_price" placeholder="Party makeup price"></ion-input>
                     </ion-item>
 
                     <ion-item>
@@ -148,7 +148,7 @@
                       <ion-checkbox [(ngModel)]="bridal_guest" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'bridal_guest', status: bridal_guest})"></ion-checkbox>
                     </ion-item>
                     <ion-item *ngIf="bridal_guest">
-                      <ion-input type="number" formControlName="bridal_guest_price" placeholder="Bridal With One Guest Makeup Price"></ion-input>
+                      <ion-input type="number" formControlName="bridal_guest_price" placeholder="Bridal with one guest makeup price"></ion-input>
                     </ion-item>
 
                     <ion-item>
@@ -156,7 +156,7 @@
                       <ion-checkbox [(ngModel)]="airbrush_makeup" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'airbrush_makeup', status: airbrush_makeup})"></ion-checkbox>
                     </ion-item>
                     <ion-item *ngIf="airbrush_makeup">
-                      <ion-input type="number" formControlName="airbrush_makeup_price" placeholder="Airbrush Bridal Makeup Price"></ion-input>
+                      <ion-input type="number" formControlName="airbrush_makeup_price" placeholder="Airbrush bridal makeup price"></ion-input>
                     </ion-item>
                   </ion-list>
 
@@ -272,7 +272,7 @@
       <p>Price To: Rs {{productDetails.price_to}}</p>
       <p>Achievements: {{productDetails.achievements}}</p>
       <p>Cancellation Policy: {{productDetails.cancellation_policy}}</p>
-      <p>Payment Mode <span style="color: red">*</span>: {{productDetails.payment_mode}}</p>
+      <p>Payment Mode <span style="color: red">*</span>: {{payment_mode.toString()}}</p>
       <p>Advance Booking Charge (in %): {{productDetails.advance_booking_charge}}%</p>
       <p>Event Date Charge (in %): {{productDetails.event_date_charge}}%</p>
       <p>At Delivery Charge (in %): {{productDetails.at_delivery_charge}}%</p>

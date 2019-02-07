@@ -14,20 +14,20 @@
             <ion-input type="email" [(ngModel)]="userData.email"
             formControlName="email" [class.error1]="!signinform.controls.email.valid && signinform.controls.email.dirty"></ion-input>
           </ion-item>
-          <ion-item no-lines *ngIf="( signinform.get('email').hasError('minlength') || signinform.get('email').hasError('pattern') ||signinform.get('email').hasError('required') ) && signinform.get('email').touched">
+          <div *ngIf="signinform.get('email').hasError('minlength') || signinform.get('email').hasError('pattern') ||signinform.get('email').hasError('required') || signinform.get('email').touched">
             <div class="error" *ngIf="signinform.get('email').hasError('required') && signinform.get('email').touched">
               Please enter your email or phone no.
             </div>
             <div class="error" *ngIf="signinform.get('email').hasError('pattern') && signinform.get('email').touched">
               This value should be a valid email or valid phone no.
             </div>
-          </ion-item>
+          </div>
           <ion-item>
             <ion-label>Password <span style="color: red">*</span></ion-label>
             <ion-input type="password" [(ngModel)]="userData.password" clearOnEdit="false" 
             formControlName="password" [class.error1]="!signinform.controls.password.valid && signinform.controls.password.dirty"></ion-input>
           </ion-item>
-          <ion-item no-lines *ngIf="( signinform.get('password').hasError('minlength') || signinform.get('password').hasError('maxlength') ||signinform.get('password').hasError('required') ) && signinform.get('password').touched">
+          <div *ngIf="signinform.get('password').hasError('minlength') || signinform.get('password').hasError('maxlength') ||signinform.get('password').hasError('required') || signinform.get('password').touched">
             <div class="error" *ngIf="signinform.get('password').hasError('required') && signinform.get('password').touched">
              Please enter your password.
             </div>
@@ -37,7 +37,7 @@
             <div class="error" *ngIf="signinform.get('password').hasError('maxlength') && signinform.get('password').touched">
               This value is too long. It should have 12 characters.
             </div>
-          </ion-item>
+          </div>
 
          <button ion-button block color="success" [disabled]="signinform.invalid" (click)="login()" style="margin-top: 20px;">Login</button><br>
           <a href="#" (click)="forgetPassword()" ion-text color="energy">Forget Password</a><br>

@@ -99,7 +99,7 @@
           <ion-checkbox [(ngModel)]="pre_wedding" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'pre_wedding', status: pre_wedding})"></ion-checkbox>
         </ion-item>
         <ion-item *ngIf="pre_wedding">
-          <ion-input type="number" formControlName="pre_wedding_price" placeholder="Pre-Wedding Price (per day)"></ion-input>
+          <ion-input type="number" formControlName="pre_wedding_price" placeholder="Pre-wedding price (per day)"></ion-input>
         </ion-item>
         <p class="error" *ngIf="editPhotographyForm.get('pre_wedding_price').hasError('required') && editPhotographyForm.get('pre_wedding_price').touched">
           This field is required
@@ -109,7 +109,7 @@
           <ion-checkbox [(ngModel)]="wedding" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'wedding', status: wedding})"></ion-checkbox>
         </ion-item>
         <ion-item *ngIf="wedding">
-          <ion-input type="number" formControlName="wedding_price" placeholder="Wedding Price (per day)"></ion-input>
+          <ion-input type="number" formControlName="wedding_price" placeholder="Wedding price (per day)"></ion-input>
         </ion-item>
         <p class="error" *ngIf="editPhotographyForm.get('wedding_price').hasError('required') && editPhotographyForm.get('wedding_price').touched">
           This field is required
@@ -119,7 +119,7 @@
           <ion-checkbox [(ngModel)]="candid" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'candid', status: candid})"></ion-checkbox>
         </ion-item>
         <ion-item *ngIf="candid">
-          <ion-input type="number" formControlName="candid_price" placeholder="Candid Price (per day)"></ion-input>
+          <ion-input type="number" formControlName="candid_price" placeholder="Candid price (per day)"></ion-input>
         </ion-item>
         <p class="error" *ngIf="editPhotographyForm.get('candid_price').hasError('required') && editPhotographyForm.get('candid_price').touched">
           This field is required
@@ -129,7 +129,7 @@
           <ion-checkbox [(ngModel)]="studio" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'studio', status: studio})"></ion-checkbox>
         </ion-item>
         <ion-item *ngIf="studio">
-          <ion-input type="number" formControlName="studio_price" placeholder="Studio Price (per day)"></ion-input>
+          <ion-input type="number" formControlName="studio_price" placeholder="Studio price (per day)"></ion-input>
         </ion-item>
         <p class="error" *ngIf="editPhotographyForm.get('studio_price').hasError('required') && editPhotographyForm.get('studio_price').touched">
           This field is required
@@ -139,7 +139,7 @@
           <ion-checkbox [(ngModel)]="cinematic" [ngModelOptions]="{standalone: true}" (ionChange)="resetCheckboxes({name: 'cinematic', status: cinematic})"></ion-checkbox>
         </ion-item>
         <ion-item *ngIf="cinematic">
-          <ion-input type="number" formControlName="cinematic_price" placeholder="Cinematic Price (per day)"></ion-input>
+          <ion-input type="number" formControlName="cinematic_price" placeholder="Cinematic price (per day)"></ion-input>
         </ion-item>
         <p class="error" *ngIf="editPhotographyForm.get('cinematic_price').hasError('required') && editPhotographyForm.get('cinematic_price').touched">
           This field is required
@@ -283,7 +283,7 @@
       <p>Price To: Rs {{productDetails.price_to}}</p>
       <p>Achievements: {{productDetails.achievements}}</p>
       <p>Cancellation Policy: {{productDetails.cancellation_policy}}</p>
-      <p>Payment Mode <span style="color: red">*</span>: {{productDetails.payment_mode}}</p>
+      <p>Payment Mode <span style="color: red">*</span>: {{payment_mode.toString()}}</p>
       <p>Advance Booking Charge (in %): {{productDetails.advance_booking_charge}}%</p>
       <p>Event Date Charge (in %): {{productDetails.event_date_charge}}%</p>
       <p>At Delivery Charge (in %): {{productDetails.at_delivery_charge}}%</p>
@@ -293,7 +293,7 @@
       <p>Studio Price (per day): {{productDetails.studio_price ? 'Rs '+productDetails.studio_price : 'N/A'}}</p>
       <p>Cinematography Price (per day): {{productDetails.cinematic_price ? 'Rs '+productDetails.cinematic_price : 'N/A'}}</p>
       <p>Photo Album Price <span style="color: red">*</span>: {{productDetails.photo_album_price}}</p>
-      <p>Storage Device <span style="color: red">*</span>: {{productDetails.storage_device}}</p>
+      <p>Storage Device <span style="color: red">*</span>: {{storage_device.toString()}}</p>
       <p>Raw Image Delivery <span style="color: red">*</span>: {{productDetails.raw_image_delivery}}</p>
       <p>Delivery Duration: {{productDetails.delivery_duration}}</p>
     </ion-card-content>

@@ -16,7 +16,7 @@
           <ion-input type="text" [(ngModel)]="userData.name"
           formControlName="name"></ion-input>
         </ion-item>
-        <ion-item no-lines *ngIf="( signupform.get('name').hasError('minlength') || signupform.get('name').hasError('maxlength') || signupform.get('name').hasError('pattern') || signupform.get('name').hasError('required') ) && signupform.get('name').touched">
+        <div *ngIf="signupform.get('name').hasError('minlength') || signupform.get('name').hasError('maxlength') || signupform.get('name').hasError('pattern') || signupform.get('name').hasError('required') || signupform.get('name').touched">
           <div class="error" *ngIf="signupform.get('name').hasError('required') && signupform.get('name').touched">
             Please enter your name.
           </div>
@@ -29,44 +29,47 @@
           <div class="error" *ngIf="signupform.get('name').hasError('pattern') && signupform.get('name').touched">
             Your name must contain alphabets and spaces only.
           </div>
-        </ion-item>
+        </div>
         <ion-item>
           <ion-label floating>Email or Phone<span style="color: red">*</span></ion-label>
-          <ion-input disabled="{{isDisabled}}" type="text" [(ngModel)]="userData.user"
+          <ion-input [disabled]="isDisabled" type="text" [(ngModel)]="userData.user"
           formControlName="user" (keyup)="showVal(this.value)">
           </ion-input>
-          <button *ngIf="!( signupform.get('user').hasError('minlength') || signupform.get('user').hasError('pattern') ||signupform.get('user').hasError('required') ) && !buttonClicked && otpButton" ion-button  clear item-right (click)="sendOtp()" ion-text color="light">Send OTP</button>
+          <button *ngIf="!( signupform.get('user').hasError('pattern') ||signupform.get('user').hasError('required') ) && !buttonClicked && otpButton" ion-button  clear item-right (click)="sendOtp()" ion-text color="light">Send OTP</button>
           <button *ngIf="isDisabled"
           ion-button  clear item-right (click)="reSendOtp()" ion-text color="light">Resend OTP</button>
         </ion-item>
-        <ion-item no-lines *ngIf="( signupform.get('user').hasError('minlength') || signupform.get('user').hasError('pattern') ||signupform.get('user').hasError('required') ) && signupform.get('user').touched">
+        <div *ngIf="signupform.get('user').hasError('pattern') || signupform.get('user').hasError('required') || signupform.get('user').touched">
           <div class="error" *ngIf="signupform.get('user').hasError('required') && signupform.get('user').touched">
             Please enter your email or phone no.
           </div>
           <div class="error" *ngIf="signupform.get('user').hasError('pattern') && signupform.get('user').touched">
             This value should be a valid email or valid phone no.
           </div>
-        </ion-item>
+        </div>
         <ion-item *ngIf="buttonClicked">
-          <ion-input  type="text" placeholder="Enter Six Digit OTP"
+          <ion-input  type="text" placeholder="Enter six digit OTP"
           [(ngModel)]="userData.otp" formControlName="otp"  ></ion-input>
         </ion-item>
-        <ion-item *ngIf="buttonClicked">
-          <div class="error" *ngIf="signupform.get('otp').hasError('equalsTo') && signupform.get('otp').touched">
-            Your OTP does not match
+        <div *ngIf="buttonClicked || signupform.get('otp').touched">
+          <div class="error" *ngIf="signupform.get('otp').touched">
+              Please enter six digit OTP.
+          </div>
+          <div class="error" *ngIf="signupform.get('otp').hasError('equalsTo')">
+            Your OTP does not match.
           </div>
           <div class="success" *ngIf="!(signupform.get('otp').hasError('equalsTo'))">
-            Your OTP match successfully
+            Your OTP match successfully.
           </div>
-        </ion-item>
+        </div>
         <ion-item>
           <ion-label floating>Password <span style="color: red">*</span></ion-label>
           <ion-input type="password" [(ngModel)]="userData.password" clearOnEdit="false"
           formControlName="password" [class.error1]="!signupform.controls.password.valid && signupform.controls.password.dirty"></ion-input>
         </ion-item>
-        <ion-item no-lines *ngIf="( signupform.get('password').hasError('minlength') || signupform.get('password').hasError('maxlength') ||signupform.get('password').hasError('required') ) && signupform.get('password').touched">
+        <div *ngIf="( signupform.get('password').hasError('minlength') || signupform.get('password').hasError('maxlength') ||signupform.get('password').hasError('required') ) && signupform.get('password').touched">
           <div class="error" *ngIf="signupform.get('password').hasError('required') && signupform.get('password').touched">
-           Please enter your password
+           Please enter your password.
           </div>
           <div class="error" *ngIf="signupform.get('password').hasError('minlength') && signupform.get('password').touched">
             This value is too short. It should have 6 characters or more.
@@ -74,38 +77,36 @@
           <div class="error" *ngIf="signupform.get('password').hasError('maxlength') && signupform.get('password').touched">
             This value is too long. It should have 12 characters.
           </div>
-        </ion-item>
+        </div>
         <ion-item>
           <ion-label floating>Confirm Password <span style="color: red">*</span></ion-label>
           <ion-input type="password" [(ngModel)]="userData.password_confirmation" clearOnEdit="false"
           formControlName="password_confirmation" [class.error1]="!signupform.controls.password_confirmation.valid && signupform.controls.password_confirmation.dirty"></ion-input>
         </ion-item>
-        <ion-item no-lines *ngIf="((( signupform.get('password_confirmation').hasError('minlength') || signupform.get('password_confirmation').hasError('maxlength')) || signupform.get('password_confirmation').hasError('equalTo')) ||signupform.get('password_confirmation').hasError('required') ) && signupform.get('password_confirmation').touched">
+        <div *ngIf="((( signupform.get('password_confirmation').hasError('minlength') || signupform.get('password_confirmation').hasError('maxlength')) || signupform.get('password_confirmation').hasError('equalTo')) ||signupform.get('password_confirmation').hasError('required') ) && signupform.get('password_confirmation').touched">
           <div class="error" *ngIf="signupform.get('password_confirmation').hasError('required') && signupform.get('password_confirmation').touched">
-            Please enter your password confirmation
+            Please enter your password confirmation.
           </div>
           <div class="error" *ngIf="signupform.get('password_confirmation').hasError('minlength') && signupform.get('password_confirmation').touched">
-            This value is too short. It should have 6 characters or more
+            This value is too short. It should have 6 characters or more.
           </div>
           <div class="error" *ngIf="signupform.get('password_confirmation').hasError('maxlength') && signupform.get('password_confirmation').touched">
             This value is too long. It should have 12 characters.
           </div>
           <div class="error" *ngIf="signupform.get('password_confirmation').hasError('equalTo') && signupform.get('password_confirmation').touched">
-            Your passwords does not match
+            Your passwords does not match.
           </div>
-        </ion-item>
-
-        <button  ion-button block color="success" [disabled]="signupform.invalid|| !disableButton" (click)="register()">Register</button><br/>
+        </div>
+        
+        <button ion-button block color="success" [disabled]="signupform.invalid || !disableButton" (click)="register()">Register</button><br/>
         <div class="alrdy-usr"><span>Already a user? </span><a href="#" (click)="login()" ion-text color="buttons">Login Now.</a></div>
         </form>
       </ion-list>
       <div class="btn_container">
-        <!-- <button class="button1" ion-button full (click)="loginWithFacebook()">Signup with Facebook</button>
-        <button class="button2" ion-button full (click)="loginWithGoogle()">Signup with Google</button> -->
-        <button ion-button icon-only (click)="loginWithFacebook()" class="button1">
+        <button round ion-button icon-only (click)="loginWithFacebook()" class="button1">
           <ion-icon slot="start" name="logo-facebook"></ion-icon>
         </button>
-        <button ion-button icon-only (click)="loginWithGoogle()" class="button2">
+        <button round ion-button icon-only (click)="loginWithGoogle()" class="button2">
            <ion-icon slot="start" name="logo-google"></ion-icon>
          </button>
     </div>

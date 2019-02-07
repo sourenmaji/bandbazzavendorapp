@@ -110,12 +110,9 @@ export class EnquiryDetailsPage {
         toast.setMessage(this.message);
         toast.present();
         console.log(this.message);
-        toast.onDidDismiss(() => {
           console.log('Dismissed toast');
           this.authService.pageReset=true;
           this.navCtrl.pop();
-        });
-
       }
     },
     (err) => {

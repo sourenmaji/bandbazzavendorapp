@@ -23,7 +23,7 @@
                   </ion-item>
                   <ion-item class="wlcm-itm" no-lines *ngIf="( signinform.get('email').hasError('minlength') || signinform.get('email').hasError('pattern') ||signinform.get('email').hasError('required') ) && signinform.get('email').touched">
                     <div class="error" *ngIf="signinform.get('email').hasError('required') && signinform.get('email').touched">
-                      Please enter your email or phone
+                      Please enter your email or phone.
                     </div>
                     <div class="error" *ngIf="signinform.get('email').hasError('pattern') && signinform.get('email').touched">
                       This value should be a valid email or valid phone no.
@@ -36,7 +36,7 @@
                   </ion-item>
                   <ion-item no-lines *ngIf="( signinform.get('password').hasError('minlength') || signinform.get('password').hasError('maxlength') ||signinform.get('password').hasError('required') ) && signinform.get('password').touched">
                     <div class="error" *ngIf="signinform.get('password').hasError('required') && signinform.get('password').touched">
-                     Please enter your password
+                     Please enter your password.
                     </div>
                     <div class="error" *ngIf="signinform.get('password').hasError('minlength') && signinform.get('password').touched">
                       This value is too short. It should have 6 characters or more.

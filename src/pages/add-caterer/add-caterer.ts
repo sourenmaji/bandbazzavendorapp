@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
-import { ActionSheetController, AlertController, IonicPage, NavController, NavParams, Platform, Slides } from 'ionic-angular';
+import { ActionSheetController, AlertController, IonicPage, NavController, NavParams, Platform, Slides, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 @IonicPage()
@@ -38,7 +38,8 @@ export class AddCatererPage {
               public actionSheetCtrl: ActionSheetController,
               public camera: Camera,
               private alertCtrl: AlertController,
-              public platform: Platform
+              public platform: Platform,
+              public toastCtrl: ToastController
             ) {
     //for card slide design
     this.pageNo = 0;
@@ -300,32 +301,36 @@ export class AddCatererPage {
       console.log(this.responseData);
       if(this.responseData.status==true)
       {
+        let toast = this.toastCtrl.create({
+          message: this.responseData.message,
+          duration: 5000,
+          position: 'bottom'
+        });
+        toast.present();
+
         this.restServ.pageReset=true;
         this.navCtrl.pop();
-        const alert = this.alertCtrl.create({
-        subTitle: this.responseData.message,
-        buttons: ['OK']
-
-      })
-      alert.present();
       }
       else
       {
-      const alert = this.alertCtrl.create({
-        subTitle: this.responseData.message,
-        buttons: ['OK']
-      })
-      alert.present();
+        let toast = this.toastCtrl.create({
+          message: this.responseData.message,
+          duration: 5000,
+          position: 'bottom'
+        });
+        toast.present();
       }
 
     }, (err) => {
      this.responseData = err;
      console.log(this.responseData)
-     const alert = this.alertCtrl.create({
-      subTitle: "Something went wrong! please try again.",
-      buttons: ['OK']
+     const toast = this.toastCtrl.create({
+      message: 'Oops! Something went wrong.',
+      duration: 5000,
+      cssClass: "toast-danger",
+      position: 'bottom'
     })
-    alert.present();
+    toast.present();
     });
   }
 }

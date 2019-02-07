@@ -181,7 +181,7 @@ export class AddPhotoPlanPage {
     this.images.push(imageData);
     console.log('file ',this.images);
     }, (err) => {
-      alert('error '+err);
+      // alert('error '+err);
     });
 
 }
@@ -216,7 +216,7 @@ removeImage(src: string)
 
 UploadImages()
 {
-  alert(this.images);
+  // alert(this.images);
   this.restServ.authData({images: this.images, photographers_id: this.navParams.get('id')},'add_photography_image',this.token).then((data) => {
     this.responseData = data;
     console.log(this.responseData);

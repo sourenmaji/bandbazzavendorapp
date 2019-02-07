@@ -97,7 +97,7 @@ export class ProductsPage {
             else
             {
               const toast = this.toastCtrl.create({
-                message: 'No Business Added Yet',
+                message: 'No business added yet!',
                 duration: 5000,
                 position: 'bottom'
               })
@@ -166,7 +166,7 @@ export class ProductsPage {
 
            if(!this.alProducts.length){
             const toast = this.toastCtrl.create({
-              message: 'No Product Added Yet',
+              message: 'No product added yet!',
               duration: 5000,
               position: 'bottom'
             })

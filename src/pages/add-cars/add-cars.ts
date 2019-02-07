@@ -459,22 +459,24 @@ export class AddCarsPage {
       console.log(this.responseData);
       if(this.responseData.status==true)
       {
+        let toast = this.toastCtrl.create({
+          message: this.responseData.message,
+          duration: 5000,
+          position: 'bottom'
+        });
+        toast.present();
+
         this.restServ.pageReset=true;
         this.navCtrl.pop();
-        const alert = this.alertCtrl.create({
-        subTitle: this.responseData.message,
-        buttons: ['OK']
-
-      })
-      alert.present();
       }
       else
       {
-      const alert = this.alertCtrl.create({
-        subTitle: this.responseData.message,
-        buttons: ['OK']
-      })
-      alert.present();
+        let toast = this.toastCtrl.create({
+          message: this.responseData.message,
+          duration: 5000,
+          position: 'bottom'
+        });
+        toast.present();
       }
 
     }, (err) => {

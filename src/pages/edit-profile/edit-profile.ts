@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { AlertController, IonicPage, LoadingController, MenuController, NavController, Platform, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
@@ -8,7 +8,7 @@ import { AuthServiceProvider } from './../../providers/auth-service/auth-service
 selector: 'page-edit-profile',
 templateUrl: 'edit-profile.html',
 })
-export class EditProfilePage implements OnInit{
+export class EditProfilePage{
 userPostData = {"user":"","token":""};
 userPassword = {"password":"","password_confirmation":""};
 userDetails : any;
@@ -22,6 +22,8 @@ public otpButton: boolean = true;
 public disableButton: boolean = false;
 private isDisabled: boolean=false;
 public otpmessage="";
+public editform: FormGroup;
+public userData = { name: "",email: "",phone_no: "",address: "",otp: ""};
 
 constructor(public navCtrl: NavController,
 public menuCtrl: MenuController,
@@ -33,14 +35,15 @@ public toastCtrl: ToastController) {
 
 const data = JSON.parse(localStorage.getItem('userData'));
 this.userDetails = data.user;
+
 if(this.userDetails.phone_no != null){
 this.user_phone = this.userDetails.phone_no;
 }
+
 if(this.userDetails.phone_verify != null && this.userDetails.phone_verify == 1){
 this.otpButton = !this.otpButton;
 this.disableButton = true;
 }
-console.log(this.userDetails);
 
 this.userPostData.user = this.userDetails;
 this.userPostData.token = data.token;
@@ -49,37 +52,28 @@ console.log(this.userPostData.token);
 let backAction =  platform.registerBackButtonAction(() => {
 this.navCtrl.pop();
 backAction();
-},2)
-}
+},2);
 
-editform: FormGroup;
-userData = { name: "",email: "",phone_no: "",address: "",otp: ""};
+console.log('userdetails',this.userDetails);
 
-
-ngOnInit() {
-//console.log(this.user_OTP);
 let EMAILPATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 let PHONEPATTERN = /^[0-9]{10}$/;
 
 this.editform = new FormGroup({
 numb: new FormControl(this.user_OTP),
 pno: new FormControl(this.user_phone),
-phone_no: new FormControl('', [Validators.required, Validators.pattern(PHONEPATTERN)]),
-name: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(30)]),
-email: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)]),
-address: new FormControl('', Validators.compose([])),
+phone_no: new FormControl(this.userDetails.phone_no, [Validators.required, Validators.pattern(PHONEPATTERN)]),
+name: new FormControl(this.userDetails.name, [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(30)]),
+email: new FormControl(this.userDetails.email, [Validators.required, Validators.pattern(EMAILPATTERN)]),
+address: new FormControl(this.userDetails.address, Validators.compose([])),
 otp: new FormControl('', Validators.compose([])),
-
-// otp: new FormControl('', Validators.compose([Validators.required,Validators.minLength(6),this.equalto('numb')]))
 });
-
-// console.log(this.buttonClicked)
+console.log('editform',this.editform.value);
+if(this.editform.get('email').value)
+{
+  this.editform.get('email').disable();
 }
-// ngOnChanges(){
-//   if(!this.buttonClicked){
-//     this.editform.addControl('otp',new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), this.equalto('numb')])));
-//   }
-// }
+}
 
 showVal($value) {
 console.log(this.userData.phone_no);
@@ -120,7 +114,7 @@ let loader = this.loadingCtrl.create({
 content: 'Please wait...'
 });
 loader.present();
-this.authService.getData('send_otp?phone_no='+this.userData.phone_no,this.userPostData.token).then((result: any) => {
+this.authService.getData('send_otp?phone_no='+this.editform.get('phone_no').value,this.userPostData.token).then((result: any) => {
 this.responseData = result;
 if(result.status)
 {
@@ -168,7 +162,7 @@ content: 'Please wait...'
 });
 loader.present();
 this.userData.otp = "";
-this.authService.getData('send_otp?phone_no='+this.userData.phone_no,this.userPostData.token).then((result: any) => {
+this.authService.getData('send_otp?phone_no='+this.editform.get('phone_no').value,this.userPostData.token).then((result: any) => {
 this.responseData = result;
 loader.dismiss();
 if(result.status)
@@ -215,6 +209,9 @@ toast.present();
 
 editProfile()
 {
+  this.userData = { name: this.editform.get('name').value ,email: this.editform.get('email').value,phone_no: this.editform.get('phone_no').value,address: this.editform.get('address').value,otp: this.editform.get('otp').value};
+  console.log(this.userData);
+  
 this.authService.authData(this.userData,'edit_profile',this.userPostData.token).then((result: any) => {
 this.responseData = result;
 if(result.status)

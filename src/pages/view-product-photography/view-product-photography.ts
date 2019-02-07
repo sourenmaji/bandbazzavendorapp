@@ -58,8 +58,8 @@ export class ViewProductPhotographyPage {
 
     if(this.productDetails.payment_mode)
     {
-      this.payment_mode=this.productDetails.payment_mode.split("##");
       console.log(this.productDetails.payment_mode);
+      this.payment_mode=this.productDetails.payment_mode.split("##");
     }
     if(this.productDetails.storage_device)
     {
@@ -121,18 +121,17 @@ export class ViewProductPhotographyPage {
 
       let toast = this.toastCtrl.create({
         message: this.responseData.message,
-        duration: 2000,
+        duration: 5000,
         position: 'bottom'
       });
 
-      toast.onDidDismiss(() => {
-        console.log('Dismissed toast');
+    
         if(this.responseData.status==true)
         {
           this.authService.pageReset=true;
           this.navCtrl.pop();
         }
-      });
+    
 
       toast.present();
     }, (err) => {
@@ -253,14 +252,13 @@ export class ViewProductPhotographyPage {
                   position: 'bottom'
                 });
 
-                toast.onDidDismiss(() => {
-                  console.log('Dismissed toast');
+            
                   if(this.responseData.status==true)
                   {
                     this.authService.pageReset=true;
                     this.navCtrl.pop();
                   }
-                });
+            
 
                 toast.present();
             }, (err) => {

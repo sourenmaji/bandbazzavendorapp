@@ -26,7 +26,7 @@
                       <p>Package Name<span style="color: red" > *</span></p>
                     </div>
                   </ion-label>
-                  <ion-input (ionChange)="errormessage = ''"  [(ngModel)]="step1data.packagename" placeholder="Package Name"></ion-input>
+                  <ion-input (ionChange)="errormessage = ''"  [(ngModel)]="step1data.packagename" placeholder="Package name"></ion-input>
                 </ion-item>
 
               <ion-item>
@@ -69,7 +69,7 @@
 
                   <ion-item>
                       <ion-label stacked ><p>Search Tags (comma separated)</p></ion-label>
-                      <ion-input type="text" [(ngModel)]="step2data.tags"  (ionChange)="errormessage=''" placeholder="Package Search Tags"></ion-input>
+                      <ion-input type="text" [(ngModel)]="step2data.tags"  (ionChange)="errormessage=''" placeholder="Package search tags"></ion-input>
                     </ion-item>
               </ion-list>
             </ion-card-content>
@@ -86,7 +86,7 @@
                 {{errormessage}}
             </p>
             <button ion-button (click)="presentActionSheet()" >Pick Image</button>
-            <p>(Max 5 images. your last image will be your cover image.)</p>
+            <p>(Max 5 images. Your last image will be your cover image.)</p>
             <ion-content direction="y" scrollY="true" style="height: 80%;">
                 <ion-card-content>
 
@@ -144,7 +144,7 @@
   <ion-row style="height: fit-content" no-padding>
       <ion-col style="width: 25%">
         <div *ngIf="pageNo != 0">
-            <ion-icon (click)="goToPrev()" style="font-size: 30px; position: absolute;left: 20px;" name="ios-arrow-back"></ion-icon>
+            <ion-icon (click)="goToPrev()" style="font-size: 40px; position: absolute;left: 20px;" name="ios-arrow-back"></ion-icon>
         </div>
           </ion-col>
       <ion-col style="height: 100%; width: 50%">
@@ -155,7 +155,7 @@
       </ion-col>
       <ion-col style="width: 25%">
         <div *ngIf="pageNo < (len-1)">
-            <ion-icon (click)="goToNext()" style="font-size: 30px; position: absolute;right: 20px;" name="ios-arrow-forward"></ion-icon>
+            <ion-icon (click)="goToNext()" style="font-size: 40px; position: absolute;right: 20px;" name="ios-arrow-forward"></ion-icon>
         </div>
         <div *ngIf="pageNo == (len-1)">
             <ion-icon (click)="goToNext()" style="font-size: 30px; position: absolute;right: 20px;" name="checkmark-circle-outline"></ion-icon>

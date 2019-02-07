@@ -6,8 +6,8 @@ import { Loading, LoadingController } from 'ionic-angular';
 @Injectable()
 export class AuthServiceProvider {
   pageReset: boolean = false;
-  imageUrl: string = 'http://192.168.1.121/bandbazza/public/';
-  apiUrl: string = 'http://192.168.1.121/bandbazza/public/api/v1/';
+  imageUrl: string = 'http://192.168.1.106/bandbazza/public/';
+  apiUrl: string = 'http://192.168.1.106/bandbazza/public/api/v1/';
 
   // imageUrl: string = 'http://localhost:8000/';
   // apiUrl: string = 'http://localhost:8000/api/v1/';

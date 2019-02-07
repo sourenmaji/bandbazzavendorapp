@@ -17,23 +17,16 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { NetworkProvider } from './../providers/network-provider/network_provider';
 import { ErrorPage } from '../pages/error/error';
 
-
 @Component({
   templateUrl: 'app.html'
 })
 
 export class MyApp {
   @ViewChild('nav') navCtrl: NavController;
+  
   rootPage: any;
   pages: any;
   isActive: any;
-  // dashboardPage = DashboardPage;
-  // profilePage = ProfilePage;
-  // homePage = HomePage;
-  // businessPage = BusinessPage;
-  // productsPage = ProductsPage;
-  // enquiriesPage = EnquiriesPage;
-  // bookingsPage = BookingsPage;
   userDetails : any;
   responseData: any;
   loggedIn: any;
@@ -54,67 +47,69 @@ export class MyApp {
         // Okay, so the platform is ready and our plugins are available.
         // Here you can do any higher level native things you might need.
         statusBar.styleBlackTranslucent();
-
-            this.fcm.getToken().then(device_token => {
-              localStorage.setItem('device_token',JSON.stringify(device_token));
-                console.log(device_token);
-            }, (err) => {
-              console.log(err);
-            });
-
-            this.fcm.onNotification().subscribe(data => {
-              if(data.wasTapped){
-                console.log("Received in background");
-                this.goToPage(data);
-              } else {
-                console.log("Received in foreground");
-                this.scheduleNotification(data);
-              };
-            });
-
-            this.fcm.onTokenRefresh().subscribe(refresh_token => {
-              localStorage.setItem('device_token', refresh_token);
-            }, (err) => {
-              console.log(err);
-            });
+        splashScreen.hide();
         
-            this.networkProvider.initializeNetworkEvents();
-           this.networkProvider.getNetworkState();
+        this.fcm.getToken().then(device_token => {
+          localStorage.setItem('device_token',JSON.stringify(device_token));
+          console.log(device_token);
+        },
+        (err) => {
+          console.log(err);
+        });
         
-            // Offline event
-         this.events.subscribe('network:offline', () => {
-             this.navCtrl.push(ErrorPage);
-         });
-
-         // Online event
-         this.events.subscribe('network:online', () => {
-             this.navCtrl.pop();
-         });
-      
-      splashScreen.hide();  
-      this.loggedIn = JSON.parse(localStorage.getItem('userData'));
-      console.log("User logged in", this.loggedIn);
-      if(this.loggedIn)
-      {
-        this.navCtrl.setRoot(DashboardPage);
-      }
-      else
-      {
-        this.navCtrl.setRoot(WelcomePage);
-      }
+        this.fcm.onNotification().subscribe(data => {
+          if(data.wasTapped){
+            console.log("Received in background");
+            this.goToPage(data);
+          } else {
+            console.log("Received in foreground");
+            this.scheduleNotification(data);
+          };
+        });
+        
+        this.fcm.onTokenRefresh().subscribe(refresh_token => {
+          localStorage.setItem('device_token', refresh_token);
+        },
+        (err) => {
+          console.log(err);
+        });
+        
+        this.networkProvider.initializeNetworkEvents();
+        this.networkProvider.getNetworkState();
+        
+        // Offline event
+        this.events.subscribe('network:offline',() => {
+          this.navCtrl.push(ErrorPage);
+        });
+        
+        // Online event
+        this.events.subscribe('network:online',() => {
+          this.navCtrl.pop();
+        });
+        
+        this.pages=[
+          {title: 'Dashboard', component: DashboardPage, icon: 'easel', color: 'dash1'},
+          {title: 'Profile', component: ProfilePage, icon: 'person', color: 'dash2'},
+          {title: 'Settings', component: HomePage, icon: 'settings', color: 'lightprimary'},
+          {title: 'Business', component: BusinessPage, icon: 'stats', color: 'dash8'},
+          {title: 'Products', component: ProductsPage, icon: 'basket', color: 'energy'},
+          {title: 'Enquiries', component: EnquiriesPage, icon: 'mic', color: 'dash6'},
+          {title: 'Bookings', component: BookingsPage, icon: 'albums', color: 'dark'},
+        ]
+        
+        this.loggedIn = JSON.parse(localStorage.getItem('userData'));
+        console.log("User logged in", this.loggedIn);
+        this.isActive=this.pages[0];
+        
+        if(this.loggedIn)
+        {
+          this.navCtrl.setRoot(DashboardPage);
+        }
+        else
+        {
+          this.navCtrl.setRoot(WelcomePage);
+        }
       });
-
-      this.pages=[
-        {title: 'Dashboard', component: DashboardPage, icon: 'easel', color: 'dash1'},
-        {title: 'Profile', component: ProfilePage, icon: 'person', color: 'dash2'},
-        {title: 'Settings', component: HomePage, icon: 'settings', color: 'lightprimary'},
-        {title: 'Business', component: BusinessPage, icon: 'stats', color: 'dash8'},
-        {title: 'Products', component: ProductsPage, icon: 'basket', color: 'energy'},
-        {title: 'Enquiries', component: EnquiriesPage, icon: 'mic', color: 'dash6'},
-        {title: 'Bookings', component: BookingsPage, icon: 'albums', color: 'dark'},
-      ]
-
-      this.isActive=this.pages[0];
     }
     
     goToPage(data)
@@ -165,21 +160,22 @@ export class MyApp {
       alert.present();
     }
     
-    onload(page: any){
+    onload(page: any)
+    {
       this.navCtrl.setRoot(page.component);
       this.isActive=page;
       this.menuCtrl.close();
     }
     
-    backToWelcome(){
+    backToWelcome()
+    {
       this.navCtrl.push(WelcomePage);
       this.menuCtrl.close();
     }
-
+    
     checkActive(page)
     {
       return page==this.isActive;
     }
   }
-  
   

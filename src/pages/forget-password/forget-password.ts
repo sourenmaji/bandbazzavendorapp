@@ -35,18 +35,19 @@ export class ForgetPasswordPage implements OnInit{
     let EMAILPATTERN = /^([_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,5}))|[0-9]{10}$/;
     this.forgetPasswordform = new FormGroup({
       numb: new FormControl(this.user_OTP),
-      // username: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(10)]),
       email: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)]),
       otp: new FormControl('', Validators.compose([]))
     });
   }
 
-  showVal($value) {
+  showVal(value) {
     console.log(this.userData.email);
     console.log(!isNaN(+this.userData.email));
      if(!isNaN(+this.userData.email)){
-    this.otpButton = true;
-     }else{
+      this.otpButton = true;
+     }
+     else
+     {
       this.otpButton = false;
      }
  }
@@ -71,11 +72,11 @@ export class ForgetPasswordPage implements OnInit{
    alert.present();
    this.navCtrl.pop();
     }
-    else{
+    else
+    {
       const alert = this.alertCtrl.create({
         subTitle: this.responseData.message,
         buttons: ['OK']
-   
       })
       alert.present();
      }

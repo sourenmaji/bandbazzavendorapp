@@ -10,7 +10,7 @@
     <ion-title style="float:right">Products</ion-title>
 
     <ion-buttons end *ngIf="categories.length">
-      <button ion-button small icon-only *ngIf="!((category_id==5 || category_id==6) && alProducts.length>=1)" (click)="addProduct()" tooltip="add">
+      <button ion-button small icon-only *ngIf="!((category_id==5 || category_id==6) && alProducts.length>=1) && businessProducts.request_type=='Live'" (click)="addProduct()" tooltip="add">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>

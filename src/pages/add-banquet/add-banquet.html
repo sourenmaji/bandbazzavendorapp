@@ -27,7 +27,7 @@
                   <ion-item>
                       <ion-label stacked>
                         <div>
-                          <p>Name<span style="color: red" > *</span></p>
+                          <p>Name <span style="color: red" >*</span></p>
                         </div>
                       </ion-label>
                       <ion-input (ionChange)="errormessage = ''"  [(ngModel)]="form1data.hallname" placeholder="Enter Hall Name">
@@ -89,7 +89,7 @@
             <ion-card-content>
 
               <ion-item no-padding>
-                  <ion-label stacked><p>Location</p><small> (please select a city from dropdown first)</small></ion-label>
+                  <ion-label stacked><p>Location</p><small> (Please select a city from dropdown first)</small></ion-label>
                   <ion-input [(ngModel)]="form2data.map_address" (keyup)="loadMap()" id="txtHome" type="text" placeholder="Enter a location to pick from map"></ion-input>
                 </ion-item>
 
@@ -262,18 +262,32 @@
               {{errormessage}}
             </p>
             <button ion-button (click)="presentActionSheet()" >Pick Image</button>
-            <p>(Max 5 images. your last image will be your cover image.)</p>
+            <p>(Max 5 images. Your last image will be your cover image.)</p>
             <ion-content direction="y" scrollY="true" style="height: 80%;">
-                <ion-card-content>
-                  <ion-card *ngFor="let img of images"  style="position: relative" >
-                    <img src="{{'data:image/jpeg;base64,' + img}}">
-                    <div style="position: absolute; right: 2%; top: 2%" >
-                      <ion-icon (click)="removeImage(img)" style="color: red;font-size: 50px" name="close-circle" ></ion-icon>
-                    </div>
-                  </ion-card>
-
-                </ion-card-content>
-                <div  style="margin-bottom: 80px" ></div>
+              <ion-card-content>
+    
+                <ion-grid>
+                  <ion-row>
+                    <ion-col>
+                      <ion-card *ngFor="let img of imagesleft"  style="position: relative" >
+                        <img src="{{'data:image/jpeg;base64,' + img}}">
+                        <div style="position: absolute; right: 2%; top: 2%" >
+                          <ion-icon (click)="removeImage(img)" style="color: red;font-size: 50px" name="close-circle" ></ion-icon>
+                        </div>
+                      </ion-card>
+                    </ion-col>
+                    <ion-col>
+                      <ion-card *ngFor="let img of imagesright"  style="position: relative" >
+                        <img src="{{'data:image/jpeg;base64,' + img}}">
+                        <div style="position: absolute; right: 2%; top: 2%" >
+                          <ion-icon (click)="removeImage(img)" style="color: red;font-size: 50px" name="close-circle" ></ion-icon>
+                        </div>
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-card-content>
+              <div  style="margin-bottom: 80px" ></div>
             </ion-content>
         </ion-card>
       </ion-slide>
@@ -303,13 +317,13 @@
                 </div>
                 </ion-item>
                 <ion-item>
-                  <p>Hall capacity: {{form3data.capacity}}</p>
-                  <p>Non veg food allowed: <span> {{form3data.all_food_type ? "Yes" : "No" }}</span></p>
-                  <p>AC available: <span> {{form3data.ac ? "Yes" : "No" }}</span></p>
+                  <p>Hall Capacity: {{form3data.capacity}}</p>
+                  <p>Food Allowed: <span> {{form3data.all_food_type ? "All" : "Veg only" }}</span></p>
+                  <p>AC Available: <span> {{form3data.ac ? "Yes" : "No" }}</span></p>
                 <div *ngIf="form3data.ac">
-                    <p>AC rate: Rs {{form3data.ac_charge}}</p>
+                    <p>AC Charge: Rs {{form3data.ac_charge}}{{form3data.ac_time==1? "/hr" : "/day"}}</p>
                 </div>
-                  <p>Parking available: <span> {{form3data.parking ? "Yes" : "No" }}</span></p>
+                  <p>Parking Available: <span> {{form3data.parking ? "Yes" : "No" }}</span></p>
                 </ion-item>
                 <ion-item>
                   <div style="height: 50px"></div>
@@ -324,7 +338,7 @@
     <ion-row style="height: fit-content" no-padding>
       <ion-col style="width: 25%">
         <div *ngIf="pageNo != 0">
-          <ion-icon (click)="goToPrev()" style="font-size: 30px; position: absolute;left: 20px;" name="ios-arrow-back"></ion-icon>
+          <ion-icon (click)="goToPrev()" style="font-size: 40px; position: absolute;left: 20px;" name="ios-arrow-back"></ion-icon>
         </div>
       </ion-col>
       <ion-col style="height: 100%; width: 50%">
@@ -335,10 +349,10 @@
       </ion-col>
       <ion-col style="width: 25%">
         <div *ngIf="pageNo < (len-1)">
-          <ion-icon (click)="goToNext()" style="font-size: 30px; position: absolute;right: 20px;" name="ios-arrow-forward"></ion-icon>
+          <ion-icon (click)="goToNext()" style="font-size: 40px; position: absolute;right: 20px;" name="ios-arrow-forward"></ion-icon>
         </div>
         <div *ngIf="pageNo == (len-1)">
-            <ion-icon (click)="goToNext()" style="font-size: 30px; position: absolute;right: 20px;" name="checkmark-circle-outline"></ion-icon>
+            <ion-icon (click)="goToNext()" style="font-size: 40px; position: absolute;right: 20px;" name="checkmark-circle-outline"></ion-icon>
         </div>
       </ion-col>
     </ion-row>
