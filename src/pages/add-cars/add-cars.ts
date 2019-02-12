@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
-import { ActionSheetController, AlertController, IonicPage, NavController, NavParams, Platform, Slides, ToastController } from 'ionic-angular';
+import { ActionSheetController, IonicPage, NavController, NavParams, Platform, Slides, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 @IonicPage()
@@ -46,7 +46,6 @@ export class AddCarsPage {
               public imagePicker: ImagePicker,
               public actionSheetCtrl: ActionSheetController,
               public camera: Camera,
-              private alertCtrl: AlertController,
               public platform: Platform,
               public toastCtrl: ToastController
 

@@ -193,28 +193,32 @@ uploadData()
   console.log(data);
   this.authService.authData(data,'edit_product_car',this.userPostData.token).then((data) => {
     this.responseData = data;
-    if(this.responseData.status == true){
-      this.navCtrl.pop();
+    if(this.responseData.status == true)
+    {
+      let toast = this.toastCtrl.create({
+        message: this.responseData.message,
+        duration: 5000,
+        position: 'bottom'
+      });
+      toast.present();
+
       this.authService.pageReset=true;
-      const alert = this.alertCtrl.create({
-        subTitle: this.responseData.message,
-        buttons: ['OK']
-
-      })
-      alert.present();
-    }else{
-      const alert = this.alertCtrl.create({
-        subTitle: this.responseData.message,
-        buttons: ['OK']
-      })
-      alert.present();
+      this.navCtrl.pop();
     }
-
+    else
+    {
+      let toast = this.toastCtrl.create({
+        message: this.responseData.message,
+        duration: 5000,
+        position: 'bottom'
+      });
+      toast.present();
+    }
   }, (err) => {
    this.responseData = err;
    console.log(this.responseData)
  // Handle error
- const toast = this.toastCtrl.create({
+ let toast = this.toastCtrl.create({
   message: err,
   duration: 5000,
   cssClass: "toast-danger",
@@ -224,10 +228,19 @@ toast.present();
 });
 }
 
-
 removeImage(src: any)
   {
     console.log(src);
+    if(this.productImages.length==1)
+    {
+      let toast = this.toastCtrl.create({
+        message: "Select at least one image",
+        duration: 5000,
+        position: 'bottom'
+      });
+      toast.present();
+      return false;
+    }
     let newimage: any = [];
     this.productImages.forEach(element => {
       if(element != src)

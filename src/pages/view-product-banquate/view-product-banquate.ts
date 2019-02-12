@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
-import { ActionSheetController, AlertController, IonicPage, NavController, NavParams, Platform, Slides } from 'ionic-angular';
+import { ActionSheetController, AlertController, IonicPage, NavController, NavParams, Platform, Slides, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
@@ -33,6 +33,7 @@ export class ViewProductBanquatePage{
               public camera: Camera,
               public authService: AuthServiceProvider,
               public alertCtrl: AlertController,
+              public toastCtrl: ToastController,
               public platform: Platform,
               public domSanitizer: DomSanitizer)
   {
@@ -218,27 +219,37 @@ uploadData()
 
   this.authService.authData(data,'edit_product_banquet',this.userPostData.token).then((data) => {
     this.responseData = data;
-    if(this.responseData.status == true){
-      this.navCtrl.pop();
+    if(this.responseData.status == true)
+    {
+      let toast = this.toastCtrl.create({
+        message: this.responseData.message,
+        duration: 5000,
+        position: 'bottom'
+      });
+      toast.present();
+
       this.authService.pageReset=true;
-      const alert = this.alertCtrl.create({
-        subTitle: this.responseData.message,
-        buttons: ['OK']
-
-      })
-      alert.present();
-    }else{
-      const alert = this.alertCtrl.create({
-        subTitle: this.responseData.message,
-        buttons: ['OK']
-
-      })
-      alert.present();
+      this.navCtrl.pop();
+    }
+    else
+    {
+      let toast = this.toastCtrl.create({
+        message: this.responseData.message,
+        duration: 5000,
+        position: 'bottom'
+      });
+      toast.present();
     }
   }, (err) => {
-   this.responseData = err;
-   console.log(this.responseData)
-
+    this.responseData = err;
+    console.log(this.responseData);
+    const toast = this.toastCtrl.create({
+     message: 'Oops! Something went wrong.',
+     duration: 5000,
+     cssClass: "toast-danger",
+     position: 'bottom'
+   })
+   toast.present();
   });
 }
 
@@ -248,6 +259,12 @@ removeImage(src: any)
     console.log(this.productImages.length);
     if(this.productImages.length==1)
     {
+      let toast = this.toastCtrl.create({
+        message: "Select at least one image",
+        duration: 5000,
+        position: 'bottom'
+      });
+      toast.present();
       return false;
     }
     let newimage: any = [];

@@ -268,33 +268,22 @@ export class ProductsPage {
 
           if(this.responseData.status == true)
           {
-
-            const alert = this.alertCtrl.create({
-              subTitle: this.responseData.message,
-              buttons: [{
-                text: 'Ok',
-              handler: () => {
-
-                let navTransition = alert.dismiss();
-
-                  navTransition.then(() => {
-                    this.getProducts(this.lastClicked);
-                  });
-
-                return false;
-              }
-            }]
+            let toast = this.toastCtrl.create({
+              message: this.responseData.message,
+              duration: 5000,
+              position: 'bottom'
             });
-            alert.present();
-
+            toast.present();
+            this.getProducts(this.lastClicked);
           }
           else
           {
-           const alert = this.alertCtrl.create({
-             subTitle: this.responseData.message,
-             buttons: ['OK']
-           })
-           alert.present();
+            let toast = this.toastCtrl.create({
+              message: this.responseData.message,
+              duration: 5000,
+              position: 'bottom'
+            });
+            toast.present();
          }
         },
         (err) => {

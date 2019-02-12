@@ -165,20 +165,22 @@ export class BusinessPage {
               this.responseData = result;
               if(this.responseData.status == true)
               {
-                const alert = this.alertCtrl.create({
-                  subTitle: this.responseData.message,
-                  buttons: ['OK']
-                })
-                alert.present();
+                let toast = this.toastCtrl.create({
+                  message: this.responseData.message,
+                  duration: 5000,
+                  position: 'bottom'
+                });
+                toast.present();
                 this.openBusiness();
               }
               else
               {
-                const alert = this.alertCtrl.create({
-                  subTitle: this.responseData.message,
-                  buttons: ['OK']
-                })
-                alert.present();
+                let toast = this.toastCtrl.create({
+                  message: this.responseData.message,
+                  duration: 5000,
+                  position: 'bottom'
+                });
+                toast.present();
               }
             },
             (err) => {
@@ -187,6 +189,7 @@ export class BusinessPage {
               const toast = this.toastCtrl.create({
                 message: 'Oops! Something went wrong.',
                 duration: 5000,
+                cssClass: 'toast-danger',
                 position: 'bottom'
               })
               toast.present();
@@ -219,20 +222,22 @@ export class BusinessPage {
               this.responseData = result;
               if(this.responseData.status == true)
               {
-                const alert = this.alertCtrl.create({
-                  subTitle: this.responseData.message,
-                  buttons: ['OK']
-                })
-                alert.present();
+                let toast = this.toastCtrl.create({
+                  message: this.responseData.message,
+                  duration: 5000,
+                  position: 'bottom'
+                });
+                toast.present();
                 this.openBusiness();
               }
               else
               {
-                const alert = this.alertCtrl.create({
-                  subTitle: this.responseData.message,
-                  buttons: ['OK']
-                })
-                alert.present();
+                let toast = this.toastCtrl.create({
+                  message: this.responseData.message,
+                  duration: 5000,
+                  position: 'bottom'
+                });
+                toast.present();
               }
             },
             (err) => {
@@ -272,31 +277,26 @@ export class BusinessPage {
             this.authService.getData('delete_business?business_id='+businessid,this.userPostData.token).then((result) => {
               this.responseData = result;
               loader.dismiss();
-              if(this.responseData.status == true)
-              {
-                const alert = this.alertCtrl.create({
-                  subTitle: this.responseData.message,
-                  buttons: [{
-                    text: 'Ok',
-                    handler: () => {
-                      let navTransition = alert.dismiss();
-                      navTransition.then(() => {
-                        this.openBusiness();
-                      });
-                      return false;
-                    }
-                  }]
-                });
-                alert.present();
-              }
-              else
-              {
-                const alert = this.alertCtrl.create({
-                  subTitle: this.responseData.message,
-                  buttons: ['OK']
-                })
-                alert.present();
-              }
+
+          if(this.responseData.status == true)
+          {
+            let toast = this.toastCtrl.create({
+              message: this.responseData.message,
+              duration: 5000,
+              position: 'bottom'
+            });
+            toast.present();
+            this.openBusiness();
+          }
+          else
+          {
+            let toast = this.toastCtrl.create({
+              message: this.responseData.message,
+              duration: 5000,
+              position: 'bottom'
+            });
+            toast.present();
+         }
             },
             (err) => {
               loader.dismiss();
@@ -309,7 +309,8 @@ export class BusinessPage {
               toast.present();
             });
           }
-        }, {
+        }, 
+        {
           text: "Cancel",
           role: 'cancel'
         }]

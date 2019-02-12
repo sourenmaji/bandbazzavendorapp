@@ -2,7 +2,7 @@ import { MapsAPILoader } from '@agm/core';
 import { Component, NgZone, ViewChild } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
-import { ActionSheetController, AlertController, IonicPage, NavController, NavParams, Platform, Slides, ToastController } from 'ionic-angular';
+import { ActionSheetController, IonicPage, NavController, NavParams, Platform, Slides, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 declare var google;
@@ -59,7 +59,6 @@ export class AddBanquetPage{
               public restServ: AuthServiceProvider,
               private mapsAPILoader: MapsAPILoader,
               private ngZone: NgZone,
-              private alertCtrl: AlertController,
               public platform: Platform
             ) {
     this.responseData = {}

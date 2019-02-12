@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
-import { ActionSheetController, AlertController, IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { ActionSheetController, AlertController, IonicPage, NavController, NavParams, Platform, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
 
 @IonicPage()
@@ -20,10 +20,15 @@ export class ViewProductCatererPage implements OnInit{
   userData = {catererId: "", startingPrice: "",minimumPlate: "", images: []};
   userPostData = {"user":"","token":""};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    public actionSheetCtrl: ActionSheetController,
-    public camera: Camera, public authService: AuthServiceProvider,
-    public imagePicker: ImagePicker, public alertCtrl: AlertController, public platform: Platform) {
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams,
+              public actionSheetCtrl: ActionSheetController,
+              public camera: Camera, 
+              public authService: AuthServiceProvider,
+              public imagePicker: ImagePicker, 
+              public alertCtrl: AlertController,
+              public toastCtrl: ToastController, 
+              public platform: Platform) {
       const data = JSON.parse(localStorage.getItem('userData'));
       this.userPostData.token = data.token;
     this.requestType = this.navParams.get('requestType');
@@ -143,26 +148,38 @@ uploadData()
   //call the rest here..
   this.authService.authData(data,'edit_product_caterer',this.userPostData.token).then((data) => {
     this.responseData = data;
-    if(this.responseData.status == true){
-      this.navCtrl.pop();
+    if(this.responseData.status == true)
+    {
+      let toast = this.toastCtrl.create({
+        message: this.responseData.message,
+        duration: 5000,
+        position: 'bottom'
+      });
+      toast.present();
+
       this.authService.pageReset=true;
-      const alert = this.alertCtrl.create({
-        subTitle: this.responseData.message,
-        buttons: ['OK']
-
-      })
-      alert.present();
-    }else{
-      const alert = this.alertCtrl.create({
-        subTitle: this.responseData.message,
-        buttons: ['OK']
-
-      })
-      alert.present();
+      this.navCtrl.pop();
+    }
+    else
+    {
+      let toast = this.toastCtrl.create({
+        message: this.responseData.message,
+        duration: 5000,
+        position: 'bottom'
+      });
+      toast.present();
     }
   }, (err) => {
    this.responseData = err;
    console.log(this.responseData)
+   // Handle error
+ let toast = this.toastCtrl.create({
+  message: err,
+  duration: 5000,
+  cssClass: "toast-danger",
+  position: 'bottom'
+})
+toast.present();
 
   });
 }
@@ -170,6 +187,16 @@ uploadData()
 
 removeImage(src: any)
   {
+    if(this.productImages.length==1)
+    {
+      let toast = this.toastCtrl.create({
+        message: "Select at least one image",
+        duration: 5000,
+        position: 'bottom'
+      });
+      toast.present();
+      return false;
+    }
     let newimage: any = [];
     this.productImages.forEach(element => {
       if(element != src)

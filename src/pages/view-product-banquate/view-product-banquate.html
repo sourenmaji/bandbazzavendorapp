@@ -68,8 +68,8 @@
         <h3>{{productDetails.details.capacity}}</h3>
       </ion-col>
       <ion-col *ngIf="productDetails.details.is_ac == 1" align-self-start>
-        <ion-label color="dash6">AC Charges(hourly) :</ion-label>
-        <h3>Rs.{{productDetails.details.ac_charge | number:'1.0-0'}}</h3>
+        <ion-label color="dash6">AC Charges :</ion-label>
+        <h3>Rs {{productDetails.details.ac_charge | number:'1.0-0'}}/{{productDetails.details.ac_time==1 ? 'hour' : 'day'}}</h3>
       </ion-col>
       <ion-col *ngIf="productDetails.details.is_ac == 0" align-self-start>
         <ion-label color="dash6">AC :</ion-label>

@@ -308,20 +308,15 @@
                   <p>Search Tags: {{form1data.tags}}</p>
                 </ion-item>
                 <ion-item>
-                <div *ngIf="form2data.same_as_business">
-                    <p>Address: Same as business</p>
-                </div>
-                <div *ngIf="!form2data.same_as_business">
-                    <p class="brk-p">Full Address: {{form2data.full_address}}</p>
-                    <p class="brk-p">Location: {{form2data.map_address}}</p>
-                </div>
+                    <p>Full Address: {{form2data.full_address}}</p>
+                    <p>Location: {{form2data.map_address}}</p>
                 </ion-item>
                 <ion-item>
                   <p>Hall Capacity: {{form3data.capacity}}</p>
                   <p>Food Allowed: <span> {{form3data.all_food_type ? "All" : "Veg only" }}</span></p>
                   <p>AC Available: <span> {{form3data.ac ? "Yes" : "No" }}</span></p>
                 <div *ngIf="form3data.ac">
-                    <p>AC Charge: Rs {{form3data.ac_charge}}{{form3data.ac_time==1? "/hr" : "/day"}}</p>
+                    <p>AC Charge: Rs {{form3data.ac_charge}}/{{form3data.ac_time==1? "hr" : "day"}}</p>
                 </div>
                   <p>Parking Available: <span> {{form3data.parking ? "Yes" : "No" }}</span></p>
                 </ion-item>

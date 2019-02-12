@@ -14,7 +14,7 @@
           <p>
               <li>Enquiry Time: {{enquiry.details.created_at}}</li>
               <li>Enquiry No.: {{enquiry.details.serial_number}}</li>
-              <li><strong>Enquiry Status: {{enquiry.details.vendor_status}}</strong></li>
+              <li>Enquiry Status: <strong>{{enquiry.details.vendor_status}}</strong></li>
           </p>
         </ion-card-content>
         <button *ngIf="enquiry.details.enquiry_status==-1 && !(enquiry.module==5 || enquiry.module==6) && (enquiry.details.book_rate || enquiry.details.enq_rate_hour || enquiry.details.enquiry_rate)" ion-button block (click)="enquiryAction(enquiry.details.id,enquiry.module)" color="energy">Action</button>

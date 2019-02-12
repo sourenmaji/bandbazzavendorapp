@@ -35,21 +35,21 @@
       </ion-row>
       <ion-row>
     <ion-col *ngIf="productValue.car_price_hour!=null" align-self-start>
-      <ion-label color="dash6">Non AC<small>(per hour)</small> :</ion-label>
+      <ion-label color="dash6">Non AC<small> (per hour)</small> :</ion-label>
       <h3>Rs.{{productValue.car_price_hour | number:'1.0-0'}}</h3>
     </ion-col>
     <ion-col *ngIf="productValue.car_price_kil!=null" align-self-start>
-      <ion-label color="dash6">Non AC<small>(per km)</small> :</ion-label>
+      <ion-label color="dash6">Non AC<small> (per km)</small> :</ion-label>
       <h3>Rs.{{productValue.car_price_kil | number:'1.0-0'}}</h3>
     </ion-col>
   </ion-row>
   <ion-row>
     <ion-col *ngIf="productValue.ac_car_price_hour != null" align-self-start>
-      <ion-label color="dash6">AC<small>(per hour)</small> :</ion-label>
+      <ion-label color="dash6">AC<small> (per hour)</small> :</ion-label>
       <h3>Rs.{{productValue.ac_car_price_hour | number:'1.0-0'}}</h3>
     </ion-col>
     <ion-col *ngIf="productValue.ac_car_price_kil != null" align-self-start>
-      <ion-label color="dash6">AC<small>(per km)</small> :</ion-label>
+      <ion-label color="dash6">AC<small> (per km)</small> :</ion-label>
         <h3>Rs.{{productValue.ac_car_price_kil | number:'1.0-0'}}</h3>
     </ion-col>
   </ion-row>

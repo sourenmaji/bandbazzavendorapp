@@ -16,7 +16,7 @@
               <ion-label floating>Name <span style="color: red">*</span></ion-label>
               <ion-input type="text" formControlName="name" [class.error1]="!editform.controls.name.valid && editform.controls.name.dirty"></ion-input>
             </ion-item>
-            <ion-item no-lines *ngIf="( editform.get('name').hasError('minlength') || editform.get('name').hasError('maxlength') ||editform.get('name').hasError('pattern') ||editform.get('name').hasError('required') ) && editform.get('name').touched">
+            <div *ngIf="( editform.get('name').hasError('minlength') || editform.get('name').hasError('maxlength') ||editform.get('name').hasError('pattern') ||editform.get('name').hasError('required') ) && editform.get('name').touched">
               <div class="error" *ngIf="editform.get('name').hasError('required') && editform.get('name').touched">
                 Please enter your name
               </div>
@@ -29,20 +29,20 @@
               <div class="error" *ngIf="editform.get('name').hasError('pattern') && editform.get('name').touched">
                 Pattern your name must contain alphabets and spaces only
               </div>
-            </ion-item>
+            </div>
                 <ion-item>
                   <ion-label floating>Email <span style="color: red">*</span></ion-label>
                   <ion-input type="email" 
                   formControlName="email" [class.error1]="!editform.controls.email.valid && editform.controls.email.dirty"></ion-input>
                 </ion-item>
-                <ion-item no-lines *ngIf="( editform.get('email').hasError('minlength') || editform.get('email').hasError('pattern') ||editform.get('email').hasError('required') ) && editform.get('email').touched">
+                <div *ngIf="( editform.get('email').hasError('minlength') || editform.get('email').hasError('pattern') ||editform.get('email').hasError('required') ) && editform.get('email').touched">
                   <div class="error" *ngIf="editform.get('email').hasError('required') && editform.get('email').touched">
                     Please enter your email
                   </div>
                   <div class="error" *ngIf="editform.get('email').hasError('pattern') && editform.get('email').touched">
                     This value should be a valid email
                   </div>
-                </ion-item>
+                </div>
                   <ion-item>
                       <ion-label floating>Phone <span style="color: red">*</span></ion-label>
                       <ion-input  [disabled]="isDisabled" id="phone_no" type="text"  formControlName="phone_no" [class.error1]="!editform.controls.phone_no.valid && editform.controls.phone_no.dirty"
@@ -52,27 +52,26 @@
                       <button *ngIf="isDisabled" ion-button  clear item-right (click)="reSendOtp()">Resend OTP</button>
                     </ion-item>
 
-                    <ion-item no-lines *ngIf="( editform.get('phone_no').hasError('minlength') || editform.get('phone_no').hasError('pattern') ||editform.get('phone_no').hasError('required')) && editform.get('phone_no').touched">
+                    <div *ngIf="( editform.get('phone_no').hasError('minlength') || editform.get('phone_no').hasError('pattern') ||editform.get('phone_no').hasError('required')) && editform.get('phone_no').touched">
                       <div class="error" *ngIf="editform.get('phone_no').hasError('required') && editform.get('phone_no').touched">
                         Please enter your phone no.
                       </div>
                       <div class="error" *ngIf="editform.get('phone_no').hasError('pattern') && editform.get('phone_no').touched">
                         This value should be a valid phone no.
                       </div>
-
-                    </ion-item>
+                    </div>
                     <ion-item *ngIf="buttonClicked">
                       <ion-input type="text" placeholder="Enter six digit OTP"
                       [(ngModel)]="userData.otp" formControlName="otp"></ion-input>
                     </ion-item>
-                    <ion-item *ngIf="buttonClicked">
+                    <div *ngIf="buttonClicked">
                       <div class="error" *ngIf="editform.get('otp').hasError('equalTo') && editform.get('otp').touched">
                         Your OTP does not match
                       </div>
                       <div class="success" *ngIf="!(editform.get('otp').hasError('equalTo'))">
                         Your OTP match successfully
                       </div>
-                    </ion-item>
+                    </div>
                     <ion-item>
                         <ion-label floating>Address</ion-label>
                         <ion-textarea myInput type="text" formControlName="address"></ion-textarea>

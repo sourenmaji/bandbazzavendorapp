@@ -69,27 +69,27 @@
                       <ion-input type="email" [(ngModel)]="userData.email" value="{{business.email}}"
                       formControlName="email" [class.error1]="!editBusinessform.controls.email.valid && editBusinessform.controls.email.dirty"></ion-input>
                     </ion-item>
-                    <ion-item no-lines *ngIf="( editBusinessform.get('email').hasError('minlength') || editBusinessform.get('email').hasError('pattern') ||editBusinessform.get('email').hasError('required') ) && editBusinessform.get('email').touched">
+                    <div *ngIf="( editBusinessform.get('email').hasError('minlength') || editBusinessform.get('email').hasError('pattern') ||editBusinessform.get('email').hasError('required') ) && editBusinessform.get('email').touched">
                       <div class="error" *ngIf="editBusinessform.get('email').hasError('required') && editBusinessform.get('email').touched">
                         Please enter your email
                       </div>
                       <div class="error" *ngIf="editBusinessform.get('email').hasError('pattern') && editBusinessform.get('email').touched">
                         This value should be a valid email
                       </div>
-                    </ion-item>
+                    </div>
                       <ion-item>
                           <ion-label floating>Phone <span style="color: red">*</span></ion-label>
                           <ion-input type="number" [(ngModel)]="userData.phone" value="{{business.phone_no}}"
                           formControlName="phone" [class.error1]="!editBusinessform.controls.phone.valid && editBusinessform.controls.phone.dirty"></ion-input>
                         </ion-item>
-                        <ion-item no-lines *ngIf="( editBusinessform.get('phone').hasError('minlength') || editBusinessform.get('phone').hasError('pattern') ||editBusinessform.get('phone').hasError('required') ) && editBusinessform.get('phone').touched">
+                        <div *ngIf="( editBusinessform.get('phone').hasError('minlength') || editBusinessform.get('phone').hasError('pattern') ||editBusinessform.get('phone').hasError('required') ) && editBusinessform.get('phone').touched">
                           <div class="error" *ngIf="editBusinessform.get('phone').hasError('required') && editBusinessform.get('phone').touched">
                             Please enter your phone no.
                           </div>
                           <div class="error" *ngIf="editBusinessform.get('phone').hasError('pattern') && editBusinessform.get('phone').touched">
                             This value should be a valid phone no.
                           </div>
-                        </ion-item>
+                        </div>
                     <ion-item>
                       <img  [src]="businessImageSrc" style="width: 100%">
                     </ion-item>

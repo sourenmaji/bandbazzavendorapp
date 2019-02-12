@@ -115,6 +115,29 @@ page-welcome {
     .frgt-area .button-md-success {
         margin-top: 20px !important;
       }
+      .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+        border-bottom-color: none !important;
+        -webkit-box-shadow: none !important;
+         box-shadow: none !important;
+    }
+    page-welcome .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+        border-bottom-color: none !important;
+        /* -webkit-box-shadow: none !important; */
+        /* box-shadow: none !important; */
+    }
+    .item-md.item-input.item-input-has-focus .item-inner,
+.item-md.item-input.input-has-focus .item-inner {
+  border-bottom-color: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.list-md .item-input.item-input-has-focus:last-child,
+.list-md .item-input.input-has-focus:last-child {
+  border-bottom-color: none;
+  -webkit-box-shadow: inset 0 -1px 0 0 none;
+  box-shadow: inset 0 -1px 0 0 none;
+}
       .btn_container {
         padding-top: 10px;
         text-align: center;
@@ -136,4 +159,5 @@ page-welcome {
           background-color: #722117;
         }
       }
+      
     }

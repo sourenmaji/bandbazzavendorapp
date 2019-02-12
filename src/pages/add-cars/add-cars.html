@@ -162,7 +162,7 @@
               </div>
               <ion-item>
                 <ion-label stacked>
-                  <p>Booking Advance <small>(in %)</small></p>
+                  <p>Booking Advance <small>(in Rs)</small></p>
                 </ion-label>
                 <ion-input (ionChange)="errormessage=''" type="number" [(ngModel)]="form2data.book_advance" placeholder="Booking advance"></ion-input>
               </ion-item>
@@ -247,12 +247,9 @@
 
               <ion-item>
                 <p>No. of Seats: {{form2data.no_of_seats}}</p>
-
                 <p>Min. Hire Period (in hrs): {{form2data.min_hire_period}}</p>
-                <p>Max. Hire Period (in hrs): {{form2data.max_hire_period}}</p>
-
                 <p>Min. Hire Distance (in km): {{form2data.min_hire_distance}}</p>
-                <p>Max. Hire Distance (in km): {{form2data.max_hire_distance}}</p>
+               
               </ion-item>
 
               <ion-label>Price Rate (Non-AC)</ion-label>

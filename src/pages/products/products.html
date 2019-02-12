@@ -57,11 +57,11 @@
           </ion-col>
         </ion-row>
       <ion-row>
-        <ion-col>
-            <h2 *ngIf="products.price!=null" ion-text color="dark"><b>Rs.{{products.price | number:'1.0-0'}}</b></h2>
+        <ion-col *ngIf="products.price!=null">
+            <h2 ion-text color="dark"><b>Rs.{{products.price | number:'1.0-0'}}</b></h2>
         </ion-col>
-        <ion-col>
-          <h2 *ngIf="products.price==null" ion-text color="dark"><b>Price N/A</b></h2>
+        <ion-col *ngIf="products.price==null">
+          <h2 ion-text color="dark"><b>Price N/A</b></h2>
       </ion-col>
           <ion-col *ngIf="products.is_ac" col-3>
               <ion-badge color="ac" item-end>AC</ion-badge>
@@ -72,8 +72,8 @@
       </ion-row>
       <ion-row>
         <ion-col col-12>
-            <ion-label class="ac-chrg" color="dash6">Ac Charge
-              <span class="ac" *ngIf="products.is_ac">{{products.ac_charge}}</span>
+            <ion-label class="ac-chrg" color="dash6">AC Charge
+              <span class="ac" *ngIf="products.is_ac">Rs {{products.ac_charge}}/{{products.ac_time==1 ? 'hour' : 'day'}}</span>
               <span class="ac" *ngIf="!products.is_ac">Price N/A</span>
             </ion-label>
         </ion-col>
@@ -116,16 +116,16 @@
 
           <ion-row>
               <ion-col *ngIf="products.ac_car_price_hour != null" col-6>
-                  <ion-label color="dash6">Ac Charge</ion-label>
-                  <h3>Rs.{{products.ac_car_price_hour | number:'1.0-0'}}/HR</h3>
-                  <h3>Rs.{{products.ac_car_price_kil | number:'1.0-0'}}/KM</h3>
+                  <ion-label color="dash6">AC Charge</ion-label>
+                  <h3>Rs.{{products.ac_car_price_hour | number:'1.0-0'}}/hr</h3>
+                  <h3>Rs.{{products.ac_car_price_kil | number:'1.0-0'}}/km</h3>
               </ion-col>
 
               <ion-col *ngIf="products.car_price_hour != null" col-6>
                   <ion-label color="dash6">Non Ac Charge</ion-label>
                   <!-- <span class="price-ptrn"> -->
-                    <h3>Rs.{{products.car_price_hour | number:'1.0-0'}}/HR</h3>
-                    <h3>Rs.{{products.car_price_kil | number:'1.0-0'}}/KM</h3>
+                    <h3>Rs.{{products.car_price_hour | number:'1.0-0'}}/hr</h3>
+                    <h3>Rs.{{products.car_price_kil | number:'1.0-0'}}/km</h3>
                   <!-- </span> -->
               </ion-col>
             </ion-row>
