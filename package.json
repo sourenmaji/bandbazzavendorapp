@@ -50,6 +50,7 @@
     "cordova-plugin-filepath": "^1.5.1",
     "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-googleplus": "^7.0.0",
+    "cordova-plugin-ionic": "5.3.0",
     "cordova-plugin-ionic-keyboard": "^2.1.3",
     "cordova-plugin-ionic-webview": "^3.1.1",
     "cordova-plugin-network-information": "^2.0.1",
@@ -105,7 +106,15 @@
         "WEB_APPLICATION_CLIENT_ID": "343465164111-818pjtaa1eth7pib9ebkd77lef6orf5p.apps.googleusercontent.com"
       },
       "cordova-plugin-statusbar": {},
-      "cordova-plugin-fcm-with-dependecy-updated": {}
+      "cordova-plugin-fcm-with-dependecy-updated": {},
+      "cordova-plugin-ionic": {
+        "APP_ID": "be841816",
+        "CHANNEL_NAME": "Master",
+        "UPDATE_METHOD": "background",
+        "UPDATE_API": "https://api.ionicjs.com",
+        "MAX_STORE": "2",
+        "MIN_BACKGROUND_DURATION": "30"
+      }
     },
     "platforms": [
       "browser",
