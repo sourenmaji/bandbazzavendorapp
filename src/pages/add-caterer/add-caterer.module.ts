@@ -9,5 +9,8 @@ import { AddCatererPage } from './add-caterer';
   imports: [
     IonicPageModule.forChild(AddCatererPage),
   ],
+  exports: [
+    AddCatererPage
+  ]
 })
 export class AddCatererPageModule {}

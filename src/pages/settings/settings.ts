@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { AlertController, MenuController, NavController, Platform, ToastController } from 'ionic-angular';
+import { AlertController, MenuController, NavController, Platform, ToastController, IonicPage } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { WelcomePage } from '../welcome/welcome';
 import { DashboardPage } from '../dashboard/dashboard';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 
+@IonicPage()
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-settings',
+  templateUrl: 'settings.html'
 })
-export class HomePage {
+export class SettingsPage {
 
   forgetpasswordform: FormGroup;
   userDetails : any;
@@ -114,7 +115,7 @@ onLogout()
       //user logged out so we will remove him from the NativeStorage
       // alert('logout from facebook');
       // localStorage.clear();
-      // setTimeout(() => this.navCtrl.setRoot(WelcomePage), 1000);
+      // setTimeout(() => this.navCtrl.setRoot('WelcomePage'), 1000);
 		}, error =>{
 			console.log(error);
     });
@@ -130,6 +131,6 @@ onLogout()
 	})
     
   localStorage.clear();
-  setTimeout(() => this.navCtrl.setRoot(WelcomePage), 1000);
+  setTimeout(() => this.navCtrl.setRoot('WelcomePage'), 1000);
 }
 }

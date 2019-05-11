@@ -9,5 +9,8 @@ import { AddPhotoPlanPage } from './add-photo-plan';
   imports: [
     IonicPageModule.forChild(AddPhotoPlanPage),
   ],
+  exports: [
+    AddPhotoPlanPage
+  ]
 })
 export class AddPhotoPlanPageModule {}

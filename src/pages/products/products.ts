@@ -196,15 +196,15 @@ export class ProductsPage {
       this.productDetails = this.responseData;
       if(cate==2)
     {
-      this.navCtrl.push(ViewProductBanquatePage,{productDetails: this.productDetails, requestType: requestType});
+      this.navCtrl.push('ViewProductBanquatePage',{productDetails: this.productDetails, requestType: requestType});
     }
     else if(cate==3)
     {
-      this.navCtrl.push(ViewProductCarPage,{productDetails: this.productDetails, requestType: requestType});
+      this.navCtrl.push('ViewProductCarPage',{productDetails: this.productDetails, requestType: requestType});
     }
     else if(cate==4)
     {
-      this.navCtrl.push(ViewProductCatererPage,{productDetails: this.productDetails, requestType: requestType});
+      this.navCtrl.push('ViewProductCatererPage',{productDetails: this.productDetails, requestType: requestType});
     }
 
     },
@@ -225,15 +225,15 @@ export class ProductsPage {
   {
     console.log(this.category_id);
     if(this.category_id == 3)
-    this.navCtrl.push(AddCarsPage,this.businessProducts.id);
+    this.navCtrl.push('AddCarsPage',this.businessProducts.id);
     else if(this.category_id == 4)
-    this.navCtrl.push(AddCatererPage,this.businessProducts.id);
+    this.navCtrl.push('AddCatererPage',this.businessProducts.id);
     else if(this.category_id == 2)
-    this.navCtrl.push(AddBanquetPage,this.businessProducts.id);
+    this.navCtrl.push('AddBanquetPage',this.businessProducts.id);
     else if(this.category_id == 5)
-    this.navCtrl.push(AddPhotographyPage,this.businessProducts.id);
+    this.navCtrl.push('AddPhotographyPage',this.businessProducts.id);
     else if(this.category_id == 6)
-    this.navCtrl.push(AddMakeupArtistPage,this.businessProducts.id);
+    this.navCtrl.push('AddMakeupArtistPage',this.businessProducts.id);
   }
 
   onOpenMenu(){
@@ -244,7 +244,7 @@ export class ProductsPage {
   {
     if(productType == 'caterer')
     {
-      this.navCtrl.push(AddCatererPage);
+      this.navCtrl.push('AddCatererPage');
     }
   }
 
@@ -309,13 +309,13 @@ export class ProductsPage {
   detailsModule(action: string)
   {
     if(this.category_id==5 && action=="edit")
-    this.navCtrl.push(ViewProductPhotographyPage,{action: action,product: this.alProducts[0]});
+    this.navCtrl.push('ViewProductPhotographyPage',{action: action,product: this.alProducts[0]});
     else if(this.category_id==5 && action=="details")
-    this.navCtrl.push(ViewProductPhotographyPage,{action: action,product: this.alProducts[0], videos: this.responseData.all_photography_video, plans: this.responseData.all_photography_plan, images:this.responseData.all_photography_image});
+    this.navCtrl.push('ViewProductPhotographyPage',{action: action,product: this.alProducts[0], videos: this.responseData.all_photography_video, plans: this.responseData.all_photography_plan, images:this.responseData.all_photography_image});
     if(this.category_id==6 && action=="edit")
-    this.navCtrl.push(ViewProductMakeupPage,{action: action,product: this.alProducts[0]});
+    this.navCtrl.push('ViewProductMakeupPage',{action: action,product: this.alProducts[0]});
     else if(this.category_id==6 && action=="details")
-    this.navCtrl.push(ViewProductMakeupPage,{action: action,product: this.alProducts[0], videos: this.responseData.all_makeup_video, plans: this.responseData.all_makeup_plan, images:this.responseData.all_makeup_image});
+    this.navCtrl.push('ViewProductMakeupPage',{action: action,product: this.alProducts[0], videos: this.responseData.all_makeup_video, plans: this.responseData.all_makeup_plan, images:this.responseData.all_makeup_image});
     // else if(this.alProducts[0].edit_status && action=="edit")
     // {
     //   const alert = this.alertCtrl.create({
@@ -330,9 +330,9 @@ export class ProductsPage {
   {
     console.log(module+' '+category);
     if(category==5)
-    this.navCtrl.push(AddPhotoPlanPage,{module:module,id: this.alProducts[0].id});
+    this.navCtrl.push('AddPhotoPlanPage',{module:module,id: this.alProducts[0].id});
     else
-    this.navCtrl.push(AddMakeupPlanPage,{module:module,id: this.alProducts[0].id});
+    this.navCtrl.push('AddMakeupPlanPage',{module:module,id: this.alProducts[0].id});
   }
 
 }

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { MenuController, NavController, NavParams, Platform } from 'ionic-angular';
+import { MenuController, NavController, NavParams, Platform, IonicPage } from 'ionic-angular';
 import { EditProfilePage } from '../edit-profile/edit-profile';
 
+@IonicPage()
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',
@@ -36,7 +37,7 @@ export class ProfilePage {
   }
   editProfile()
   {
-    this.navCtrl.push(EditProfilePage);
+    this.navCtrl.push('EditProfilePage');
   }
 
   onOpenMenu()

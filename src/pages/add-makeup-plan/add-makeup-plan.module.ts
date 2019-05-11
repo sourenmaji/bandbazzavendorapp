@@ -9,5 +9,8 @@ import { AddMakeupPlanPage } from './add-makeup-plan';
   imports: [
     IonicPageModule.forChild(AddMakeupPlanPage),
   ],
+  exports: [
+    AddMakeupPlanPage
+  ]
 })
 export class AddMakeupPlanPageModule {}

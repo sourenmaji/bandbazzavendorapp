@@ -81,7 +81,7 @@ export class RegisterPage{
     ionViewDidLoad(){
       this.navBar.backButtonClick = (e:UIEvent)=>{
         // todo something
-        this.navCtrl.setRoot(WelcomePage);
+        this.navCtrl.setRoot('WelcomePage');
       }
     }
        
@@ -249,7 +249,7 @@ export class RegisterPage{
             buttons: ['OK']
           })
           alert.present();
-          this.navCtrl.push(WelcomePage);
+          this.navCtrl.push('WelcomePage');
         }
         else
         {
@@ -278,7 +278,7 @@ export class RegisterPage{
     
     login(){
       //Login page link
-      this.navCtrl.push(WelcomePage);
+      this.navCtrl.push('WelcomePage');
     }
     
     loginWithGoogle()
@@ -308,7 +308,7 @@ export class RegisterPage{
               console.log(this.responseData);
               localStorage.setItem('userData', JSON.stringify(this.responseData));
               console.log("Local storage ",JSON.parse(localStorage.getItem('userData')));
-              this.navCtrl.push(DashboardPage);
+              this.navCtrl.push('DashboardPage');
             }
             else
             {
@@ -397,7 +397,7 @@ export class RegisterPage{
                   console.log(this.responseData);
                   localStorage.setItem('userData', JSON.stringify(this.responseData));
                   console.log("Local storage ",JSON.parse(localStorage.getItem('userData')));
-                  this.navCtrl.push(DashboardPage);
+                  this.navCtrl.push('DashboardPage');
                 }
                 else
                 {

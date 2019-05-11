@@ -9,5 +9,8 @@ import { ViewProductBanquatePage } from './view-product-banquate';
   imports: [
     IonicPageModule.forChild(ViewProductBanquatePage),
   ],
+  exports: [
+    ViewProductBanquatePage
+  ]
 })
 export class ViewProductBanquatePageModule {}

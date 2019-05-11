@@ -9,5 +9,8 @@ import { ViewProductPhotographyPage } from './view-product-photography';
   imports: [
     IonicPageModule.forChild(ViewProductPhotographyPage),
   ],
+  exports: [
+    ViewProductPhotographyPage
+  ]
 })
 export class ViewProductPhotographyPageModule {}

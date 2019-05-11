@@ -1,4 +1,4 @@
-import { MapsAPILoader } from '@agm/core';
+
 import { Component, NgZone } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Headers } from '@angular/http';
@@ -8,9 +8,9 @@ import { FilePath } from '@ionic-native/file-path';
 import { FileTransfer, FileTransferObject, FileUploadOptions, FileUploadResult } from '@ionic-native/file-transfer';
 import { ActionSheetController, AlertController, IonicPage, Loading, LoadingController, NavController, NavParams, Platform, ToastController} from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { BusinessPage } from './../business/business';
 import { Base64 } from '@ionic-native/base64';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { MapsAPILoader } from '@agm/core';
 
 declare var cordova: any;
 declare var google;
@@ -292,7 +292,7 @@ export class AddbusinessPage {
           position: 'bottom'
         })
         toast.present();
-      this.navCtrl.push(BusinessPage);
+      this.navCtrl.push('BusinessPage');
       this.navCtrl.remove(this.navCtrl.length()-1);
       }
     });

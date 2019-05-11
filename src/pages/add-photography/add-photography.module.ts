@@ -9,5 +9,8 @@ import { AddPhotographyPage } from './add-photography';
   imports: [
     IonicPageModule.forChild(AddPhotographyPage),
   ],
+  exports: [
+    AddPhotographyPage
+  ]
 })
 export class AddPhotographyPageModule {}

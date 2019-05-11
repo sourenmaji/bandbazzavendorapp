@@ -6,7 +6,6 @@ import { ImagePicker } from '@ionic-native/image-picker';
 import { ActionSheetController, IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
-
 @IonicPage()
 @Component({
   selector: 'page-add-photo-plan',

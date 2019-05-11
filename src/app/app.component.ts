@@ -4,18 +4,9 @@ import { Network } from '@ionic-native/network';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { AlertController, Events, MenuController, Platform, NavController } from 'ionic-angular';
-import { BookingsPage } from '../pages/bookings/bookings';
-import { BusinessPage } from '../pages/business/business';
-import { DashboardPage } from '../pages/dashboard/dashboard';
-import { EnquiriesPage } from '../pages/enquiries/enquiries';
 import { FCM } from '@ionic-native/fcm';
-import { HomePage } from '../pages/home/home';
-import { ProductsPage } from '../pages/products/products';
-import { ProfilePage } from '../pages/profile/profile';
-import { WelcomePage } from '../pages/welcome/welcome';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { NetworkProvider } from './../providers/network-provider/network_provider';
-import { ErrorPage } from '../pages/error/error';
 
 @Component({
   templateUrl: 'app.html'
@@ -79,7 +70,7 @@ export class MyApp {
         
         // Offline event
         this.events.subscribe('network:offline',() => {
-          this.navCtrl.push(ErrorPage);
+          this.navCtrl.push('ErrorPage');
         });
         
         // Online event
@@ -88,13 +79,13 @@ export class MyApp {
         });
         
         this.pages=[
-          {title: 'Dashboard', component: DashboardPage, icon: 'easel', color: 'dash1'},
-          {title: 'Profile', component: ProfilePage, icon: 'person', color: 'dash2'},
-          {title: 'Settings', component: HomePage, icon: 'settings', color: 'lightprimary'},
-          {title: 'Business', component: BusinessPage, icon: 'stats', color: 'dash8'},
-          {title: 'Products', component: ProductsPage, icon: 'basket', color: 'energy'},
-          {title: 'Enquiries', component: EnquiriesPage, icon: 'mic', color: 'dash6'},
-          {title: 'Bookings', component: BookingsPage, icon: 'albums', color: 'dark'},
+          {title: 'Dashboard', component: 'DashboardPage', icon: 'easel', color: 'dash1'},
+          {title: 'Profile', component: 'ProfilePage', icon: 'person', color: 'dash2'},
+          {title: 'Settings', component: 'SettingsPage', icon: 'settings', color: 'lightprimary'},
+          {title: 'Business', component: 'BusinessPage', icon: 'stats', color: 'dash8'},
+          {title: 'Products', component: 'ProductsPage', icon: 'basket', color: 'energy'},
+          {title: 'Enquiries', component: 'EnquiriesPage', icon: 'mic', color: 'dash6'},
+          {title: 'Bookings', component: 'BookingsPage', icon: 'albums', color: 'dark'},
         ]
         
         this.loggedIn = JSON.parse(localStorage.getItem('userData'));
@@ -103,11 +94,11 @@ export class MyApp {
         
         if(this.loggedIn)
         {
-          this.navCtrl.setRoot(DashboardPage);
+          this.navCtrl.setRoot('DashboardPage');
         }
         else
         {
-          this.navCtrl.setRoot(WelcomePage);
+          this.navCtrl.setRoot('WelcomePage');
         }
       });
     }
@@ -116,22 +107,22 @@ export class MyApp {
     {
       if(data.category == 'Enquiry')
       {
-        this.navCtrl.setRoot(EnquiriesPage,{category: data.subcategory, filter: data.type});
+        this.navCtrl.setRoot('EnquiriesPage',{category: data.subcategory, filter: data.type});
         //alert("trying to open approval");
       }
       else if(data.category == 'Product')
       {
-        this.navCtrl.setRoot(ProductsPage,{category: data.subcategory});
+        this.navCtrl.setRoot('ProductsPage',{category: data.subcategory});
         //alert("trying to open products");
       }
       else if(data.category == 'Booking')
       {
-        this.navCtrl.setRoot(BookingsPage,{category: data.subcategory, filter: data.type});
+        this.navCtrl.setRoot('BookingsPage',{category: data.subcategory, filter: data.type});
         //alert("trying to open bookings");
       }
       else if(data.category == 'Business')
       {
-        this.navCtrl.setRoot(BusinessPage);
+        this.navCtrl.setRoot('BusinessPage');
         //alert("trying to open business");
       }
     }
@@ -169,7 +160,7 @@ export class MyApp {
     
     backToWelcome()
     {
-      this.navCtrl.push(WelcomePage);
+      this.navCtrl.push('WelcomePage');
       this.menuCtrl.close();
     }
     

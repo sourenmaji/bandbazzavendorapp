@@ -262,7 +262,7 @@ export class BookingsPage {
   goToBookingDetails(details: any, module: number, type: string){
     console.log(module);
     console.log('BookingDetailsPage')
-    this.navCtrl.push(BookingDetailsPage,{details, module, type});
+    this.navCtrl.push('BookingDetailsPage',{details, module, type});
   }
 
   loadMore(infiniteScroll: any)
@@ -285,11 +285,11 @@ export class BookingsPage {
     console.log(this.category_id);
 
    
-    this.navCtrl.push(AddOfflineBookingPage,{category: this.category_id, business_id: this.lastClicked.id});
+    this.navCtrl.push('AddOfflineBookingPage',{category: this.category_id, business_id: this.lastClicked.id});
     // else if(this.category_id == 5)
-    // this.navCtrl.push(AddPhotographyPage,this.businessProducts.id);
+    // this.navCtrl.push('AddPhotographyPage',this.businessProducts.id);
     // else if(this.category_id == 6)
-    // this.navCtrl.push(AddMakeupArtistPage,this.businessProducts.id);
+    // this.navCtrl.push('AddMakeupArtistPage',this.businessProducts.id);
   }
 
 }

@@ -240,7 +240,7 @@ imageUrl:string = '';
 
   goToEnquiryDetails(details: any, module: number){
     console.log(details);
-    this.navCtrl.push(EnquiryDetailsPage,{details, module});
+    this.navCtrl.push('EnquiryDetailsPage',{details, module});
   }
 
   loadMore(infiniteScroll)

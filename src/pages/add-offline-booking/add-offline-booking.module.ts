@@ -9,5 +9,8 @@ import { AddOfflineBookingPage } from './add-offline-booking';
   imports: [
     IonicPageModule.forChild(AddOfflineBookingPage),
   ],
+  exports: [
+    AddOfflineBookingPage
+  ]
 })
 export class AddOfflineBookingPageModule {}

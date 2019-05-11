@@ -9,5 +9,8 @@ import { AddCarsPage } from './add-cars';
   imports: [
     IonicPageModule.forChild(AddCarsPage),
   ],
+  exports: [
+    AddCarsPage
+  ]
 })
 export class AddCarsPageModule {}

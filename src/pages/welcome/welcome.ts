@@ -79,7 +79,7 @@ export class WelcomePage implements OnInit
           console.log(this.responseData);
           localStorage.setItem('userData', JSON.stringify(this.responseData));
           console.log("Local storage "+JSON.parse(localStorage.getItem('userData')));
-          this.navCtrl.push(DashboardPage);
+          this.navCtrl.push('DashboardPage');
         }
         else
         {
@@ -96,7 +96,7 @@ export class WelcomePage implements OnInit
         this.responseData = err;
         console.log(this.network.type);
         if(this.network.type === 'none')
-        this.navCtrl.push(ErrorPage);
+        this.navCtrl.push('ErrorPage');
         console.log(this.responseData);
         const toast = this.toastCtrl.create({
           message: 'Oops! Something went wrong.',
@@ -111,12 +111,12 @@ export class WelcomePage implements OnInit
     register()
     {
       //Register page link
-      this.navCtrl.push(RegisterPage);
+      this.navCtrl.push('RegisterPage');
     }
     
     forgetPassword()
     {
-      this.navCtrl.push(ForgetPasswordPage);
+      this.navCtrl.push('ForgetPasswordPage');
     }
 
     loginWithGoogle()
@@ -145,12 +145,12 @@ export class WelcomePage implements OnInit
               console.log(this.responseData);
               localStorage.setItem('userData', JSON.stringify(this.responseData));
               console.log("Local storage ",JSON.parse(localStorage.getItem('userData')));
-              this.navCtrl.push(DashboardPage);
+              this.navCtrl.push('DashboardPage');
             }
             else
             {
               console.log("new user ");
-              this.navCtrl.push(RegisterPage,{'name':res.displayName,'user':res.email,'provider_name':'google','provider_id':res.userId});
+              this.navCtrl.push('RegisterPage',{'name':res.displayName,'user':res.email,'provider_name':'google','provider_id':res.userId});
             }
           },
           (err) =>
@@ -227,12 +227,12 @@ export class WelcomePage implements OnInit
                   console.log(this.responseData);
                   localStorage.setItem('userData', JSON.stringify(this.responseData));
                   console.log("Local storage ",JSON.parse(localStorage.getItem('userData')));
-                  this.navCtrl.push(DashboardPage);
+                  this.navCtrl.push('DashboardPage');
                 }
                 else
                 {
                   console.log("new user "+this.responseData);
-                  this.navCtrl.push(RegisterPage,{'name':user.name,'user':user.email,'provider_name':'facebook','provider_id':fb_id});
+                  this.navCtrl.push('RegisterPage',{'name':user.name,'user':user.email,'provider_name':'facebook','provider_id':fb_id});
                 }
               },
               (err) => {

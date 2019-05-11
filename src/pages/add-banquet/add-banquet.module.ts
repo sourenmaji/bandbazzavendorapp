@@ -14,5 +14,8 @@ import { AddBanquetPage } from './add-banquet';
       libraries: ["places"]
   })
   ],
+  exports: [
+    AddBanquetPage
+  ]
 })
 export class AddBanquetPageModule {}

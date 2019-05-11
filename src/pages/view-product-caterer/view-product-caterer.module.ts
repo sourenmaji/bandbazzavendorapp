@@ -9,5 +9,8 @@ import { ViewProductCatererPage } from './view-product-caterer';
   imports: [
     IonicPageModule.forChild(ViewProductCatererPage),
   ],
+  exports: [
+    ViewProductCatererPage
+  ]
 })
 export class ViewProductCatererPageModule {}

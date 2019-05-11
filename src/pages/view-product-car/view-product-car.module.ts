@@ -9,5 +9,8 @@ import { ViewProductCarPage } from './view-product-car';
   imports: [
     IonicPageModule.forChild(ViewProductCarPage),
   ],
+  exports: [
+    ViewProductCarPage
+  ]
 })
 export class ViewProductCarPageModule {}

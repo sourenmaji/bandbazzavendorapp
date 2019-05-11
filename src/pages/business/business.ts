@@ -118,7 +118,7 @@ export class BusinessPage {
         if(this.responseData.status == true)
         {
           console.log(this.responseData.data);
-          this.navCtrl.push(AddbusinessPage,this.responseData.data);
+          this.navCtrl.push('AddbusinessPage',this.responseData.data);
         }
         else
         {
@@ -144,7 +144,7 @@ export class BusinessPage {
     editBusiness(business)
     {
       console.log(business);
-      this.navCtrl.push(EditbusinessPage,{business: business});
+      this.navCtrl.push('EditbusinessPage',{business: business});
     }
 
     deactiveBusiness(businessid)

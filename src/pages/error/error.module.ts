@@ -9,5 +9,8 @@ import { ErrorPage } from './error';
   imports: [
     IonicPageModule.forChild(ErrorPage),
   ],
+  exports: [
+    ErrorPage
+  ]
 })
 export class ErrorPageModule {}

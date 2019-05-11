@@ -9,5 +9,8 @@ import { AddMakeupArtistPage } from './add-makeup-artist';
   imports: [
     IonicPageModule.forChild(AddMakeupArtistPage),
   ],
+  exports: [
+    AddMakeupArtistPage
+  ]
 })
 export class AddMakeupArtistPageModule {}

@@ -9,5 +9,8 @@ import { BookingsPage } from './bookings';
   imports: [
     IonicPageModule.forChild(BookingsPage),
   ],
+  exports: [
+    BookingsPage
+  ]
 })
 export class BookingsPageModule {}
