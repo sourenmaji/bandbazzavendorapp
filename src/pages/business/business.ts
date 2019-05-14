@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController, IonicPage, LoadingController, MenuController, NavController, NavParams, Platform, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { AddbusinessPage } from '../addbusiness/addbusiness';
-import { EditbusinessPage } from './../editbusiness/editbusiness';
 
 @IonicPage()
 @Component({

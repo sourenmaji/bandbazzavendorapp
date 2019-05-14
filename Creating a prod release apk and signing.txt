@@ -8,11 +8,12 @@ Generated keystore should be stored in a safe place as well as inside release fo
 otherwise the app cannot be updated if keystore is lost.
 
 3. jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore bb-vendor-app-release-key.jks app-release-unsigned.apk vendor-app-key
+vendor-app-key
 (to sign the unsigned apk)
 
-4.zipalign -v 4 app-release-unsigned.apk bandbazza_release_v1.0.4.apk
+4.zipalign -v 4 app-release-unsigned.apk bandbazza_release_v1.0.5.apk
 
-5.apksigner verify bandbazza_release_v1.0.4.apk
+5.apksigner verify bandbazza_release_v1.0.5.apk
 
 zipalign and apksigner tools can be found in android sdk folder.
 keytool and jarsigner can be found in java jdk and jre folders, make sure to add them in path variable to use these 

@@ -114,5 +114,4 @@
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="your usage message" />
     </plugin>
     <allow-navigation href="http://localhost:8100" sessionid="a019c15e" />
-    <engine name="browser" spec="5.0.4" />
 </widget>

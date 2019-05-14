@@ -4,8 +4,6 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { AlertController, IonicPage, LoadingController, Navbar, NavController, Platform, ToastController, NavParams } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { DashboardPage } from '../dashboard/dashboard';
-import { WelcomePage } from '../welcome/welcome';
 
 @IonicPage()
 @Component({

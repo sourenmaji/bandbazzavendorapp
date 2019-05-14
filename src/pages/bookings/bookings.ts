@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { ActionSheetController, ToastController, IonicPage, LoadingController, MenuController, NavController, NavParams, Platform } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { BookingDetailsPage } from '../booking-details/booking-details';
-import { AddOfflineBookingPage } from '../add-offline-booking/add-offline-booking';
+
 let scroll = null;
 @IonicPage()
 @Component({

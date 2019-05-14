@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { AlertController, MenuController, NavController, Platform, ToastController, IonicPage } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { WelcomePage } from '../welcome/welcome';
-import { DashboardPage } from '../dashboard/dashboard';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 
@@ -28,8 +26,6 @@ export class SettingsPage {
       new_password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12)])),
       new_password_confirmation: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12), this.equalto('new_password')]))
     });
-
-
   }
 
   equalto(field_name): ValidatorFn {
@@ -77,13 +73,12 @@ change_password(){
    this.newU.user = this.userDetails;
    this.newU.token = this.userPostData.token;
    localStorage.setItem('userData', JSON.stringify(this.newU));
-  //  this.userPassword = {"password":"","new_password_confirmation":"","new_password":""};
    const alert = this.alertCtrl.create({
     subTitle: this.responseData.message,
     buttons: ['OK']
   })
   alert.present();
-  this.navCtrl.setRoot(DashboardPage);
+  this.navCtrl.setRoot('DashboardPage');
    }
    else
    {

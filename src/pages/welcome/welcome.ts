@@ -5,10 +5,6 @@ import { Network } from '@ionic-native/network';
 import { AlertController, IonicPage, LoadingController, Navbar, NavController, Platform, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { NetworkProvider } from '../../providers/network-provider/network_provider';
-import { DashboardPage } from '../dashboard/dashboard';
-import { ErrorPage } from '../error/error';
-import { ForgetPasswordPage } from '../forget-password/forget-password';
-import { RegisterPage } from '../register/register';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 

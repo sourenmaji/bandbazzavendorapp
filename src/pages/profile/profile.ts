@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { MenuController, NavController, NavParams, Platform, IonicPage } from 'ionic-angular';
-import { EditProfilePage } from '../edit-profile/edit-profile';
 
 @IonicPage()
 @Component({

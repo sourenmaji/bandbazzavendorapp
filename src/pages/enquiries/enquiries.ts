@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActionSheetController, ToastController, IonicPage, LoadingController, MenuController, NavController, NavParams, Platform } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { EnquiryDetailsPage } from '../enquiry-details/enquiry-details';
+
 let scroll = null;
 @IonicPage()
 @Component({

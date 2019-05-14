@@ -1,18 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController, IonicPage, LoadingController, MenuController, NavController, NavParams, Platform, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { AddBanquetPage } from '../add-banquet/add-banquet';
-import { AddCarsPage } from '../add-cars/add-cars';
-import { AddCatererPage } from '../add-caterer/add-caterer';
-import { AddMakeupArtistPage } from '../add-makeup-artist/add-makeup-artist';
-import { AddMakeupPlanPage } from '../add-makeup-plan/add-makeup-plan';
-import { AddPhotoPlanPage } from '../add-photo-plan/add-photo-plan';
-import { AddPhotographyPage } from '../add-photography/add-photography';
-import { ViewProductMakeupPage } from '../view-product-makeup/view-product-makeup';
-import { ViewProductPhotographyPage } from '../view-product-photography/view-product-photography';
-import { ViewProductBanquatePage } from './../view-product-banquate/view-product-banquate';
-import { ViewProductCarPage } from './../view-product-car/view-product-car';
-import { ViewProductCatererPage } from './../view-product-caterer/view-product-caterer';
+
 
 @IonicPage()
 @Component({
