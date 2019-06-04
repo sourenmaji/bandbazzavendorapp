@@ -17,7 +17,7 @@
               <li>Enquiry Status: <strong>{{enquiry.details.vendor_status}}</strong></li>
           </p>
         </ion-card-content>
-        <button *ngIf="enquiry.details.enquiry_status==-1 && !(enquiry.module==5 || enquiry.module==6) && (enquiry.details.book_rate || enquiry.details.enq_rate_hour || enquiry.details.enquiry_rate)" ion-button block (click)="enquiryAction(enquiry.details.id,enquiry.module)" color="energy">Action</button>
+        <button *ngIf="enquiry.details.enquiry_status==-1 && (enquiry.details.book_rate || enquiry.details.enq_rate_hour || enquiry.details.enquiry_rate || enquiry.details.rate)" ion-button block (click)="enquiryAction(enquiry.details.id,enquiry.module)" color="energy">Action</button>
       </ion-card>
       <ion-card>
           <img src="{{this.imageUrl+enquiry.details.cover_image}}" alt="image"/>

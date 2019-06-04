@@ -9,14 +9,14 @@ export class AuthServiceProvider {
   // imageUrl: string = 'http://192.168.1.119/BandBazza-Web/public/';
   // apiUrl: string = 'http://192.168.1.119/BandBazza-Web/public/api/v1/';
 
-  // imageUrl: string = 'http://localhost:8000/';
-  // apiUrl: string = 'http://localhost:8000/api/v1/';
+  imageUrl: string = 'http://localhost:8000/';
+  apiUrl: string = 'http://localhost:8000/api/v1/';
 
   // imageUrl: string = 'https://dev.bandbazza.com/';
   // apiUrl: string = 'https://dev.bandbazza.com/api/v1/';
 
-  imageUrl: string = 'https://www.bandbazza.com/';
-  apiUrl: string = 'https://www.bandbazza.com/api/v1/';
+  // imageUrl: string = 'https://www.bandbazza.com/';
+  // apiUrl: string = 'https://www.bandbazza.com/api/v1/';
 
 
   loading: Loading;

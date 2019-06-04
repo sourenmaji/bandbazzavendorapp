@@ -65,7 +65,7 @@
     "zone.js": "0.8.27"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "^3.2.3",
+    "@ionic/app-scripts": "3.2.4",
     "@types/googlemaps": "^3.30.16",
     "typescript": "^3.2.4"
   },

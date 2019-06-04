@@ -82,6 +82,14 @@ export class EnquiryDetailsPage {
     {
       this.type='finalize_caterer_enquiry';
     }
+    else if(name==5)
+    {
+      this.type='finalize_photography_enquiry';
+    }
+    else if(name==6)
+    {
+      this.type='finalize_makeup_enquiry';
+    }
 
     //create loader
     let loader = this.loadingCtrl.create({

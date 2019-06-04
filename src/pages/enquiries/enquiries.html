@@ -23,7 +23,7 @@
       </ion-segment-button>
     </ion-segment>
 
-  <ion-buttons end *ngIf="categories.length && !(category_id==5 || category_id==6)">
+  <ion-buttons end *ngIf="categories.length">
       <button small ion-button clear (click)="filterEnquiries()" icon-end>
         {{enquiry_type=='active'? 'Active Enquiries' : 'Past Enquiries'}}
         <ion-icon name="options"></ion-icon>
