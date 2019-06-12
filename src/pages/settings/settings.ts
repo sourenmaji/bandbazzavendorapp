@@ -108,9 +108,7 @@ onLogout()
   this.facebook.logout()
 		.then(res =>{
       //user logged out so we will remove him from the NativeStorage
-      // alert('logout from facebook');
-      // localStorage.clear();
-      // setTimeout(() => this.navCtrl.setRoot('WelcomePage'), 1000);
+    
 		}, error =>{
 			console.log(error);
     });
@@ -119,8 +117,6 @@ onLogout()
 	  .then(res =>{
       // alert('logout from google');
 		//user logged out so we will remove him from the NativeStorage
-		// this.nativeStorage.remove('google_user');
-		// this.router.navigate(["/login"]);
 	}, err =>{
 		console.log(err);
 	})

@@ -49,6 +49,11 @@
             <li> Rate: Rs {{booking.details.package_rate}}/plate</li>
             <li> No. of Plates: {{booking.details.no_of_plates}} plates</li>
         </p>
+        <p *ngIf="booking.module==5 || booking.module==6">
+          <li>{{booking.details.package_plan_name}}</li>
+          <li> Booking Date: {{booking.details.booking_date | date: 'MMM d, yyyy'}}</li>
+          <li> Rate: Rs {{booking.details.package_plan_rate}}</li>
+      </p>
       </ion-card-content>
     </ion-card>
   <ion-card>

@@ -65,13 +65,19 @@
 <div item-end *ngIf="category.module_id==3">
 <h2>{{booking.car_company_name}} - {{booking.car_model_name}}</h2>
 <p>{{booking.mode}}</p>
-  Booking Time:  {{booking.time_from | date: 'MMM d yyyy'}}
+  Booking Date: {{booking.time_from | date: 'MMM d yyyy'}}
 </div>
 
 <div item-end *ngIf="category.module_id==4">
 <h2>{{booking.package_name}}</h2>
 <p>{{booking.mode}}</p>
-Booking Time:  {{booking.booking_date | date: 'MMM d yyyy'}}
+  Booking Date:  {{booking.booking_date | date: 'MMM d yyyy'}}
+</div>
+
+<div item-end *ngIf="category.module_id==5 || category.module_id==6">
+  <h2>{{booking.package_plan_name}}</h2>
+  <p>{{booking.mode}}</p>
+    Booking Date: {{booking.booking_date | date: 'MMM d yyyy'}}
 </div>
 
 </button>
