@@ -6,14 +6,11 @@ import { Loading, LoadingController } from 'ionic-angular';
 @Injectable()
 export class AuthServiceProvider {
   pageReset: boolean = false;
-  // imageUrl: string = 'http://192.168.1.119/BandBazza-Web/public/';
-  // apiUrl: string = 'http://192.168.1.119/BandBazza-Web/public/api/v1/';
+  imageUrl: string = 'http://localhost/BandBazza-Web/public/';
+  apiUrl: string = 'http://localhost/BandBazza-Web/public/api/v1/';
 
-  // imageUrl: string = 'http://localhost:8000/';
-  // apiUrl: string = 'http://localhost:8000/api/v1/';
-
-  imageUrl: string = 'https://dev.bandbazza.com/';
-  apiUrl: string = 'https://dev.bandbazza.com/api/v1/';
+  // imageUrl: string = 'https://dev.bandbazza.com/';
+  // apiUrl: string = 'https://dev.bandbazza.com/api/v1/';
 
   // imageUrl: string = 'https://www.bandbazza.com/';
   // apiUrl: string = 'https://www.bandbazza.com/api/v1/';
@@ -21,7 +18,7 @@ export class AuthServiceProvider {
 
   loading: Loading;
 
-  constructor(public httpC: HttpClient, public loadingCtrl: LoadingController) {
+  constructor(public http: HttpClient, public loadingCtrl: LoadingController) {
     console.log('Hello AuthServiceProvider');
     console.log(this.imageUrl);
   }
@@ -33,7 +30,7 @@ export class AuthServiceProvider {
       console.log(headers);
       console.log(this.apiUrl+type);
 
-      this.httpC.get(this.apiUrl+type, {headers})
+      this.http.get(this.apiUrl+type, {headers})
         .subscribe(res => {
           console.log(res);
           resolve(res);
@@ -52,7 +49,7 @@ export class AuthServiceProvider {
       console.log(headers);
       console.log(this.apiUrl+type);
 
-      this.httpC.post(this.apiUrl+type, credentials, {headers})
+      this.http.post(this.apiUrl+type, credentials, {headers})
         .subscribe(res => {
           console.log(res);
           resolve(res);
@@ -77,7 +74,7 @@ export class AuthServiceProvider {
       });
       console.log(headers);
 
-      this.httpC.post(this.apiUrl+type, credentials, {headers})
+      this.http.post(this.apiUrl+type, credentials, {headers})
         .subscribe(res => {
           this.loading.dismissAll();
           console.log(res);
@@ -100,7 +97,7 @@ export class AuthServiceProvider {
       console.log(headers);
       console.log(this.apiUrl+type);
 
-      this.httpC.get(this.apiUrl+type,{headers})
+      this.http.get(this.apiUrl+type,{headers})
         .subscribe(res => {
           console.log(res);
           resolve(res);
@@ -120,7 +117,7 @@ export class AuthServiceProvider {
       });
       console.log(this.apiUrl+type);
 
-      this.httpC.get(this.apiUrl+type,{params,headers})
+      this.http.get(this.apiUrl+type,{params,headers})
         .subscribe(res => {
           console.log(res);
           resolve(res);

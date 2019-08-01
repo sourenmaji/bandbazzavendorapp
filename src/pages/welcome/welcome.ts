@@ -53,7 +53,7 @@ export class WelcomePage implements OnInit
     {
       let EMAILPATTERN =/^([_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,5}))|[0-9]{10}$/;
       this.signinform = new FormGroup({
-        password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12)])),
+        password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(30)])),
         email: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)])
       });
     }

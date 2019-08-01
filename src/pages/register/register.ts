@@ -68,11 +68,11 @@ export class RegisterPage{
       let EMAILPATTERN =/^([_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,5}))|[0-9]{10}$/;
       this.signupform = new FormGroup({
         numb: new FormControl(this.user_OTP),
-        password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12)])),
+        password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(30)])),
         name: new FormControl(this.userData.name, [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(30)]),
         user: new FormControl(this.userData.email, [Validators.required, Validators.pattern(EMAILPATTERN)]),
         otp: new FormControl('', Validators.compose([])),
-        password_confirmation: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12), this.equalto('password')]))
+        password_confirmation: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(30), this.equalto('password')]))
       });
     }
     

@@ -75,7 +75,7 @@
             This value is too short. It should have 6 characters or more.
           </div>
           <div class="error" *ngIf="signupform.get('password').hasError('maxlength') && signupform.get('password').touched">
-            This value is too long. It should have 12 characters.
+            This value is too long. It should have 30 characters.
           </div>
         </div>
         <ion-item>
@@ -91,7 +91,7 @@
             This value is too short. It should have 6 characters or more.
           </div>
           <div class="error" *ngIf="signupform.get('password_confirmation').hasError('maxlength') && signupform.get('password_confirmation').touched">
-            This value is too long. It should have 12 characters.
+            This value is too long. It should have 30 characters.
           </div>
           <div class="error" *ngIf="signupform.get('password_confirmation').hasError('equalTo') && signupform.get('password_confirmation').touched">
             Your passwords does not match.
@@ -99,7 +99,7 @@
         </div>
         
         <button ion-button block color="success" [disabled]="signupform.invalid || !disableButton" (click)="register()">Register</button><br/>
-        <div class="alrdy-usr"><span>Already a user? </span><a href="#" (click)="login()" ion-text color="buttons">Login Now.</a></div>
+        <div class="alrdy-usr"><span>Already a user? </span><a (click)="login()" ion-text color="buttons">Login Now.</a></div>
         </form>
       </ion-list>
       <div class="btn_container">

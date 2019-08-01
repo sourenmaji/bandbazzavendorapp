@@ -17,6 +17,23 @@ export class CustomValidator {
         }
       }
     }
+
+    static equalTo(value1: string, value2: string) {
+      return (group: FormGroup) => {
+        let x = group.controls[value1];
+        let y = group.controls[value2];
+  
+        if(x.value !== y.value)
+          {
+            return y.setErrors({ equalTo: true });
+          }
+          else
+          {
+            return y.setErrors(null);
+          }
+        }
+      }
+
     static validpercent(control: FormControl) {
         if(+control.value > 100)
           {

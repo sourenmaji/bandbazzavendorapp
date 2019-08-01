@@ -151,7 +151,7 @@ export class BusinessPage {
         title: 'Confirm',
         message: 'Do you want to deactivate?',
         buttons: [{
-          text: "deactivate",
+          text: "Deactivate",
           handler: () => {
             //create loader
             let loader = this.loadingCtrl.create({

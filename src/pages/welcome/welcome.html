@@ -42,13 +42,13 @@
                       This value is too short. It should have 6 characters or more.
                     </div>
                     <div class="error" *ngIf="signinform.get('password').hasError('maxlength') && signinform.get('password').touched">
-                      This value is too long. It should have 12 characters.
+                      This value is too long. It should have 30 characters.
                     </div>
                   </ion-item>
                   <div class="frgt-area">
                     <button ion-button block color="success" [disabled]="signinform.invalid" (click)="login()">Login</button><br>
-                    <a href="#" class="frgt-pass" (click)="forgetPassword()" ion-text color="energy">Forget Password</a><br>
-                    <span class="nw-bb">New to Bandbazza? </span> <a href="#" (click)="register()" ion-text color="buttons">Register Now.</a>
+                    <a class="frgt-pass" (click)="forgetPassword()" ion-text color="energy">Forget Password</a><br>
+                    <span class="nw-bb">New to Bandbazza? </span> <a (click)="register()" ion-text color="buttons">Register Now.</a>
                   </div>
                 </form>
               </ion-list>
