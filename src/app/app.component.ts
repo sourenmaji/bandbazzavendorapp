@@ -41,6 +41,7 @@ export class MyApp {
         splashScreen.hide();
         
         this.fcm.getToken().then(device_token => {
+          console.log('got token');
           localStorage.setItem('device_token',JSON.stringify(device_token));
           console.log(device_token);
         },
@@ -59,6 +60,7 @@ export class MyApp {
         });
         
         this.fcm.onTokenRefresh().subscribe(refresh_token => {
+          console.log('refresh token');
           localStorage.setItem('device_token', refresh_token);
         },
         (err) => {

@@ -39,7 +39,7 @@
     "@ionic/storage": "2.2.0",
     "@reactivex/rxjs": "^6.4.0",
     "com-badrit-base64": "^0.2.0",
-    "cordova-android": "8.0.0",
+    "cordova-android": "^8.0.0",
     "cordova-plugin-camera": "^4.0.3",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-facebook4": "^4.1.0",
@@ -66,6 +66,7 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.2.3",
+    "@ionic/lab": "2.0.7",
     "@types/googlemaps": "^3.36.4",
     "typescript": "3.2.4"
   },

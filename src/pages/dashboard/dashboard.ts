@@ -45,8 +45,10 @@ export class DashboardPage {
     {
       console.log('ionViewDidLoad AfterLoginPage');
 
-      if(this.device_token)
-      this.sendToken();
+      if(this.device_token) {
+        this.sendToken();
+      }
+      
       this.getDashboardData();
     }
     onOpenMenu(){
@@ -54,7 +56,13 @@ export class DashboardPage {
     }
     sendToken()
     {
-      this.authService.getData('send_device_token?device_token='+this.device_token,this.userPostData.token).then((result: any) => {
+      let device_data = {
+        device_token : this.device_token,
+        device_platform : this.platform.is('android') ? 'android' : 'ios',
+        device_id : ''
+      }
+      
+      this.authService.authData(device_data,'send_device_token',this.userPostData.token).then((result: any) => {
         this.responseData = result;
         console.log(this.responseData);
         if(this.responseData.status)

@@ -1,6 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FCM } from '@ionic-native/fcm';
 import { Base64 } from '@ionic-native/base64';
@@ -26,7 +25,6 @@ import { MyApp } from './app.component';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule,
     HttpClientModule
   ],
   bootstrap: [IonicApp],

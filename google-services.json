@@ -8,26 +8,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:343465164111:android:d1229e4ea9c08a3d",
+        "mobilesdk_app_id": "1:343465164111:android:7ae8cf00bd46b849",
         "android_client_info": {
-          "package_name": "com.bandbazza.vendor"
+          "package_name": "com.bandbazza.customer"
         }
       },
       "oauth_client": [
         {
-          "client_id": "343465164111-sc7pj93q54eeqjpk17stpujgct3dfjpa.apps.googleusercontent.com",
+          "client_id": "343465164111-ki2po80rdk6stvrrk56cbkacin89c31p.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.bandbazza.vendor",
-            "certificate_hash": "7b6adc6c491e4f5a271e1442d852d7bae3bd6107"
-          }
-        },
-        {
-          "client_id": "343465164111-78c9hqfh76i5b21g4hco65anjui7vk29.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.bandbazza.vendor",
-            "certificate_hash": "4c948f604788c2ce339cb0d2f0e8f75ce18029a1"
+            "package_name": "com.bandbazza.customer",
+            "certificate_hash": "2acda2e816e5a201cbcb5090359eb61f43c482c5"
           }
         },
         {
@@ -41,20 +33,80 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "343465164111-u4jptao7chq4kk5v8l7lt7uq9t4ilv7b.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "343465164111-t6j3l7a90ds02e20j7i31bnpg1rc3i6p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bandbazza.vendor"
+              }
             }
           ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:343465164111:android:d1229e4ea9c08a3d",
+        "android_client_info": {
+          "package_name": "com.bandbazza.vendor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "343465164111-aqdce3ev1svr36t5plq4deofu5ag59t2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bandbazza.vendor",
+            "certificate_hash": "bf8f40c57e20ef2d3200dfb2eb4361e66412b75b"
+          }
         },
-        "ads_service": {
-          "status": 2
+        {
+          "client_id": "343465164111-78c9hqfh76i5b21g4hco65anjui7vk29.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bandbazza.vendor",
+            "certificate_hash": "4c948f604788c2ce339cb0d2f0e8f75ce18029a1"
+          }
+        },
+        {
+          "client_id": "343465164111-sc7pj93q54eeqjpk17stpujgct3dfjpa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bandbazza.vendor",
+            "certificate_hash": "7b6adc6c491e4f5a271e1442d852d7bae3bd6107"
+          }
+        },
+        {
+          "client_id": "343465164111-u4jptao7chq4kk5v8l7lt7uq9t4ilv7b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC65QB_WTKhV30QRU7tCgVhUoBMW2iy3Lg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "343465164111-u4jptao7chq4kk5v8l7lt7uq9t4ilv7b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "343465164111-t6j3l7a90ds02e20j7i31bnpg1rc3i6p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bandbazza.vendor"
+              }
+            }
+          ]
         }
       }
     }
