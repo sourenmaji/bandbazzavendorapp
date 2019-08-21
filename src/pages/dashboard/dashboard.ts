@@ -45,21 +45,21 @@ export class DashboardPage {
     {
       console.log('ionViewDidLoad AfterLoginPage');
 
-      if(this.device_token) {
+      // if(this.device_token) {
         this.sendToken();
-      }
+      // }
       
       this.getDashboardData();
     }
     onOpenMenu(){
       this.menuCtrl.open();
     }
+
     sendToken()
     {
       let device_data = {
         device_token : this.device_token,
-        device_platform : this.platform.is('android') ? 'android' : 'ios',
-        device_id : ''
+        device_type : this.platform.is('android') ? 1 : 0,
       }
       
       this.authService.authData(device_data,'send_device_token',this.userPostData.token).then((result: any) => {
