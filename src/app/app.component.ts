@@ -55,9 +55,9 @@ export class MyApp {
             this.goToPage(data);
           } else {
             console.log("Received in foreground");
-            if(data.category) {
-            this.scheduleNotification(data);
-            }
+            // if(data.category) {
+            // this.scheduleNotification(data);
+            // }
           };
         });
         
