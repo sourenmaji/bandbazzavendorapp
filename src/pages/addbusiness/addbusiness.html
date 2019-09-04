@@ -88,8 +88,8 @@
                         </ion-item>
                     <ion-item>
                      
-                      <img [src]="imagePath" style="width: 100%" [hidden]="lastImage === null">
-                      <h3 [hidden]="lastImage !== null" class="error">Please Select Image!</h3>
+                      <img *ngIf="imagePath" src="{{'data:image/jpeg;base64,' + imagePath}}">
+                      <h3 *ngIf="!imagePath" class="error">Please Select Image!</h3>
                     </ion-item>
                     <ion-row>
                       <ion-col color="primary">
@@ -103,7 +103,7 @@
                     </ion-row>
                     <ion-input type="hidden" [(ngModel)]="userData.lat" formControlName="lat"></ion-input>
                     <ion-input type="hidden" [(ngModel)]="userData.lng" formControlName="lng" ></ion-input>
-                    <button ion-button block color="success" [disabled]="addBusinessform.invalid || lastImage == null" (click)="uploadImage()">Add</button><br/>
+                    <button ion-button block color="success" [disabled]="addBusinessform.invalid || imagePath == null" (click)="addBusiness()">Add</button><br/>
                     </form>
             </ion-list>
             </ion-card-content>

@@ -13,16 +13,16 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 export class RegisterPage{
   
   @ViewChild(Navbar) navBar: Navbar;
-
+  
   responseData : any;
-  public buttonClicked: boolean = false;
-  public otpButton: boolean = false;
-  public disableButton: boolean = false;
-  private isDisabled: boolean=false;
+  private otpSent = false;
+  private otpStatus = 'Send OTP';
+  private otpButton: boolean;
+  private otpMatch = false;
   user_OTP: any =null;
   signupform: FormGroup;
   userData: any;
-
+  
   constructor(
     public loadingCtrl: LoadingController,
     public platform: Platform,
@@ -39,41 +39,39 @@ export class RegisterPage{
         this.navCtrl.pop();
         backAction();
       },2);
-
+      
+      let EMAILPATTERN =/^([_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,5}))|[0-9]{10}$/;
+      this.signupform = new FormGroup({
+        password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(30)])),
+        name: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(30)]),
+        user: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)]),
+        otp: new FormControl('', Validators.compose([])),
+        password_confirmation: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(30), this.equalto('password')]))
+      });
+      
+      
       let provider_name=this.navParams.get('provider_name');
       let provider_id=this.navParams.get('provider_id');
       let name=this.navParams.get('name');
       let user=this.navParams.get('user');
+      
+      this.signupform.get('user').setValue(user);
+      this.signupform.get('user').updateValueAndValidity();
+      this.signupform.get('name').setValue(name);
+      this.signupform.get('name').updateValueAndValidity();
+      
       console.log(this.navParams.data);
-      if(this.navParams.data)
-      {
-        this.otpButton = false;
-        this.disableButton = true;
-      }
-      else
-      {
-        this.isDisabled =false;
-        this.otpButton = false;
-      }
+      
+      this.otpButton = false;
       this.userData = {
-                      provider_name: provider_name ? provider_name:"", 
-                      provider_id: provider_id ? provider_id : null, 
-                      name: name ? name : "",
-                      user: user ? user : "",
-                      password: "",
-                      password_confirmation: "",
-                      otp: ""
-                    };
-
-      let EMAILPATTERN =/^([_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,5}))|[0-9]{10}$/;
-      this.signupform = new FormGroup({
-        numb: new FormControl(this.user_OTP),
-        password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(30)])),
-        name: new FormControl(this.userData.name, [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.minLength(4), Validators.maxLength(30)]),
-        user: new FormControl(this.userData.email, [Validators.required, Validators.pattern(EMAILPATTERN)]),
-        otp: new FormControl('', Validators.compose([])),
-        password_confirmation: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(30), this.equalto('password')]))
-      });
+        provider_name: "", 
+        provider_id: null, 
+        name: "",
+        user: "",
+        password: "",
+        password_confirmation: "",
+        otp: ""
+      };
     }
     
     ionViewDidLoad(){
@@ -82,7 +80,7 @@ export class RegisterPage{
         this.navCtrl.setRoot('WelcomePage');
       }
     }
-       
+    
     equalto(field_name): ValidatorFn {
       return (control: AbstractControl): {[key: string]: any} => {
         let input = control.value;
@@ -94,35 +92,35 @@ export class RegisterPage{
       };
     }
     
-    equalsTo(field_name): ValidatorFn {
+    equalsTo(): ValidatorFn {
       return (control: AbstractControl): {[key: string]: any} => {
+        console.log(control.value);
         let isValid = false;
         if(this.user_OTP != control.value){
-          console.log(isValid);
-          console.log(this.user_OTP);
-          console.log(control.value);
+          console.log("false");
+          this.otpButton = true;
+          this.otpMatch = false;
           return { 'equalsTo': {isValid} };
         }
         else
         {
           console.log("true");
+          this.otpButton = false;
+          this.otpMatch = true;
           return null;
         }
       };
     }    
     
-    showVal($value)
+    showVal()
     {
-      console.log(this.userData.user);
-      console.log(!isNaN(+this.userData.user));
-      if(!isNaN(+this.userData.user)){
+      const control = this.signupform.get('user');
+      if (control.value &&  control.value.length==10 && !isNaN(control.value)) {
+        console.log('show button');
         this.otpButton = true;
-        this.disableButton = false;
-      }
-      else
-      {
+      } else {
+        console.log('hide button');
         this.otpButton = false;
-        this.disableButton = true;
       }
     }
     
@@ -131,68 +129,15 @@ export class RegisterPage{
         content: 'Please wait...'
       });
       loader.present();
-      this.authService.getDataWithoutToken('send_otp?phone_no='+this.userData.user).then((result: any) => {
+      this.otpSent = true;
+      this.otpStatus = 'Resend OTP';
+      this.authService.getDataWithoutToken('send_otp?phone_no='+this.signupform.get('user').value).then((result: any) => {
         loader.dismiss();
         
         this.responseData = result;
         if(this.responseData.status)
         {
-          this.buttonClicked = !this.buttonClicked;
-          this.disableButton = !this.disableButton;
-          this.isDisabled = !this.isDisabled;
-          if(this.buttonClicked)
-          this.signupform.get('otp').setValidators(Validators.compose([Validators.required, Validators.minLength(6), this.equalsTo('numb')]));
-          console.log(this.responseData);
-          this.user_OTP = this.responseData.otp;
-          console.log(this.user_OTP);
-          
-          const alert = this.alertCtrl.create({
-            subTitle: this.responseData.message,
-            buttons: ['OK']
-          })
-          alert.present();
-        }
-        else
-        {
-          const alert = this.alertCtrl.create({
-            subTitle: this.responseData.message,
-            buttons: ['OK']
-          })
-          alert.present();
-        }
-      },
-      (err) => {
-        loader.dismiss();
-        this.responseData = err;
-        console.log(this.responseData)
-        const toast = this.toastCtrl.create({
-          message: 'Oops! Something went wrong.',
-          duration: 5000,
-          cssClass: "toast-danger",
-          position: 'bottom'
-        })
-        toast.present();
-      });
-    }
-    
-    reSendOtp(){
-      let loader = this.loadingCtrl.create({
-        content: 'Please wait...'
-      });
-      loader.present();
-      this.userData.otp = "";
-      this.authService.getDataWithoutToken('send_otp?phone_no='+this.userData.user).then((result: any) => {
-        this.responseData = result;
-        loader.dismiss();
-        if(result.status)
-        {
-          this.buttonClicked = true;
-          this.disableButton = true;
-          this.isDisabled = true;
-          if(this.buttonClicked)
-          this.signupform.get('otp').setValidators(Validators.compose([Validators.required, Validators.minLength(6), this.equalsTo('numb')]));
-          
-          console.log(this.responseData);
+          this.signupform.get('otp').setValidators(Validators.compose([Validators.required, Validators.minLength(6), this.equalsTo()]));
           this.user_OTP = this.responseData.otp;
           console.log(this.user_OTP);
           
@@ -227,7 +172,11 @@ export class RegisterPage{
     
     register()
     {
-      console.log(this.userData);
+      console.log(this.signupform.value);
+      this.userData = this.signupform.value;
+      this.userData.provider_id = this.navParams.get('provider_id');
+      this.userData.provider_name = this.navParams.get('provider_name');
+
       let loader = this.loadingCtrl.create({
         content: 'Please wait...'
       });
@@ -316,8 +265,8 @@ export class RegisterPage{
               this.signupform.get('user').updateValueAndValidity();
               this.signupform.get('name').setValue(res.displayName);
               this.signupform.get('name').updateValueAndValidity();
-              this.userData.provider_name='google';
-              this.userData.provider_id=res.userId;
+              this.userData.provider_name = 'google';
+              this.userData.provider_id = res.userId;
             }
           },
           (err) =>
@@ -369,7 +318,6 @@ export class RegisterPage{
             console.log('connected');
             // Get user ID and Token
             var fb_id = res.authResponse.userID;
-            // var fb_token = res.authResponse.accessToken;
             
             // Get user infos from the API
             this.facebook.api("/me?fields=name,gender,birthday,email", []).then((user) => {
@@ -381,12 +329,12 @@ export class RegisterPage{
                 'provider_id':fb_id,
                 'provider_name':'facebook'
               }
-
+              
               let loader = this.loadingCtrl.create({
                 content: 'Please wait...'
               });
               loader.present();
-
+              
               this.authService.postData(credentials,'social_login').then((result) => {
                 this.responseData = result;
                 loader.dismiss();
@@ -400,13 +348,12 @@ export class RegisterPage{
                 else
                 {
                   console.log("new user "+this.responseData);
-                  // => Open user session and redirect to the next page
                   this.signupform.get('user').setValue(user.email);
                   this.signupform.get('name').setValue(user.name);
                   this.signupform.get('user').updateValueAndValidity();
                   this.signupform.get('name').updateValueAndValidity();
-                  this.userData.provider_name='facebook';
-                  this.userData.provider_id=fb_id;
+                  this.userData.provider_name = 'facebook';
+                  this.userData.provider_id = fb_id;
                 }
               },
               (err) => {

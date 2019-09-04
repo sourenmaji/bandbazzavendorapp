@@ -11,9 +11,9 @@ otherwise the app cannot be updated if keystore is lost.
 vendor-app-key
 (to sign the unsigned apk)
 
-4.zipalign -v 4 app-release-unsigned.apk bandbazza_release_v1.0.5.apk
+4.zipalign -v 4 app-release-unsigned.apk bandbazza_release_v1.0.6.apk
 
-5.apksigner verify bandbazza_release_v1.0.5.apk
+5.apksigner verify bandbazza_release_v1.0.6.apk
 
 zipalign and apksigner tools can be found in android sdk folder.
 keytool and jarsigner can be found in java jdk and jre folders, make sure to add them in path variable to use these 

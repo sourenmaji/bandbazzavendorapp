@@ -45,9 +45,9 @@ export class DashboardPage {
     {
       console.log('ionViewDidLoad AfterLoginPage');
 
-      // if(this.device_token) {
+      if(this.device_token) {
         this.sendToken();
-      // }
+      }
       
       this.getDashboardData();
     }

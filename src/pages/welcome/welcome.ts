@@ -19,11 +19,13 @@ export enum ConnectionStatusEnum {
 
 export class WelcomePage implements OnInit
 {
-  previousStatus;
+  @ViewChild(Navbar) navBar: Navbar;
+
+  previousStatus : any;
   signinform: FormGroup;
   responseData : any;
   userData = {password: "", email: ""};
-  @ViewChild(Navbar) navBar: Navbar;
+  
   constructor(public loadingCtrl : LoadingController,
     public navCtrl: NavController,
     public toast: ToastController,
@@ -44,11 +46,10 @@ export class WelcomePage implements OnInit
       console.log(this.networkProvider.networkState);
       this.platform.registerBackButtonAction(() => {
         this.platform.exitApp();
-        console.log("backPressed 1");
+        console.log("backPressed");
       },1);
     }
     
-
     ngOnInit()
     {
       let EMAILPATTERN =/^([_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,5}))|[0-9]{10}$/;
@@ -57,14 +58,17 @@ export class WelcomePage implements OnInit
         email: new FormControl('', [Validators.required, Validators.pattern(EMAILPATTERN)])
       });
     }
-    
+
+   
     login()
     {
       let loader = this.loadingCtrl.create({
         content: 'Please wait...'
       });
       loader.present();
-      console.log(JSON.stringify(this.userData))
+      console.log(this.signinform.value);
+      this.userData = this.signinform.value;
+      console.log(this.userData);
       this.authService.postData(this.userData,'login').then((result) => {
         loader.dismiss();
         this.responseData = result;

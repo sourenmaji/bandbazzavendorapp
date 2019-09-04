@@ -1,15 +1,10 @@
-
 import { Component, NgZone } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Headers } from '@angular/http';
-import { Camera } from '@ionic-native/camera';
-import { File } from '@ionic-native/file';
-import { FilePath } from '@ionic-native/file-path';
-import { FileTransfer, FileTransferObject, FileUploadOptions, FileUploadResult } from '@ionic-native/file-transfer';
-import { ActionSheetController, AlertController, IonicPage, Loading, LoadingController, NavController, NavParams, Platform, ToastController} from 'ionic-angular';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { ImagePicker } from '@ionic-native/image-picker';
+import { ActionSheetController, AlertController, IonicPage, LoadingController, NavController, NavParams, Platform, ToastController} from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { Base64 } from '@ionic-native/base64';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { MapsAPILoader } from '@agm/core';
 
 declare var cordova: any;
@@ -22,24 +17,20 @@ declare var google;
 })
 export class AddbusinessPage {
   lastImage: string = null;
-  imagePath: SafeResourceUrl;
-  loading: Loading;
+  imagePath: string;
   businessDetails : any;
   userDetails : any;
   apiUrl: string = '';
-  result : FileUploadResult = null;
+  responseData : any = null;
   addBusinessform: FormGroup;
-  userData = { phone: "",email: "",companyName: "",address: "",city: "",details: "",businessType: "",filename: "",lat: "",lng: ""};
+  userData = { phone: "",email: "",companyName: "",address: "",city: "",details: "",businessType: "",file: "",lat: "",lng: ""};
   userPostData = {"user":"","token":""};
   autocomplete: any;
 
   constructor(public navParams: NavParams,
               public navCtrl: NavController,
               private camera: Camera,
-              private transfer: FileTransfer,
-              private file: File,
-              private filePath: FilePath,
-              private base64: Base64,
+              public imagePicker: ImagePicker,
               public actionSheetCtrl: ActionSheetController,
               public toastCtrl: ToastController,
               private mapsAPILoader: MapsAPILoader,
@@ -127,22 +118,63 @@ export class AddbusinessPage {
   });
   }
 
+  chooseFromCam(){
+    const options: CameraOptions = {
+    quality: 60,
+    destinationType: this.camera.DestinationType.DATA_URL,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE
+  };
+
+  this.camera.getPicture(options).then((imageData) => {
+    this.imagePath = imageData;
+   }, (err) => {
+    // Handle error
+    const toast = this.toastCtrl.create({
+      message: err,
+      duration: 5000,
+      position: 'bottom'
+    })
+    toast.present();
+   });
+}
+
+  pickImage()
+  {
+    this.imagePicker.getPictures({maximumImagesCount:1, quality:60, outputType:1}).then
+    (results =>{
+      alert(results);
+      this.imagePath = results[0];
+    }, (err) => {
+      // Handle error
+      const toast = this.toastCtrl.create({
+        message: err,
+        duration: 5000,
+        position: 'bottom'
+      })
+      toast.present();
+     });
+  }
+
+  removeImage()
+  {
+    this.imagePath=null;
+  }
 
   public presentActionSheet() {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Select Image Source',
       buttons: [
-
         {
-          text: 'Load from Library',
+          text: 'Take a picture',
           handler: () => {
-            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+            this.chooseFromCam();
           }
         },
         {
-          text: 'Use Camera',
+          text: 'Select from gallery',
           handler: () => {
-            this.takePicture(this.camera.PictureSourceType.CAMERA);
+            this.pickImage();
           }
         },
         {
@@ -154,72 +186,6 @@ export class AddbusinessPage {
     actionSheet.present();
   }
 
-  public takePicture(sourceType) {
-    // Create options for the Camera Dialog
-    var options = {
-      quality: 60,
-      sourceType: sourceType,
-      saveToPhotoAlbum: false,
-      correctOrientation: true
-    };
-
-    // Get the data of an image
-    this.camera.getPicture(options).then((imagePath) => {
-      // Special handling for Android library
-      if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
-        this.filePath.resolveNativePath(imagePath)
-          .then(filePath => {
-            console.log('filepath ',filePath);
-            this.base64.encodeFile(filePath).then((base64File: string) => {
-              console.log('base64', base64File);
-              this.imagePath = this.sanitizer.bypassSecurityTrustUrl(base64File);
-              console.log('imagePath', this.imagePath);
-            }, (err) => {
-              console.log('error ',err);
-            });
-            let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
-            let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
-            this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-          });
-      }
-      else
-      {
-        console.log('imagepath '+imagePath);
-        this.base64.encodeFile(imagePath).then((base64File: string) => {
-          console.log('base64', base64File);
-          this.imagePath = this.sanitizer.bypassSecurityTrustUrl(base64File);
-          console.log('imagePath', this.imagePath);
-        }, (err) => {
-          console.log('error ',err);
-        });
-        var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-        var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-        this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-      }
-    }, (err) => {
-      this.presentToast('Error while selecting image.');
-    });
-  }
-
-
-  private createFileName()
-  {
-    var d = new Date(),
-    n = d.getTime(),
-    newFileName =  n + ".jpg";
-    return newFileName;
-  }
-
-  // Copy the image to a local folder
-  private copyFileToLocalDir(namePath, currentName, newFileName) {
-    this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
-      this.lastImage = newFileName;
-      console.log('lastImage '+this.lastImage);
-    }, error => {
-      this.presentToast('Error while storing file.');
-    });
-  }
-
   private presentToast(text) {
     let toast = this.toastCtrl.create({
       message: text,
@@ -229,56 +195,36 @@ export class AddbusinessPage {
     toast.present();
   }
 
-  // Always get the accurate path to your apps folder
-  public pathForImage(img) {
-    console.log('img1 '+img);
-    if (img === null) {
-      return '';
-    } else {
-      let path=cordova.file.dataDirectory;
-      console.log('path '+path);
-      path=path.split("://", 2)[1];
-      console.log(path+img)
-      return path+img;
-    }
-  }
-
-  uploadImage(){
+  addBusiness(){
     let loader = this.loadingCtrl.create({
       content: 'Please wait...'
     });
     loader.present();
-    var targetPath = this.pathForImage(this.lastImage);
-    var data = this.userData;
-    data.filename = this.lastImage;
-    let headers = new Headers();
-    headers.append('Authorization','Bearer '+ this.userPostData.token);
-    console.log(headers);
-    let options: FileUploadOptions = {
-      fileKey: "file",
-      fileName: data.filename,
-      chunkedMode: false,
-      mimeType: "multipart/form-data",
-      params : data,
-      headers: {'Authorization': 'Bearer '+ this.userPostData.token}
-    };
-
-    const fileTransfer: FileTransferObject = this.transfer.create();
-    fileTransfer.upload(targetPath, this.apiUrl+'add_business', options).then((data) => {
+      this.userData.file=this.imagePath;
+      this.authService.authData(this.userData,'add_business',this.userPostData.token).then((data) => {
       loader.dismiss();
-      this.result = data;
+      this.responseData = data;
 
-      var success = JSON.parse(this.result.response);
-      if(success.status===true){
-      localStorage.setItem('businessData', success.businesses);
-      const toast = this.toastCtrl.create({
-        message: 'Business added successfully!',
-        duration: 5000,
-        position: 'bottom'
-      })
-      toast.present();
-        this.navCtrl.pop();
-        this.authService.pageReset=true;
+      if(this.responseData.status==true)
+      {
+        localStorage.setItem('businessData', this.responseData.businesses);
+        const toast = this.toastCtrl.create({
+          message: 'Business added successfully!',
+          duration: 5000,
+          position: 'bottom'
+        })
+        toast.present();
+          this.navCtrl.pop();
+          this.authService.pageReset=true;
+      }
+      else
+      {
+        let toast = this.toastCtrl.create({
+          message: this.responseData.message,
+          duration: 5000,
+          position: 'bottom'
+        });
+        toast.present();
       }
     },
     (err) => {

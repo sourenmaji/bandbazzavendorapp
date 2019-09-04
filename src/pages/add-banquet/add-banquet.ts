@@ -80,9 +80,6 @@ export class AddBanquetPage{
     this.longitude = 88.403313;
     this.form2data = {full_address:"",lat:0,long:0,same_as_business:false,map_address:""} ;
 
-    //create search FormControl
-    // this.searchControl = new FormControl();
-
     //set current position
     this.setCurrentPosition();
 

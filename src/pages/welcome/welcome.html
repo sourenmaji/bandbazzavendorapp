@@ -1,4 +1,3 @@
-
 <ion-content padding id="welcome" class="scroll-content">
 
   <ion-grid>
@@ -17,9 +16,7 @@
                 <form novalidate [formGroup]="signinform">
                   <ion-item class="wlcm-itm">
                     <ion-label floating>Email or Phone <span style="color: red">*</span></ion-label>
-                    <ion-input type="email" [(ngModel)]="userData.email"
-                    formControlName="email" [class.error1]="!signinform.controls.email.valid && signinform.controls.email.dirty"
-                    [class.error2]="signinform.controls.email.valid && !signinform.controls.email.dirty"></ion-input>
+                    <ion-input type="email" formControlName="email"></ion-input>
                   </ion-item>
                   <ion-item class="wlcm-itm" no-lines *ngIf="( signinform.get('email').hasError('minlength') || signinform.get('email').hasError('pattern') ||signinform.get('email').hasError('required') ) && signinform.get('email').touched">
                     <div class="error" *ngIf="signinform.get('email').hasError('required') && signinform.get('email').touched">
@@ -31,8 +28,7 @@
                   </ion-item>
                   <ion-item class="wlcm-itm">
                     <ion-label floating>Password <span style="color: red">*</span></ion-label>
-                    <ion-input type="password" [(ngModel)]="userData.password" clearOnEdit="false"
-                    formControlName="password" [class.error1]="!signinform.controls.password.valid && signinform.controls.password.dirty"></ion-input>
+                    <ion-input type="password" formControlName="password"></ion-input>
                   </ion-item>
                   <ion-item no-lines *ngIf="( signinform.get('password').hasError('minlength') || signinform.get('password').hasError('maxlength') ||signinform.get('password').hasError('required') ) && signinform.get('password').touched">
                     <div class="error" *ngIf="signinform.get('password').hasError('required') && signinform.get('password').touched">
@@ -42,7 +38,7 @@
                       This value is too short. It should have 6 characters or more.
                     </div>
                     <div class="error" *ngIf="signinform.get('password').hasError('maxlength') && signinform.get('password').touched">
-                      This value is too long. It should have 30 characters.
+                      This value is too long. It should have max 30 characters.
                     </div>
                   </ion-item>
                   <div class="frgt-area">
