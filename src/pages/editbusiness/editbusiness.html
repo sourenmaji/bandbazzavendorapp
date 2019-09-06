@@ -91,7 +91,8 @@
                           </div>
                         </div>
                     <ion-item>
-                      <img  [src]="businessImageSrc" style="width: 100%">
+                      <img *ngIf="!imageChanged" src="{{imagePath}}" style="width: 100%">
+                      <img *ngIf="imageChanged" src="{{'data:image/jpeg;base64,' + imagePath}}" style="width: 100%">
                     </ion-item>
                     <ion-row>
                       <ion-col color="primary">

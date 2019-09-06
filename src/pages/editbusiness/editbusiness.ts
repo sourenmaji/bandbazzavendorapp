@@ -1,14 +1,11 @@
 import { MapsAPILoader } from '@agm/core';
 import { Component, NgZone } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Camera } from '@ionic-native/camera';
-import { File } from '@ionic-native/file';
-import { FilePath } from '@ionic-native/file-path';
-import { FileTransfer, FileTransferObject, FileUploadOptions, FileUploadResult } from '@ionic-native/file-transfer';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { ImagePicker } from '@ionic-native/image-picker';
 import { ActionSheetController, IonicPage, LoadingController, NavController, NavParams, Platform, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Base64 } from '@ionic-native/base64';
+
 declare var cordova: any;
 declare var google;
 @IonicPage()
@@ -19,38 +16,31 @@ declare var google;
 export class EditbusinessPage {
   business :  any;
   userDetails : any;
-  lastImage: string = null;
-  businessImage: any;
-  businessImageSrc: any;
-  targetPath = "";
-  result : FileUploadResult = null;
-  responseData: any;
-  apiUrl: string = '';
+  imagePath: string = null;
+  imageChanged: boolean = false;
+  responseData: any = null;
   autocomplete: any;
   editBusinessform: FormGroup;
-  userData = { phone: "",email: "",companyName: "",address: "",city: "",details: "",businessType: "",filename: "", business_id: "",lat: "", lng: ""};
+  userData = { phone: "",email: "",companyName: "",address: "",city: "",details: "",businessType: "",file: "", business_id: "",lat: "", lng: ""};
   userPostData = {"user":"","token":""};
+  loader: any;
 
   constructor(private mapsAPILoader: MapsAPILoader,
               private ngZone: NgZone,
+              public imagePicker: ImagePicker,
               public navCtrl: NavController,
               public navParams: NavParams,
               public actionSheetCtrl: ActionSheetController,
               public toastCtrl: ToastController,
               private camera: Camera,
               public platform: Platform,
-              private filePath: FilePath,
-              private file: File,
               public loadingCtrl: LoadingController,
-              private transfer: FileTransfer,
-              private authService: AuthServiceProvider,
-              private base64: Base64,
-              private sanitizer: DomSanitizer) {
+              private authService: AuthServiceProvider
+              ) {
 
   this.business = this.navParams.get('business');
-  this.businessImage = this.business.business_image;
-  this.apiUrl = this.authService.apiUrl;
-  this.businessImageSrc = this.authService.imageUrl+this.businessImage;
+  this.imagePath = this.authService.imageUrl+this.business.business_image;
+
   this.userData.address = "";
   this.userData.lat = "";
   this.userData.lng = "";
@@ -65,6 +55,9 @@ export class EditbusinessPage {
     },2);
 
     this.authService.pageReset=false;
+    this.loader = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
   }
 
   ionViewDidEnter()
@@ -80,7 +73,6 @@ export class EditbusinessPage {
   }
 
   ngOnInit() {
-    console.log(this.business.module_name);
     let EMAILPATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let PHONEPATTERN = /^[0-9]{10}$/;
     this.editBusinessform = new FormGroup({
@@ -97,7 +89,15 @@ export class EditbusinessPage {
     });
 
   }
-
+  
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+     message: msg,
+     duration: 5000,
+     position: 'bottom'
+   });
+   toast.present();
+ }
 
   autolocation()
   {
@@ -128,21 +128,51 @@ export class EditbusinessPage {
   });
   }
 
+  chooseFromCam(){
+    const options: CameraOptions = {
+    quality: 60,
+    destinationType: this.camera.DestinationType.DATA_URL,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE
+  };
+
+  this.camera.getPicture(options).then((imageData) => {
+    this.imagePath = imageData;
+    this.imageChanged = true;
+   }, (err) => {
+    this.imageChanged = false;
+    // Handle error
+    this.presentToast(err);
+   });
+}
+
+  pickImage()
+  {
+    this.imagePicker.getPictures({maximumImagesCount:1, quality:60, outputType:1}).then
+    (results =>{
+      this.imagePath = results[0];
+      this.imageChanged = true;
+    }, (err) => {
+      this.imageChanged = false;
+      // Handle error
+      this.presentToast(err);
+     });
+  }
+
   public presentActionSheet() {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Select Image Source',
       buttons: [
-
         {
-          text: 'Load from Library',
+          text: 'Take a picture',
           handler: () => {
-            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+            this.chooseFromCam();
           }
         },
         {
-          text: 'Use Camera',
+          text: 'Select from gallery',
           handler: () => {
-            this.takePicture(this.camera.PictureSourceType.CAMERA);
+            this.pickImage();
           }
         },
         {
@@ -154,166 +184,29 @@ export class EditbusinessPage {
     actionSheet.present();
   }
 
-  public takePicture(sourceType) {
-    // Create options for the Camera Dialog
-    var options = {
-      quality: 60,
-      sourceType: sourceType,
-      saveToPhotoAlbum: false,
-      correctOrientation: true
-    };
-
-    // Get the data of an image
-    this.camera.getPicture(options).then((imagePath) => {
-      // Special handling for Android library
-      if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
-        this.filePath.resolveNativePath(imagePath)
-          .then(filePath => {
-            let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
-            let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
-            this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-          });
+  saveEditProfile() {
+    this.loader.present();
+      if(this.imageChanged) {
+        this.userData.file=this.imagePath;
       } else {
-        var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-        var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-        this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+        this.userData.file="";
       }
-    }, (err) => {
-      this.presentToast('Error while selecting image.');
-    });
-  }
-
-
-  private createFileName() {
-    var d = new Date(),
-    n = d.getTime(),
-    newFileName =  n + ".jpg";
-    return newFileName;
-  }
-
-  // Copy the image to a local folder
-  private copyFileToLocalDir(namePath, currentName, newFileName) {
-    this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
-      this.lastImage = newFileName;
-      let image = this.pathForImage(this.lastImage);
-      this.base64.encodeFile(image).then((base64File: string) => {
-        console.log('base64', base64File);
-        this.businessImageSrc = this.sanitizer.bypassSecurityTrustUrl(base64File);
-        console.log('imagePath', this.businessImageSrc);
-      }, (err) => {
-        console.log('error ',err);
-      });
-    }, error => {
-      this.presentToast('Error while storing file.');
-    });
-  }
-
-  private presentToast(text) {
-    let toast = this.toastCtrl.create({
-      message: text,
-      duration: 5000,
-      position: 'bottom'
-    });
-    toast.present();
-  }
-
-  // Always get the accurate path to your apps folder
-  public pathForImage(img) {
-    console.log('img1 '+img);
-    if (img === null) {
-      return '';
-    } else {
-      let path=cordova.file.dataDirectory;
-      console.log('path '+path);
-      path=path.split("://", 2)[1];
-      console.log(path+img)
-      return path+img;
-    }
-  }
-
-  saveEditProfile(){
-
-    this.targetPath = this.pathForImage(this.lastImage);
-    var data = this.userData;
-    if(this.targetPath != "")
-    {
-      console.log("file");
-      data.filename = this.lastImage;
-      let headers = new Headers();
-      headers.append('Authorization','Bearer '+ this.userPostData.token);
-      console.log(headers);
-      let options: FileUploadOptions = {
-        fileKey: "file",
-        fileName: data.filename,
-        chunkedMode: false,
-        mimeType: "multipart/form-data",
-        params : data,
-        headers: {'Authorization': 'Bearer '+ this.userPostData.token}
-      };
-
-
-      const fileTransfer: FileTransferObject = this.transfer.create();
-      fileTransfer.upload(this.targetPath, this.apiUrl+'edit_business', options).then((data) => {
-
-        this.result = data;
-        console.log(this.result);
-        var success = JSON.parse(this.result.response);
-        console.log(success);
-          const toast = this.toastCtrl.create({
-            message: success.message,
-            duration: 5000,
-            position: 'bottom'
-          })
-          toast.present();
-
+     
+      this.authService.authData(this.userData,'edit_business',this.userPostData.token).then((data) => {
+      this.loader.dismiss();
+      this.responseData = data;
+      
+      if(this.responseData.status==true)
+      {
           this.navCtrl.pop();
           this.authService.pageReset=true;
-      },
-      (err) => {
-
-        // Error
-        var error = JSON.parse(err.body);
-        const toast = this.toastCtrl.create({
-          message: error.message,
-          duration: 5000,
-          position: 'bottom'
-        })
-        toast.present();
-      });
-    }
-    else
-    {
-      console.log("no file");
-
-      this.authService.authData(this.userData,'edit_business',this.userPostData.token).then((data) => {
-
-        this.responseData = data;
-        console.log(this.responseData);
-        const toast = this.toastCtrl.create({
-          message: this.responseData.message,
-          duration: 5000,
-          position: 'bottom'
-        })
-        toast.present();
-        if(this.responseData.status)
-        {
+          this.presentToast(this.responseData.message);
+      }
+    },
+    (err) => {
+      this.loader.dismiss();
         this.navCtrl.pop();
-        this.authService.pageReset=true;
-        }
-      },
-      (err) => {
-
-       this.responseData = err;
-       console.log(this.responseData);
-       const toast = this.toastCtrl.create({
-        message: 'Oops! Something went wrong.',
-        duration: 5000,
-        cssClass: "toast-danger",
-        position: 'bottom'
-      })
-      toast.present();
-      });
-
-    }
+        this.presentToast(err.message);
+    });
   }
 }

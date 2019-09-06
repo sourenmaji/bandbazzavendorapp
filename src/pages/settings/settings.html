@@ -9,7 +9,6 @@
     <ion-title style="float:right">
       Settings
     </ion-title>
-
   </ion-navbar>
 </ion-header>
 
@@ -18,7 +17,7 @@
   <ion-card>
     <ion-card-content>
       <ion-list>
-          <form novalidate  [formGroup]="forgetpasswordform">
+          <form novalidate [formGroup]="forgetpasswordform">
           <ion-item>
               <ion-label floating>Current Password <span style="color: red">*</span></ion-label>
               <ion-input type="password" [(ngModel)]="userPassword.password" clearOnEdit="false"
@@ -75,8 +74,11 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
-
-  <div>Do you want to logout?
-    <a (click)="onLogout()">Logout</a>
+  <div style="padding: 16px;">
+  <h5>Do you want to logout?</h5>
+  <button ion-button icon-start color="success" outline>
+      <ion-icon name="power"></ion-icon>
+      Logout
+    </button>
   </div>
 </ion-content>

@@ -4,7 +4,6 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { ActionSheetController, AlertController, IonicPage, LoadingController, NavController, NavParams, Platform, ToastController} from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { DomSanitizer } from '@angular/platform-browser';
 import { MapsAPILoader } from '@agm/core';
 
 declare var cordova: any;
@@ -26,6 +25,7 @@ export class AddbusinessPage {
   userData = { phone: "",email: "",companyName: "",address: "",city: "",details: "",businessType: "",file: "",lat: "",lng: ""};
   userPostData = {"user":"","token":""};
   autocomplete: any;
+  loader: any;
 
   constructor(public navParams: NavParams,
               public navCtrl: NavController,
@@ -38,8 +38,7 @@ export class AddbusinessPage {
               public platform: Platform,
               public loadingCtrl: LoadingController,
               public authService: AuthServiceProvider,
-              public alertCtrl: AlertController,
-              private sanitizer: DomSanitizer) {
+              public alertCtrl: AlertController) {
 
     const dataBusiness  = this.navParams.data;
     console.log(dataBusiness);
@@ -57,6 +56,9 @@ export class AddbusinessPage {
     this.userData.lat = "";
     this.userData.lng = "";
     this.authService.pageReset=false;
+    this.loader = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
    }
 
    ionViewDidEnter(){
@@ -88,6 +90,15 @@ export class AddbusinessPage {
       lat: new FormControl('', [Validators.required]),
       lng: new FormControl('', [Validators.required])
     });
+  }
+
+  presentToast(msg) {
+     let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 5000,
+      position: 'bottom'
+    });
+    toast.present();
   }
 
   autolocation()
@@ -130,12 +141,7 @@ export class AddbusinessPage {
     this.imagePath = imageData;
    }, (err) => {
     // Handle error
-    const toast = this.toastCtrl.create({
-      message: err,
-      duration: 5000,
-      position: 'bottom'
-    })
-    toast.present();
+    this.presentToast(err);
    });
 }
 
@@ -143,16 +149,10 @@ export class AddbusinessPage {
   {
     this.imagePicker.getPictures({maximumImagesCount:1, quality:60, outputType:1}).then
     (results =>{
-      alert(results);
       this.imagePath = results[0];
     }, (err) => {
       // Handle error
-      const toast = this.toastCtrl.create({
-        message: err,
-        duration: 5000,
-        position: 'bottom'
-      })
-      toast.present();
+      this.presentToast(err);
      });
   }
 
@@ -186,61 +186,27 @@ export class AddbusinessPage {
     actionSheet.present();
   }
 
-  private presentToast(text) {
-    let toast = this.toastCtrl.create({
-      message: text,
-      duration: 5000,
-      position: 'bottom'
-    });
-    toast.present();
-  }
-
   addBusiness(){
     let loader = this.loadingCtrl.create({
       content: 'Please wait...'
     });
-    loader.present();
+    this.loader.present();
       this.userData.file=this.imagePath;
       this.authService.authData(this.userData,'add_business',this.userPostData.token).then((data) => {
-      loader.dismiss();
+      this.loader.dismiss();
       this.responseData = data;
 
       if(this.responseData.status==true)
       {
-        localStorage.setItem('businessData', this.responseData.businesses);
-        const toast = this.toastCtrl.create({
-          message: 'Business added successfully!',
-          duration: 5000,
-          position: 'bottom'
-        })
-        toast.present();
           this.navCtrl.pop();
           this.authService.pageReset=true;
-      }
-      else
-      {
-        let toast = this.toastCtrl.create({
-          message: this.responseData.message,
-          duration: 5000,
-          position: 'bottom'
-        });
-        toast.present();
+          this.presentToast(this.responseData.message);
       }
     },
     (err) => {
-      loader.dismiss();
-      var error = JSON.parse(err.body);
-      if(error.status==false){
-        const toast = this.toastCtrl.create({
-          message: 'Oops! Something went wrong.',
-          duration: 5000,
-          cssClass: "toast-danger",
-          position: 'bottom'
-        })
-        toast.present();
-      this.navCtrl.push('BusinessPage');
-      this.navCtrl.remove(this.navCtrl.length()-1);
-      }
+      this.loader.dismiss();
+        this.navCtrl.pop();
+        this.presentToast(err.message);
     });
   }
   }

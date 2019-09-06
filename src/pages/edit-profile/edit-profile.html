@@ -5,80 +5,81 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
-    <h2>Edit Profile</h2>
+  <h2>Edit Profile</h2>
   <ion-card>
     <ion-card-content>
       <ion-list>
-          <form novalidate [formGroup]="editform">
-            <ion-item>
-              <ion-label floating>Name <span style="color: red">*</span></ion-label>
-              <ion-input type="text" formControlName="name" [class.error1]="!editform.controls.name.valid && editform.controls.name.dirty"></ion-input>
-            </ion-item>
-            <div *ngIf="( editform.get('name').hasError('minlength') || editform.get('name').hasError('maxlength') ||editform.get('name').hasError('pattern') ||editform.get('name').hasError('required') ) && editform.get('name').touched">
-              <div class="error" *ngIf="editform.get('name').hasError('required') && editform.get('name').touched">
-                Please enter your name
-              </div>
-              <div class="error" *ngIf="editform.get('name').hasError('minlength') && editform.get('name').touched">
-                Minimum 4 characters
-              </div>
-              <div class="error" *ngIf="editform.get('name').hasError('maxlength') && editform.get('name').touched">
-                Maximum 30 characters
-              </div>
-              <div class="error" *ngIf="editform.get('name').hasError('pattern') && editform.get('name').touched">
-                Pattern your name must contain alphabets and spaces only
-              </div>
+        <form novalidate [formGroup]="editform">
+          
+          <ion-item>
+            <ion-label floating>Name <span style="color: red">*</span></ion-label>
+            <ion-input type="text" formControlName="name"></ion-input>
+          </ion-item>
+          
+          <div>
+            <div class="error" *ngIf="editform.get('name').hasError('required') && editform.get('name').touched">
+              Please enter your name
             </div>
-                <ion-item>
-                  <ion-label floating>Email <span style="color: red">*</span></ion-label>
-                  <ion-input type="email" 
-                  formControlName="email" [class.error1]="!editform.controls.email.valid && editform.controls.email.dirty"></ion-input>
-                </ion-item>
-                <div *ngIf="( editform.get('email').hasError('minlength') || editform.get('email').hasError('pattern') ||editform.get('email').hasError('required') ) && editform.get('email').touched">
-                  <div class="error" *ngIf="editform.get('email').hasError('required') && editform.get('email').touched">
-                    Please enter your email
-                  </div>
-                  <div class="error" *ngIf="editform.get('email').hasError('pattern') && editform.get('email').touched">
-                    This value should be a valid email
-                  </div>
-                </div>
-                  <ion-item>
-                      <ion-label floating>Phone <span style="color: red">*</span></ion-label>
-                      <ion-input  [disabled]="isDisabled" id="phone_no" type="text"  formControlName="phone_no" [class.error1]="!editform.controls.phone_no.valid && editform.controls.phone_no.dirty"
-                      (keyup)="showVal(this.value)"></ion-input>
-                      <button *ngIf="!( editform.get('phone_no').hasError('minlength') || editform.get('phone_no').hasError('pattern') || editform.get('phone_no').hasError('required') ) && !buttonClicked && otpButton"
-                      ion-button  clear item-right (click)="sendOtp()">Send OTP</button>
-                      <button *ngIf="isDisabled" ion-button  clear item-right (click)="reSendOtp()">Resend OTP</button>
-                    </ion-item>
-
-                    <div *ngIf="( editform.get('phone_no').hasError('minlength') || editform.get('phone_no').hasError('pattern') ||editform.get('phone_no').hasError('required')) && editform.get('phone_no').touched">
-                      <div class="error" *ngIf="editform.get('phone_no').hasError('required') && editform.get('phone_no').touched">
-                        Please enter your phone no.
-                      </div>
-                      <div class="error" *ngIf="editform.get('phone_no').hasError('pattern') && editform.get('phone_no').touched">
-                        This value should be a valid phone no.
-                      </div>
-                    </div>
-                    <ion-item *ngIf="buttonClicked">
-                      <ion-input type="text" placeholder="Enter six digit OTP"
-                      [(ngModel)]="userData.otp" formControlName="otp"></ion-input>
-                    </ion-item>
-                    <div *ngIf="buttonClicked">
-                      <div class="error" *ngIf="editform.get('otp').hasError('equalTo') && editform.get('otp').touched">
-                        Your OTP does not match
-                      </div>
-                      <div class="success" *ngIf="!(editform.get('otp').hasError('equalTo'))">
-                        Your OTP match successfully
-                      </div>
-                    </div>
-                    <ion-item>
-                        <ion-label floating>Address</ion-label>
-                        <ion-textarea myInput type="text" formControlName="address"></ion-textarea>
-                      </ion-item>
-                      <button  ion-button block color="success" [disabled]="editform.invalid || !disableButton" (click)="editProfile()">Save</button><br/>
-            </form>
-            </ion-list>
-            </ion-card-content>
-            </ion-card>
+            <div class="error" *ngIf="editform.get('name').hasError('minlength') && editform.get('name').touched">
+              Minimum 4 characters
+            </div>
+            <div class="error" *ngIf="editform.get('name').hasError('maxlength') && editform.get('name').touched">
+              Maximum 30 characters
+            </div>
+            <div class="error" *ngIf="editform.get('name').hasError('pattern') && editform.get('name').touched">
+              Pattern your name must contain alphabets and spaces only
+            </div>
+          </div>
+          
+          <ion-item>
+            <ion-label floating>Email <span style="color: red">*</span></ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
+          </ion-item>
+          
+          <div>
+            <div class="error" *ngIf="editform.get('email').hasError('required') && editform.get('email').touched">
+              Please enter your email
+            </div>
+            <div class="error" *ngIf="editform.get('email').hasError('pattern') && editform.get('email').touched">
+              This value should be a valid email
+            </div>
+          </div>
+          
+          <ion-item>
+            <ion-label floating>Phone <span style="color: red">*</span></ion-label>
+            <ion-input formControlName="phone_no" type="number" (keyup)="checkPhoneChanges()" [readonly]="otpMatch"></ion-input>
+            <button *ngIf="otpButton" ion-button clear item-right (click)="sendOtp()">{{ otpStatus }}</button>
+          </ion-item>
+          
+          <div>
+            <div class="error" *ngIf="editform.get('phone_no').hasError('required') && editform.get('phone_no').touched">
+              Please enter your phone no.
+            </div>
+            <div class="error" *ngIf="editform.get('phone_no').hasError('phoneCheck') && !editform.get('phone_no').hasError('required')">
+              This value should be a valid phone no.
+            </div>
+          </div>
+          
+          <ion-item *ngIf="otpSent">
+            <ion-label floating>6 Digit OTP <span style="color: red">*</span></ion-label>
+            <ion-input type="text" formControlName="otp"></ion-input>
+          </ion-item>
+          
+          <div *ngIf="otpSent">
+            <div class="error" *ngIf="editform.get('otp').hasError('equalTo') && editform.get('otp').touched">
+              Your OTP does not match
+            </div>
+          </div>
+          
+          <ion-item>
+            <ion-label floating>Address</ion-label>
+            <ion-textarea myInput type="text" formControlName="address"></ion-textarea>
+          </ion-item>
+          
+          <button ion-button block color="success" [disabled]="editform.invalid || otpButton || editform.pristine" (click)="editProfile()">Save</button><br/>
+        </form>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
