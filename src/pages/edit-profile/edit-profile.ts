@@ -21,7 +21,7 @@ export class EditProfilePage{
   private otpMatch = false;
   
   public editform: FormGroup;
-  public userData = { name: "",email: "",phone_no: "",address: "",otp: ""};
+  public userData = { name: "", email: "", phone_no: "", address: "", otp: ""};
   
   EMAILPATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   PHONEPATTERN = /^[0-9]{10}$/;
@@ -56,8 +56,7 @@ export class EditProfilePage{
         otp_confirmation: new FormControl(''),
         address: new FormControl(''),
       });
-      this.checkEmailChanges();
-      this.checkPhoneChanges();
+      this.checkCredentials();
       this.setUserData();
       this.otpButton = false;
       console.log('editform',this.editform.value);
@@ -68,7 +67,7 @@ export class EditProfilePage{
       this.editform.patchValue({
         name: this.userDetails.name,
         email: this.userDetails.email,
-        phone: this.userDetails.phone_no,
+        phone_no: this.userDetails.phone_no,
         address: this.userDetails.address
       });
     }
@@ -99,10 +98,17 @@ export class EditProfilePage{
       };
     }
     
+    checkCredentials() {
+      this.checkEmailChanges();
+      this.checkPhoneChanges();
+    }
+
     checkPhoneChanges() {
+      this.editform.get('phone_no').clearValidators();
       const control = this.editform.get('phone_no');
+      const other_control = this.editform.get('email');
       
-      if (control.value) {
+      if (control.value || !other_control.value) {
         control.setValidators([Validators.compose([Validators.required,
           this.phoneCheck()])]);
         } else {
@@ -111,7 +117,7 @@ export class EditProfilePage{
         
         control.updateValueAndValidity();
         
-        console.log(control.hasError('phoneCheck'));
+        console.log(this.editform.get('phone_no').errors);
         if (control.value && (control.value !== this.userDetails.phone_no) && control.hasError('phoneCheck') === false) {
           this.otpButton = true;
         } else {
@@ -122,30 +128,35 @@ export class EditProfilePage{
       checkEmailChanges() {
         this.editform.get('email').clearValidators();
         
-        if (this.editform.get('email').value) {
+        if (this.editform.get('email').value || !this.editform.get('phone_no').value) {
           this.editform.get('email').setValidators([Validators.compose([Validators.required,
             Validators.pattern(this.EMAILPATTERN)])]);
           } else {
             this.editform.get('email').setValidators([Validators.pattern(this.EMAILPATTERN)]);
           }
           this.editform.get('email').updateValueAndValidity();
+          console.log(this.editform.get('email').errors);
         }
         
         checkOtpMatch() {
           const control = this.editform.get('otp');
           
           if (control.value && control.hasError('equalTo') === false) {
+            console.log('match');
             this.otpButton = false;
             this.otpMatch = true;
           } else {
+            console.log('not match');
+
             this.otpButton = true;
             this.otpMatch = false;
           }
+          console.log('otpbutton', this.otpButton);
+          console.log('otpmatch', this.otpMatch);
         }
         
         sendOtp(){
           const control = this.editform.get('otp_confirmation');
-          this.otpSent = true;
           this.otpStatus = 'Resend OTP';
           control.setValue('');
           let loader = this.loadingCtrl.create({
@@ -157,6 +168,7 @@ export class EditProfilePage{
             if(result.status)
             {
               loader.dismiss();
+              this.otpSent = true;
               console.log(this.responseData);
               
               control.setValue(this.responseData.otp);
@@ -175,6 +187,7 @@ export class EditProfilePage{
               else
               {
                 loader.dismiss();
+                this.otpSent = false;
                 console.log(this.responseData.message);
                 const alert = this.alertCtrl.create({
                   subTitle: this.responseData.message,

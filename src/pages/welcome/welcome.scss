@@ -1,10 +1,5 @@
 page-welcome {
-    .error2 {
-        color: rgb(75, 75, 75);
-        border-bottom: 1px solid #ff0000;
-      }
     #welcome{
-        // background: color($colors, energy);
         h3{
             font-size: 25px;
             margin-top:50px;
@@ -17,8 +12,7 @@ page-welcome {
             height: 80px;
             display: block;
             margin-left: auto;
-            margin-right: auto;
-
+            margin-right: auto; 
         }
         h4{
             margin-top:0px;
@@ -26,11 +20,9 @@ page-welcome {
         }
     }
     .scroll-content {
-        //background-image: url('../../assets/imgs/bg-ban-seller.png');
-        // background: image(assets/imgs/bg-ban-seller);
         background-color: rgb(110, 23, 2);
-      }
-      .wlcm-crd {
+    }
+    .wlcm-crd {
         background: none;
         box-shadow: none;
     }
@@ -54,7 +46,7 @@ page-welcome {
     }
     .button-ios-success {
         background-color: #ffb431;
-      }
+    }
     .wlcm-crd ion-label{
         color:#ffb431 !important;
     }
@@ -81,7 +73,6 @@ page-welcome {
     }
     .wlcm-crd a[disabled], button[disabled], [ion-button][disabled] {
         cursor: default;
-        // opacity: 1;
         pointer-events: none;
     }
     .wlcm-crd .list-md .item[no-lines], .list-md .item[no-lines] .item-inner {
@@ -114,50 +105,48 @@ page-welcome {
     }
     .frgt-area .button-md-success {
         margin-top: 20px !important;
-      }
-      .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+    }
+    .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
         border-bottom-color: none !important;
         -webkit-box-shadow: none !important;
-         box-shadow: none !important;
+        box-shadow: none !important;
     }
     page-welcome .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
         border-bottom-color: none !important;
-        /* -webkit-box-shadow: none !important; */
-        /* box-shadow: none !important; */
     }
     .item-md.item-input.item-input-has-focus .item-inner,
-.item-md.item-input.input-has-focus .item-inner {
-  border-bottom-color: none;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
-
-.list-md .item-input.item-input-has-focus:last-child,
-.list-md .item-input.input-has-focus:last-child {
-  border-bottom-color: none;
-  -webkit-box-shadow: inset 0 -1px 0 0 none;
-  box-shadow: inset 0 -1px 0 0 none;
-}
-      .btn_container {
+    .item-md.item-input.input-has-focus .item-inner {
+        border-bottom-color: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+    
+    .list-md .item-input.item-input-has-focus:last-child,
+    .list-md .item-input.input-has-focus:last-child {
+        border-bottom-color: none;
+        -webkit-box-shadow: inset 0 -1px 0 0 none;
+        box-shadow: inset 0 -1px 0 0 none;
+    }
+    .btn_container {
         padding-top: 10px;
         text-align: center;
-      }
-      .button1{
+    }
+    .button1{
         background: #3b5998;
-      
+        
         :hover
         {
-          background-color: #173168;
+            background-color: #173168;
         }
-      
-      }
-      .button2
-      {
+        
+    }
+    .button2
+    {
         background: #dd4b39;
         :hover
         {
-          background-color: #722117;
+            background-color: #722117;
         }
-      }
-      
     }
+    
+}

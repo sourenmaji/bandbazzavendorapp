@@ -34,21 +34,21 @@
           
           <ion-item>
             <ion-label floating>Email <span style="color: red">*</span></ion-label>
-            <ion-input type="email" formControlName="email"></ion-input>
+            <ion-input type="email" formControlName="email" (keyup)="checkCredentials()"></ion-input>
           </ion-item>
           
           <div>
             <div class="error" *ngIf="editform.get('email').hasError('required') && editform.get('email').touched">
               Please enter your email
             </div>
-            <div class="error" *ngIf="editform.get('email').hasError('pattern') && editform.get('email').touched">
+            <div class="error" *ngIf="editform.get('email').hasError('pattern') && !editform.get('email').hasError('required')">
               This value should be a valid email
             </div>
           </div>
           
           <ion-item>
             <ion-label floating>Phone <span style="color: red">*</span></ion-label>
-            <ion-input formControlName="phone_no" type="number" (keyup)="checkPhoneChanges()" [readonly]="otpMatch"></ion-input>
+            <ion-input formControlName="phone_no" type="number" (keyup)="checkCredentials()" [readonly]="otpMatch"></ion-input>
             <button *ngIf="otpButton" ion-button clear item-right (click)="sendOtp()">{{ otpStatus }}</button>
           </ion-item>
           
@@ -63,21 +63,25 @@
           
           <ion-item *ngIf="otpSent">
             <ion-label floating>6 Digit OTP <span style="color: red">*</span></ion-label>
-            <ion-input type="text" formControlName="otp"></ion-input>
+            <ion-input type="text" formControlName="otp" (keyup)="checkOtpMatch()"></ion-input>
+            <ion-input type="hidden" formControlName="otp_confirmation"></ion-input>
           </ion-item>
           
           <div *ngIf="otpSent">
-            <div class="error" *ngIf="editform.get('otp').hasError('equalTo') && editform.get('otp').touched">
-              Your OTP does not match
+            <div class="error" *ngIf="editform.get('otp').hasError('required') && editform.get('otp').touched">
+              Please enter OTP.
+            </div>
+            <div class="error" *ngIf="editform.get('otp').hasError('equalTo') && !editform.get('otp').hasError('required')">
+              Your OTP does not match.
             </div>
           </div>
           
           <ion-item>
             <ion-label floating>Address</ion-label>
-            <ion-textarea myInput type="text" formControlName="address"></ion-textarea>
+            <ion-textarea type="text" formControlName="address"></ion-textarea>
           </ion-item>
           
-          <button ion-button block color="success" [disabled]="editform.invalid || otpButton || editform.pristine" (click)="editProfile()">Save</button><br/>
+          <button ion-button block color="success" [disabled]="editform.invalid || otpButton || editform.pristine" (click)="editProfile()">Update</button><br/>
         </form>
       </ion-list>
     </ion-card-content>

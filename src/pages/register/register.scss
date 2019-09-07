@@ -1,87 +1,93 @@
 page-register {
-
-    .error {
-        color: rgb(223, 62, 62);
-        font-size: 11px;
-      }
-
-      .error1 {
-        color: rgb(75, 75, 75);
-        border-bottom: 1px solid #ff0000;
-      }
-      .success {
-        color: rgb(84, 245, 10);
-        font-size: 11px;
-      }
-      .rg-wrp ion-card-content {
-        padding: 0;
-      }
-      .rg-wrp ion-item {
-        padding-left: 0;
-        background: none;
-      }
-      .rg-wrp ion-card{
-        background: none;
-        box-shadow: none;
-      }
-      .scroll-content {
-        background-color: #5a1403;
-    }
-    .rg-wrp ion-label{
-      color:#ffb431 !important;
+  
+  .error {
+    font-size: 13px;
+    color: #e3e0e0;
+  }
+  
+  .success {
+    color: rgb(84, 245, 10);
+    font-size: 11px;
+  }
+  .rg-wrp ion-card-content {
+    padding: 0;
+  }
+  .rg-wrp ion-item {
+    padding-left: 0;
+    background: none;
+  }
+  .rg-wrp ion-card{
+    background: none;
+    box-shadow: none;
+  }
+  .scroll-content {
+    background-color: #5a1403;
+  }
+  .rg-wrp ion-label{
+    color:#ffb431 !important;
   }
   .rg-wrp a[disabled], button[disabled], [ion-button][disabled] {
     cursor: default;
-    // opacity: 1;
     pointer-events: none;
-}
-.button-ios-success {
-  background-color: #ffb431;
-}
-.rg-wrp .toolbar-md-headers .toolbar-background-md {
-	background: #322a02;
-}
-.rg-wrp input {
-  color: #f3ecec;
-}
-.error {
-  font-size: 13px;
-  color: #e3e0e0;
-}
-.rg-wrp ion-card{
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.alrdy-usr {
-	text-align: center;
-}
-.alrdy-usr span{
-  color: #efe7e7;
-}
-.alrdy-usr a {
-	text-decoration: none;
-}
-.btn_container {
-  padding-top: 10px;
-  text-align: center;
-}
-.button1{
-  background: #3b5998;
-
-  :hover
-  {
-    background-color: #173168;
   }
-
-}
-.button2
-{
-  background: #dd4b39;
-  :hover
-  {
-    background-color: #722117;
+  .button-ios-success {
+    background-color: #ffb431;
   }
-}
-
+  .rg-wrp .toolbar-md-headers .toolbar-background-md {
+    background: #322a02;
+  }
+  .rg-wrp input {
+    color: #f3ecec;
+  }
+  
+  .rg-wrp ion-card{
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  .alrdy-usr {
+    text-align: center;
+  }
+  .alrdy-usr span{
+    color: #efe7e7;
+  }
+  .alrdy-usr a {
+    text-decoration: none;
+  }
+  .btn_container {
+    padding-top: 10px;
+    text-align: center;
+  }
+  .button1{
+    background: #3b5998;
+    
+    :hover
+    {
+      background-color: #173168;
+    }
+    
+  }
+  .button2
+  {
+    background: #dd4b39;
+    :hover
+    {
+      background-color: #722117;
+    }
+  }
+  
+  .item-md.item-input.item-input-has-focus .item-inner{
+    -webkit-box-shadow: 0 1px 0px #ffb431 !important;
+    box-shadow: 0 1px 0px #ffb431 !important;
+  }
+  .item-input-has-focus {
+    box-shadow:  0 1px 0px #ffb431 !important;
+    -webkit-box-shadow:0 1px 0px #ffb431 !important;
+    box-shadow: 0 1px 0px #ffb431 !important;
+  }
+  
+  .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+    box-shadow: 0 1px 0px #ffb431;
+  }
+  
 }

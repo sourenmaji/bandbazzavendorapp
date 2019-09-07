@@ -1,9 +1,7 @@
 <ion-header>
-
   <ion-navbar color="headers">
     <ion-title>Register</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content class="rg-wrp" padding>
@@ -11,22 +9,21 @@
     <ion-card-content>
       <ion-list>
           <form novalidate  [formGroup]="signupform">
-
         <ion-item>
           <ion-label floating>Name <span style="color: red">*</span></ion-label>
           <ion-input type="text" formControlName="name"></ion-input>
         </ion-item>
-        <div *ngIf="signupform.get('name').hasError('minlength') || signupform.get('name').hasError('maxlength') || signupform.get('name').hasError('pattern') || signupform.get('name').hasError('required') || signupform.get('name').touched">
+        <div>
           <div class="error" *ngIf="signupform.get('name').hasError('required') && signupform.get('name').touched">
             Please enter your name.
           </div>
-          <div class="error" *ngIf="signupform.get('name').hasError('minlength') && signupform.get('name').touched">
+          <div class="error" *ngIf="signupform.get('name').hasError('minlength') && !signupform.get('name').hasError('required')">
             Minimum 4 characters.
           </div>
-          <div class="error" *ngIf="signupform.get('name').hasError('maxlength') && signupform.get('name').touched">
+          <div class="error" *ngIf="signupform.get('name').hasError('maxlength') && !signupform.get('name').hasError('required')">
             Maximum 30 characters.
           </div>
-          <div class="error" *ngIf="signupform.get('name').hasError('pattern') && signupform.get('name').touched">
+          <div class="error" *ngIf="signupform.get('name').hasError('pattern') && !signupform.get('name').hasError('required')">
             Your name must contain alphabets and spaces only.
           </div>
         </div>
@@ -37,11 +34,11 @@
           </ion-input>
           <button *ngIf="otpButton" ion-button  clear item-right (click)="sendOtp()" ion-text color="light">{{ otpStatus }}</button>
         </ion-item>
-        <div *ngIf="signupform.get('user').hasError('pattern') || signupform.get('user').hasError('required') || signupform.get('user').touched">
+        <div>
           <div class="error" *ngIf="signupform.get('user').hasError('required') && signupform.get('user').touched">
             Please enter your email or phone no.
           </div>
-          <div class="error" *ngIf="signupform.get('user').hasError('pattern') && signupform.get('user').touched">
+          <div class="error" *ngIf="signupform.get('user').hasError('pattern') && !signupform.get('user').hasError('required')">
             This value should be a valid email or valid phone no.
           </div>
         </div>
@@ -50,7 +47,7 @@
             <ion-label floating>6 digit OTP <span style="color: red">*</span></ion-label>
           <ion-input type="text" formControlName="otp"></ion-input>
         </ion-item>
-        <div *ngIf="otpSent || signupform.get('otp').hasError('required')">
+        <div>
           <div class="error" *ngIf="signupform.get('otp').hasError('required') && (signupform.get('otp').dirty || signupform.get('otp').touched)">
               Please enter six digit OTP.
           </div>
@@ -63,14 +60,14 @@
           <ion-label floating>Password <span style="color: red">*</span></ion-label>
           <ion-input type="password" formControlName="password"></ion-input>
         </ion-item>
-        <div *ngIf="(signupform.get('password').hasError('minlength') || signupform.get('password').hasError('maxlength') ||signupform.get('password').hasError('required') ) && signupform.get('password').touched">
+        <div>
           <div class="error" *ngIf="signupform.get('password').hasError('required') && signupform.get('password').touched">
            Please enter your password.
           </div>
-          <div class="error" *ngIf="signupform.get('password').hasError('minlength') && signupform.get('password').touched">
+          <div class="error" *ngIf="signupform.get('password').hasError('minlength') && !signupform.get('password').hasError('required')">
             This value is too short. It should have 6 characters or more.
           </div>
-          <div class="error" *ngIf="signupform.get('password').hasError('maxlength') && signupform.get('password').touched">
+          <div class="error" *ngIf="signupform.get('password').hasError('maxlength') && !signupform.get('password').hasError('required')">
             This value is too long. It should have 30 characters.
           </div>
         </div>
@@ -79,17 +76,17 @@
           <ion-label floating>Confirm Password <span style="color: red">*</span></ion-label>
           <ion-input type="password" formControlName="password_confirmation"></ion-input>
         </ion-item>
-        <div *ngIf="((( signupform.get('password_confirmation').hasError('minlength') || signupform.get('password_confirmation').hasError('maxlength')) || signupform.get('password_confirmation').hasError('equalTo')) ||signupform.get('password_confirmation').hasError('required') ) && signupform.get('password_confirmation').touched">
+        <div>
           <div class="error" *ngIf="signupform.get('password_confirmation').hasError('required') && signupform.get('password_confirmation').touched">
             Please enter your password confirmation.
           </div>
-          <div class="error" *ngIf="signupform.get('password_confirmation').hasError('minlength') && signupform.get('password_confirmation').touched">
+          <div class="error" *ngIf="signupform.get('password_confirmation').hasError('minlength') && !signupform.get('password_confirmation').hasError('required')">
             This value is too short. It should have 6 characters or more.
           </div>
-          <div class="error" *ngIf="signupform.get('password_confirmation').hasError('maxlength') && signupform.get('password_confirmation').touched">
+          <div class="error" *ngIf="signupform.get('password_confirmation').hasError('maxlength') && !signupform.get('password_confirmation').hasError('required')">
             This value is too long. It should have 30 characters.
           </div>
-          <div class="error" *ngIf="signupform.get('password_confirmation').hasError('equalTo') && signupform.get('password_confirmation').touched">
+          <div class="error" *ngIf="signupform.get('password_confirmation').hasError('equalTo') && !signupform.get('password_confirmation').hasError('required')">
             Your passwords does not match.
           </div>
         </div>
