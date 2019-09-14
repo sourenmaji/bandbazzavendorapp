@@ -90,8 +90,8 @@
 
                     <ion-item>
                       <img *ngIf="imagePath" src="{{'data:image/jpeg;base64,' + imagePath}}">
-                      <h3 *ngIf="!imagePath" class="error">Please Select Image!</h3>
                     </ion-item>
+                    <div *ngIf="!imagePath" class="error">Please Select Image</div>
                     <ion-row>
                       <ion-col color="primary">
                         <ion-buttons>

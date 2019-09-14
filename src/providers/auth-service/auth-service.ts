@@ -6,8 +6,8 @@ import { LoadingController } from 'ionic-angular';
 @Injectable()
 export class AuthServiceProvider {
   pageReset: boolean = false;
-  imageUrl: string = 'http://192.168.1.115/BandBazza-Web/public/';
-  apiUrl: string = 'http://192.168.1.115/BandBazza-Web/public/api/v1/';
+  imageUrl: string = 'http://192.168.1.113/BandBazza-Web/public/';
+  apiUrl: string = 'http://192.168.1.113/BandBazza-Web/public/api/v1/';
 
   // imageUrl: string = 'https://dev.bandbazza.com/';
   // apiUrl: string = 'https://dev.bandbazza.com/api/v1/';
@@ -20,7 +20,6 @@ export class AuthServiceProvider {
     console.log('Hello AuthServiceProvider');
     console.log(this.imageUrl);
   }
-  responseData : FileUploadResult = null;
 
   getDataWithoutToken(type) {
     return new Promise((resolve, reject) => {

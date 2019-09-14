@@ -32,3 +32,10 @@
 {
   background-color: color($colors, dash2);;
 }
+.card .item.item-block:not(:last-child) .item-inner {
+  border-bottom: 1px solid #333232e3;
+}
+
+.card .item.item-block:not(.item-input):not(.item-select):not(.item-radio):not(.item-checkbox) .item-inner {
+  border: 0;
+}
